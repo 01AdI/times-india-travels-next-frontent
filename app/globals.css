@@ -1,0 +1,679 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.4%); }
+}
+
+@keyframes travel {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================================================
+   AOS SCROLL-REVEAL HARDENING
+   Defensive only: pins the *revealed* state with !important so
+   a low-specificity third-party override (e.g. a browser
+   extension resetting transform/opacity globally) can't
+   accidentally leave elements stuck mid-animation, or fight
+   with AOS on every scroll tick. This does not and cannot stop
+   something from force-revealing content before it scrolls
+   into view -- that's a separate, uncontrollable failure mode --
+   it just keeps the "already revealed" state stable once AOS
+   marks an element as animated.
+========================================================= */
+
+[data-aos].aos-animate {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* =========================================================
+   TYPOGRAPHY / MISC
+========================================================= */
+
+.font-display {
+  font-family: "Fraunces", serif;
+}
+
+.duotone {
+  position: relative;
+  overflow: hidden;
+}
+
+.duotone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.4) contrast(1.08) brightness(0.85);
+}
+
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: color;
+  background: linear-gradient(150deg, #1ea5be 0%, #123138 100%);
+}
+
+.duotone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(18, 49, 56, 0.25), transparent 55%);
+}
+
+@layer components {
+  .premium-input {
+    @apply h-[50px] w-full border-0 border-b border-[#124D56]/15 bg-transparent px-0 font-['Inter'] text-[13px] text-[#0B3C49] outline-none transition-all duration-300 placeholder:text-[#71878B]/45 focus:border-[#F58634] focus:ring-0;
+  }
+
+  .premium-select {
+    @apply cursor-pointer;
+  }
+
+  .premium-input:focus {
+    box-shadow: 0 1px 0 0 #f58634;
+  }
+
+  .premium-input[type="date"] {
+    color-scheme: light;
+  }
+}
+
+.travel-label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.travel-input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  padding: 10px 0 12px;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: white;
+  outline: none;
+  transition: border-color 300ms ease, padding 300ms ease;
+}
+
+.travel-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.travel-input:focus {
+  border-bottom-color: #f58634;
+}
+
+.travel-input:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Make the browser date picker readable */
+.travel-input[type="date"] {
+  color-scheme: dark;
+}
+
+/* =========================================================
+   QUOTATION FORM — COUNTRY SELECT (DARK / HERO FORM)
+   Used by the homepage dark hero quotation form.
+   Do not restyle these for light backgrounds — use the
+   `--light` modifier below instead.
+========================================================= */
+
+.quotation-country-select {
+  width: 100%;
+}
+
+.quotation-country-select > div {
+  width: 100%;
+}
+
+.quotation-country-select > div > button {
+  width: 100% !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  padding: 0 16px !important;
+  color: white !important;
+  transition: border-color 300ms ease, background 300ms ease, box-shadow 300ms ease !important;
+}
+
+.quotation-country-select > div > button:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.11) !important;
+}
+
+.quotation-country-select > div > button:focus {
+  outline: none !important;
+  border-color: #f58634 !important;
+  box-shadow: 0 0 0 2px rgba(245, 134, 52, 0.2) !important;
+}
+
+.quotation-country-select > div > button > span:first-child {
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 14px !important;
+}
+
+.quotation-country-select > div > button > span.text-gray-900 {
+  color: white !important;
+}
+
+.quotation-country-select > div > button svg {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.quotation-country-select > div > div {
+  background: #07111f !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
+  overflow: hidden !important;
+}
+
+.quotation-country-select input[type="text"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-radius: 9px !important;
+}
+
+.quotation-country-select input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.quotation-country-select input[type="text"]:focus {
+  border-color: #f58634 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(245, 134, 52, 0.15) !important;
+}
+
+.quotation-country-select [role="option"] {
+  background: #07111f !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.quotation-country-select [role="option"]:hover {
+  background: rgba(245, 134, 52, 0.14) !important;
+}
+
+.quotation-country-select [role="option"][class*="F2FAFB"] {
+  background: rgba(245, 134, 52, 0.12) !important;
+}
+
+.quotation-country-select [role="option"][class*="124D56"] {
+  color: #7fe8f8 !important;
+}
+
+/* =========================================================
+   QUOTATION FORM — COUNTRY SELECT (LIGHT VARIANT)
+   Use alongside .quotation-country-select on white/light-card
+   forms, e.g. the About Us quotation modal:
+   className="quotation-country-select quotation-country-select--light"
+========================================================= */
+
+.quotation-country-select.quotation-country-select--light > div > button {
+  border: 1px solid rgba(18, 77, 86, 0.15) !important;
+  background: #ffffff !important;
+  color: #0B3C49 !important;
+}
+
+.quotation-country-select.quotation-country-select--light > div > button:hover {
+  cursor: pointer;
+}
+
+.quotation-country-select.quotation-country-select--light > div > button:focus {
+  outline: none !important;
+  border-color: #F58634 !important;
+  box-shadow: 0 0 0 4px rgba(245, 134, 52, 0.1) !important;
+}
+
+.quotation-country-select.quotation-country-select--light > div > button > span:first-child {
+  color: rgba(18, 77, 86, 0.35) !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 14px !important;
+}
+
+.quotation-country-select.quotation-country-select--light > div > button > span.text-gray-900 {
+  color: #0B3C49 !important;
+}
+
+.quotation-country-select.quotation-country-select--light > div > button svg {
+  color: rgba(18, 77, 86, 0.55) !important;
+}
+
+.quotation-country-select.quotation-country-select--light > div > div {
+  background: #ffffff !important;
+  border: 1px solid rgba(18, 77, 86, 0.12) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 50px rgba(18, 77, 86, 0.12) !important;
+  overflow: hidden !important;
+}
+
+.quotation-country-select.quotation-country-select--light input[type="text"] {
+  background: #F2FAFB !important;
+  border: 1px solid rgba(18, 77, 86, 0.15) !important;
+  color: #0B3C49 !important;
+  border-radius: 9px !important;
+}
+
+.quotation-country-select.quotation-country-select--light input[type="text"]::placeholder {
+  color: rgba(18, 77, 86, 0.35) !important;
+}
+
+.quotation-country-select.quotation-country-select--light input[type="text"]:focus {
+  border-color: #F58634 !important;
+  background: #ffffff !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(245, 134, 52, 0.12) !important;
+}
+
+.quotation-country-select.quotation-country-select--light [role="option"] {
+  background: #ffffff !important;
+  color: rgba(11, 60, 73, 0.8) !important;
+}
+
+.quotation-country-select.quotation-country-select--light [role="option"]:hover {
+  background: rgba(245, 134, 52, 0.08) !important;
+}
+
+.quotation-country-select.quotation-country-select--light [role="option"][class*="F2FAFB"] {
+  background: rgba(245, 134, 52, 0.1) !important;
+}
+
+.quotation-country-select.quotation-country-select--light [role="option"][class*="124D56"] {
+  color: #124D56 !important;
+}
+
+/* =========================================================
+   NATIVE SELECT OPTIONS
+   Global — applies to every <select> on the site. If any
+   light-background page ends up with dark dropdown option
+   lists it doesn't want, that's this rule; scope it down to
+   a class if that ever becomes a problem.
+========================================================= */
+
+select option {
+  background: #07111f !important;
+  color: white !important;
+}
+
+select option:checked {
+  background: #124d56 !important;
+  color: white !important;
+}
+
+/* =========================================================
+   PHONE INPUT
+========================================================= */
+
+.react-tel-input {
+  width: 100%;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 52px !important;
+}
+
+.react-tel-input .flag-dropdown {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px 0 0 12px !important;
+}
+
+.react-tel-input .selected-flag {
+  background: transparent !important;
+  border-radius: 12px 0 0 12px !important;
+}
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.react-tel-input .country-list {
+  margin-top: 5px !important;
+  background: #07111f !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+  max-height: 280px !important;
+}
+
+.react-tel-input .country-list .country {
+  color: white !important;
+}
+
+.react-tel-input .country-list .country:hover,
+.react-tel-input .country-list .country.highlight {
+  background: rgba(245, 134, 52, 0.18) !important;
+}
+
+.react-tel-input .country-list .search {
+  background: #07111f !important;
+  padding: 10px !important;
+}
+
+.react-tel-input .country-list .search-box {
+  width: calc(100% - 20px) !important;
+  margin: 0 10px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+}
+
+.react-tel-input .country-list .search-box::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* =========================================================
+   DATEPICKER
+========================================================= */
+
+.react-datepicker-wrapper {
+  width: 100% !important;
+}
+
+.react-datepicker__input-container {
+  width: 100% !important;
+}
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.react-datepicker {
+  background: #07111f !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+  font-family: Inter, sans-serif !important;
+  padding: 0 !important;
+}
+
+.react-datepicker__header {
+  background: #124d56 !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+/* Premium custom header (used via renderCustomHeader) */
+
+.quotation-datepicker-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #124d56 0%, #0d3d46 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quotation-datepicker-selects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.quotation-datepicker-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.quotation-datepicker-select-wrapper svg {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.quotation-datepicker-select {
+  appearance: none;
+  height: 38px;
+  min-width: 118px;
+  padding: 0 32px 0 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(7, 17, 31, 0.45);
+  color: white;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.quotation-datepicker-select-wrapper.year .quotation-datepicker-select {
+  min-width: 88px;
+}
+
+.quotation-datepicker-select:hover {
+  background: rgba(7, 17, 31, 0.7);
+  border-color: rgba(245, 134, 52, 0.45);
+}
+
+.quotation-datepicker-select:focus {
+  border-color: #f58634;
+  box-shadow: 0 0 0 3px rgba(245, 134, 52, 0.15);
+}
+
+.quotation-datepicker-select option {
+  background: #07111f !important;
+  color: white !important;
+}
+
+.quotation-datepicker-nav {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.quotation-datepicker-nav span {
+  font-size: 27px;
+  line-height: 1;
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+}
+
+.quotation-datepicker-nav:hover:not(:disabled) {
+  background: rgba(245, 134, 52, 0.16);
+  border-color: rgba(245, 134, 52, 0.45);
+  color: #f58634;
+  transform: translateY(-1px);
+}
+
+.quotation-datepicker-nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.react-datepicker__day-names {
+  margin-top: 10px !important;
+}
+
+.react-datepicker__day-name {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  width: 38px !important;
+  margin: 3px !important;
+}
+
+.react-datepicker__month {
+  margin: 12px 14px 16px !important;
+}
+
+.react-datepicker__day {
+  color: rgba(255, 255, 255, 0.82) !important;
+  width: 38px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  margin: 3px !important;
+  border-radius: 50% !important;
+  font-size: 13px !important;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease !important;
+}
+
+.react-datepicker__day:hover {
+  background: rgba(245, 134, 52, 0.18) !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+.react-datepicker__day--today {
+  font-weight: 700 !important;
+  color: #f58634 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: #f58634 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--keyboard-selected:hover {
+  background: #d9701f !important;
+  color: white !important;
+}
+
+.react-datepicker__day--disabled {
+  color: rgba(255, 255, 255, 0.18) !important;
+  cursor: not-allowed !important;
+}
+
+.react-datepicker__day--disabled:hover {
+  background: transparent !important;
+  transform: none;
+}
+
+.react-datepicker__day--outside-month {
+  color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.react-datepicker__navigation {
+  display: none !important;
+}
+
+.react-datepicker-popper .react-datepicker__triangle {
+  display: none !important;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .quotation-datepicker-header {
+    height: 70px;
+    padding: 10px 8px;
+  }
+
+  .quotation-datepicker-selects {
+    gap: 5px;
+  }
+
+  .quotation-datepicker-select {
+    min-width: 105px;
+    height: 36px;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 27px;
+  }
+
+  .quotation-datepicker-select-wrapper.year .quotation-datepicker-select {
+    min-width: 76px;
+  }
+
+  .quotation-datepicker-nav {
+    width: 34px;
+    height: 36px;
+  }
+
+  .react-datepicker__day {
+    width: 34px !important;
+    height: 34px !important;
+    line-height: 34px !important;
+    margin: 2px !important;
+  }
+
+  .react-datepicker__day-name {
+    width: 34px !important;
+    margin: 2px !important;
+  }
+
+  .react-datepicker__month {
+    margin: 10px 8px 14px !important;
+  }
+}
+
+ /* TOUR PACKAGE DROPDOWN SCROLLBAR */
+
+.destination-dropdown-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.destination-dropdown-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.destination-dropdown-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.destination-dropdown-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.destination-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
