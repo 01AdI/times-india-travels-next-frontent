@@ -31,7 +31,7 @@ export default function Home_Quotation_form() {
     error: tourPackageError,
   } = useSelector((state) => state.tourPackageDropdown);
 
-  const initial = {
+  const initialForm = {
     name: "",
     email: "",
     phone: "",
