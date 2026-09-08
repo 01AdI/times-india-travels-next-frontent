@@ -647,7 +647,7 @@ export default function Home_Quotation_form() {
         <form
           data-aos="zoom-in"
           data-aos-duration="2500"
-          data-aos-once="true"
+          
           onSubmit={handleSubmit}
           className="
             relative
