@@ -26,7 +26,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
           duration: 1.8,
           ease: [0.22, 1, 0.36, 1],
         }}
-        src={tour.thumbnail}
+        src={tour.thumbnail || tour.heroImage}
         alt={tour.name}
         className="
           absolute
