@@ -7,6 +7,8 @@ export default function AOSProvider({ children }) {
   useEffect(() => {
     AOS.init({
       duration: 3000,
+      offset: 80,
+      easing: "ease-out-cubic",
     });
 
     // Recalculate positions after the initial render and after images/data
