@@ -449,70 +449,86 @@ export default function AdminTourPackageCreate() {
     };
   }, [form.heroImage]);
 
-  const validateForm = () => {
-    if (!form.name.trim()) {
-      return "Tour package name is required.";
+const validateForm = () => {
+  if (!form.name.trim()) {
+    return "Tour package name is required.";
+  }
+
+  if (!form.slug.trim()) {
+    return "Tour package ID is required.";
+  }
+
+  if (!form.categorySlug) {
+    return "Please select a tour category.";
+  }
+
+  // Duration is compulsory
+  if (form.duration.days === "") {
+    return "Duration in days is required.";
+  }
+
+  if (form.duration.nights === "") {
+    return "Duration in nights is required.";
+  }
+
+  if (Number(form.duration.days) < 1) {
+    return "Duration must contain at least 1 day.";
+  }
+
+  if (Number(form.duration.nights) < 0) {
+    return "Nights cannot be negative.";
+  }
+
+  // Route is compulsory
+  if (!form.route || form.route.length === 0) {
+    return "At least one route location is required.";
+  }
+
+  const validRoutes = form.route.filter(
+    (item) => item && item.trim()
+  );
+
+  if (validRoutes.length === 0) {
+    return "At least one route location is required.";
+  }
+
+  // Validate itinerary if any itinerary days are added
+  if (form.itinerary && form.itinerary.length > 0) {
+    for (let i = 0; i < form.itinerary.length; i++) {
+      const item = form.itinerary[i];
+
+      if (!item.day || Number(item.day) < 1) {
+        return `Day ${i + 1} is required in itinerary.`;
+      }
+
+      if (!item.title?.trim()) {
+        return `Itinerary Day ${item.day}: title is required.`;
+      }
+
+      if (!item.description?.trim()) {
+        return `Itinerary Day ${item.day}: description is required.`;
+      }
     }
+  }
 
-    if (!form.slug.trim()) {
-      return "Tour package ID is required.";
-    }
+  // Also Under validation
+  const validAlsoUnder = form.alsoUnder.filter(
+    (item) => item.trim()
+  );
 
-    if (!form.categorySlug) {
-      return "Please select a tour category.";
-    }
+  const duplicateAlsoUnder =
+    validAlsoUnder.length !== new Set(validAlsoUnder).size;
 
-    if (
-      !form.duration.days ||
-      form.duration.nights === "" ||
-      !form.duration.label.trim()
-    ) {
-      return "Duration days, nights and label are required.";
-    }
+  if (duplicateAlsoUnder) {
+    return "The same category cannot be added more than once in Also Under.";
+  }
 
-    if (Number(form.duration.days) < 1) {
-      return "Duration must contain at least 1 day.";
-    }
+  if (validAlsoUnder.includes(form.categorySlug)) {
+    return "The primary category cannot also be included in Also Under.";
+  }
 
-    if (Number(form.duration.nights) < 0) {
-      return "Nights cannot be negative.";
-    }
-
-    if (!form.route.length || form.route.every((item) => !item.trim())) {
-      return "At least one route location is required.";
-    }
-
-    if (!form.highlights.some((item) => item.trim())) {
-      return "Please add at least one highlight.";
-    }
-
-    if (!form.itinerary.length) {
-      return "At least one itinerary day is required.";
-    }
-
-    if (
-      form.itinerary.some(
-        (item) => !item.title.trim() || !item.description.trim(),
-      )
-    ) {
-      return "Every itinerary day must have a title and description.";
-    }
-
-    const validAlsoUnder = form.alsoUnder.filter((item) => item.trim());
-
-    const duplicateAlsoUnder =
-      validAlsoUnder.length !== new Set(validAlsoUnder).size;
-
-    if (duplicateAlsoUnder) {
-      return "The same category cannot be added more than once in Also Under.";
-    }
-
-    if (validAlsoUnder.includes(form.categorySlug)) {
-      return "The primary category cannot also be included in Also Under.";
-    }
-
-    return "";
-  };
+  return "";
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -1520,7 +1536,7 @@ export default function AdminTourPackageCreate() {
           <button
             type="submit"
             disabled={submitting}
-            className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-[#F4EFE4] shadow-sm hover:bg-[#C9A24B] hover:text-[#101A2E] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-[#F4EFE4] cursor-pointer shadow-sm hover:bg-[#C9A24B] hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
             style={{
               backgroundColor: NAVY,
             }}
