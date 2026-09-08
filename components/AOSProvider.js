@@ -2,20 +2,27 @@
 
 import { useEffect } from "react";
 import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function AOSProvider({ children }) {
   useEffect(() => {
     AOS.init({
-      duration: 3000,
-      offset: 80,
+      duration: 2800,
       easing: "ease-out-cubic",
+      offset: 120,
+      once: false,
+      mirror: true,
+      anchorPlacement: "top-bottom",
     });
 
-    // Recalculate positions after the initial render and after images/data
-    // settle. This is especially useful on content-heavy travel pages.
-    const refresh = () => AOS.refreshHard();
+    const refresh = () => {
+      AOS.refreshHard();
+    };
+
+    // Give images/layout a chance to settle.
+    const timer = window.setTimeout(refresh, 500);
+
     window.addEventListener("load", refresh);
-    const timer = window.setTimeout(refresh, 250);
 
     return () => {
       window.removeEventListener("load", refresh);
