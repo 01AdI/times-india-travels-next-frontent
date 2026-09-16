@@ -9,14 +9,14 @@ export default function Contact_Us_Hero() {
         hero-section
         relative
         flex
-        h-[380px]
+        h-95
         items-center
         justify-center
         overflow-hidden
         bg-cover
         bg-center
-        sm:h-[440px]
-        md:h-[500px]
+        sm:h-110
+        md:h-125
         hero-section
       "
       style={{
@@ -25,10 +25,6 @@ export default function Contact_Us_Hero() {
       }}
     >
 
-      {/* =====================================================
-          OVERLAY
-      ====================================================== */}
-
       <div
         className="absolute inset-0"
         style={{
@@ -36,10 +32,6 @@ export default function Contact_Us_Hero() {
             "radial-gradient(circle at 50% 45%, rgba(10,18,32,0.2), rgba(10,18,32,0.55) 85%)",
         }}
       />
-
-      {/* =====================================================
-          HERO CONTENT
-      ====================================================== */}
 
       <div className="relative z-10 -mt-4 px-6 text-center">
 
@@ -83,7 +75,7 @@ export default function Contact_Us_Hero() {
           className="
             mx-auto
             mt-5
-            h-[1px]
+            h-px
             w-30
             bg-[#F58634]
           "
@@ -113,21 +105,17 @@ export default function Contact_Us_Hero() {
 
       </div>
 
-      {/* =====================================================
-          BOTTOM CURVE
-      ====================================================== */}
-
       <svg
         className="
           absolute
           bottom-0
           left-0
           z-10
-          h-[70px]
+          h-17.5
           w-full
-          text-[#F2FAFB]
-          sm:h-[85px]
-          md:h-[100px]
+          text-[#FAF5EB]
+          sm:h-21.25
+          md:h-25
         "
         viewBox="0 0 1440 120"
         fill="currentColor"

@@ -13,15 +13,12 @@ export default function DestinationGrid({ data = [] }) {
       className="
         relative
         overflow-hidden
-        bg-[#F2FAFB]
+        bg-[#FAF5EB]
         py-16
         sm:py-20
         lg:py-24
       "
     >
-      {/* ================================================================
-          HEADER
-      ================================================================= */}
 
       <div
         className="
@@ -44,7 +41,7 @@ export default function DestinationGrid({ data = [] }) {
             gap-3
           "
         >
-          <span className="h-px w-8 bg-[#F58634]" />
+          <span className="h-px w-8 bg-[#B85128]" />
 
           <span
             className="
@@ -53,14 +50,14 @@ export default function DestinationGrid({ data = [] }) {
               font-semibold
               uppercase
               tracking-[0.35em]
-              text-[#F58634]
+              text-[#B85128]
               sm:text-xs
             "
           >
             Explore India
           </span>
 
-          <span className="h-px w-8 bg-[#F58634]" />
+          <span className="h-px w-8 bg-[#B85128]" />
         </div>
 
         {/* Heading */}
@@ -72,7 +69,7 @@ export default function DestinationGrid({ data = [] }) {
             font-medium
             leading-[1.05]
             tracking-tight
-            text-[#103F4A]
+            text-[#173C3A]
             sm:text-5xl
             md:text-6xl
           "
@@ -90,7 +87,7 @@ export default function DestinationGrid({ data = [] }) {
             font-['Inter']
             text-sm
             leading-7
-            text-[#103F4A]/60
+            text-[#476763]/60
             sm:text-base
           "
         >
@@ -99,15 +96,11 @@ export default function DestinationGrid({ data = [] }) {
         </p>
       </div>
 
-      {/* ================================================================
-          DESTINATION GRID
-      ================================================================= */}
-
       <div
         className="
           mx-auto
           mt-14
-          max-w-[1400px]
+          max-w-350
           px-5
           sm:mt-16
           sm:px-8
@@ -147,19 +140,6 @@ export default function DestinationGrid({ data = [] }) {
               destination.image ||
               "";
 
-            /*
-             * ------------------------------------------------------------
-             * ASYMMETRIC LAYOUT
-             *
-             * 01 → 7 columns
-             * 02 → 5 columns
-             * 03 → 5 columns
-             * 04 → 7 columns
-             *
-             * Then repeats.
-             * ------------------------------------------------------------
-             */
-
             const layoutPosition = index % 4;
 
             const gridClass =
@@ -181,18 +161,15 @@ export default function DestinationGrid({ data = [] }) {
                   group
                   relative
                   ${gridClass}
-                  h-[430px]
+                  h-107.5
                   overflow-hidden
                   rounded-[18px]
                   bg-[#103F4A]
                   shadow-[0_18px_55px_rgba(15,63,74,0.12)]
-                  sm:h-[480px]
-                  lg:h-[500px]
+                  sm:h-120
+                  lg:h-125
                 `}
               >
-                {/* ======================================================
-                    IMAGE
-                ======================================================= */}
 
                 {destinationImage ? (
                   <img
@@ -208,7 +185,7 @@ export default function DestinationGrid({ data = [] }) {
                       w-full
                       object-cover
                       transition-transform
-                      duration-[900ms]
+                      duration-900
                       ease-out
                       group-hover:scale-[1.045]
                     "
@@ -223,10 +200,6 @@ export default function DestinationGrid({ data = [] }) {
                   />
                 )}
 
-                {/* ======================================================
-                    CINEMATIC OVERLAY
-                ======================================================= */}
-
                 <div
                   className="
                     pointer-events-none
@@ -239,9 +212,6 @@ export default function DestinationGrid({ data = [] }) {
                   "
                 />
 
-                {/* ======================================================
-                    HOVER OVERLAY
-                ======================================================= */}
 
                 <div
                   className="
@@ -258,10 +228,6 @@ export default function DestinationGrid({ data = [] }) {
                     group-hover:opacity-100
                   "
                 />
-
-                {/* ======================================================
-                    TOP INFORMATION
-                ======================================================= */}
 
                 <div
                   className="
@@ -323,9 +289,6 @@ export default function DestinationGrid({ data = [] }) {
                   </div>
                 </div>
 
-                {/* ======================================================
-                    CONTENT
-                ======================================================= */}
 
                 <div
                   className="
@@ -381,9 +344,6 @@ export default function DestinationGrid({ data = [] }) {
                     {destinationName}
                   </h3>
 
-                  {/* ==================================================
-                      TAGLINE
-                  =================================================== */}
 
                   {destinationTagline && (
                     <p
@@ -401,10 +361,6 @@ export default function DestinationGrid({ data = [] }) {
                       {destinationTagline}
                     </p>
                   )}
-
-                  {/* ==================================================
-                      HOVER DETAILS
-                  =================================================== */}
 
                   <div
                     className="
@@ -434,10 +390,6 @@ export default function DestinationGrid({ data = [] }) {
                           {destinationDescription}
                         </p>
                       )}
-
-                      {/* =================================================
-                          EXPLORE BUTTON
-                      ================================================== */}
 
                       <Link
                         href={`/destinations/${destinationId}`}
@@ -482,10 +434,6 @@ export default function DestinationGrid({ data = [] }) {
                     </div>
                   </div>
                 </div>
-
-                {/* ======================================================
-                    CORNER ARROW
-                ======================================================= */}
 
                 <Link
                   href={`/destinations/${destinationId}`}

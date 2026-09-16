@@ -8,16 +8,13 @@ export default function TourPackage_Sub_Hero({ tour }) {
     <section
       className="
         relative
-        h-[520px]
+        h-130
         overflow-hidden
-        sm:h-[600px]
-        md:h-[680px]
+        sm:h-150
+        md:h-170
         hero-section
       "
     >
-      {/* =====================================================
-          BACKGROUND IMAGE
-      ====================================================== */}
 
       <motion.img
         initial={{ scale: 1.08 }}
@@ -38,9 +35,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
         "
       />
 
-      {/* =====================================================
-          CINEMATIC OVERLAYS
-      ====================================================== */}
 
       <div className="absolute inset-0 bg-black/40" />
 
@@ -48,7 +42,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
         className="
           absolute
           inset-0
-          bg-gradient-to-r
+          bg-linear-to-r
           from-black/65
           via-black/25
           to-black/20
@@ -59,16 +53,12 @@ export default function TourPackage_Sub_Hero({ tour }) {
         className="
           absolute
           inset-0
-          bg-gradient-to-t
+          bg-linear-to-t
           from-black/75
           via-transparent
           to-black/25
         "
       />
-
-      {/* =====================================================
-          SIDE NUMBER / LABEL
-      ====================================================== */}
 
       <div
         className="
@@ -100,10 +90,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
         </div>
       </div>
 
-      {/* =====================================================
-          HERO CONTENT
-      ====================================================== */}
-
       <div
         className="
           relative
@@ -111,7 +97,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
           mx-auto
           flex
           h-full
-          max-w-[1500px]
+          max-w-375
           items-end
           px-6
           pb-24
@@ -136,9 +122,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
           }}
           className="max-w-5xl"
         >
-          {/* =================================================
-              EYEBROW
-          ================================================== */}
 
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-12 bg-[#F58634]" />
@@ -157,10 +140,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
             </p>
           </div>
 
-          {/* =================================================
-              TITLE
-          ================================================== */}
-
           <h1
             className="
               font-['Fraunces']
@@ -176,10 +155,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
           >
             {tour.name}
           </h1>
-
-          {/* =================================================
-              BOTTOM METADATA
-          ================================================== */}
 
           <div className="mt-9 flex flex-wrap items-center gap-7">
             <div className="flex items-center gap-3">
@@ -217,10 +192,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
         </motion.div>
       </div>
 
-      {/* =====================================================
-          SCROLL INDICATOR
-      ====================================================== */}
-
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -252,10 +223,6 @@ export default function TourPackage_Sub_Hero({ tour }) {
         <ArrowDown className="h-4 w-4 animate-bounce text-[#F58634]" />
       </motion.div>
 
-      {/* =====================================================
-          BOTTOM CURVE
-      ====================================================== */}
-
       <div
         className="
           absolute
@@ -270,12 +237,12 @@ export default function TourPackage_Sub_Hero({ tour }) {
         <div
           className="
             absolute
-            -bottom-[75%]
+            bottom-[-75%]
             left-[-5%]
             h-[150%]
             w-[110%]
             rounded-[50%]
-            bg-[#F2FAFB]
+            bg-[#FAF5EB]
           "
         />
       </div>

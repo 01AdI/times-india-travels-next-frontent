@@ -11,11 +11,8 @@ export default function Contact_Us_LetsConnect() {
   return (
     <section
       id="Contact-info"
-      className="relative overflow-hidden bg-[#F2FAFB]"
+      className="relative overflow-hidden bg-[#FAF5EB]"
     >
-      {/* =====================================================
-          MAIN CONTENT
-      ====================================================== */}
 
       <div
         className="
@@ -33,10 +30,6 @@ export default function Contact_Us_LetsConnect() {
           lg:py-15
         "
       >
-        {/* =================================================
-            EDITORIAL INTRO
-        ================================================== */}
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,13 +48,13 @@ export default function Contact_Us_LetsConnect() {
                 font-['Fraunces']
                 text-xl
                 italic
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               01
             </span>
 
-            <span className="h-px w-12 bg-[#124D56]/20" />
+            <span className="h-px w-12 bg-[#B85128]/60" />
 
             <span
               className="
@@ -70,7 +63,7 @@ export default function Contact_Us_LetsConnect() {
                 font-semibold
                 uppercase
                 tracking-[0.35em]
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               Contact
@@ -86,14 +79,14 @@ export default function Contact_Us_LetsConnect() {
               font-medium
               leading-[0.98]
               tracking-[-0.045em]
-              text-[#0B3C49]
+              text-[#173C3A]
               sm:text-6xl
               md:text-7xl
               lg:text-[86px]
             "
           >
             Let's start a
-            <span className="block italic text-cyan-500">
+            <span className="block italic text-[#476763]/70">
               conversation.
             </span>
           </h2>
@@ -110,7 +103,7 @@ export default function Contact_Us_LetsConnect() {
               font-light
               leading-7
               tracking-wide
-              text-[#71878B]
+              text-[#476763]
               sm:text-base
               sm:leading-8
             "
@@ -119,10 +112,6 @@ export default function Contact_Us_LetsConnect() {
             dreaming about? Tell us where you'd like to go and
             we'll help you shape the experience.
           </p>
-
-          {/* =================================================
-              EMAIL CTA
-          ================================================== */}
 
           <motion.a
             href="mailto:tours@timesindiatravels.com?subject=Travel%20Enquiry%20-%20Times%20India%20Travels&body=Hello%20Times%20India%20Travels%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20planning%20a%20trip%20with%20you.%0A%0ADestination%3A%0ATravel%20Dates%3A%0ANumber%20of%20Travellers%3A%0A%0AThank%20you."
@@ -145,8 +134,7 @@ export default function Contact_Us_LetsConnect() {
               gap-3
               rounded-full
               border
-              border-[#124D56]
-              bg-[#124D56]
+              bg-[#F58634]
               px-7
               py-3.5
               font-['Inter']
@@ -158,7 +146,7 @@ export default function Contact_Us_LetsConnect() {
               shadow-[0_12px_30px_rgba(18,77,86,0.12)]
               transition-all
               duration-300
-              hover:bg-[#0B3C49]
+              hover:bg-[#de7429]
               hover:shadow-[0_18px_40px_rgba(18,77,86,0.18)]
               sm:px-8
               sm:py-4
@@ -188,27 +176,19 @@ export default function Contact_Us_LetsConnect() {
 
           <p
             className="
-              mt-4
+              mt-5
               font-['Inter']
               text-[10px]
               uppercase
               tracking-[0.2em]
-              text-[#124D56]/45
+              text-[#476763]/70
             "
           >
             Usually responds within 2-3 business day
           </p>
         </motion.div>
 
-        {/* =================================================
-            LARGE WHITE SPACE
-        ================================================== */}
-
         <div className="h-15 sm:h-15 md:h-20" />
-
-        {/* =================================================
-            CONTACT DETAILS
-        ================================================== */}
 
         <motion.div
           initial={{ opacity: 0, y: 35 }}
@@ -221,16 +201,12 @@ export default function Contact_Us_LetsConnect() {
           }}
           className="
             mx-auto
-            max-w-[1100px]
+            max-w-275
             border-y
             border-[#124D56]/10
           "
         >
           <div className="grid md:grid-cols-3">
-
-            {/* =================================================
-                VISIT US
-            ================================================== */}
 
             <div
               className="
@@ -248,7 +224,7 @@ export default function Contact_Us_LetsConnect() {
                   font-bold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 Visit Us
@@ -260,7 +236,7 @@ export default function Contact_Us_LetsConnect() {
                   font-['Fraunces']
                   text-2xl
                   font-medium
-                  text-[#0B3C49]
+                  text-[#173C3A]
                 "
               >
                 Jaipur
@@ -279,10 +255,6 @@ export default function Contact_Us_LetsConnect() {
                 Rajasthan, India
               </p>
             </div>
-
-            {/* =================================================
-                CALL US
-            ================================================== */}
 
             <div
               className="
@@ -304,7 +276,7 @@ export default function Contact_Us_LetsConnect() {
                   font-bold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 Call Us
@@ -318,7 +290,7 @@ export default function Contact_Us_LetsConnect() {
                   font-['Fraunces']
                   text-2xl
                   font-medium
-                  text-[#0B3C49]
+                  text-[#173C3A]
                   transition-colors
                   duration-300
                   hover:text-[#F58634]
@@ -341,10 +313,6 @@ export default function Contact_Us_LetsConnect() {
               </p>
             </div>
 
-            {/* =================================================
-                EMAIL US
-            ================================================== */}
-
             <div
               className="
                 border-t
@@ -365,7 +333,7 @@ export default function Contact_Us_LetsConnect() {
                   font-bold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 Email Us
@@ -380,7 +348,7 @@ export default function Contact_Us_LetsConnect() {
                   font-['Fraunces']
                   text-xl
                   font-medium
-                  text-[#0B3C49]
+                  text-[#173C3A]
                   transition-colors
                   duration-300
                   hover:text-[#F58634]
@@ -405,9 +373,6 @@ export default function Contact_Us_LetsConnect() {
           </div>
         </motion.div>
 
-        {/* =================================================
-            ADDRESS — QUIET SECONDARY DETAIL
-        ================================================== */}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -426,7 +391,7 @@ export default function Contact_Us_LetsConnect() {
               font-bold
               uppercase
               tracking-[0.25em]
-              text-[#F58634]
+              text-[#B85128]
             "
           >
             Our Jaipur Office
@@ -441,17 +406,13 @@ export default function Contact_Us_LetsConnect() {
               text-lg
               font-bold
               leading-6
-              text-[#124D56]
+              text-[#173C3A]
             "
           >
             C2/106, Flat No S2 2nd FL, Sneh Villa,
             Chitrakoot Scheme, Jaipur , 302021, Rajasthan
           </p>
         </motion.div>
-
-        {/* =================================================
-            BOTTOM BRAND LINE
-        ================================================== */}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -470,20 +431,20 @@ export default function Contact_Us_LetsConnect() {
             sm:mt-20
           "
         >
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
 
           <span
             className="
               font-['Fraunces']
               text-[15px]
               italic
-              text-[#124D56]/70
+              text-[#173C3A]/70
             "
           >
             India, thoughtfully experienced.
           </span>
 
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
         </motion.div>
       </div>
     </section>

@@ -465,26 +465,6 @@ export default function Home_Quotation_form() {
       <div className="absolute inset-0 bg-[#050B14]/40" />
 
       <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 45%, rgba(18,77,86,0.18) 0%, rgba(18,77,86,0.12) 45%, rgba(18,77,86,0.28) 100%)",
-        }}
-      />
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-        "
-        style={{
-          background:
-            "radial-gradient(circle at 15% 20%, rgba(245,134,52,0.08), transparent 30%), radial-gradient(circle at 85% 80%, rgba(30,165,190,0.08), transparent 30%)",
-        }}
-      />
-
-      <div
         className="
           relative
           z-10

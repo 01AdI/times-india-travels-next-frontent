@@ -1,11 +1,7 @@
-// ============================================================
-// TESTIMONIALS — PREMIUM HERO SECTION
-// ============================================================
-
 export default function Testimonial_Hero() {
   return (
     <section
-      className="hero-section relative h-[380px] sm:h-[440px] md:h-[500px] flex items-center justify-center bg-cover bg-center overflow-hidden"
+      className="hero-section relative h-95 sm:h-110 md:h-125 flex items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
         backgroundImage:
           "url('https://i.pinimg.com/736x/2c/e6/b2/2ce6b2cd840cf13df5d962a1f0a0b54b.jpg')",
@@ -31,7 +27,7 @@ export default function Testimonial_Hero() {
         </h1>
 
         <div
-          className="mt-5 mx-auto w-30 h-[1px] bg-[#F58634]"
+          className="mt-5 mx-auto w-30 h-px bg-[#F58634]"
           aria-hidden="true"
         />
 
@@ -43,7 +39,7 @@ export default function Testimonial_Hero() {
 
       {/* Bottom Curve */}
       <svg
-        className="absolute bottom-0 left-0 w-full h-[70px] sm:h-[85px] md:h-[100px] text-[#F2FAFB] z-10"
+        className="absolute bottom-0 left-0 w-full h-17.5 sm:h-21.25 md:h-25 text-[#FAF5EB] z-10"
         viewBox="0 0 1440 120"
         fill="currentColor"
         preserveAspectRatio="none"

@@ -40,38 +40,10 @@ export default function TermsCondition() {
 
   return (
     <>
-     <main className="min-h-screen bg-[#F2FAFB] text-[#0B3C49]">
+     <main className="min-h-screen bg-[#FAF5EB] text-[#476763]">
 
       <section className="relative overflow-hidden px-6 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-28">
         {/* Decorative circles */}
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -right-32
-            top-0
-            h-105
-            w-105
-            rounded-full
-            border
-            border-[#124D56]/5
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -left-40
-            bottom-0
-            h-90
-            w-90
-            rounded-full
-            border
-            border-[#F58634]/5
-          "
-        />
 
         <div className="relative z-10 mx-auto max-w-6xl">
           {/* Top label */}
@@ -85,7 +57,7 @@ export default function TermsCondition() {
               font-['Inter']
             "
           >
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-[#B85128]" />
 
             <span
               className="
@@ -93,13 +65,13 @@ export default function TermsCondition() {
                 font-semibold
                 uppercase
                 tracking-[0.35em]
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               Travel With Confidence
             </span>
 
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-[#B85128]" />
           </div>
 
           {/* Heading */}
@@ -115,14 +87,14 @@ export default function TermsCondition() {
               font-medium
               leading-[0.98]
               tracking-[-0.04em]
-              text-[#0B3C49]
+              text-[#173C3A]
               sm:text-6xl
               md:text-7xl
               lg:text-[82px]
             "
           >
             Terms &
-            <span className="block italic text-[#F58634]">Conditions.</span>
+            <span className="block italic text-[#B85128]">Conditions.</span>
           </h1>
 
           {/* Intro */}
@@ -137,8 +109,8 @@ export default function TermsCondition() {
               text-sm
               font-light
               leading-7
-              tracking-wide
-              text-[#61777B]
+             tracking-wide
+              text-[#476763]
               sm:text-base
               sm:leading-8
             "
@@ -505,7 +477,7 @@ export default function TermsCondition() {
                 bg-[#F58634]/10
               "
             >
-              <Mail size={20} strokeWidth={1.4} className="text-[#F58634]" />
+              <Mail size={20} strokeWidth={1.4} className="text-cyan-300" />
             </div>
 
             <p
@@ -516,7 +488,7 @@ export default function TermsCondition() {
                 font-semibold
                 uppercase
                 tracking-[0.3em]
-                text-[#F58634]
+                text-cyan-300
               "
             >
               Need Clarification?
@@ -534,7 +506,7 @@ export default function TermsCondition() {
               "
             >
               We're happy to
-              <span className="text-[#F58634]"> help.</span>
+              <span className="text-cyan-500"> help.</span>
             </h2>
 
             <p
@@ -557,11 +529,11 @@ export default function TermsCondition() {
             {/* Divider */}
 
             <div className="mx-auto mt-8 flex items-center justify-center gap-4">
-              <span className="h-px w-10 bg-[#F58634]/50" />
+              <span className="h-px w-10 bg-cyan-500/50" />
 
-              <span className="h-1.5 w-1.5 rotate-45 bg-[#F58634]" />
+              <span className="h-1.5 w-1.5 rotate-45 bg-cyan-300" />
 
-              <span className="h-px w-10 bg-[#F58634]/50" />
+              <span className="h-px w-10 bg-cyan-500/50" />
             </div>
 
             {/* Contact button */}

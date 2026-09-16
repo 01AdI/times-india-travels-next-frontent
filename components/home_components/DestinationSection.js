@@ -8,9 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchDestinations } from "../../features/Home-page/clinet_Destination_Slice";
 
-function DestinationSection() {
+function DestinationSection({ initialDestinations = [] }) {
   const dispatch = useDispatch();
-  const {destinations: destinationList,status,error} = useSelector((state) => state.destinations);
+  const {destinations: reduxDestinations,status,error} = useSelector((state) => state.destinations);
+
+  const destinationList =reduxDestinations.length > 0 ? reduxDestinations : initialDestinations;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isImageHovered, setIsImageHovered] = useState(false);
@@ -89,7 +91,7 @@ function DestinationSection() {
 
   if ((status === "loading" || status === "idle") &&total === 0) {
     return (
-      <section className="relative overflow-hidden border-y border-[#C9A24B]/25 bg-[#f1f8f8] py-15 md:py-14 lg:py-14">
+      <section className="relative overflow-hidden border-y border-[#C9A24B]/25 bg-white py-15 md:py-14 lg:py-14">
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           {/* Eyebrow shimmer */}
 
@@ -264,7 +266,7 @@ function DestinationSection() {
           overflow-hidden
           border-y
           border-[#C9A24B]/25
-          bg-[#f1f8f8]
+          bg-white
           px-6
           py-28
         "
@@ -319,7 +321,7 @@ function DestinationSection() {
         overflow-hidden
         border-y
         border-[#C9A24B]/25
-        bg-[#f1f8f8]
+        bg-white
         py-15
         md:py-14
         lg:py-14
@@ -362,7 +364,7 @@ function DestinationSection() {
             gap-3
           "
         >
-          <span className="h-px w-8 bg-[#f47b3a]" />
+          <span className="h-px w-8 bg-[#B85128]" />
 
           <span
             className="
@@ -370,14 +372,14 @@ function DestinationSection() {
               font-semibold
               uppercase
               tracking-[0.35em]
-              text-[#F58634]
+              text-[#B85128]
               sm:text-xs
             "
           >
             Destinations
           </span>
 
-          <span className="h-px w-8 bg-[#f47b3a]" />
+          <span className="h-px w-8 bg-[#B85128]" />
         </motion.div>
 
         <motion.h2
@@ -403,7 +405,7 @@ function DestinationSection() {
             font-medium
             leading-[1.05]
             tracking-tight
-            text-[#103f4a]
+            text-[#173C3A]
             sm:text-5xl
             md:text-6xl
           "

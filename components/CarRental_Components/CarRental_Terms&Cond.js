@@ -34,7 +34,7 @@ const safetyRules = [
 
 export default function CarRental_Terms_Cond() {
   return (
-    <section className="bg-[#F2FAFB] px-6 py-13 lg:py-14">
+    <section className="bg-[#FAF5EB] px-6 py-13 lg:py-14">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
           <span
@@ -44,7 +44,7 @@ export default function CarRental_Terms_Cond() {
                         font-semibold
                         uppercase
                         tracking-[0.28em]
-                        text-[#F58634]
+                        text-[#B85128]
                         sm:text-xs
                       "
           >
@@ -57,13 +57,13 @@ export default function CarRental_Terms_Cond() {
                         font-['Fraunces']
                         text-[clamp(2rem,4vw,3rem)]
                         font-medium
-                        text-[#0B3C49]
+                        text-[#173C3A]
                       "
           >
             Terms & Safety
           </h2>
 
-          <div className="mx-auto mt-6 h-[2px] w-10 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-0.5 w-25 bg-[#F58634]" />
         </div>
 
         {/* Terms */}
@@ -74,7 +74,7 @@ export default function CarRental_Terms_Cond() {
                       group
                       rounded-2xl
                       border
-                      border-[#124d56]/10
+                      border-[#124d56]/20
                       bg-white
                       transition-all
                       open:shadow-[0_15px_40px_-25px_rgba(18,77,86,0.3)]
@@ -93,7 +93,7 @@ export default function CarRental_Terms_Cond() {
                         font-['Inter']
                         text-sm
                         font-semibold
-                        text-[#0B3C49]
+                        text-[#173C3A]
                       "
           >
             Terms & Conditions
@@ -127,7 +127,7 @@ export default function CarRental_Terms_Cond() {
                             font-['Inter']
                             text-[14px]
                             leading-relaxed
-                            text-[#124d56]/65
+                            text-[#476763]/65
                           "
               >
                 <Check
@@ -156,7 +156,7 @@ export default function CarRental_Terms_Cond() {
                       mt-4
                       rounded-2xl
                       border
-                      border-[#124d56]/10
+                      border-[#124d56]/20
                       bg-white
                       transition-all
                       open:shadow-[0_15px_40px_-25px_rgba(18,77,86,0.3)]
@@ -175,7 +175,7 @@ export default function CarRental_Terms_Cond() {
                         font-['Inter']
                         text-sm
                         font-semibold
-                        text-[#0B3C49]
+                        text-[#173C3A]
                       "
           >
             Safety Rules
@@ -236,7 +236,7 @@ export default function CarRental_Terms_Cond() {
                               font-['Inter']
                               text-[13px]
                               leading-relaxed
-                              text-[#124d56]/65
+                              text-[#476763]/65
                             "
                 >
                   {text}

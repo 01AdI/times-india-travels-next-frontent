@@ -65,7 +65,7 @@ export default function Disclaimer() {
 
   return (
     <>
-    <main className="bg-[#F2FAFB] text-[#0B3C49] relative overflow-hidden px-6 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-28">
+    <main className="bg-[#FAF5EB] text-[#173C3A] relative overflow-hidden px-6 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-28">
 
       <section className="relative px-6 pb-16 pt-4 sm:px-8 sm:pt-8 lg:px-12 lg:pb-20">
 
@@ -81,7 +81,7 @@ export default function Disclaimer() {
             {/* SMALL LABEL */}
 
             <div className="mb-5 flex items-center justify-center gap-3">
-              <span className="h-px w-8 bg-[#F58634]" />
+              <span className="h-px w-8 bg-[#B85128]" />
 
               <span
                 className="
@@ -90,13 +90,13 @@ export default function Disclaimer() {
                   font-semibold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 Important Information
               </span>
 
-              <span className="h-px w-8 bg-[#F58634]" />
+              <span className="h-px w-8 bg-[#B85128]" />
             </div>
 
             {/* INTRO HEADING */}
@@ -107,13 +107,13 @@ export default function Disclaimer() {
                 text-3xl
                 font-medium
                 leading-tight
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-4xl
                 md:text-5xl
               "
             >
               Transparency is part of
-              <span className="text-[#F58634]"> every journey.</span>
+              <span className="text-[#B85128]"> every journey.</span>
             </h2>
 
             {/* INTRO TEXT */}
@@ -126,7 +126,7 @@ export default function Disclaimer() {
                 font-['Inter']
                 text-sm
                 leading-7
-                text-[#49656A]
+                text-[#476763]
                 sm:text-base
               "
             >
@@ -301,7 +301,7 @@ export default function Disclaimer() {
                         font-semibold
                         uppercase
                         tracking-[0.28em]
-                        text-[#F58634]
+                        text-[#B85128]
                       "
                     >
                       Official Website Policy
@@ -437,7 +437,7 @@ export default function Disclaimer() {
                             font-semibold
                             uppercase
                             tracking-[0.25em]
-                            text-[#F58634]
+                            text-[#B85128]
                           "
                         >
                           Disclaimer
@@ -592,7 +592,7 @@ export default function Disclaimer() {
                   font-semibold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-cyan-300
                 "
               >
                 Need More Information?
@@ -609,8 +609,8 @@ export default function Disclaimer() {
                   md:text-5xl
                 "
               >
-                We're here to help
-                <span className="text-[#F58634]">.</span>
+                We're here to 
+                <span className="text-cyan-500">{" "}help.</span>
               </h2>
 
               <p

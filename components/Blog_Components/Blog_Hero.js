@@ -9,23 +9,20 @@ export default function Blog_Hero() {
         hero-section
         relative
         flex
-        h-[380px]
+        h-95
         items-center
         justify-center
         overflow-hidden
         bg-cover
         bg-center
-        sm:h-[440px]
-        md:h-[500px]
+        sm:h-110
+        md:h-125
       "
       style={{
         backgroundImage:
           "url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=85')",
       }}
     >
-      {/* =====================================================
-          DARK EDITORIAL OVERLAY
-      ====================================================== */}
 
       <div
         className="absolute inset-0"
@@ -34,10 +31,6 @@ export default function Blog_Hero() {
             "radial-gradient(circle at 50% 42%, rgba(10,18,32,0.18), rgba(10,18,32,0.68) 88%)",
         }}
       />
-
-      {/* =====================================================
-          HERO CONTENT
-      ====================================================== */}
 
       <div className="relative z-10 -mt-4 px-6 text-center">
 
@@ -80,7 +73,7 @@ export default function Blog_Hero() {
           className="
             mx-auto
             mt-5
-            h-[1px]
+            h-px
             w-24
             bg-[#F58634]
           "
@@ -109,21 +102,17 @@ export default function Blog_Hero() {
 
       </div>
 
-      {/* =====================================================
-          BOTTOM CURVED TRANSITION
-      ====================================================== */}
-
       <svg
         className="
           absolute
           bottom-0
           left-0
           z-10
-          h-[70px]
+          h-17.5
           w-full
-          text-[#F2FAFB]
-          sm:h-[85px]
-          md:h-[100px]
+          text-[#FAF5EB]
+          sm:h-21.25
+          md:h-25
         "
         viewBox="0 0 1440 120"
         fill="currentColor"

@@ -9,14 +9,13 @@ export default function TourPackage_Category_CTA({ data }) {
 
   return (
     <>
-      <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-12 bg-[#F2FAFB]">
-        {/* rounded-[2rem] instead of rounded-4xl — that class doesn't
-            exist in Tailwind's default scale, so it was likely a no-op */}
-        <div className="relative mx-auto max-w-[1500px] rounded-[2rem] overflow-hidden bg-[#0B3C49]">
+      <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-12 bg-[#FAF5EB]">
+
+        <div className="relative mx-auto max-w-375 rounded-4xl overflow-hidden bg-[#0B3C49]">
           <div className="absolute left-0 top-0 h-1 w-full bg-[#F58634]" />
 
-          <div className="pointer-events-none absolute -right-32 -top-40 h-[500px] w-[500px] rounded-full bg-[#F58634]/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-40 -left-20 h-[400px] w-[400px] rounded-full border border-white/[0.05]" />
+          <div className="pointer-events-none absolute -right-32 -top-40 h-125 w-125 rounded-full bg-[#F58634]/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-40 -left-20 h-100 w-100 rounded-full border border-white/5" />
 
           <div className="pointer-events-none absolute inset-0 opacity-[0.035]">
             <div className="absolute left-1/4 top-0 h-full w-px bg-white" />
@@ -24,9 +23,8 @@ export default function TourPackage_Category_CTA({ data }) {
             <div className="absolute left-3/4 top-0 h-full w-px bg-white" />
           </div>
 
-          <div className="relative flex min-h-[380px] flex-col justify-between p-8 sm:p-12 md:p-16 lg:p-20">
-            {/* Removed the standalone decorative arrow — it wasn't a
-                link or button, just floating with nothing to do */}
+          <div className="relative flex min-h-95 flex-col justify-between p-8 sm:p-12 md:p-16 lg:p-20">
+ 
             <div className="flex items-center gap-3">
               <span className="font-['Fraunces'] text-3xl font-light text-white/35">
                 01

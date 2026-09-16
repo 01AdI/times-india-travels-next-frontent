@@ -2,7 +2,7 @@
 export default function CarRental_content() {
   return (
     <>
-      <section className="bg-[#F2FAFB] px-6 py-13 sm:py-13 lg:py-14">
+      <section className="bg-[#FAF5EB] px-6 py-13 sm:py-13 lg:py-14">
         <div className="mx-auto max-w-4xl text-center">
           <span
             className="
@@ -11,7 +11,7 @@ export default function CarRental_content() {
               font-semibold
               uppercase
               tracking-[0.28em]
-              text-[#F58634]
+              text-[#B85128]
               sm:text-xs
             "
           >
@@ -25,7 +25,7 @@ export default function CarRental_content() {
               text-[clamp(2rem,4vw,3rem)]
               font-medium
               leading-tight
-              text-[#0B3C49]
+              text-[#173C3A]
             "
           >
             Chauffeur-driven journeys,
@@ -33,7 +33,7 @@ export default function CarRental_content() {
             built around you
           </h2>
 
-          <div className="mx-auto mt-6 h-px w-20 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-px w-30 bg-[#F58634]" />
 
           <p
             className="
@@ -43,7 +43,7 @@ export default function CarRental_content() {
               font-['Inter']
               text-[15px]
               leading-[1.85]
-              text-[#124d56]/70
+              text-[#476763]/80
               sm:text-base
             "
           >
@@ -60,7 +60,7 @@ export default function CarRental_content() {
               font-['Inter']
               text-[15px]
               leading-[1.85]
-              text-[#124d56]/65
+              text-[#476763]/80
               sm:text-base
             "
           >

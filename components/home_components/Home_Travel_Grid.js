@@ -33,7 +33,7 @@ export default function Home_Travel_Grid() {
   const [activeCard, setActiveCard] = useState(null);
 
   return (
-    <section id="tour-packages" className="overflow-hidden bg-[#F2FAFB] py-14 sm:py-14 lg:py-14">
+    <section id="tour-packages" className="overflow-hidden bg-[#FAF5EB] py-14 sm:py-14 lg:py-14">
         {/* CENTERED SECTION INTRO */}
 
       <div className="mx-auto max-w-3xl px-6 text-center">
@@ -44,7 +44,7 @@ export default function Home_Travel_Grid() {
             font-semibold
             uppercase
             tracking-[0.25em]
-            text-[#F58634]
+            text-[#B85128]
           "
         >
           Explore India
@@ -57,7 +57,7 @@ export default function Home_Travel_Grid() {
             text-5xl
             font-semibold
             leading-tight
-            text-[#0B3C49]
+            text-[#173C3A]
             sm:text-6xl
           "
         >
@@ -71,7 +71,7 @@ export default function Home_Travel_Grid() {
             max-w-2xl
             text-lg
             leading-relaxed
-            text-[#6D6D6D]
+            text-[#476763]/60
           "
         >
           From majestic monuments and peaceful backwaters to colorful cities
@@ -541,21 +541,21 @@ export default function Home_Travel_Grid() {
       </div>
 
       <div className="flex items-center justify-center gap-4 px-6 py-14 sm:py-16">
-        <span className="h-px w-10 bg-[#F58634]/50" />
+        <span className="h-px w-10 bg-[#B85128]/50" />
 
         <span
           className="
             font-['Fraunces']
             text-sm
             italic
-            text-[#124D56]/65
+            text-[#476763]/60
             sm:text-base
           "
         >
           India, thoughtfully experienced.
         </span>
 
-        <span className="h-px w-10 bg-[#F58634]/50" />
+        <span className="h-px w-10 bg-[#B85128]/50" />
       </div>
     </section>
   );

@@ -130,14 +130,20 @@ function getPackages(category) {
   );
 }
 
-export default function Footer() {
+export default function Footer({ initialCategories = [] }) {
 
   const dispatch = useDispatch();
   const pathname = usePathname();
 
-  const categories =useSelector(
+  const reduxCategories =useSelector(
       (state) => state.tourCategory?.categories
     ) || [];
+
+  // Prefer the server-fetched category list for the first paint (so the
+  // footer's tour-category links — present on every page — are in the
+  // server-rendered HTML for crawlers/tools that don't execute JS), then
+  // switch to the Redux copy once the client fetch completes.
+  const categories = reduxCategories.length > 0 ? reduxCategories : initialCategories;
 
   const categoriesStatus =useSelector(
       (state) => state.tourCategory?.status
@@ -163,9 +169,9 @@ export default function Footer() {
   return (
     <>
 
-      <div className="relative w-full overflow-hidden bg-[#F2FAFB] pt-10 leading-0">
+      <div className="relative w-full bg-[#FAF5EB] pt-10 leading-0">
         <img
-          src="https://res.cloudinary.com/images-backend/image/upload/v1786119995/india_skyline_teal_transparent_pplv6o.png"
+          src="https://res.cloudinary.com/giz8nvjr/image/upload/v1788784258/india_skyline_teal_transparent_pplv6o.png"
           alt=""
           aria-hidden="true"
           decoding="async"

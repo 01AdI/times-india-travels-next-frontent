@@ -560,13 +560,13 @@ export default function Contact_Us_Form() {
                     font-['Fraunces']
                     text-xl
                     italic
-                    text-[#F58634]
+                    text-cyan-300
                   "
                 >
                   Begin here
                 </span>
 
-                <span className="h-px w-12 bg-white/25" />
+                <span className="h-px w-12 bg-white" />
 
                 <span
                   className="
@@ -575,7 +575,7 @@ export default function Contact_Us_Form() {
                     font-semibold
                     uppercase
                     tracking-[0.3em]
-                    text-white/60
+                    text-white
                   "
                 >
                   Your India
@@ -596,7 +596,7 @@ export default function Contact_Us_Form() {
               >
                 Plan a journey
 
-                <span className="block italic text-[#F58634]">
+                <span className="block italic text-cyan-500">
                   worth remembering.
                 </span>
               </h2>
@@ -680,7 +680,7 @@ export default function Contact_Us_Form() {
                     font-['Fraunces']
                     text-xl
                     italic
-                    text-[#F58634]
+                    text-cyan-300
                   "
                 >
                   01
@@ -706,7 +706,7 @@ export default function Contact_Us_Form() {
                 className="
                   h-4
                   w-4
-                  text-[#F58634]
+                  text-cyan-300
                 "
               />
             </div>
@@ -725,7 +725,7 @@ export default function Contact_Us_Form() {
             >
               Tell us about
 
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-cyan-500">
                 your journey.
               </span>
             </h3>
@@ -867,7 +867,7 @@ export default function Contact_Us_Form() {
                     font-bold
                     uppercase
                     tracking-[0.28em]
-                    text-[#F58634]
+                    text-cyan-300
                   "
                 >
                   Your details
@@ -955,7 +955,7 @@ export default function Contact_Us_Form() {
                     font-bold
                     uppercase
                     tracking-[0.28em]
-                    text-[#F58634]
+                    text-cyan-300
                   "
                 >
                   Your journey
@@ -1047,7 +1047,7 @@ export default function Contact_Us_Form() {
                     font-bold
                     uppercase
                     tracking-[0.28em]
-                    text-[#F58634]
+                    text-cyan-300
                   "
                 >
                   Preferences
@@ -1649,7 +1649,7 @@ export default function Contact_Us_Form() {
                     font-bold
                     uppercase
                     tracking-[0.2em]
-                    text-[#0B3C49]
+                    text-white
                     shadow-[0_15px_40px_rgba(245,134,52,0.20)]
                     transition-all
                     duration-500
@@ -1670,8 +1670,8 @@ export default function Contact_Us_Form() {
                           animate-spin
                           rounded-full
                           border-2
-                          border-[#0B3C49]/25
-                          border-t-[#0B3C49]
+                          border-white/25
+                          border-t-white
                         "
                       />
 
@@ -1711,8 +1711,8 @@ export default function Contact_Us_Form() {
                           items-center
                           justify-center
                           rounded-full
-                          bg-[#0B3C49]
-                          text-[#F58634]
+                          bg-[#ee9b60]
+                          text-white
                           transition-transform
                           duration-500
                           group-hover:translate-x-1

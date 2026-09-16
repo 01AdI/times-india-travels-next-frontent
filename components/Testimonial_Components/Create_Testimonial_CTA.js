@@ -16,57 +16,18 @@ export default function Create_Testimonial_CTA() {
 
   return (
     <>
-      {/* ============================================================
-          CREATE TESTIMONIAL CTA
-      ============================================================ */}
 
       <section
         className="
           relative
           overflow-hidden
-          bg-[#F2FAFB]
+          bg-[#124d56]
           px-6
           py-20
           sm:py-24
           md:py-28
         "
       >
-        {/* ==========================================================
-            DECORATIVE BACKGROUND
-        ========================================================== */}
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -right-32
-            -top-32
-            h-80
-            w-80
-            rounded-full
-            bg-[#1EA5BE]/[0.06]
-            blur-3xl
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -bottom-40
-            -left-32
-            h-96
-            w-96
-            rounded-full
-            bg-[#F58634]/[0.05]
-            blur-3xl
-          "
-        />
-
-        {/* ==========================================================
-            CONTENT
-        ========================================================== */}
-
         <motion.div
           initial={{
             opacity: 0,
@@ -95,17 +56,14 @@ export default function Create_Testimonial_CTA() {
             className="
               relative
               overflow-hidden
-              rounded-[2rem]
+              rounded-4xl
               border
               border-[#123138]/10
               bg-white
               shadow-[0_25px_80px_-45px_rgba(18,49,56,0.35)]
             "
           >
-            {/* ======================================================
-                INNER CONTENT
-            ====================================================== */}
-
+           
             <div
               className="
                 grid
@@ -113,9 +71,6 @@ export default function Create_Testimonial_CTA() {
                 lg:grid-cols-[1fr_auto]
               "
             >
-              {/* ==================================================
-                  LEFT CONTENT
-              ================================================== */}
 
               <div
                 className="
@@ -155,7 +110,7 @@ export default function Create_Testimonial_CTA() {
                       font-semibold
                       uppercase
                       tracking-[0.3em]
-                      text-[#F58634]
+                      text-[#B85128]
                     "
                   >
                     Share Your Journey
@@ -252,15 +207,11 @@ export default function Create_Testimonial_CTA() {
                 </button>
               </div>
 
-              {/* ==================================================
-                  RIGHT DECORATIVE PANEL
-              ================================================== */}
-
               <div
                 className="
                   relative
                   hidden
-                  min-w-[280px]
+                  min-w-70
                   items-center
                   justify-center
                   overflow-hidden
@@ -306,7 +257,7 @@ export default function Create_Testimonial_CTA() {
                     top-7
                     h-16
                     w-16
-                    text-white/[0.06]
+                    text-white/6
                   "
                   fill="currentColor"
                 />
@@ -373,18 +324,14 @@ export default function Create_Testimonial_CTA() {
               </div>
             </div>
 
-            {/* ======================================================
-                BOTTOM ACCENT
-            ====================================================== */}
-
             <div
               className="
                 absolute
                 bottom-0
                 left-0
-                h-[3px]
+                h-0.75
                 w-full
-                bg-gradient-to-r
+                bg-linear-to-r
                 from-[#F58634]
                 via-[#1EA5BE]
                 to-transparent
@@ -393,10 +340,6 @@ export default function Create_Testimonial_CTA() {
           </div>
         </motion.div>
       </section>
-
-      {/* ============================================================
-          CREATE TESTIMONIAL MODAL
-      ============================================================ */}
 
       {isModalOpen && (
         <Create_Testimonials

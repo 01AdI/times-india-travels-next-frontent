@@ -111,7 +111,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
 
   if (detailStatus === "loading") {
     return (
-      <section className="flex min-h-[70vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[70vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="text-center">
           <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-[#123138]/10 border-t-[#F58634]" />
 
@@ -126,7 +126,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
 
   if (detailStatus === "failed" || !review) {
     return (
-      <section className="flex min-h-[70vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[70vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="text-center">
           <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#D9701F]">
             Testimonials
@@ -346,7 +346,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
             z-10
             h-17.5
             w-full
-            text-[#F2FAFB]
+            text-[#FAF5EB]
             sm:h-21.25
             md:h-25
           "
@@ -362,7 +362,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
 
       <section
         className="
-          bg-[#F2FAFB]
+          bg-[#FAF5EB]
           px-6
           py-20
           sm:py-24
@@ -1261,7 +1261,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
               font-semibold
               uppercase
               tracking-[0.3em]
-              text-[#F58634]
+              text-cyan-300
             "
           >
             Your Story Could Be Next

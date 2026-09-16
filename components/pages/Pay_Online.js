@@ -109,7 +109,7 @@ function SectionHeading({
         <p
           className="
             mt-3 max-w-2xl pl-0 font-['Inter'] text-xs
-            leading-relaxed text-[#124d56]/55 sm:pl-[52px]
+            leading-relaxed text-[#124d56]/55 sm:pl-13
           "
         >
           {description}
@@ -219,26 +219,6 @@ export default function PayOnline() {
     }));
   };
 
-  /*
-   * -------------------------------------------------------------
-   * GET A VALUE FROM THE ACTUAL HTML FORM
-   * -------------------------------------------------------------
-   *
-   * This is important for browser autofill.
-   *
-   * Chrome/Safari can sometimes fill an input visually without
-   * triggering React's onChange event.
-   *
-   * Therefore React state may still contain:
-   *
-   * formData.name === ""
-   *
-   * while the actual input contains:
-   *
-   * "Aditya Rathore"
-   *
-   * FormData reads the actual DOM value.
-   */
   const getFormValue = (
     htmlFormData,
     fieldName,
@@ -256,11 +236,6 @@ export default function PayOnline() {
     return fallback?.toString().trim() || "";
   };
 
-  /*
-   * -------------------------------------------------------------
-   * BUILD ACTUAL FORM DATA
-   * -------------------------------------------------------------
-   */
   const getActualFormData = (formElement) => {
     const htmlFormData = new FormData(formElement);
 
@@ -282,10 +257,6 @@ export default function PayOnline() {
         "paymentDetails",
         formData.paymentDetails
       ),
-
-      /*
-       * CUSTOMER
-       */
 
       name: getFormValue(
         htmlFormData,
@@ -317,11 +288,6 @@ export default function PayOnline() {
         formData.postalCode
       ),
 
-      /*
-       * CountrySelect is a custom React component.
-       *
-       * React state is therefore used as fallback.
-       */
       country:
         getFormValue(
           htmlFormData,
@@ -341,21 +307,12 @@ export default function PayOnline() {
         formData.confirmEmail
       ),
 
-      /*
-       * PhoneInput is also a custom React component.
-       *
-       * Use DOM value first, React state as fallback.
-       */
       telephone:
         getFormValue(
           htmlFormData,
           "telephone",
           formData.telephone
         ) || formData.telephone,
-
-      /*
-       * BILLING
-       */
 
       billingName: getFormValue(
         htmlFormData,
@@ -403,14 +360,6 @@ export default function PayOnline() {
     };
   };
 
-  /*
-   * -------------------------------------------------------------
-   * SAME AS CUSTOMER
-   * -------------------------------------------------------------
-   *
-   * We also read the actual DOM values here so browser autofill
-   * works with this checkbox too.
-   */
   const handleSameAsCustomerChange = (event) => {
     const checked = event.target.checked;
 
@@ -442,11 +391,6 @@ export default function PayOnline() {
     }
   };
 
-  /*
-   * -------------------------------------------------------------
-   * VALIDATION
-   * -------------------------------------------------------------
-   */
   const validateForm = (data) => {
     const amount = Number(data.amount);
 
@@ -540,11 +484,6 @@ export default function PayOnline() {
     return "";
   };
 
-  /*
-   * -------------------------------------------------------------
-   * SUBMIT
-   * -------------------------------------------------------------
-   */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -554,22 +493,10 @@ export default function PayOnline() {
 
     setSubmitError("");
 
-    /*
-     * IMPORTANT:
-     *
-     * Read the actual HTML form.
-     *
-     * This captures browser autofill values even when React
-     * state has not received an onChange event.
-     */
     let actualData = getActualFormData(
       event.currentTarget
     );
 
-    /*
-     * If "Same as customer" is enabled, billing information
-     * should always be copied from the ACTUAL customer values.
-     */
     if (sameAsCustomer) {
       actualData = {
         ...actualData,
@@ -590,9 +517,6 @@ export default function PayOnline() {
       };
     }
 
-    /*
-     * Validate actual browser values.
-     */
     const validationError =
       validateForm(actualData);
 
@@ -601,24 +525,6 @@ export default function PayOnline() {
       return;
     }
 
-    /*
-     * -----------------------------------------------------------
-     * FLAT PAYLOAD
-     * -----------------------------------------------------------
-     *
-     * Your backend /pay-now/create route expects:
-     *
-     * req.body.name
-     * req.body.email
-     * req.body.address
-     * etc.
-     *
-     * NOT:
-     *
-     * req.body.customer.name
-     *
-     * Therefore we send everything at the top level.
-     */
     const enquiryData = {
       amount: Number(actualData.amount),
 
@@ -671,29 +577,6 @@ export default function PayOnline() {
         actualData.billingTelephone,
     };
 
-    /*
-     * DEBUG
-     *
-     * Keep these for now.
-     *
-     * When you submit the form, the console should show:
-     *
-     * name: "Your Name"
-     *
-     * instead of:
-     *
-     * name: ""
-     */
-    console.log(
-      "Pay Now actual form values:",
-      actualData
-    );
-
-    console.log(
-      "Pay Now backend payload:",
-      enquiryData
-    );
-
     try {
       setIsSubmitting(true);
 
@@ -738,19 +621,16 @@ export default function PayOnline() {
     <main
       className="
         min-h-screen
-        bg-[#F2FAFB]
-        text-[#0B3C49]
+        bg-[#FAF5EB]
+        text-[#173C3A]
       "
     >
-      {/* =========================================================
-          HERO
-      ========================================================= */}
 
       <section
         className="
           relative overflow-hidden
-          border-b border-[#124d56]/8
-          bg-[#F2FAFB]
+          border-b border-[#173C3A]/8
+          bg-[#FAF5EB]
         "
       >
         <div
@@ -764,7 +644,7 @@ export default function PayOnline() {
         <div
           className="
             pointer-events-none absolute
-            -left-40 bottom-[-180px]
+            -left-40 -bottom-45
             h-105 w-105 rounded-full
             bg-[#124d56]/6 blur-3xl
           "
@@ -833,13 +713,13 @@ export default function PayOnline() {
                 font-medium
                 leading-[1.05]
                 tracking-tight
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-5xl
                 lg:text-6xl
               "
             >
               Make Your Payment
-              <span className="text-[#F58634]">
+              <span className="text-[#B85128]">
                 {" "}
                 Simply.
               </span>
@@ -851,7 +731,7 @@ export default function PayOnline() {
                 font-['Inter']
                 text-sm
                 leading-7
-                text-[#124d56]/60
+                text-[#476763]/60
                 sm:text-base
               "
             >
@@ -924,10 +804,6 @@ export default function PayOnline() {
           </div>
         </div>
       </section>
-
-      {/* =========================================================
-          SUCCESS
-      ========================================================= */}
 
       {submitted ? (
         <section
@@ -1044,9 +920,6 @@ export default function PayOnline() {
           </div>
         </section>
       ) : (
-        /* =========================================================
-           FORM
-        ========================================================= */
 
         <section
           className="
@@ -1062,9 +935,6 @@ export default function PayOnline() {
               lg:grid-cols-[minmax(0,1fr)_320px]
             "
           >
-            {/* =====================================================
-                MAIN FORM
-            ===================================================== */}
 
             <div>
               {submitError && (
@@ -1124,9 +994,6 @@ export default function PayOnline() {
                   shadow-[0_20px_70px_rgba(18,77,86,0.06)]
                 "
               >
-                {/* =================================================
-                    PAYMENT REQUEST
-                ================================================= */}
 
                 <div
                   className="
@@ -1247,10 +1114,6 @@ export default function PayOnline() {
                     </div>
                   </div>
                 </div>
-
-                {/* =================================================
-                    CUSTOMER INFORMATION
-                ================================================= */}
 
                 <div
                   className="
@@ -1496,10 +1359,6 @@ export default function PayOnline() {
                     </div>
                   </div>
                 </div>
-
-                {/* =================================================
-                    BILLING INFORMATION
-                ================================================= */}
 
                 <div className="p-6 sm:p-8 lg:p-9">
                   <div
@@ -1749,10 +1608,6 @@ export default function PayOnline() {
                     </div>
                   </div>
 
-                  {/* =================================================
-                      SUBMIT
-                  ================================================= */}
-
                   <div
                     className="
                       mt-8
@@ -1865,7 +1720,7 @@ export default function PayOnline() {
                     text-[10px]
                     uppercase
                     tracking-[0.12em]
-                    text-[#124d56]/35
+                    text-[#476763]
                   "
                 >
                   Secure request · Personalised assistance ·
@@ -1873,10 +1728,6 @@ export default function PayOnline() {
                 </p>
               </div>
             </div>
-
-            {/* =====================================================
-                SIDE INFORMATION
-            ===================================================== */}
 
             <aside
               className="

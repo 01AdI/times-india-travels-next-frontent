@@ -1,26 +1,15 @@
 import { ArrowRight, MapPin } from "lucide-react";
 
-// ============================================================
-// CONTACT US — INDIA IS NOT A DESTINATION
-// ============================================================
 
 export default function Contact_Us_IndiaIsNotADestination() {
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-15">
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-15">
 
-
-      {/* =====================================================
-          MAIN CONTAINER
-      ====================================================== */}
-
-      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-14">
 
         <div className="grid items-center gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
 
-          {/* =================================================
-              LEFT — IMAGE
-          ================================================== */}
-
+     
           <div className="relative">
 
             {/* Main Image */}
@@ -28,10 +17,10 @@ export default function Contact_Us_IndiaIsNotADestination() {
             <div
               className="
                 relative
-                h-[480px]
+                h-120
                 overflow-hidden
                 rounded-[28px]
-                sm:h-[560px]
+                sm:h-140
               "
             >
               <img
@@ -42,7 +31,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                   w-full
                   object-cover
                   transition-transform
-                  duration-[1200ms]
+                  duration-1200
                   hover:scale-[1.035]
                 "
               />
@@ -53,7 +42,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 className="
                   absolute
                   inset-0
-                  bg-gradient-to-t
+                  bg-linear-to-t
                   from-[#071F27]/60
                   via-transparent
                   to-[#0B3C49]/5
@@ -110,10 +99,6 @@ export default function Contact_Us_IndiaIsNotADestination() {
               </div>
             </div>
 
-            {/* =================================================
-                FLOATING ACCENT IMAGE
-            ================================================== */}
-
             <div
               className="
                 absolute
@@ -140,10 +125,6 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
           </div>
 
-          {/* =================================================
-              RIGHT — EDITORIAL CONTENT
-          ================================================== */}
-
           <div className="max-w-xl">
 
             {/* EYEBROW */}
@@ -155,13 +136,13 @@ export default function Contact_Us_IndiaIsNotADestination() {
                   font-['Fraunces']
                   text-xl
                   italic
-                  text-cyan-500
+                  text-[#B85128]
                 "
               >
                 Beyond the itinerary
               </span>
 
-              <span className="h-px w-12 bg-[#0B3C49]/15" />
+              <span className="h-px w-12 bg-[#B85128]/45" />
 
               <span
                 className="
@@ -170,7 +151,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                   font-bold
                   uppercase
                   tracking-[0.28em]
-                  text-[#0B3C49]
+                  text-[#B85128]
                 "
               >
                 Discover India
@@ -187,13 +168,13 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 font-medium
                 leading-[0.94]
                 tracking-[-0.045em]
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-6xl
                 md:text-7xl
               "
             >
               India is not
-              <span className="block italic text-cyan-500">
+              <span className="block italic text-[#B85128]">
                 a destination.
               </span>
             </h2>
@@ -207,7 +188,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 font-['Inter']
                 text-sm
                 leading-7
-                text-[#0B3C49]
+                text-[#476763]
                 sm:text-base
               "
             >
@@ -223,7 +204,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 font-['Inter']
                 text-sm
                 leading-7
-                text-[#0B3C49]
+                text-[#476763]
                 sm:text-base
               "
             >
@@ -232,15 +213,9 @@ export default function Contact_Us_IndiaIsNotADestination() {
               you feel while you are there.
             </p>
 
-            {/* =================================================
-                DIVIDER
-            ================================================== */}
 
             <div className="my-9 h-px w-full bg-[#0B3C49]/10" />
 
-            {/* =================================================
-                SMALL STATEMENT
-            ================================================== */}
 
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
 
@@ -250,7 +225,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-['Fraunces']
                     text-3xl
                     font-medium
-                    text-[#0B3C49]
+                    text-[#173C3A]
                   "
                 >
                   01
@@ -264,7 +239,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-bold
                     uppercase
                     tracking-[0.2em]
-                    text-[#0B3C49]
+                    text-[#476763]
                   "
                 >
                   Personal
@@ -279,7 +254,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-['Fraunces']
                     text-3xl
                     font-medium
-                    text-[#0B3C49]
+                    text-[#173C3A]
                   "
                 >
                   02
@@ -293,7 +268,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-bold
                     uppercase
                     tracking-[0.2em]
-                    text-[#0B3C49]
+                    text-[#476763]
                   "
                 >
                   Local
@@ -308,7 +283,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-['Fraunces']
                     text-3xl
                     font-medium
-                    text-[#0B3C49]
+                    text-[#173C3A]
                   "
                 >
                   03
@@ -322,7 +297,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                     font-bold
                     uppercase
                     tracking-[0.2em]
-                    text-[#0B3C49]
+                    text-[#476763]
                   "
                 >
                   Stories
@@ -339,9 +314,6 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
       </div>
 
-      {/* =====================================================
-          BOTTOM DECORATIVE LINE
-      ====================================================== */}
 
       <div
         className="

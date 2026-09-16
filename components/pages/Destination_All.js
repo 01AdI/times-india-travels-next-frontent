@@ -30,7 +30,7 @@ export default function Destination_All({ initialDestinations = [] }) {
 
   if ((status === "loading" || status === "idle") &&destinations.length === 0) {
     return (
-      <main className="min-h-[70vh] bg-[#F2FAFB]">
+      <main className="min-h-[70vh] bg-[#FAF5EB]">
         <section className="flex min-h-[70vh] items-center justify-center px-6">
           <div className="text-center">
 
@@ -77,7 +77,7 @@ export default function Destination_All({ initialDestinations = [] }) {
 
   if (status === "failed" && destinations.length === 0) {
     return (
-      <main className="min-h-[70vh] bg-[#F2FAFB]">
+      <main className="min-h-[70vh] bg-[#FAF5EB]">
         <section
           className="
             flex

@@ -5,7 +5,7 @@ import { ArrowUpRight, ExternalLink, MapPin } from "lucide-react";
 
 export default function Home_TimeIndia_WelcomeSection() {
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB]">
+    <section className="relative overflow-hidden bg-[#FAF5EB]">
       <div className="mx-auto max-w-350 px-6 py-13 sm:px-17 sm:py-12 md:px-16 md:py-15 lg:px-20 lg:py-15">
      
         <div className="grid items-center gap-20 lg:grid-cols-2 lg:gap-26">
@@ -16,7 +16,7 @@ export default function Home_TimeIndia_WelcomeSection() {
           >
 
             <div className="mb-7 flex items-center gap-3">
-              <span className="h-px w-9 bg-[#F58634]" />
+              <span className="h-px w-9 bg-[#B85128]" />
 
               <span
                 className="
@@ -25,7 +25,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                   font-semibold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 About Us
@@ -39,7 +39,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                 font-medium
                 leading-[1.02]
                 tracking-[-0.04em]
-                text-[#0B3C49]
+                text-[#173C3A]
               "
             >
               Welcome to
@@ -55,7 +55,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                 font-['Inter']
                 text-[15px]
                 leading-8
-                text-[#536D72]
+                text-[#476763]
                 sm:text-base
               "
             >
@@ -73,7 +73,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                 font-['Inter']
                 text-[15px]
                 leading-8
-                text-[#536D72]
+                text-[#476763]
                 sm:text-base
               "
             >
@@ -100,7 +100,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                     font-['Fraunces']
                     text-3xl
                     font-medium
-                    text-[#0B3C49]
+                    text-[#173C3A]
                     sm:text-4xl
                   "
                 >
@@ -114,7 +114,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                     text-xs
                     uppercase
                     tracking-wider
-                    text-[#71878B]
+                    text-[#476763]
                   "
                 >
                   Years Experience
@@ -127,7 +127,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                     font-['Fraunces']
                     text-3xl
                     font-medium
-                    text-[#0B3C49]
+                    text-[#173C3A]
                     sm:text-4xl
                   "
                 >
@@ -141,7 +141,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                     text-xs
                     uppercase
                     tracking-wider
-                    text-[#71878B]
+                    text-[#476763]
                   "
                 >
                   TripAdvisor Reviews
@@ -386,7 +386,7 @@ export default function Home_TimeIndia_WelcomeSection() {
             gap-4
           "
         >
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
 
           <span
             className="
@@ -400,7 +400,7 @@ export default function Home_TimeIndia_WelcomeSection() {
             India, thoughtfully experienced.
           </span>
 
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
         </motion.div>
       </div>
     </section>

@@ -6,9 +6,6 @@ import { motion } from "framer-motion";
 import { tourCategories } from "../../utils/TourPackage_data";
 
 export default function TourPackage_Sub_RelatedTours({ tour }) {
-  // ============================================================
-  // FIND TOURS FROM THE SAME CATEGORY
-  // ============================================================
 const relatedTours = Object.values(tourCategories)
   .flatMap((category) => category.packages || [])
   .filter(
@@ -25,13 +22,9 @@ const relatedTours = Object.values(tourCategories)
   }
 
   return (
-    <section className="bg-[#F2FAFB] py-13 sm:py-13 md:py-15">
+    <section className="bg-[#FAF5EB] py-13 sm:py-13 md:py-15">
 
-      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 md:px-16 lg:px-20">
-
-        {/* =====================================================
-            HEADER
-        ====================================================== */}
+      <div className="mx-auto max-w-350 px-6 sm:px-10 md:px-16 lg:px-20">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -62,7 +55,7 @@ const relatedTours = Object.values(tourCategories)
                 className="
                   font-['Fraunces']
                   text-xl
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 03
@@ -93,14 +86,14 @@ const relatedTours = Object.values(tourCategories)
                 font-medium
                 leading-[0.98]
                 tracking-[-0.04em]
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-6xl
                 md:text-7xl
               "
             >
               You may also
 
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-[#B85128]">
                 like these journeys.
               </span>
             </h2>

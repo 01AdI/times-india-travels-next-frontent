@@ -2,7 +2,7 @@
 export default function Tour_Hero(){
     return(
         <section
-      className="hero-section relative h-[380px] sm:h-[440px] md:h-[500px] flex items-center justify-center bg-cover bg-center overflow-hidden"
+      className="hero-section relative h-95 sm:h-110 md:h-125 flex items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
         backgroundImage:
           "url('https://i.pinimg.com/736x/31/bc/84/31bc84e0fa95c63cffe8a77f39d3e894.jpg')",
@@ -28,7 +28,7 @@ export default function Tour_Hero(){
         </h1>
 
         <div
-          className="mt-5 mx-auto w-[120px] h-[1px] bg-[#F58634]"
+          className="mt-5 mx-auto w-30 h-px bg-[#F58634]"
           aria-hidden="true"
         />
 
@@ -40,7 +40,7 @@ export default function Tour_Hero(){
 
       {/* Bottom Curve */}
       <svg
-        className="absolute bottom-0 left-0 w-full h-[70px] sm:h-[85px] md:h-[100px] text-[#F2FAFB] z-10"
+        className="absolute bottom-0 left-0 w-full h-17.5 sm:h-21.25 md:h-25 text-[#FAF5EB] z-10"
         viewBox="0 0 1440 120"
         fill="currentColor"
         preserveAspectRatio="none"

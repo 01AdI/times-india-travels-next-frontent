@@ -8,14 +8,14 @@ const MotionLink = motion(Link);
 
 export default function TourPackage_Category_SubCategory({subcategories}) {
   return (
-    <section className="bg-[#F2FAFB] px-5 pb-20 sm:px-8 lg:px-12">
+    <section className="bg-[#FAF5EB] px-5 pb-20 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-350">
-        <div className="mb-12 text-center">
-          <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F58634]">
+        <div className="mb-12 pt-5 text-center">
+          <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B85128]">
             Our Journeys
           </p>
 
-          <h2 className="mt-3 font-['Fraunces'] text-4xl text-[#0B3C49] sm:text-5xl">
+          <h2 className="mt-3 font-['Fraunces'] text-4xl text-[#173C3A] sm:text-5xl">
             Explore Our Tours
           </h2>
         </div>
@@ -29,16 +29,16 @@ export default function TourPackage_Category_SubCategory({subcategories}) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative h-[420px] overflow-hidden rounded-[28px] block"
+              className="group relative h-105 overflow-hidden rounded-[28px] block"
             >
               <img
-                src={tour.thumbnail}
+                src={tour.thumbnail || tour.heroImage}
                 alt={tour.name}
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-all duration-[1200ms] group-hover:scale-110 group-hover:grayscale-0"
+                className="absolute inset-0 h-full w-full object-cover transition-all duration-1200 group-hover:scale-110 group-hover:grayscale-0"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/45 to-black/5" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/45 to-black/5" />
 
               <span className="absolute left-6 top-6 font-['Fraunces'] text-4xl text-white/60">
                 {String(index + 1).padStart(2, "0")}

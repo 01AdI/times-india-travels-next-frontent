@@ -50,39 +50,11 @@ export default function RefundPolicy() {
 
   return (
     <>
-    <section className="relative overflow-hidden bg-[#F8FBFB]">
+    <section className="relative overflow-hidden bg-[#FAF5EB]">
 
       <div className="relative border-b border-[#124D56]/10">
 
         {/* Decorative background */}
-
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div
-            className="
-              absolute
-              -right-32
-              -top-32
-              h-80
-              w-80
-              rounded-full
-              bg-[#F58634]/6
-              blur-3xl
-            "
-          />
-
-          <div
-            className="
-              absolute
-              -left-32
-              -bottom-25
-              h-80
-              w-80
-              rounded-full
-              bg-[#124D56]/5
-              blur-3xl
-            "
-          />
-        </div>
 
         <div
           className="
@@ -112,11 +84,7 @@ export default function RefundPolicy() {
             }}
             className="flex items-center gap-4"
           >
-            <span className="font-['Fraunces'] text-xl italic text-[#F58634]">
-              05
-            </span>
-
-            <span className="h-px w-10 bg-[#124D56]/20" />
+            <span className="h-px w-10 bg-[#B85128]/20" />
 
             <span
               className="
@@ -125,7 +93,7 @@ export default function RefundPolicy() {
                 font-semibold
                 uppercase
                 tracking-[0.32em]
-                text-[#124D56]/70
+                text-[#B85128]/70
               "
             >
               Travel Information
@@ -150,11 +118,11 @@ export default function RefundPolicy() {
               font-medium
               leading-[0.92]
               tracking-[-0.055em]
-              text-[#0B3C49]
+              text-[#173C3A]
             "
           >
             Refunds,
-            <span className="block italic text-[#F58634]">
+            <span className="block italic text-[#B85128]">
               explained simply.
             </span>
           </motion.h1>
@@ -177,7 +145,7 @@ export default function RefundPolicy() {
               font-light
               leading-7
               tracking-wide
-              text-[#536D72]
+              text-[#476763]
               sm:text-base
               sm:leading-8
             "
@@ -245,12 +213,12 @@ export default function RefundPolicy() {
                 font-medium
                 leading-none
                 tracking-[-0.035em]
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-5xl
               "
             >
               Every booking has
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-[#B85128]">
                 its own terms.
               </span>
             </h2>
@@ -263,7 +231,7 @@ export default function RefundPolicy() {
               font-['Inter']
               text-[15px]
               leading-8
-              text-[#536D72]
+              text-[#476763]
               sm:text-base
             "
           >
@@ -302,7 +270,7 @@ export default function RefundPolicy() {
                   font-['Fraunces']
                   text-xl
                   italic
-                  text-[#F58634]
+                  text-[#B85128]
                 "
               >
                 01
@@ -568,12 +536,12 @@ export default function RefundPolicy() {
                 font-medium
                 leading-none
                 tracking-[-0.035em]
-                text-[#0B3C49]
+                text-[#173C3A]
                 sm:text-5xl
               "
             >
               How a refund
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-[#B85128]">
                 request works.
               </span>
             </h2>
@@ -730,7 +698,7 @@ export default function RefundPolicy() {
 
             <div className="flex items-center gap-3">
 
-              <span className="h-px w-8 bg-[#F58634]" />
+              <span className="h-px w-8 bg-cyan-300" />
 
               <span
                 className="
@@ -760,7 +728,7 @@ export default function RefundPolicy() {
               "
             >
               Have a question about
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-cyan-500">
                 your refund?
               </span>
             </h2>
@@ -848,14 +816,14 @@ export default function RefundPolicy() {
           "
         >
 
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
 
           <div className="flex items-center gap-2">
 
             <ShieldCheck
               size={15}
               strokeWidth={1.5}
-              className="text-[#124D56]/60"
+              className="text-[#B85128]/60"
             />
 
             <span
@@ -863,7 +831,7 @@ export default function RefundPolicy() {
                 font-['Fraunces']
                 text-sm
                 italic
-                text-[#124D56]/65
+                text-[#B85128]/65
                 sm:text-base
               "
             >
@@ -872,7 +840,7 @@ export default function RefundPolicy() {
 
           </div>
 
-          <span className="h-px w-10 bg-[#F58634]/50" />
+          <span className="h-px w-10 bg-[#B85128]/50" />
 
         </motion.div>
 

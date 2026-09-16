@@ -8,16 +8,8 @@ import { ArrowRight, Loader2, X } from "lucide-react";
 
 import { fetchBlogs } from "../../features/Blogs-page/blog_Slice";
 
-/* ============================================================
-   FALLBACK IMAGE
-============================================================ */
-
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1600&q=85";
-
-/* ============================================================
-   DATE FORMATTER
-============================================================ */
 
 function formatDate(date) {
   if (!date) return "";
@@ -35,15 +27,6 @@ function formatDate(date) {
   });
 }
 
-/* ============================================================
-   READING TIME
-
-   Since your listing API does not currently return readTime,
-   calculate an approximate reading time from shortDescription.
-
-   If you later add readTime to the API, we can use that instead.
-============================================================ */
-
 function calculateReadTime(text = "") {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
 
@@ -55,10 +38,6 @@ function calculateReadTime(text = "") {
 
   return `${minutes} min read`;
 }
-
-/* ============================================================
-   META ROW
-============================================================ */
 
 function MetaRow({ date, readTime, light = false }) {
   return (
@@ -92,18 +71,13 @@ function MetaRow({ date, readTime, light = false }) {
   );
 }
 
-/* ============================================================
-   FEATURED STORY
-============================================================ */
-
 function FeaturedStory({ blog }) {
-  if (!blog) return null;
   const router = useRouter();
 
+  if (!blog) return null;
+
   const image = blog.image || FALLBACK_IMAGE;
-
   const date = formatDate(blog.publishedAt);
-
   const readTime = calculateReadTime(blog.shortDescription);
 
   return (
@@ -118,10 +92,6 @@ function FeaturedStory({ blog }) {
         shadow-[0_25px_70px_rgba(11,60,73,0.12)]
       "
     >
-      {/* =====================================================
-          IMAGE
-      ====================================================== */}
-
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={image}
@@ -140,8 +110,6 @@ function FeaturedStory({ blog }) {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
         />
-
-        {/* CINEMATIC OVERLAY */}
 
         <div
           className="
@@ -167,10 +135,6 @@ function FeaturedStory({ blog }) {
           "
         />
       </div>
-
-      {/* =====================================================
-          TOP LABEL
-      ====================================================== */}
 
       <div
         className="
@@ -226,10 +190,6 @@ function FeaturedStory({ blog }) {
         </span>
       </div>
 
-      {/* =====================================================
-          CONTENT
-      ====================================================== */}
-
       <div
         className="
           relative
@@ -250,8 +210,6 @@ function FeaturedStory({ blog }) {
             group-hover:-translate-y-2
           "
         >
-          {/* CATEGORY */}
-
           <div className="mb-5 flex flex-wrap items-center gap-3">
             {blog.category && (
               <span
@@ -288,8 +246,6 @@ function FeaturedStory({ blog }) {
             )}
           </div>
 
-          {/* TITLE */}
-
           <h2
             className="
               max-w-3xl
@@ -303,8 +259,6 @@ function FeaturedStory({ blog }) {
           >
             {blog.title}
           </h2>
-
-          {/* DESCRIPTION */}
 
           <p
             className="
@@ -320,8 +274,6 @@ function FeaturedStory({ blog }) {
             {blog.shortDescription}
           </p>
 
-          {/* BOTTOM */}
-
           <div
             className="
               mt-8
@@ -333,15 +285,11 @@ function FeaturedStory({ blog }) {
               sm:justify-between
             "
           >
-            <MetaRow
-              date={date}
-              readTime={readTime}
-              light
-            />
+            <MetaRow date={date} readTime={readTime} light />
 
             <button
               type="button"
-              onClick={() => {router.push(`/blog/${blog.slug}`);}}
+              onClick={() => router.push(`/blog/${blog.slug}`)}
               className="
                 inline-flex
                 w-fit
@@ -383,8 +331,6 @@ function FeaturedStory({ blog }) {
             </button>
           </div>
 
-          {/* AUTHOR */}
-
           {blog.author && (
             <p
               className="
@@ -405,18 +351,13 @@ function FeaturedStory({ blog }) {
   );
 }
 
-/* ============================================================
-   JOURNAL CARD
-============================================================ */
-
 function JournalCard({ blog, number, expanded, onToggle }) {
   const router = useRouter();
+
   if (!blog) return null;
 
   const image = blog.image || FALLBACK_IMAGE;
-
   const date = formatDate(blog.publishedAt);
-
   const readTime = calculateReadTime(blog.shortDescription);
 
   return (
@@ -451,10 +392,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           }
         `}
       >
-        {/* =====================================================
-            IMAGE
-        ====================================================== */}
-
         <img
           src={image}
           alt={blog.title}
@@ -479,10 +416,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           }}
         />
 
-        {/* =====================================================
-            BLACK OVERLAY
-        ====================================================== */}
-
         <div
           className={`
             absolute
@@ -497,8 +430,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           `}
         />
 
-        {/* EXPANDED SIDE OVERLAY */}
-
         <div
           className={`
             absolute
@@ -512,10 +443,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             ${expanded ? "opacity-100" : "opacity-0"}
           `}
         />
-
-        {/* =====================================================
-            NUMBER
-        ====================================================== */}
 
         <div
           className="
@@ -544,10 +471,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             {String(number).padStart(2, "0")}
           </span>
         </div>
-
-        {/* =====================================================
-            CATEGORY
-        ====================================================== */}
 
         {blog.category && (
           <div
@@ -579,10 +502,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           </div>
         )}
 
-        {/* =====================================================
-            COLLAPSED CONTENT
-        ====================================================== */}
-
         <div
           className={`
             absolute
@@ -592,9 +511,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             transition-all
             duration-500
             ${
-              expanded
-                ? "translate-y-5 opacity-0"
-                : "translate-y-0 opacity-100"
+              expanded ? "translate-y-5 opacity-0" : "translate-y-0 opacity-100"
             }
           `}
         >
@@ -644,10 +561,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           </h3>
         </div>
 
-        {/* =====================================================
-            EXPANDED CONTENT
-        ====================================================== */}
-
         <div
           className={`
             absolute
@@ -666,8 +579,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           `}
         >
           <div className="max-w-3xl">
-            {/* CATEGORY / TAGS */}
-
             <div className="mb-5 flex flex-wrap items-center gap-3">
               {blog.category && (
                 <span
@@ -703,8 +614,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               )}
             </div>
 
-            {/* TITLE */}
-
             <h3
               className="
                 max-w-3xl
@@ -719,8 +628,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               {blog.title}
             </h3>
 
-            {/* DESCRIPTION */}
-
             <p
               className="
                 mt-5
@@ -734,8 +641,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             >
               {blog.shortDescription}
             </p>
-
-            {/* AUTHOR */}
 
             {blog.author && (
               <p
@@ -752,8 +657,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               </p>
             )}
 
-            {/* BOTTOM ROW */}
-
             <div
               className="
                 mt-7
@@ -765,13 +668,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                 sm:justify-between
               "
             >
-              <MetaRow
-                date={date}
-                readTime={readTime}
-                light
-              />
-
-              {/* READ MORE */}
+              <MetaRow date={date} readTime={readTime} light />
 
               <button
                 type="button"
@@ -825,16 +722,11 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           </div>
         </div>
 
-        {/* =====================================================
-            CLOSE BUTTON
-        ====================================================== */}
-
         {expanded && (
           <button
             type="button"
             onClick={(event) => {
               event.stopPropagation();
-
               onToggle();
             }}
             className="
@@ -871,37 +763,26 @@ function JournalCard({ blog, number, expanded, onToggle }) {
   );
 }
 
-/* ============================================================
-   MAIN COMPONENT
-============================================================ */
-
 export default function BlogJournal({ initialBlogs = [] }) {
   const dispatch = useDispatch();
-  /* ============================================================
-     REDUX
-  ============================================================ */
 
   const {
     blogs: reduxBlogs = [],
     status: reduxStatus = "idle",
     error = null,
-    pagination = { currentPage: 1, limit: initialBlogs.length || 10, totalPages: 1 },
+    pagination = {
+      currentPage: 1,
+      limit: initialBlogs.length || 10,
+      totalPages: 1,
+    },
   } = useSelector((state) => state.blog);
 
   const blogs = initialBlogs.length > 0 ? initialBlogs : reduxBlogs;
+
   const status = initialBlogs.length > 0 ? "succeeded" : reduxStatus;
 
-  /* ============================================================
-     LOCAL STATE
-  ============================================================ */
-
   const [active, setActive] = useState("All");
-
   const [expandedPost, setExpandedPost] = useState(null);
-
-  /* ============================================================
-     INITIAL FETCH
-  ============================================================ */
 
   useEffect(() => {
     if (status === "idle") {
@@ -909,37 +790,23 @@ export default function BlogJournal({ initialBlogs = [] }) {
     }
   }, [dispatch, status]);
 
-  /* ============================================================
-     DYNAMIC CATEGORIES
-  ============================================================ */
-const categories = useMemo(() => {
-  const categoryMap = new Map();
+  const categories = useMemo(() => {
+    const categoryMap = new Map();
 
-  blogs.forEach((blog) => {
-    const category = blog.category?.trim();
+    blogs.forEach((blog) => {
+      const category = blog.category?.trim();
 
-    if (!category) return;
+      if (!category) return;
 
-    const normalized = category.toLowerCase();
+      const normalized = category.toLowerCase();
 
-    if (!categoryMap.has(normalized)) {
-      categoryMap.set(normalized, category);
-    }
-  });
+      if (!categoryMap.has(normalized)) {
+        categoryMap.set(normalized, category);
+      }
+    });
 
-  return ["All", ...categoryMap.values()];
-}, [blogs]);
-
-  /* ============================================================
-     FEATURED BLOG
-
-     Backend:
-       featured: true
-
-     If multiple are marked featured, the newest one is used.
-
-     If none are featured, we use the newest blog as fallback.
-  ============================================================ */
+    return ["All", ...categoryMap.values()];
+  }, [blogs]);
 
   const featuredBlog = useMemo(() => {
     if (!blogs.length) {
@@ -949,9 +816,7 @@ const categories = useMemo(() => {
     const featuredBlogs = blogs
       .filter((blog) => blog.featured === true)
       .sort(
-        (a, b) =>
-          new Date(b.publishedAt || 0) -
-          new Date(a.publishedAt || 0)
+        (a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0),
       );
 
     if (featuredBlogs.length > 0) {
@@ -959,89 +824,60 @@ const categories = useMemo(() => {
     }
 
     return [...blogs].sort(
-      (a, b) =>
-        new Date(b.publishedAt || 0) -
-        new Date(a.publishedAt || 0)
+      (a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0),
     )[0];
   }, [blogs]);
-
-  /* ============================================================
-     NON-FEATURED BLOGS
-  ============================================================ */
 
   const journalBlogs = useMemo(() => {
     if (!blogs.length) {
       return [];
     }
 
-    return blogs.filter(
-      (blog) => blog._id !== featuredBlog?._id
-    );
+    return blogs.filter((blog) => blog._id !== featuredBlog?._id);
   }, [blogs, featuredBlog]);
 
-  /* ============================================================
-     FILTER BLOGS
-  ============================================================ */
-const visibleBlogs = useMemo(() => {
-  if (!blogs.length) {
-    return [];
-  }
-  if (active === "All") {
-    return journalBlogs;
-  }
+  const visibleBlogs = useMemo(() => {
+    if (!blogs.length) {
+      return [];
+    }
 
-  return blogs.filter(
-    (blog) =>blog.category?.trim().toLowerCase() ===active.trim().toLowerCase()
-  );
-}, [active, blogs, journalBlogs]);
+    if (active === "All") {
+      return journalBlogs;
+    }
 
-  /* ============================================================
-     CATEGORY CHANGE
-  ============================================================ */
+    return blogs.filter(
+      (blog) =>
+        blog.category?.trim().toLowerCase() === active.trim().toLowerCase(),
+    );
+  }, [active, blogs, journalBlogs]);
 
   const handleCategoryChange = (category) => {
     setActive(category);
-
     setExpandedPost(null);
   };
 
-  /* ============================================================
-     CARD TOGGLE
-  ============================================================ */
-
   const handleCardToggle = (id) => {
-    setExpandedPost((current) =>
-      current === id ? null : id
-    );
+    setExpandedPost((current) => (current === id ? null : id));
   };
-
-  /* ============================================================
-     LOAD MORE
-  ============================================================ */
 
   const handleLoadMore = () => {
     if (!pagination?.hasNextPage) {
       return;
     }
 
-    const nextPage =
-      Number(pagination.currentPage || 1) + 1;
+    const nextPage = Number(pagination.currentPage || 1) + 1;
 
     dispatch(
       fetchBlogs({
         page: nextPage,
         limit: pagination.limit || 10,
-      })
+      }),
     );
   };
 
-  /* ============================================================
-     LOADING
-  ============================================================ */
-
   if (status === "loading" && blogs.length === 0) {
     return (
-      <section className="bg-[#F2FAFB] px-5 py-20 md:px-10 lg:px-16">
+      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center py-24 text-center">
           <div
             className="
@@ -1054,9 +890,7 @@ const visibleBlogs = useMemo(() => {
               bg-[#124D56]/8
             "
           >
-            <Loader2
-              className="h-6 w-6 animate-spin text-[#124D56]"
-            />
+            <Loader2 className="h-6 w-6 animate-spin text-[#124D56]" />
           </div>
 
           <p
@@ -1076,13 +910,9 @@ const visibleBlogs = useMemo(() => {
     );
   }
 
-  /* ============================================================
-     ERROR
-  ============================================================ */
-
   if (status === "failed" && blogs.length === 0) {
     return (
-      <section className="bg-[#F2FAFB] px-5 py-20 md:px-10 lg:px-16">
+      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
         <div className="mx-auto max-w-3xl py-20 text-center">
           <span
             className="
@@ -1120,8 +950,7 @@ const visibleBlogs = useMemo(() => {
               text-[#124D56]/60
             "
           >
-            {error ||
-              "Something went wrong while loading our travel journal."}
+            {error || "Something went wrong while loading our travel journal."}
           </p>
 
           <button
@@ -1131,7 +960,7 @@ const visibleBlogs = useMemo(() => {
                 fetchBlogs({
                   page: 1,
                   limit: 10,
-                })
+                }),
               )
             }
             className="
@@ -1157,13 +986,9 @@ const visibleBlogs = useMemo(() => {
     );
   }
 
-  /* ============================================================
-     EMPTY
-  ============================================================ */
-
   if (!blogs.length) {
     return (
-      <section className="bg-[#F2FAFB] px-5 py-20 md:px-10 lg:px-16">
+      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
         <div className="mx-auto max-w-3xl py-20 text-center">
           <span
             className="
@@ -1205,14 +1030,10 @@ const visibleBlogs = useMemo(() => {
     );
   }
 
-  /* ============================================================
-     RETURN
-  ============================================================ */
-
   return (
     <section
       className="
-        bg-[#F2FAFB]
+        bg-[#FAF5EB]
         px-5
         py-13
         md:px-10
@@ -1221,65 +1042,59 @@ const visibleBlogs = useMemo(() => {
       "
     >
       <div className="mx-auto max-w-7xl">
-        {/* ==================================================
-            SECTION INTRO
-        ================================================== */}
-
-        <div className="mb-12 max-w-2xl md:mb-14">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-[#F58634]" />
+        <div className="mx-auto mb-12 max-w-4xl text-center md:mb-14">
+          <div className="flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-[#B85128]" />
 
             <span
               className="
-                font-['Inter']
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.28em]
-                text-[#F58634]
-              "
+        font-['Inter']
+        text-[10px]
+        font-bold
+        uppercase
+        tracking-[0.28em]
+        text-[#B85128]
+      "
             >
               The Journal
             </span>
+
+            <span className="h-px w-8 bg-[#B85128]" />
           </div>
 
           <h2
             className="
-              mt-5
-              font-['Fraunces']
-              text-[clamp(2.3rem,4vw,3.7rem)]
-              font-medium
-              leading-[1.03]
-              tracking-[-0.02em]
-              text-[#0B3C49]
-            "
+      mt-5
+      font-['Fraunces']
+      text-[clamp(2.5rem,4.5vw,4.2rem)]
+      font-medium
+      leading-[1.02]
+      tracking-tight
+      text-[#173C3A]
+    "
           >
             Notes from the road,
             <br />
-
-            <span className="text-[#124D56]/40">
-              before you book it.
-            </span>
+            <span className="text-[#476763]/60">before you book it.</span>
           </h2>
 
           <p
             className="
-              mt-5
-              max-w-xl
-              font-['Inter']
-              text-[15px]
-              leading-[1.75]
-              text-[#124D56]/60
-            "
+      mx-auto
+      mt-7
+      max-w-2xl
+      font-['Inter']
+      text-[17px]
+      leading-[1.8]
+      text-[#476763]/65
+      md:text-[18px]
+      md:leading-[1.85]
+    "
           >
             Field-tested routes, honest timing advice, and the details our
             travellers wished someone had told them first.
           </p>
         </div>
-
-        {/* ==================================================
-            CATEGORY FILTER
-        ================================================== */}
 
         <div
           className="
@@ -1294,9 +1109,7 @@ const visibleBlogs = useMemo(() => {
             <button
               key={category}
               type="button"
-              onClick={() =>
-                handleCategoryChange(category)
-              }
+              onClick={() => handleCategoryChange(category)}
               className={`
                 cursor-pointer
                 rounded-full
@@ -1310,20 +1123,8 @@ const visibleBlogs = useMemo(() => {
                 duration-300
                 ${
                   active === category
-                    ? `
-                      border-[#124D56]
-                      bg-[#124D56]
-                      text-white
-                      shadow-[0_5px_18px_rgba(18,77,86,0.15)]
-                    `
-                    : `
-                      border-[#124D56]/15
-                      bg-transparent
-                      text-[#124D56]/65
-                      hover:border-[#124D56]/35
-                      hover:bg-white
-                      hover:text-[#0B3C49]
-                    `
+                    ? "border-[#124D56] bg-[#124D56] text-white shadow-[0_5px_18px_rgba(18,77,86,0.15)]"
+                    : "border-[#124D56]/15 bg-transparent text-[#124D56]/65 hover:border-[#124D56]/35 hover:bg-white hover:text-[#0B3C49]"
                 }
               `}
             >
@@ -1332,19 +1133,9 @@ const visibleBlogs = useMemo(() => {
           ))}
         </div>
 
-        {/* ==================================================
-            FEATURED STORY
-
-            Always show the featured blog on "All".
-        ================================================== */}
-
         {active === "All" && featuredBlog && (
           <FeaturedStory blog={featuredBlog} />
         )}
-
-        {/* ==================================================
-            JOURNAL GRID
-        ================================================== */}
 
         {visibleBlogs.length > 0 ? (
           <div
@@ -1363,12 +1154,8 @@ const visibleBlogs = useMemo(() => {
                 key={blog._id || blog.slug}
                 blog={blog}
                 number={active === "All" ? index + 2 : index + 1}
-                expanded={
-                  expandedPost === (blog._id || blog.slug)
-                }
-                onToggle={() =>
-                  handleCardToggle(blog._id || blog.slug)
-                }
+                expanded={expandedPost === (blog._id || blog.slug)}
+                onToggle={() => handleCardToggle(blog._id || blog.slug)}
               />
             ))}
           </div>
@@ -1408,9 +1195,7 @@ const visibleBlogs = useMemo(() => {
 
             <button
               type="button"
-              onClick={() =>
-                handleCategoryChange("All")
-              }
+              onClick={() => handleCategoryChange("All")}
               className="
                 mt-6
                 cursor-pointer
@@ -1431,10 +1216,6 @@ const visibleBlogs = useMemo(() => {
             </button>
           </div>
         )}
-
-        {/* ==================================================
-            LOAD MORE
-        ================================================== */}
 
         {pagination?.hasNextPage && (
           <div className="mt-20 text-center md:mt-24">
@@ -1471,7 +1252,6 @@ const visibleBlogs = useMemo(() => {
               {status === "loading" ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-
                   <span>Loading stories</span>
                 </>
               ) : (
@@ -1493,10 +1273,6 @@ const visibleBlogs = useMemo(() => {
           </div>
         )}
 
-        {/* ==================================================
-            FOOTER LABEL
-        ================================================== */}
-
         <div
           className="
             mt-12
@@ -1517,9 +1293,7 @@ const visibleBlogs = useMemo(() => {
 
           <span className="h-px w-8 bg-[#124D56]/15" />
 
-          <span className="text-[14px] text-[#124D56]">
-            Stories from India
-          </span>
+          <span className="text-[14px] text-[#124D56]">Stories from India</span>
         </div>
       </div>
     </section>

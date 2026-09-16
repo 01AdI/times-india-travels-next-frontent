@@ -27,10 +27,6 @@ import {
 
 import TourPackage_Enquiry_Form from "../TourPackages_Components/TourPackage_Enquiry_Form";
 
-/* =========================================================
-   CARD LAYOUTS
-========================================================= */
-
 const cardLayouts = [
   "h-[500px] md:col-span-7 md:row-span-3 md:h-auto",
   "h-[460px] md:col-span-5 md:row-span-3 md:h-auto",
@@ -41,9 +37,6 @@ const cardLayouts = [
   "h-[430px] md:col-span-12 md:row-span-2 md:h-auto",
 ];
 
-/* =========================================================
-   CARD ANIMATION
-========================================================= */
 
 const cardVariants = {
   hidden: {
@@ -65,10 +58,6 @@ const cardVariants = {
   }),
 };
 
-/* =========================================================
-   CUSTOM JOURNEY ANIMATION
-========================================================= */
-
 const customJourneyVariants = {
   hidden: {
     opacity: 0,
@@ -87,10 +76,6 @@ const customJourneyVariants = {
 };
 
 const MotionLink = motion(Link);
-
-/* =========================================================
-   TOUR CARD
-========================================================= */
 
 function TourCard({
   pkg,
@@ -143,9 +128,6 @@ function TourCard({
         ${className}
       `}
     >
-      {/* =================================================
-          IMAGE
-      ================================================= */}
 
       <img
         src={image}
@@ -159,7 +141,7 @@ function TourCard({
           scale-[1.02]
           object-cover
           transition-transform
-          duration-[1400ms]
+          duration-1400
           ease-out
           motion-reduce:transition-none
           group-hover:scale-[1.07]
@@ -167,15 +149,11 @@ function TourCard({
         "
       />
 
-      {/* =================================================
-          GRADIENT
-      ================================================= */}
-
       <div
         className="
           absolute
           inset-0
-          bg-gradient-to-t
+          bg-linear-to-t
           from-black/90
           via-black/35
           to-black/5
@@ -185,10 +163,6 @@ function TourCard({
           group-hover:via-black/55
         "
       />
-
-      {/* =================================================
-          ORANGE HOVER TINT
-      ================================================= */}
 
       <div
         className="
@@ -201,10 +175,6 @@ function TourCard({
           group-hover:bg-[#F58634]/[0.035]
         "
       />
-
-      {/* =================================================
-          CARD NUMBER
-      ================================================= */}
 
       <div
         className="
@@ -231,10 +201,6 @@ function TourCard({
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
-
-      {/* =================================================
-          DURATION / JOURNEY COUNT
-      ================================================= */}
 
       <div
         className="
@@ -265,10 +231,6 @@ function TourCard({
           {duration}
         </span>
       </div>
-
-      {/* =================================================
-          CONTENT
-      ================================================= */}
 
       <div
         className="
@@ -308,7 +270,7 @@ function TourCard({
             text-3xl
             font-medium
             leading-[1.05]
-            tracking-[-0.025em]
+            tracking-tight
             text-white
             transition-transform
             duration-500
@@ -361,7 +323,7 @@ function TourCard({
               "
             >
               {isCategory
-                ? pkg.description
+                ? pkg.shortDescription
                 : pkg.highlights?.length > 0
                   ? pkg.highlights
                       .slice(0, 2)
@@ -426,13 +388,9 @@ function TourCard({
   );
 }
 
-/* =========================================================
-   GRID SKELETON
-========================================================= */
-
 function TourGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-flow-dense md:auto-rows-[180px]">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-flow-dense md:auto-rows-45">
       {cardLayouts.slice(0, 6).map(
         (layout, index) => (
           <div
@@ -464,9 +422,6 @@ function TourGridSkeleton() {
   );
 }
 
-/* =========================================================
-   MAIN COMPONENT
-========================================================= */
 
 export default function TourPackages_Grid({ initialCategories = [], initialPackages = [] }) {
   const prefersReducedMotion = useReducedMotion();
@@ -477,10 +432,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
 
   const [isEnquiryOpen, setIsEnquiryOpen] =
     useState(false);
-
-  /* =======================================================
-     CATEGORY DATA
-  ======================================================= */
 
   const reduxCategories = useSelector(selectTourCategories);
   const categories = initialCategories.length > 0 ? initialCategories : reduxCategories;
@@ -493,10 +444,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     selectTourCategoriesError
   );
 
-  /* =======================================================
-     PACKAGE DATA
-  ======================================================= */
-
   const reduxPackages = useSelector(selectTourPackages);
   const packagesFromRedux = initialPackages.length > 0 ? initialPackages : reduxPackages;
 
@@ -508,9 +455,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     selectTourPackagesError
   );
 
-  /* =======================================================
-     NORMALIZED CATEGORY
-  ======================================================= */
 
   const normalizedCategory =
     category?.trim().toLowerCase();
@@ -524,18 +468,11 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
   const isSpecialPackages =
     normalizedCategory === "special-packages";
 
-  /* =======================================================
-     LOAD CATEGORIES
-  ======================================================= */
 
   useEffect(() => {
     if (initialCategories.length > 0) return;
     dispatch(fetchTourCategories());
   }, [dispatch, initialCategories.length]);
-
-  /* =======================================================
-     LOAD PACKAGES
-  ======================================================= */
 
   useEffect(() => {
     if (isCategoryListing || initialPackages.length > 0) {
@@ -565,18 +502,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     normalizedCategory,
   ]);
 
-  /* =======================================================
-     CATEGORY CARDS
-     
-     IMPORTANT:
-     
-     Only categories with:
-     
-       showInExplore === true
-     
-     will appear on /Tour.
-  ======================================================= */
-
   const categoryCards = useMemo(() => {
     return categories
       .filter(
@@ -592,10 +517,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
           0,
       }));
   }, [categories]);
-
-  /* =======================================================
-     PACKAGE LISTING
-  ======================================================= */
 
   const packages = useMemo(() => {
     return packagesFromRedux.map((pkg) => {
@@ -631,17 +552,9 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     categories,
   ]);
 
-  /* =======================================================
-     FINAL CARDS
-  ======================================================= */
-
   const cards = isCategoryListing
     ? categoryCards
     : packages;
-
-  /* =======================================================
-     SELECTED CATEGORY
-  ======================================================= */
 
   const selectedCategory =
     useMemo(() => {
@@ -668,10 +581,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
       isSpecialPackages,
     ]);
 
-  /* =======================================================
-     LOADING STATES
-  ======================================================= */
-
   const isLoading =
     categoryStatus === "loading" &&
     categories.length === 0;
@@ -681,18 +590,14 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     packageStatus === "loading" &&
     packagesFromRedux.length === 0;
 
-  /* =======================================================
-     CATEGORY LOADING
-  ======================================================= */
-
   if (
     isLoading ||
     isPackageLoading
   ) {
     return (
       <MotionConfig reducedMotion="user">
-        <section className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-14">
-          <div className="relative mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
+        <section className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-14">
+          <div className="relative mx-auto max-w-375 px-5 sm:px-8 lg:px-12">
 
             <motion.div
               initial={{
@@ -732,16 +637,12 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  /* =======================================================
-     CATEGORY ERROR
-  ======================================================= */
-
   if (
     categoryStatus === "failed" &&
     categories.length === 0
   ) {
     return (
-      <section className="flex min-h-[60vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
 
           <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F58634]">
@@ -797,16 +698,12 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  /* =======================================================
-     PACKAGE ERROR
-  ======================================================= */
-
   if (
     !isCategoryListing &&
     packageStatus === "failed"
   ) {
     return (
-      <section className="flex min-h-[60vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
 
           <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F58634]">
@@ -879,10 +776,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  /* =======================================================
-     UNKNOWN CATEGORY
-  ======================================================= */
-
   if (
     !isCategoryListing &&
     !isMostPopular &&
@@ -890,7 +783,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     !selectedCategory
   ) {
     return (
-      <section className="flex min-h-[60vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
 
           <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F58634]">
@@ -941,9 +834,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  /* =======================================================
-     NO PACKAGES
-  ======================================================= */
 
   if (
     !isCategoryListing &&
@@ -951,7 +841,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     packages.length === 0
   ) {
     return (
-      <section className="flex min-h-[60vh] items-center justify-center bg-[#F2FAFB] px-6">
+      <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
 
           <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F58634]">
@@ -1001,9 +891,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  /* =======================================================
-     SECTION TEXT
-  ======================================================= */
 
   const sectionTitle =
     isCategoryListing
@@ -1034,19 +921,12 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
           : selectedCategory?.description ||
             "Explore carefully crafted journeys through some of India's most unforgettable destinations.";
 
-  /* =======================================================
-     RENDER
-  ======================================================= */
 
   return (
     <MotionConfig reducedMotion="user">
-      <section className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-14">
+      <section className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-14">
 
-        <div className="relative mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-
-          {/* =================================================
-              SECTION HEADER
-          ================================================= */}
+        <div className="relative mx-auto max-w-375 px-5 sm:px-8 lg:px-12">
 
           <motion.div
             initial={{
@@ -1072,26 +952,22 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
             }}
             className="mx-auto mb-14 max-w-4xl text-center md:mb-16"
           >
-            <p className="mb-5 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#F58634] sm:text-[11px]">
+            <p className="mb-5 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#B85128] sm:text-[11px]">
               {sectionLabel}
             </p>
 
-            <h2 className="font-['Fraunces'] text-4xl font-medium leading-[1.08] tracking-[-0.025em] text-[#0B3C49] sm:text-5xl md:text-6xl lg:text-[64px]">
+            <h2 className="font-['Fraunces'] text-4xl font-medium leading-[1.08] tracking-tight text-[#173C3A] sm:text-5xl md:text-6xl lg:text-[64px]">
               {sectionTitle}
             </h2>
 
             <div className="mx-auto mt-5 h-px w-40 bg-[#F58634]" />
 
-            <p className="mx-auto mt-7 max-w-3xl font-['Inter'] text-sm leading-7 text-[#5F6F73] sm:text-[15px] md:text-base">
+            <p className="mx-auto mt-7 max-w-3xl font-['Inter'] text-sm leading-7 text-[#476763] sm:text-[15px] md:text-base">
               {sectionDescription}
             </p>
           </motion.div>
 
-          {/* =================================================
-              CATEGORY / PACKAGE GRID
-          ================================================= */}
-
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-flow-dense md:auto-rows-[180px]">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-flow-dense md:auto-rows-45">
             {cards.map(
               (item, index) => (
                 <TourCard
@@ -1112,10 +988,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
             )}
           </div>
 
-          {/* =================================================
-              CUSTOM JOURNEY CTA
-          ================================================= */}
-
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -1130,12 +1002,12 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
               group
               relative
               mt-5
-              min-h-[330px]
+              min-h-82.5
               overflow-hidden
               rounded-4xl
               bg-[#0B3C49]
-              sm:min-h-[360px]
-              md:min-h-[390px]
+              sm:min-h-90
+              md:min-h-97.5
             "
           >
             <div className="absolute left-0 top-0 h-1 w-full bg-[#F58634]" />
@@ -1146,8 +1018,8 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
                 absolute
                 -right-32
                 -top-40
-                h-[500px]
-                w-[500px]
+                h-125
+                w-125
                 rounded-full
                 bg-[#F58634]/10
                 blur-3xl
@@ -1161,7 +1033,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
               `}
             />
 
-            <div className="pointer-events-none absolute -bottom-40 -left-20 h-[400px] w-[400px] rounded-full border border-white/[0.05]" />
+            <div className="pointer-events-none absolute -bottom-40 -left-20 h-100 w-100 rounded-full border border-white/5" />
 
             <div className="pointer-events-none absolute inset-0 opacity-[0.035]">
               <div className="absolute left-1/4 top-0 h-full w-px bg-white" />
@@ -1171,7 +1043,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
               <div className="absolute left-3/4 top-0 h-full w-px bg-white" />
             </div>
 
-            <div className="relative flex min-h-[330px] flex-col justify-between p-7 sm:min-h-[360px] sm:p-10 md:min-h-[390px] md:p-14 lg:p-16">
+            <div className="relative flex min-h-82.5 flex-col justify-between p-7 sm:min-h-90 sm:p-10 md:min-h-97.5 md:p-14 lg:p-16">
 
               {/* TOP */}
 
@@ -1201,7 +1073,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
 
               <div className="mt-12 max-w-4xl">
 
-                <h3 className="font-['Fraunces'] text-4xl font-medium leading-[1.05] tracking-[-0.025em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                <h3 className="font-['Fraunces'] text-4xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                   Your India.
 
                   <span className="block italic text-cyan-300">
@@ -1270,9 +1142,6 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
             </div>
           </motion.div>
 
-          {/* =================================================
-              FOOTER LINE
-          ================================================= */}
 
           <motion.div
             initial={{
@@ -1290,20 +1159,16 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
             }}
             className="mt-6 flex flex-col justify-between gap-2 rounded-2xl border-t border-[#124D56]/10 pt-5 sm:flex-row"
           >
-            <p className="font-['Inter'] text-[12px] uppercase tracking-[0.2em] text-[#7BCBDA]">
+            <p className="font-['Inter'] text-[12px] uppercase tracking-[0.2em] text-[#476763]">
               Curated journeys across India
             </p>
 
-            <p className="font-['Inter'] text-[12px] uppercase tracking-[0.2em] text-[#7BCBDA]">
+            <p className="font-['Inter'] text-[12px] uppercase tracking-[0.2em] text-[#476763]">
               Times India Travels
             </p>
           </motion.div>
         </div>
       </section>
-
-      {/* =====================================================
-          ENQUIRY FORM
-      ===================================================== */}
 
       {isEnquiryOpen && (
         <TourPackage_Enquiry_Form

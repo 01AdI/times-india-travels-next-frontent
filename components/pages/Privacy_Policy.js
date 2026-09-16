@@ -107,40 +107,11 @@ const fadeUp = {
 export default function PrivacyPolicy() {
   return (
     <>
-    <main className="bg-[#F2FAFB]">
+    <main className="bg-[#FAF5EB]">
 
 
       <section className="relative overflow-hidden px-6 pb-20 pt-16 sm:px-8 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-28">
 
-        {/* DECORATIVE BACKGROUND */}
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -right-32
-            top-0
-            h-105
-            w-105
-            rounded-full
-            border
-            border-[#124D56]/5
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -left-40
-            bottom-0
-            h-90
-            w-90
-            rounded-full
-            border
-            border-[#F58634]/5
-          "
-        />
 
         <div className="relative z-10 mx-auto max-w-6xl">
 
@@ -153,7 +124,7 @@ export default function PrivacyPolicy() {
             variants={fadeUp}
             className="flex items-center justify-center gap-4"
           >
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-[#B85128]" />
 
             <span
               className="
@@ -162,13 +133,13 @@ export default function PrivacyPolicy() {
                 font-semibold
                 uppercase
                 tracking-[0.35em]
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               Your Privacy Matters
             </span>
 
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-[#B85128]" />
           </motion.div>
 
           {/* HEADING */}
@@ -188,14 +159,14 @@ export default function PrivacyPolicy() {
               font-medium
               leading-[0.98]
               tracking-[-0.04em]
-              text-[#0B3C49]
+              text-[#173C3A]
               sm:text-6xl
               md:text-7xl
               lg:text-[82px]
             "
           >
             Your privacy,
-            <span className="block italic text-[#F58634]">
+            <span className="block italic text-[#B85128]">
               thoughtfully protected.
             </span>
           </motion.h1>
@@ -217,7 +188,7 @@ export default function PrivacyPolicy() {
               font-light
               leading-7
               tracking-wide
-              text-[#61777B]
+              text-[#476763]
               sm:text-base
               sm:leading-8
             "
@@ -786,7 +757,7 @@ export default function PrivacyPolicy() {
                 <Mail
                   size={20}
                   strokeWidth={1.4}
-                  className="text-[#F58634]"
+                  className="text-cyan-300"
                 />
               </div>
 
@@ -799,7 +770,7 @@ export default function PrivacyPolicy() {
                   font-semibold
                   uppercase
                   tracking-[0.3em]
-                  text-[#F58634]
+                  text-cyan-300
                 "
               >
                 Questions About Your Privacy?
@@ -818,7 +789,7 @@ export default function PrivacyPolicy() {
                 "
               >
                 We're happy to
-                <span className="text-[#F58634]">
+                <span className="text-cyan-500">
                   {" "}help.
                 </span>
               </h2>
@@ -907,7 +878,7 @@ export default function PrivacyPolicy() {
               font-['Fraunces']
               text-sm
               italic
-              text-[#124D56]/50
+              text-[#476763]/50
             "
           >
             India, thoughtfully experienced.

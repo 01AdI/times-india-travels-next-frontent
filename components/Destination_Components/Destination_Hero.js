@@ -9,7 +9,7 @@ export default function Destination_Hero({ data }) {
 
   return (
     <section
-      className="hero-section relative h-[380px] sm:h-[440px] md:h-[500px] flex items-center justify-center bg-cover bg-center overflow-hidden"
+      className="hero-section relative h-95 sm:h-110 md:h-125 flex items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
         backgroundImage: `url("${heroData.heroImage}")`,
       }}
@@ -36,7 +36,7 @@ export default function Destination_Hero({ data }) {
 
       {/* Bottom curve */}
       <svg
-        className="absolute bottom-0 left-0 z-10 h-[70px] w-full text-[#F2FAFB] sm:h-[85px] md:h-[100px]"
+        className="absolute bottom-0 left-0 z-10 h-17.5 w-full text-[#FAF5EB] sm:h-21.25 md:h-25"
         viewBox="0 0 1440 120"
         fill="currentColor"
         preserveAspectRatio="none"

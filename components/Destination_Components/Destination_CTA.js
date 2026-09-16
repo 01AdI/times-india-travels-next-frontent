@@ -4,27 +4,15 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Destination_Quotation_Form from "./Destination_Quotation_Form";
 
-// ---------------------------------------------------------------------------
-// STATIC FALLBACK DATA
-// ---------------------------------------------------------------------------
-
 const STATIC_DESTINATION = {
   name: "The World",
   tagline:
     "A journey through a thousand stories, timeless traditions and unforgettable landscapes.",
 };
 
-// ---------------------------------------------------------------------------
-// DESTINATION CTA
-// ---------------------------------------------------------------------------
 
 export default function Destination_CTA({ data }) {
   const [showForm, setShowForm] = useState(false);
-
-  // -------------------------------------------------------------------------
-  // USE DYNAMIC DATA WHEN AVAILABLE
-  // OTHERWISE FALL BACK TO STATIC DATA
-  // -------------------------------------------------------------------------
 
   const destination = data || STATIC_DESTINATION;
 
@@ -35,7 +23,7 @@ export default function Destination_CTA({ data }) {
         className="
           relative
           overflow-hidden
-          bg-[#F2FAFB]
+          bg-[#124d56]
           py-13
           sm:py-13
           md:py-14
@@ -55,7 +43,7 @@ export default function Destination_CTA({ data }) {
           "
         >
           <div className="flex items-center justify-center gap-4">
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-cyan-300" />
 
             <span
               className="
@@ -64,14 +52,14 @@ export default function Destination_CTA({ data }) {
                 font-semibold
                 uppercase
                 tracking-[0.35em]
-                text-[#F58634]
+                text-cyan-300
                 sm:text-xs
               "
             >
               Your Journey Awaits
             </span>
 
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-cyan-300" />
           </div>
 
           <h2
@@ -84,14 +72,14 @@ export default function Destination_CTA({ data }) {
               font-medium
               leading-[1.05]
               tracking-tight
-              text-[#124d56]
+              text-white
               sm:text-5xl
               md:text-6xl
               lg:text-7xl
             "
           >
             Ready to discover{" "}
-            <span className="italic text-[#F58634]">
+            <span className="italic text-cyan-500">
               {destination.name}?
             </span>
           </h2>
@@ -104,7 +92,7 @@ export default function Destination_CTA({ data }) {
               font-['Inter']
               text-sm
               leading-7
-              text-[#124d56]/60
+              text-white/60
               sm:text-base
               sm:leading-8
             "
@@ -177,22 +165,22 @@ export default function Destination_CTA({ data }) {
               text-[9px]
               uppercase
               tracking-[0.16em]
-              text-[#124d56]/40
+              text-white/60
               sm:text-[10px]
             "
           >
             <span className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-[#F58634]" />
+              <span className="h-1 w-1 rounded-full bg-cyan-300" />
               Tailor-Made Journeys
             </span>
 
             <span className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-[#F58634]" />
+              <span className="h-1 w-1 rounded-full bg-cyan-300" />
               Personalised Planning
             </span>
 
             <span className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-[#F58634]" />
+              <span className="h-1 w-1 rounded-full bg-cyan-300" />
               Travel Specialists
             </span>
           </div>

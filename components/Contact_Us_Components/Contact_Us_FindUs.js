@@ -17,10 +17,8 @@ const mapQuery = encodeURIComponent(contactInfo.address);
 export default function Contact_Us_FindUs() {
   return (
     <section className="relative overflow-hidden bg-[#0B3C49] py-13 sm:py-13 md:py-15">
-      <div className="pointer-events-none absolute right-[-180px] top-[-180px] h-[420px] w-[420px] rounded-full border border-white/[0.04]" />
-      <div className="pointer-events-none absolute bottom-[-220px] left-[-180px] h-[450px] w-[450px] rounded-full border border-[#F58634]/[0.04]" />
 
-      <div className="relative mx-auto max-w-[1350px] px-6 sm:px-10 md:px-14 lg:px-20">
+      <div className="relative mx-auto max-w-337.5 px-6 sm:px-10 md:px-14 lg:px-20">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +28,7 @@ export default function Contact_Us_FindUs() {
         >
           <div>
             <div className="mb-6 flex items-center gap-4">
-              <span className="font-['Fraunces'] text-xl italic text-[#F58634]">
+              <span className="font-['Fraunces'] text-xl italic text-cyan-300">
                 Find us
               </span>
               <span className="h-px w-14 bg-white/20" />
@@ -41,7 +39,7 @@ export default function Contact_Us_FindUs() {
 
             <h2 className="max-w-4xl font-['Fraunces'] text-5xl font-medium leading-[0.94] tracking-[-0.045em] text-white sm:text-6xl md:text-7xl">
               A place to begin
-              <span className="block italic text-[#F58634]">your India story.</span>
+              <span className="block italic text-cyan-500">your India story.</span>
             </h2>
           </div>
 

@@ -50,7 +50,7 @@ export default function Home_Client_Video() {
 
   if ((status === "loading" || status === "idle") &&videos.length === 0) {
     return (
-      <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-[#F2FAFB] px-6 md:px-14">
+      <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14">
 
         <div className="mx-auto max-w-4xl">
           <div className="mx-auto mb-16 max-w-xl text-center">
@@ -169,7 +169,7 @@ export default function Home_Client_Video() {
 
   if (status === "failed" &&videos.length === 0) {
     return (
-      <section className="flex w-full items-center justify-center overflow-hidden border-y border-[#C9A24B]/25 bg-[#F2FAFB] px-6 py-24 md:px-14">
+      <section className="flex w-full items-center justify-center overflow-hidden border-y border-[#C9A24B]/25 bg-white px-6 py-24 md:px-14">
 
         <div className="text-center">
 
@@ -219,21 +219,21 @@ export default function Home_Client_Video() {
   const currentTestimonial =videos[currentVideo];
 
   return (
-    <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-[#F2FAFB] px-6 md:px-14">
+    <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14">
 
       <div className="mx-auto max-w-4xl">
 
         <div className="mx-auto mb-16 max-w-xl text-center">
 
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#F58634]">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#B85128]">
             Client Words
           </span>
 
-          <h2 className="mt-3 font-['Fraunces'] text-4xl font-semibold text-[#123138] md:text-5xl">
+          <h2 className="mt-3 font-['Fraunces'] text-4xl font-semibold text-[#173C3A] md:text-5xl">
             What Our Client Says
           </h2>
 
-          <div className="mx-auto mt-6 h-px w-20 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-px w-25 bg-[#B85128]" />
 
         </div>
 
@@ -261,7 +261,7 @@ export default function Home_Client_Video() {
                 backdrop-blur-md
                 transition-all
                 duration-300
-                hover:bg-[#F58634]
+                hover:bg-[#B85128]
               "
             >
               ❮
@@ -322,7 +322,7 @@ export default function Home_Client_Video() {
 
             </video>
 
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-[#032322]/85 px-5 py-3.5 backdrop-blur-md md:px-7 md:py-4 " >
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-[#032322]/80 px-5 py-3.5 backdrop-blur-md md:px-7 md:py-4 " >
 
               <div className="flex items-center justify-between gap-6">
                 <div className="min-w-0">

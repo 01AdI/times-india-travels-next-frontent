@@ -63,7 +63,7 @@ export default function AboutUs_Gallery() {
 
 if (status === "loading" && gallery.length === 0) {
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-13 md:py-14">
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-13 md:py-14">
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <div className="mx-auto w-40 h-3 rounded-full bg-[#124d56]/10 animate-pulse" />
@@ -112,7 +112,7 @@ if (status === "loading" && gallery.length === 0) {
 
   if (status === "failed" && gallery.length === 0) {
     return (
-      <section className="relative overflow-hidden bg-[#F2FAFB] py-13 md:py-14">
+      <section className="relative overflow-hidden bg-[#FAF5EB] py-13 md:py-14">
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="min-h-100 flex items-center justify-center">
             <div className="text-center max-w-md">
@@ -147,17 +147,13 @@ if (status === "loading" && gallery.length === 0) {
   const activePhoto = gallery[current];
 
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-13 md:py-14">
-
-      <div className="absolute -top-40 -left-40 w-125 h-125 rounded-full bg-[#124d56]/[0.035] blur-3xl pointer-events-none"/>
-      <div className="absolute -bottom-40 -right-40 w-125 h-125 rounded-full bg-[#124d56]/[0.035] blur-3xl pointer-events-none"/>
-
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-13 md:py-14">
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
 
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
 
-          <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#D9701F]">
+          <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
             The Journey, Remembered
           </span>
 
@@ -165,7 +161,7 @@ if (status === "loading" && gallery.length === 0) {
             className="
               font-['Fraunces']
               font-medium
-              text-[#0B3C49]
+              text-[#173C3A]
               text-[clamp(1.75rem,3.5vw,2.75rem)]
               mt-4
             "
@@ -180,7 +176,7 @@ if (status === "loading" && gallery.length === 0) {
           <p
             className="
               font-['Inter']
-              text-[#124d56]/65
+              text-[#476763]/65
               text-[15px]
               leading-[1.8]
               mt-6
@@ -674,7 +670,7 @@ if (status === "loading" && gallery.length === 0) {
 
             <div className="flex items-center gap-4">
 
-              <span className="w-12 h-px bg-[#F58634]" />
+              <span className="w-12 h-px bg-[#B85128]" />
 
               <span
                 className="
@@ -682,7 +678,7 @@ if (status === "loading" && gallery.length === 0) {
                   text-[10px]
                   uppercase
                   tracking-[0.25em]
-                  text-[#124d56]/45
+                  text-[#476763]/65
                 "
               >
                 Your journey awaits

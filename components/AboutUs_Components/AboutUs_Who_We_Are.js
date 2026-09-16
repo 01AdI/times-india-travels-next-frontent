@@ -8,16 +8,8 @@ export default function AboutUs_Who_We_Are() {
 
   return (
     <>
-      {/* =========================================================
-          ABOUT US — WHO WE ARE
-      ========================================================== */}
-
-      <section className="relative w-full bg-[#F2FAFB] py-12 md:py-14">
+      <section className="relative w-full bg-[#FAF5EB] py-12 md:py-14">
         <div className="mx-auto w-full max-w-4xl px-6 text-center md:px-10">
-
-          {/* =====================================================
-              INTRO LABEL
-          ====================================================== */}
 
           <span
             className="
@@ -26,15 +18,11 @@ export default function AboutUs_Who_We_Are() {
               font-semibold
               uppercase
               tracking-[0.28em]
-              text-[#F58634]
+              text-[#B85128]
             "
           >
             Who We Are
           </span>
-
-          {/* =====================================================
-              HEADING
-          ====================================================== */}
 
           <h2
             className="
@@ -42,21 +30,13 @@ export default function AboutUs_Who_We_Are() {
               font-['Fraunces']
               text-[clamp(1.75rem,3.5vw,2.75rem)]
               font-medium
-              text-[#0B3C49]
+              text-[#173C3A]
             "
           >
             About Times India Travels
           </h2>
 
-          {/* =====================================================
-              DIVIDER
-          ====================================================== */}
-
-          <div className="mx-auto mb-8 mt-6 h-[2px] w-10 bg-[#F58634]" />
-
-          {/* =====================================================
-              CONTENT
-          ====================================================== */}
+          <div className="mx-auto mb-8 mt-6 h-0.5 w-30 bg-[#F58634]" />
 
           <div
             className="
@@ -67,7 +47,7 @@ export default function AboutUs_Who_We_Are() {
               font-['Inter']
               text-[16px]
               leading-relaxed
-              text-[#6D6D6D]
+              text-[#476763]
             "
           >
             <p>
@@ -90,10 +70,6 @@ export default function AboutUs_Who_We_Are() {
               designed around your convenience.
             </p>
           </div>
-
-          {/* =====================================================
-              QUOTATION CTA
-          ====================================================== */}
 
           <button
             type="button"
@@ -154,10 +130,6 @@ export default function AboutUs_Who_We_Are() {
           </button>
         </div>
       </section>
-
-      {/* =========================================================
-          ABOUT US QUOTATION FORM
-      ========================================================== */}
 
       {showQuoteForm && (
         <AboutUs_Quotation_Form

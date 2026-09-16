@@ -29,11 +29,13 @@ function excerpt(text, maxLen = 240) {
 }
 
 
-export default function Home_Client_Testimonials() {
+export default function Home_Client_Testimonials({ initialTestimonials = [] }) {
 
   const dispatch = useDispatch();
 
-  const {testimonials,status,error} = useSelector((state) => state.testimonials);
+  const {testimonials: reduxTestimonials,status,error} = useSelector((state) => state.testimonials);
+
+  const testimonials =reduxTestimonials.length > 0 ? reduxTestimonials : initialTestimonials;
 
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -124,7 +126,7 @@ export default function Home_Client_Testimonials() {
 
   if (status === "failed" &&testimonials.length === 0) {
     return (
-      <section className="relative overflow-hidden bg-[#F2FAFB] py-24">
+      <section className="relative overflow-hidden bg-[#FAF5EB] py-24">
 
         <div
           className="
@@ -183,34 +185,23 @@ export default function Home_Client_Testimonials() {
 
 
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-12">
-
-      {/* Background */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          bg-[radial-gradient(circle_at_10%_10%,rgba(30,165,190,0.08),transparent_40%),radial-gradient(circle_at_90%_90%,rgba(245,134,52,0.06),transparent_40%)]
-        "
-      />
-
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-12">
 
       <div className="relative mx-auto max-w-6xl px-6">
 
         <div className="mx-auto mb-16 max-w-xl text-center">
 
-          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#D9701F]">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#B85128]">
             A true story
           </span>
 
-          <h2 className="mt-3 font-['Fraunces'] text-4xl font-semibold text-[#123138] md:text-5xl">
+          <h2 className="mt-3 font-['Fraunces'] text-4xl font-semibold text-[#173C3A] md:text-5xl">
             Tours &amp; Reviews
           </h2>
 
-          <div className="mx-auto mt-6 h-0.5 w-10 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-px w-25 bg-[#F58634]" />
 
-          <p className="mt-5 text-sm text-[#6D6D6D]">
+          <p className="mt-5 text-sm text-[#476763]/50">
             Verified reviews from travellers we've hosted across India.
           </p>
 
@@ -288,7 +279,7 @@ export default function Home_Client_Testimonials() {
 
                   {/* Review */}
 
-                  <p className="text-lg leading-relaxed text-[#123138]/80">
+                  <p className="text-lg leading-relaxed text-[#476763]/85">
                     "{excerpt(testimonial.review)}"
                   </p>
 
@@ -334,12 +325,12 @@ export default function Home_Client_Testimonials() {
 
                     <div>
 
-                      <p className="text-[15px] font-semibold text-[#123138]">
+                      <p className="text-[15px] font-semibold text-[#173C3A]">
                         {testimonial.name}
                       </p>
 
                       {testimonial.location && (
-                        <p className="text-xs text-[#6D6D6D]">
+                        <p className="text-xs text-[#476763]/75">
                           {testimonial.location}
                         </p>
                       )}

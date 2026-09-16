@@ -19,10 +19,11 @@ import {
 
 import Floating_Quotation_Form from "../Floating_Quotation_Form";
 
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=85";
 
-const FALLBACK_IMAGE ="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=85";
-const DETAIL_HERO_IMAGE ="https://i.pinimg.com/736x/3f/91/5d/3f915da54cea988a288766c123be003a.jpg";
-
+const DETAIL_HERO_IMAGE =
+  "https://i.pinimg.com/736x/3f/91/5d/3f915da54cea988a288766c123be003a.jpg";
 
 function formatDate(date) {
   if (!date) return "";
@@ -40,9 +41,22 @@ function formatDate(date) {
   });
 }
 
-function calculateReadTime(text = "") {
-  const words = text
-    .trim()
+function calculateReadTime(content = "") {
+  if (!content) {
+    return "3 min read";
+  }
+
+  const plainText = content
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .trim();
+
+  const words = plainText
     .split(/\s+/)
     .filter(Boolean).length;
 
@@ -71,11 +85,7 @@ function ArticleMeta({ blog, light = false }) {
         text-[8px]
         uppercase
         tracking-[0.13em]
-        ${
-          light
-            ? "text-white/55"
-            : "text-[#124D56]/45"
-        }
+        ${light ? "text-white/55" : "text-[#124D56]/45"}
       `}
     >
       {blog?.author && <span>By {blog.author}</span>}
@@ -112,43 +122,99 @@ function ArticleMeta({ blog, light = false }) {
 function BlogContent({ content }) {
   if (!content) return null;
 
-  const paragraphs = content
-    .trim()
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
-
   return (
     <div
       className="
+        blog-content
         font-['Inter']
         text-[16px]
         leading-[1.95]
         text-[#183F48]/75
         md:text-[17px]
         md:leading-loose
-      "
-    >
-      {paragraphs.map((paragraph, index) => {
-        const lines = paragraph.split("\n");
 
-        return (
-          <p
-            key={index}
-            className="
-              mb-8
-              whitespace-pre-line
-              last:mb-0
-            "
-          >
-            {lines.join("\n")}
-          </p>
-        );
-      })}
-    </div>
+        [&_p]:mb-8
+        [&_p:last-child]:mb-0
+
+        [&_h1]:mt-12
+        [&_h1]:mb-5
+        [&_h1]:font-['Fraunces']
+        [&_h1]:text-[clamp(2rem,4vw,3rem)]
+        [&_h1]:font-medium
+        [&_h1]:leading-[1.15]
+        [&_h1]:text-[#0B3C49]
+
+        [&_h2]:mt-12
+        [&_h2]:mb-5
+        [&_h2]:font-['Fraunces']
+        [&_h2]:text-[clamp(1.7rem,3vw,2.4rem)]
+        [&_h2]:font-medium
+        [&_h2]:leading-[1.2]
+        [&_h2]:text-[#0B3C49]
+
+        [&_h3]:mt-10
+        [&_h3]:mb-4
+        [&_h3]:font-['Fraunces']
+        [&_h3]:text-2xl
+        [&_h3]:font-medium
+        [&_h3]:leading-[1.3]
+        [&_h3]:text-[#0B3C49]
+
+        [&_strong]:font-bold
+        [&_strong]:text-[#0B3C49]
+
+        [&_em]:italic
+
+        [&_u]:underline
+        [&_u]:underline-offset-3
+
+        [&_ul]:my-6
+        [&_ul]:list-outside
+        [&_ul]:list-disc
+        [&_ul]:pl-6
+
+        [&_ol]:my-6
+        [&_ol]:list-decimal
+        [&_ol]:pl-6
+
+        [&_li]:my-2
+
+        [&_blockquote]:my-10
+        [&_blockquote]:border-l-[3px]
+        [&_blockquote]:border-[#F58634]
+        [&_blockquote]:py-4
+        [&_blockquote]:pl-6
+        [&_blockquote]:font-['Fraunces']
+        [&_blockquote]:text-xl
+        [&_blockquote]:italic
+        [&_blockquote]:leading-[1.6]
+        [&_blockquote]:text-[#0B3C49]
+
+        [&_a]:text-[#124D56]
+        [&_a]:underline
+        [&_a]:decoration-[#F58634]
+        [&_a]:underline-offset-3
+
+        [&_mark]:rounded-[0.2em]
+        [&_mark]:bg-yellow-200
+        [&_mark]:px-[0.15em]
+        [&_mark]:py-[0.05em]
+
+        [&_hr]:my-12
+        [&_hr]:border-0
+        [&_hr]:border-t
+        [&_hr]:border-[#124D56]/10
+
+        [&_img]:my-8
+        [&_img]:block
+        [&_img]:h-auto
+        [&_img]:w-full
+        [&_img]:rounded-2xl
+      "
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
   );
 }
-
 
 function RelatedPostCard({ blog }) {
   if (!blog) return null;
@@ -173,8 +239,6 @@ function RelatedPostCard({ blog }) {
         hover:shadow-[0_28px_70px_rgba(11,60,73,0.12)]
       "
     >
-      {/* IMAGE */}
-
       <div className="relative aspect-16/10 overflow-hidden">
         <img
           src={image}
@@ -274,8 +338,6 @@ function RelatedPostCard({ blog }) {
           </div>
         </div>
       </div>
-
-      {/* CONTENT */}
 
       <div className="p-6 md:p-7">
         <h3
@@ -409,9 +471,6 @@ function RelatedPosts({ currentBlog, blogs }) {
       "
     >
       <div className="mx-auto max-w-7xl">
-
-        {/* HEADER */}
-
         <div
           className="
             mb-12
@@ -455,7 +514,7 @@ function RelatedPosts({ currentBlog, blogs }) {
               "
             >
               More stories from
-              <br></br>
+              <br />
               <span className="text-cyan-500">
                 the road.
               </span>
@@ -498,8 +557,6 @@ function RelatedPosts({ currentBlog, blogs }) {
           </Link>
         </div>
 
-        {/* CARDS */}
-
         <div
           className="
             grid
@@ -521,7 +578,10 @@ function RelatedPosts({ currentBlog, blogs }) {
   );
 }
 
-export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
+export default function BlogDetail({
+  initialBlog = null,
+  initialBlogs = [],
+}) {
   const { slug } = useParams();
   const dispatch = useDispatch();
 
@@ -536,22 +596,46 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
     status: reduxStatus = "idle",
   } = useSelector((state) => state.blog);
 
-  const selectedBlog = initialBlog || reduxSelectedBlog;
-  const blogs = initialBlogs.length > 0 ? initialBlogs : reduxBlogs;
-  const detailStatus = initialBlog ? "succeeded" : reduxDetailStatus;
-  const status = initialBlogs.length > 0 ? "succeeded" : reduxStatus;
+  const selectedBlog =
+    initialBlog || reduxSelectedBlog;
+
+  const blogs =
+    initialBlogs.length > 0
+      ? initialBlogs
+      : reduxBlogs;
+
+  const detailStatus = initialBlog
+    ? "succeeded"
+    : reduxDetailStatus;
+
+  const status =
+    initialBlogs.length > 0
+      ? "succeeded"
+      : reduxStatus;
 
   useEffect(() => {
     if (!slug || initialBlog) return;
+
     dispatch(fetchBlogBySlug(slug));
   }, [dispatch, slug, initialBlog]);
 
   useEffect(() => {
-    if (initialBlogs.length > 0 || status !== "idle") return;
-    dispatch(fetchBlogs({ page: 1, limit: 10 }));
+    if (initialBlogs.length > 0 || status !== "idle") {
+      return;
+    }
+
+    dispatch(
+      fetchBlogs({
+        page: 1,
+        limit: 10,
+      })
+    );
   }, [dispatch, status, initialBlogs.length]);
 
-  if (detailStatus === "loading" ||detailStatus === "idle") {
+  if (
+    detailStatus === "loading" ||
+    detailStatus === "idle"
+  ) {
     return (
       <main className="min-h-screen bg-[#F2FAFB]">
         <section
@@ -564,7 +648,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
           "
         >
           <div className="text-center">
-
             <div
               className="
                 mx-auto
@@ -599,14 +682,16 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             >
               Loading story
             </p>
-
           </div>
         </section>
       </main>
     );
   }
 
-  if (detailStatus === "failed" ||!selectedBlog) {
+  if (
+    detailStatus === "failed" ||
+    !selectedBlog
+  ) {
     return (
       <main className="min-h-screen bg-[#F2FAFB]">
         <section
@@ -619,7 +704,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
           "
         >
           <div className="max-w-xl text-center">
-
             <span
               className="
                 font-['Inter']
@@ -686,25 +770,20 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             >
               <ArrowLeft className="h-4 w-4" />
 
-              <span>
-                Back to journal
-              </span>
+              <span>Back to journal</span>
             </Link>
-
           </div>
         </section>
       </main>
     );
   }
 
-  const image =selectedBlog.image || FALLBACK_IMAGE;
-  const date =formatDate(selectedBlog.publishedAt);
-  const readTime =calculateReadTime(selectedBlog.content);
+  const image =
+    selectedBlog.image || FALLBACK_IMAGE;
 
   return (
     <>
       <main className="bg-[#F2FAFB]">
-
         <section
           className="
             hero-section
@@ -728,17 +807,13 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               `url('${DETAIL_HERO_IMAGE}')`,
           }}
         >
-
-          {/* DARK OVERLAY */}
-
-        <div
+          <div
             className="absolute inset-0"
             style={{
-            background:
+              background:
                 "radial-gradient(circle at 50% 42%, rgba(10,18,32,0.18), rgba(10,18,32,0.68) 88%)",
             }}
-        />
-          {/* HERO CONTENT */}
+          />
 
           <div
             className="
@@ -749,7 +824,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               text-center
             "
           >
-
             <p
               className="
                 mb-5
@@ -807,11 +881,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               It is everything you notice along
               the way.
             </p>
-
           </div>
-
-
-          {/* CURVED TRANSITION */}
 
           <svg
             className="
@@ -840,7 +910,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               "
             />
           </svg>
-
         </section>
 
         <section
@@ -855,11 +924,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             lg:px-16
           "
         >
-
           <div className="mx-auto max-w-7xl">
-
-            {/* EDITORIAL LABEL */}
-
             <div
               className="
                 mb-10
@@ -899,9 +964,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                 xl:gap-20
               "
             >
-
-              {/* BLOG IMAGE */}
-
               <div
                 className="
                   group
@@ -913,9 +975,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   md:rounded-[36px]
                 "
               >
-
                 <div className="aspect-16/11">
-
                   <img
                     src={image}
                     alt={selectedBlog.title}
@@ -933,11 +993,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                         FALLBACK_IMAGE;
                     }}
                   />
-
                 </div>
-
-
-                {/* IMAGE GRADIENT */}
 
                 <div
                   className="
@@ -950,9 +1006,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     to-transparent
                   "
                 />
-
-
-                {/* IMAGE NUMBER */}
 
                 <div
                   className="
@@ -971,7 +1024,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     backdrop-blur-md
                   "
                 >
-
                   <span
                     className="
                       font-['IBM_Plex_Mono']
@@ -997,13 +1049,8 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   >
                     India
                   </span>
-
                 </div>
-
               </div>
-
-
-              {/* ARTICLE INFORMATION */}
 
               <div
                 className="
@@ -1013,12 +1060,8 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   xl:py-12
                 "
               >
-
-                {/* CATEGORY */}
-
                 {selectedBlog.category && (
                   <div className="flex items-center gap-3">
-
                     <span className="h-px w-7 bg-[#F58634]" />
 
                     <span
@@ -1033,12 +1076,8 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     >
                       {selectedBlog.category}
                     </span>
-
                   </div>
                 )}
-
-
-                {/* TITLE */}
 
                 <h2
                   className="
@@ -1054,9 +1093,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   {selectedBlog.title}
                 </h2>
 
-
-                {/* ACCENT */}
-
                 <div
                   className="
                     mt-7
@@ -1065,9 +1101,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     bg-[#F58634]
                   "
                 />
-
-
-                {/* DESCRIPTION */}
 
                 {selectedBlog.shortDescription && (
                   <p
@@ -1086,17 +1119,9 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   </p>
                 )}
 
-
-                {/* META */}
-
                 <div className="mt-8">
-                  <ArticleMeta
-                    blog={selectedBlog}
-                  />
+                  <ArticleMeta blog={selectedBlog} />
                 </div>
-
-
-                {/* AUTHOR LINE */}
 
                 <div
                   className="
@@ -1106,7 +1131,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     pt-6
                   "
                 >
-
                   <div
                     className="
                       flex
@@ -1114,7 +1138,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                       gap-3
                     "
                   >
-
                     <div
                       className="
                         flex
@@ -1136,7 +1159,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     </div>
 
                     <div>
-
                       <p
                         className="
                           font-['Inter']
@@ -1161,19 +1183,12 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                       >
                         India
                       </p>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
 
         <section
@@ -1185,9 +1200,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             lg:px-16
           "
         >
-
           <div className="mx-auto max-w-7xl">
-
             <div
               className="
                 grid
@@ -1197,15 +1210,9 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                 lg:gap-16
               "
             >
-
-              {/* LEFT EDITORIAL RAIL */}
-
               <aside className="hidden lg:block">
-
                 <div className="sticky top-32">
-
                   <div className="flex items-center gap-3">
-
                     <span className="h-px w-6 bg-[#F58634]" />
 
                     <span
@@ -1220,7 +1227,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     >
                       The story
                     </span>
-
                   </div>
 
                   <p
@@ -1240,7 +1246,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   </p>
 
                   <div className="mt-8 flex items-center gap-3">
-
                     <MapPin
                       className="
                         h-3.5
@@ -1260,28 +1265,14 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     >
                       India
                     </span>
-
                   </div>
-
                 </div>
-
               </aside>
 
-
-              {/* ARTICLE */}
-
               <article>
-
-                {/* MOBILE META */}
-
                 <div className="mb-9 lg:hidden">
-                  <ArticleMeta
-                    blog={selectedBlog}
-                  />
+                  <ArticleMeta blog={selectedBlog} />
                 </div>
-
-
-                {/* LEAD */}
 
                 {selectedBlog.shortDescription && (
                   <div
@@ -1294,7 +1285,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                       md:pl-7
                     "
                   >
-
                     <p
                       className="
                         font-['Fraunces']
@@ -1307,19 +1297,12 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     >
                       {selectedBlog.shortDescription}
                     </p>
-
                   </div>
                 )}
-
-
-                {/* BODY */}
 
                 <BlogContent
                   content={selectedBlog.content}
                 />
-
-
-                {/* TAGS */}
 
                 {selectedBlog.tags?.length > 0 && (
                   <div
@@ -1330,7 +1313,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                       pt-7
                     "
                   >
-
                     <div
                       className="
                         flex
@@ -1339,7 +1321,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                         gap-2.5
                       "
                     >
-
                       <span
                         className="
                           mr-2
@@ -1377,14 +1358,9 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                           </span>
                         )
                       )}
-
                     </div>
-
                   </div>
                 )}
-
-
-                {/* AUTHOR / SHARE */}
 
                 <div
                   className="
@@ -1394,7 +1370,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     pt-7
                   "
                 >
-
                   <div
                     className="
                       flex
@@ -1405,9 +1380,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                       sm:justify-between
                     "
                   >
-
                     <div>
-
                       <p
                         className="
                           font-['Inter']
@@ -1433,11 +1406,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                         {selectedBlog.author ||
                           "Times India Travels"}
                       </p>
-
                     </div>
-
-
-                    {/* SHARE */}
 
                     <button
                       type="button"
@@ -1471,30 +1440,17 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                         } catch (error) {}
                       }}
                     >
-
                       <Share2 className="h-3.5 w-3.5" />
 
-                      <span>
-                        Share story
-                      </span>
-
+                      <span>Share story</span>
                     </button>
-
                   </div>
-
                 </div>
-
               </article>
 
-
-              {/* RIGHT EMPTY EDITORIAL SPACE */}
-
               <div className="hidden lg:block" />
-
             </div>
-
           </div>
-
         </section>
 
         <section
@@ -1506,7 +1462,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             lg:px-16
           "
         >
-
           <div
             className="
               relative
@@ -1523,9 +1478,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               lg:py-20
             "
           >
-
-            {/* DECORATIVE ORBS */}
-
             <div
               className="
                 pointer-events-none
@@ -1554,8 +1506,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               "
             />
 
-            {/* SUBTLE BORDER */}
-
             <div
               className="
                 pointer-events-none
@@ -1566,7 +1516,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                 border-white/5
               "
             />
-
 
             <div
               className="
@@ -1580,13 +1529,8 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                 md:justify-between
               "
             >
-
-              {/* COPY */}
-
               <div className="max-w-2xl">
-
                 <div className="flex items-center gap-3">
-
                   <span className="h-px w-8 bg-[#F58634]" />
 
                   <span
@@ -1601,7 +1545,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   >
                     Make it yours
                   </span>
-
                 </div>
 
                 <h2
@@ -1634,11 +1577,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   and we'll help shape the journey
                   around you.
                 </p>
-
               </div>
-
-
-              {/* BUTTON */}
 
               <button
                 type="button"
@@ -1670,10 +1609,7 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                   hover:shadow-[0_18px_45px_rgba(245,134,52,0.3)]
                 "
               >
-
-                <span>
-                  Plan your journey
-                </span>
+                <span>Plan your journey</span>
 
                 <ArrowRight
                   className="
@@ -1684,13 +1620,9 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
                     group-hover:translate-x-1
                   "
                 />
-
               </button>
-
             </div>
-
           </div>
-
         </section>
 
         <RelatedPosts
@@ -1707,7 +1639,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             lg:px-16
           "
         >
-
           <div
             className="
               mx-auto
@@ -1723,7 +1654,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
               text-[#124D56]/25
             "
           >
-
             <span
               className="
                 text-[12px]
@@ -1749,11 +1679,8 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
             >
               Stories from India
             </span>
-
           </div>
-
         </div>
-
       </main>
 
       {showQuotationForm && (
@@ -1763,7 +1690,6 @@ export default function BlogDetail({ initialBlog = null, initialBlogs = [] }) {
           }
         />
       )}
-
     </>
   );
 }

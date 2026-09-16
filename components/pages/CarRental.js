@@ -9,7 +9,7 @@ import CarRental_WhatsIncluded from "../CarRental_Components/CarRental_WhatsIncl
 export default function CarRental(){
     return(
         <>
-        <CarRental_Hero></CarRental_Hero>
+            <CarRental_Hero></CarRental_Hero>
             <CarRental_content></CarRental_content>
             <CarRental_Fleet></CarRental_Fleet>
             <CarRental_WhatsIncluded></CarRental_WhatsIncluded>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, ChevronRight, Package, MapPin } from "lucide-react";
+import { ArrowUpRight, ChevronRight, MapPin } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,7 +12,6 @@ export default function Destination_Category({ data }) {
   const [activeImage, setActiveImage] = useState(0);
 
   const selectedCategory = categories[activeCategory];
-
 
   const gallery = useMemo(() => {
     if (!selectedCategory) return [];
@@ -39,7 +38,6 @@ export default function Destination_Category({ data }) {
   const currentImage = gallery[activeImage];
   const packageCount = selectedCategory?.packages?.length || 0;
 
-
   const handleCategoryChange = (index) => {
     setActiveCategory(index);
     setActiveImage(0);
@@ -55,13 +53,11 @@ export default function Destination_Category({ data }) {
     return () => clearInterval(interval);
   }, [gallery.length, activeCategory]);
 
-
   if (!data || !categories.length) {
     return null;
   }
 
-  const categoryNumber = (index) =>
-    String(index + 1).padStart(2, "0");
+  const categoryNumber = (index) => String(index + 1).padStart(2, "0");
 
   return (
     <section
@@ -69,7 +65,7 @@ export default function Destination_Category({ data }) {
       className="
         relative
         overflow-hidden
-        bg-[#0B3C49]
+        bg-white
         py-20
         sm:py-24
         md:py-28
@@ -85,7 +81,7 @@ export default function Destination_Category({ data }) {
           h-150
           w-150
           rounded-full
-          bg-[#F58634]/7
+          bg-[#B85128]/5
           blur-[140px]
         "
       />
@@ -99,24 +95,8 @@ export default function Destination_Category({ data }) {
           h-137.5
           w-137.5
           rounded-full
-          bg-black/15
+          bg-[#173C3A]/5
           blur-[120px]
-        "
-      />
-
-      {/* subtle vertical editorial line */}
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-[8%]
-          top-0
-          hidden
-          h-full
-          w-px
-          bg-white/[0.035]
-          lg:block
         "
       />
 
@@ -132,7 +112,6 @@ export default function Destination_Category({ data }) {
           xl:px-20
         "
       >
-
         <motion.div
           initial={{
             opacity: 0,
@@ -151,29 +130,16 @@ export default function Destination_Category({ data }) {
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
+            mx-auto
             mb-16
             max-w-4xl
+            text-center
             sm:mb-20
             lg:mb-24
           "
         >
-          {/* Eyebrow */}
-
-          <div
-            className="
-              mb-6
-              flex
-              items-center
-              gap-3
-            "
-          >
-            <span
-              className="
-                h-px
-                w-10
-                bg-cyan-300
-              "
-            />
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="h-px w-10 bg-[#B85128]" />
 
             <span
               className="
@@ -182,51 +148,49 @@ export default function Destination_Category({ data }) {
                 font-semibold
                 uppercase
                 tracking-[0.32em]
-                text-cyan-300
+                text-[#B85128]
                 sm:text-[10px]
               "
             >
               Explore {data.name}
             </span>
-          </div>
 
-          {/* Heading */}
+            <span className="h-px w-10 bg-[#B85128]" />
+          </div>
 
           <h2
             className="
+              mx-auto
               max-w-4xl
               font-['Fraunces']
               text-[clamp(2.8rem,6vw,5.8rem)]
               font-medium
               leading-[0.94]
               tracking-[-0.035em]
-              text-white
+              text-[#173C3A]
             "
           >
             Find the journey
             <br />
-
-            <span className="italic text-cyan-300">
+            <span className="italic text-[#173C3A]/45">
               that feels like yours.
             </span>
           </h2>
 
-          {/* Description */}
-
           <p
             className="
+              mx-auto
               mt-7
               max-w-2xl
               font-['Inter']
               text-sm
               leading-[1.9]
-              text-white/55
+              text-[#476763]
               sm:text-base
             "
           >
-            From iconic routes to slower, more immersive
-            journeys, explore the different ways to
-            experience {data.name}.
+            From iconic routes to slower, more immersive journeys, explore the
+            different ways to experience {data.name}.
           </p>
         </motion.div>
 
@@ -263,8 +227,6 @@ export default function Destination_Category({ data }) {
               lg:self-start
             "
           >
-            {/* Navigation heading */}
-
             <div
               className="
                 mb-7
@@ -280,7 +242,7 @@ export default function Destination_Category({ data }) {
                   font-semibold
                   uppercase
                   tracking-[0.28em]
-                  text-white/30
+                  text-[#476763]/55
                 "
               >
                 Tour categories
@@ -291,16 +253,14 @@ export default function Destination_Category({ data }) {
                   font-['IBM_Plex_Mono']
                   text-[9px]
                   tracking-[0.15em]
-                  text-white/20
+                  text-[#476763]/40
                 "
               >
                 {String(categories.length).padStart(2, "0")}
               </span>
             </div>
 
-            {/* Categories */}
-
-            <div className="border-t border-white/10">
+            <div className="border-t border-[#173C3A]/10">
               {categories.map((category, index) => {
                 const isActive = index === activeCategory;
                 const count = category?.packages?.length || 0;
@@ -318,14 +278,12 @@ export default function Destination_Category({ data }) {
                       items-center
                       gap-4
                       border-b
-                      border-white/10
+                      border-[#173C3A]/10
                       py-5
                       text-left
                       sm:py-6
                     "
                   >
-                    {/* Active line */}
-
                     <span
                       className={`
                         absolute
@@ -334,7 +292,7 @@ export default function Destination_Category({ data }) {
                         h-full
                         w-0.5
                         origin-top
-                        bg-[#F58634]
+                        bg-[#B85128]
                         transition-transform
                         duration-500
                         ${
@@ -344,8 +302,6 @@ export default function Destination_Category({ data }) {
                         }
                       `}
                     />
-
-                    {/* Number */}
 
                     <span
                       className={`
@@ -359,15 +315,13 @@ export default function Destination_Category({ data }) {
                         duration-300
                         ${
                           isActive
-                            ? "text-[#F58634]"
-                            : "text-white/20 group-hover:text-white/45"
+                            ? "text-[#B85128]"
+                            : "text-[#476763]/40 group-hover:text-[#476763]/70"
                         }
                       `}
                     >
                       {categoryNumber(index)}
                     </span>
-
-                    {/* Category */}
 
                     <span
                       className={`
@@ -380,15 +334,13 @@ export default function Destination_Category({ data }) {
                         sm:text-[22px]
                         ${
                           isActive
-                            ? "translate-x-1 text-white"
-                            : "text-white/40 group-hover:text-white/75"
+                            ? "translate-x-1 text-[#173C3A]"
+                            : "text-[#476763]/55 group-hover:text-[#173C3A]"
                         }
                       `}
                     >
                       {category.name}
                     </span>
-
-                    {/* Package count */}
 
                     <span
                       className={`
@@ -401,15 +353,13 @@ export default function Destination_Category({ data }) {
                         sm:block
                         ${
                           isActive
-                            ? "text-white/50"
-                            : "text-white/15"
+                            ? "text-[#476763]/70"
+                            : "text-[#476763]/35"
                         }
                       `}
                     >
                       {String(count).padStart(2, "0")}
                     </span>
-
-                    {/* Arrow */}
 
                     <ChevronRight
                       size={16}
@@ -420,8 +370,8 @@ export default function Destination_Category({ data }) {
                         duration-300
                         ${
                           isActive
-                            ? "translate-x-0 text-[#F58634] opacity-100"
-                            : "-translate-x-2 text-white opacity-0 group-hover:opacity-40"
+                            ? "translate-x-0 text-[#B85128] opacity-100"
+                            : "-translate-x-2 text-[#476763] opacity-0 group-hover:opacity-50"
                         }
                       `}
                     />
@@ -429,8 +379,6 @@ export default function Destination_Category({ data }) {
                 );
               })}
             </div>
-
-            {/* Selected category description */}
 
             <AnimatePresence mode="wait">
               {selectedCategory && (
@@ -457,7 +405,7 @@ export default function Destination_Category({ data }) {
                     <MapPin
                       size={12}
                       strokeWidth={1.5}
-                      className="text-[#F58634]"
+                      className="text-[#B85128]"
                     />
 
                     <span
@@ -467,7 +415,7 @@ export default function Destination_Category({ data }) {
                         font-semibold
                         uppercase
                         tracking-[0.2em]
-                        text-white/30
+                        text-[#476763]/55
                       "
                     >
                       About this journey
@@ -480,7 +428,7 @@ export default function Destination_Category({ data }) {
                       font-['Inter']
                       text-[12px]
                       leading-[1.8]
-                      text-white/45
+                      text-[#476763]
                     "
                   >
                     {selectedCategory.description}
@@ -514,11 +462,9 @@ export default function Destination_Category({ data }) {
               className="
                 relative
                 overflow-hidden
-                bg-[#082E38]
+                bg-[#173C3A]
               "
             >
-              {/* Image */}
-
               <div
                 className="
                   relative
@@ -570,7 +516,7 @@ export default function Destination_Category({ data }) {
                       flex
                       items-center
                       justify-center
-                      bg-[#103F4A]
+                      bg-[#173C3A]
                     "
                   >
                     <span
@@ -578,7 +524,7 @@ export default function Destination_Category({ data }) {
                         font-['Fraunces']
                         text-2xl
                         italic
-                        text-white/30
+                        text-white/40
                       "
                     >
                       {selectedCategory.name}
@@ -586,21 +532,17 @@ export default function Destination_Category({ data }) {
                   </div>
                 )}
 
-                {/* Dark overlay */}
-
                 <div
                   className="
                     pointer-events-none
                     absolute
                     inset-0
                     bg-linear-to-t
-                    from-[#061A20]/80
+                    from-[#173C3A]/85
                     via-transparent
-                    to-[#061A20]/10
+                    to-[#173C3A]/15
                   "
                 />
-
-                {/* Top information */}
 
                 <div
                   className="
@@ -616,16 +558,8 @@ export default function Destination_Category({ data }) {
                     sm:top-7
                   "
                 >
-                  {/* Category */}
-
                   <div className="flex items-center gap-3">
-                    <span
-                      className="
-                        h-px
-                        w-8
-                        bg-[#F58634]
-                      "
-                    />
+                    <span className="h-px w-8 bg-[#B85128]" />
 
                     <span
                       className="
@@ -641,31 +575,21 @@ export default function Destination_Category({ data }) {
                     </span>
                   </div>
 
-                  {/* Image counter */}
-
                   {gallery.length > 1 && (
                     <span
                       className="
                         font-['IBM_Plex_Mono']
                         text-[9px]
                         tracking-[0.15em]
-                        text-white/55
+                        text-white/65
                       "
                     >
-                      {String(activeImage + 1).padStart(
-                        2,
-                        "0"
-                      )}
+                      {String(activeImage + 1).padStart(2, "0")}
                       {" / "}
-                      {String(gallery.length).padStart(
-                        2,
-                        "0"
-                      )}
+                      {String(gallery.length).padStart(2, "0")}
                     </span>
                   )}
                 </div>
-
-                {/* Bottom content */}
 
                 <div
                   className="
@@ -698,7 +622,7 @@ export default function Destination_Category({ data }) {
                             font-semibold
                             uppercase
                             tracking-[0.25em]
-                            text-[#F58634]
+                            text-[#B85128]
                           "
                         >
                           {currentImage.caption}
@@ -730,15 +654,13 @@ export default function Destination_Category({ data }) {
                 flex-col
                 gap-6
                 border-b
-                border-white/10
+                border-[#173C3A]/10
                 py-7
                 sm:flex-row
                 sm:items-center
                 sm:justify-between
               "
             >
-              {/* Left information */}
-
               <div className="flex items-center gap-4">
                 <span
                   className="
@@ -746,16 +668,13 @@ export default function Destination_Category({ data }) {
                     text-[8px]
                     uppercase
                     tracking-[0.15em]
-                    text-white/25
+                    text-[#476763]/45
                   "
                 >
-                  {String(activeCategory + 1).padStart(
-                    2,
-                    "0"
-                  )}
+                  {String(activeCategory + 1).padStart(2, "0")}
                 </span>
 
-                <span className="h-px w-8 bg-white/10" />
+                <span className="h-px w-8 bg-[#173C3A]/15" />
 
                 <p
                   className="
@@ -763,15 +682,13 @@ export default function Destination_Category({ data }) {
                     font-['Inter']
                     text-[11px]
                     leading-[1.7]
-                    text-white/40
+                    text-[#476763]
                   "
                 >
-                  Explore curated tour packages designed
-                  around {selectedCategory.name.toLowerCase()}.
+                  Explore curated tour packages designed around{" "}
+                  {selectedCategory.name.toLowerCase()}.
                 </p>
               </div>
-
-              {/* CTA */}
 
               <Link
                 href={`/tours/${selectedCategory.id}`}
@@ -784,7 +701,7 @@ export default function Destination_Category({ data }) {
                   gap-4
                   rounded-full
                   border
-                  border-[#F58634]
+                  border-[#B85128]
                   px-5
                   py-3
                   font-['Inter']
@@ -792,17 +709,16 @@ export default function Destination_Category({ data }) {
                   font-bold
                   uppercase
                   tracking-[0.18em]
-                  text-white
+                  text-[#173C3A]
                   transition-all
                   duration-300
-                  hover:bg-[#F58634]
+                  hover:bg-[#B85128]
+                  hover:text-white
                 "
               >
                 <span>
                   Explore {packageCount}{" "}
-                  {packageCount === 1
-                    ? "package"
-                    : "packages"}
+                  {packageCount === 1 ? "package" : "packages"}
                 </span>
 
                 <ArrowUpRight
@@ -831,7 +747,7 @@ export default function Destination_Category({ data }) {
                       h-0.5
                       flex-1
                       overflow-hidden
-                      bg-white/10
+                      bg-[#173C3A]/10
                     "
                   >
                     <motion.span
@@ -853,7 +769,7 @@ export default function Destination_Category({ data }) {
                         absolute
                         inset-y-0
                         left-0
-                        bg-[#F58634]
+                        bg-[#B85128]
                       "
                     />
                   </button>
@@ -884,7 +800,7 @@ export default function Destination_Category({ data }) {
             flex-col
             gap-6
             border-t
-            border-white/10
+            border-[#173C3A]/10
             pt-7
             sm:flex-row
             sm:items-center
@@ -898,7 +814,7 @@ export default function Destination_Category({ data }) {
               text-[8px]
               uppercase
               tracking-[0.2em]
-              text-white/20
+              text-[#476763]/45
             "
           >
             {data.name} · Times India Travels
@@ -910,12 +826,11 @@ export default function Destination_Category({ data }) {
               font-['Fraunces']
               text-sm
               italic
-              text-white/25
+              text-[#476763]
               sm:text-right
             "
           >
-            Every route is a beginning. Let us shape
-            what comes next.
+            Every route is a beginning. Let us shape what comes next.
           </p>
         </motion.div>
       </div>

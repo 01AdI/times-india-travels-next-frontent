@@ -3,16 +3,13 @@
 import { motion } from "framer-motion";
 import { Clock, MapPin, CalendarDays, ArrowDownRight } from "lucide-react";
 
-// sectionNumber defaults to "01" but can be overridden — several other
-// components on a tour page (e.g. the CTA) also hardcode "01", so this
-// needs to be settable per-instance once assembled on the real page.
 export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
   const route = tour?.route || [];
   const duration = tour?.duration || {};
   const itinerary = tour?.itinerary || [];
 
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-14 lg:py-15">
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-14 lg:py-15">
 
       {/* Decorative background numeral — now hidden from assistive tech */}
       <motion.div
@@ -26,7 +23,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
         {sectionNumber}
       </motion.div>
 
-      <div className="relative mx-auto max-w-[1450px] px-6 sm:px-10 lg:px-16 xl:px-20">
+      <div className="relative mx-auto max-w-362.5 px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="mb-20 flex items-start justify-between sm:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -35,11 +32,11 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             transition={{ duration: 0.7 }}
             className="flex items-center gap-4"
           >
-            <span aria-hidden="true" className="font-['Fraunces'] text-xl italic text-[#F58634]">
+            <span aria-hidden="true" className="font-['Fraunces'] text-xl italic text-[#B85128]">
               {sectionNumber}
             </span>
             <span className="h-px w-12 bg-[#124D56]/20 sm:w-16" />
-            <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#124D56]">
+            <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#476763]">
               The Journey
             </span>
           </motion.div>
@@ -51,10 +48,10 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hidden text-right sm:block"
           >
-            <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#124D56]/90">
+            <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#476763]/90">
               Curated India
             </p>
-            <p className="mt-1 font-['Fraunces'] text-sm italic text-[#124D56]/60">
+            <p className="mt-1 font-['Fraunces'] text-sm italic text-[#476763]/60">
               A considered way to travel
             </p>
           </motion.div>
@@ -67,14 +64,14 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           >
             <div className="mb-6 flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#F58634]" />
-              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#F58634]">
+              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
                 Your route through India
               </p>
             </div>
 
-            <h2 className="max-w-5xl font-['Fraunces'] text-[1.2rem] font-medium leading-[0.93] tracking-[0.055em] text-[#0B3C49] sm:text-6xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem]">
+            <h2 className="max-w-5xl font-['Fraunces'] text-[1.2rem] font-medium leading-[0.93] tracking-[0.055em] text-[#173C3A] sm:text-6xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem]">
               A journey through
-              <span className="block italic text-cyan-600 text-[4.2rem]">
+              <span className="block italic text-[#B85128] text-[4.2rem]">
                 India's iconic cities.
               </span>
             </h2>
@@ -87,7 +84,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
               className="mt-10 h-0.5 bg-[#F58634]"
             />
 
-            <p className="mt-8 max-w-xl font-['Inter'] text-sm leading-7 text-[#536D72] sm:text-base">
+            <p className="mt-8 max-w-xl font-['Inter'] text-sm leading-7 text-[#476763] sm:text-base">
               From historic capitals to architectural masterpieces, this
               carefully composed route brings together the places that make
               India unforgettable.
@@ -100,18 +97,18 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           >
             <div className="mb-8 flex items-center gap-4">
               <span className="h-12 w-px bg-[#F58634]" />
-              <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#124D56]/70">
+              <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#476763]/70">
                 Designed around
                 <br />
                 the way you travel
               </span>
             </div>
 
-            <p className="max-w-lg font-['Fraunces'] text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-[#0B3C49] sm:text-3xl">
+            <p className="max-w-lg font-['Fraunces'] text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
               Discover India at a pace that leaves room for the details.
             </p>
 
-            <p className="mt-6 max-w-lg font-['Inter'] text-sm leading-7 text-[#71878B] sm:text-[15px]">
+            <p className="mt-6 max-w-lg font-['Inter'] text-sm leading-7 text-[#476763] sm:text-[15px]">
               This itinerary connects remarkable cities, historic landmarks
               and unforgettable experiences into one thoughtfully paced
               journey.
@@ -137,14 +134,14 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
         >
           <div className="mb-10 flex items-end justify-between border-b border-[#124D56]/10 pb-5">
             <div>
-              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#F58634]">
+              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
                 The route
               </p>
-              <h3 className="mt-2 font-['Fraunces'] text-2xl font-medium tracking-[-0.02em] text-[#0B3C49] sm:text-3xl">
+              <h3 className="mt-2 font-['Fraunces'] text-2xl font-medium tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
                 Where the story unfolds
               </h3>
             </div>
-            <p className="hidden font-['Inter'] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#124D56] sm:block">
+            <p className="hidden font-['Inter'] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#476763] sm:block">
               {route.length} destinations
             </p>
           </div>
@@ -152,14 +149,14 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           {/* DESKTOP ROUTE */}
           <div className="hidden md:block">
             <div className="relative">
-              <div className="absolute left-0 right-0 top-[15px] h-px bg-[#124D56]/10" />
+              <div className="absolute left-0 right-0 top-3.75 h-px bg-[#124D56]/10" />
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 style={{ transformOrigin: "left" }}
-                className="absolute left-0 top-[15px] h-px w-full bg-[#F58634]"
+                className="absolute left-0 top-3.75 h-px w-full bg-[#F58634]"
               />
 
               <div className="relative flex justify-between gap-6">
@@ -170,7 +167,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.35 + index * 0.12 }}
-                    className="flex max-w-[180px] flex-1 flex-col"
+                    className="flex max-w-45 flex-1 flex-col"
                   >
                     <div className="mb-7 flex items-center">
                       <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-[#F58634] bg-[#F8F5EF]">
@@ -202,7 +199,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                 viewport={{ once: true }}
                 transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{ transformOrigin: "top" }}
-                className="absolute bottom-0 left-[-1px] top-0 w-px bg-[#F58634]"
+                className="absolute bottom-0 -left-px top-0 w-px bg-[#F58634]"
               />
 
               <div className="space-y-9">
@@ -215,7 +212,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="relative"
                   >
-                    <div className="absolute -left-[43px] top-1 flex h-6 w-6 items-center justify-center rounded-full border border-[#F58634] bg-[#F8F5EF]">
+                    <div className="absolute -left-10.75 top-1 flex h-6 w-6 items-center justify-center rounded-full border border-[#F58634] bg-[#F8F5EF]">
                       <span className="text-[9px] font-bold text-[#F58634]">
                         {String(index + 1).padStart(2, "0")}
                       </span>

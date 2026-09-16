@@ -23,29 +23,32 @@ export default function TourPackage_Category_Highlights({ data }) {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-15">
-      <div className="mx-auto max-w-[1500px] px-5 sm:px-8 lg:px-12">
-        {/* HEADER — the single header for this page section now;
-            the old Intro component's duplicate header was removed. */}
-        <div className="mx-auto mb-14 max-w-3xl text-center md:mb-16">
-          <p className="mb-4 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#F58634] sm:text-[11px]">
+    <section className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-15">
+      <div className="mx-auto max-w-375 px-5 sm:px-8 lg:px-12">
+
+        {/* HEADER */}
+        <div className="mx-auto mb-14 max-w-4xl text-center md:mb-16">
+
+          <p className="mb-4 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#B85128] sm:text-[11px]">
             Explore {data.name}
           </p>
 
-          <h2 className="font-['Fraunces'] text-4xl font-medium leading-[1.08] tracking-[-0.025em] text-[#0B3C49] sm:text-5xl md:text-6xl">
+          <h2 className="font-['Fraunces'] text-4xl font-medium leading-[1.08] tracking-tight text-[#173C3A] sm:text-5xl md:text-6xl">
             Experience {data.name}
           </h2>
 
-          <div className="mx-auto mt-6 h-[2px] w-10 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-0.5 w-50 bg-[#F58634]" />
 
-          <p className="mx-auto mt-6 max-w-2xl font-['Inter'] text-sm leading-7 text-[#5F6F73] sm:text-base">
-            Choose from our carefully crafted journeys and discover the
-            places, culture and experiences that make this region unique.
+          {/* FULL DESCRIPTION */}
+          <p className="mx-auto mt-8 max-w-full font-['Inter'] text-sm leading-8 text-[#476763]/70 sm:text-base">
+            {data.description}
           </p>
+
         </div>
 
         {/* HIGHLIGHTS */}
-        <div className="grid gap-px overflow-hidden rounded-[28px] bg-[#0B3C49]/10 md:grid-cols-3 cursor-pointer">
+        <div className="grid cursor-pointer gap-px overflow-hidden rounded-[28px] bg-[#0B3C49]/10 md:grid-cols-3">
+
           {highlights.map((item) => (
             <div
               key={item.number}
@@ -64,7 +67,9 @@ export default function TourPackage_Category_Highlights({ data }) {
               </p>
             </div>
           ))}
+
         </div>
+
       </div>
     </section>
   );

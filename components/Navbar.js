@@ -66,7 +66,7 @@ function NavLink({ to, className, children, ...rest }) {
    NAVBAR
 ========================================================= */
 
-export default function Navbar() {
+export default function Navbar({ initialCategories = [] }) {
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -99,7 +99,15 @@ export default function Navbar() {
      REDUX TOUR CATEGORIES
   ======================================================= */
 
-  const categories = useSelector(selectTourCategories);
+  const reduxCategories = useSelector(selectTourCategories);
+
+  // Prefer the server-fetched category list for the first paint (so the
+  // primary nav's Tour Packages dropdown is in the server-rendered HTML),
+  // then switch to the Redux copy once the client fetch completes.
+  const categories =
+    reduxCategories && reduxCategories.length > 0
+      ? reduxCategories
+      : initialCategories;
 
   const categoryStatus = useSelector(
     selectTourCategoriesStatus

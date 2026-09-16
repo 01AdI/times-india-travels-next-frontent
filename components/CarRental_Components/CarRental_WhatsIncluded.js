@@ -37,7 +37,7 @@ const inclusions = [
 
 export default function CarRental_WhatsIncluded(){
     return(
-    <section className="bg-[#F2FAFB] px-6 py-13 lg:py-14">
+    <section className="bg-white px-6 py-13 lg:py-14">
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 text-center">
             <span
@@ -47,7 +47,7 @@ export default function CarRental_WhatsIncluded(){
                 font-semibold
                 uppercase
                 tracking-[0.28em]
-                text-[#F58634]
+                text-[#B85128]
                 sm:text-xs
               "
             >
@@ -60,13 +60,13 @@ export default function CarRental_WhatsIncluded(){
                 font-['Fraunces']
                 text-[clamp(2rem,4vw,3rem)]
                 font-medium
-                text-[#0B3C49]
+                text-[#173C3A]
               "
             >
               What's Included
             </h2>
 
-            <div className="mx-auto mt-6 h-px w-20 bg-[#F58634]" />
+            <div className="mx-auto mt-6 h-px w-25 bg-[#F58634]" />
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

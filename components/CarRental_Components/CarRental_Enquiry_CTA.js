@@ -29,7 +29,7 @@ export default function CarRental_Enquiry_CTA(){
               font-semibold
               uppercase
               tracking-[0.3em]
-              text-[#F58634]
+              text-cyan-500
               sm:text-xs
             "
           >
@@ -49,7 +49,7 @@ export default function CarRental_Enquiry_CTA(){
             Ready to take the road?
           </h2>
 
-          <div className="mx-auto mt-6 h-px w-12 bg-[#F58634]" />
+          <div className="mx-auto mt-6 h-px w-30 bg-[#F58634]" />
 
           <p
             className="
@@ -148,7 +148,7 @@ export default function CarRental_Enquiry_CTA(){
                   text-white/45
                 "
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#F58634]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
 
                 {item}
               </span>

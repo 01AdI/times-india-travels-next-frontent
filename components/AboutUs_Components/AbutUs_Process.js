@@ -26,16 +26,9 @@ export default function AboutUs_Process() {
 
   return (
     <>
-      {/* =====================================================
-          HOW IT WORKS
-      ====================================================== */}
 
-      <section className="relative py-14 sm:py-15 bg-[#F2FAFB] border-y border-[#C9A24B]/25 overflow-hidden">
+      <section className="relative py-14 sm:py-15 bg-white border-y border-[#C9A24B]/25 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
-
-          {/* =================================================
-              SECTION HEADER
-          ================================================== */}
 
           <div className="text-center mb-14">
             <span
@@ -45,7 +38,7 @@ export default function AboutUs_Process() {
                 font-semibold
                 uppercase
                 tracking-[0.28em]
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               How It Works
@@ -55,7 +48,7 @@ export default function AboutUs_Process() {
               className="
                 font-['Fraunces']
                 font-medium
-                text-[#0B3C49]
+                text-[#173C3A]
                 text-[clamp(2rem,4vw,3rem)]
                 mt-4
               "
@@ -63,12 +56,8 @@ export default function AboutUs_Process() {
               Getting Started Is Simple
             </h2>
 
-            <div className="w-10 h-[2px] bg-[#F58634] mx-auto mt-6" />
+            <div className="w-10 h-0.5 bg-[#F58634] mx-auto mt-6" />
           </div>
-
-          {/* =================================================
-              STEPS
-          ================================================== */}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {steps.map((step) => (
@@ -80,7 +69,7 @@ export default function AboutUs_Process() {
                   className="
                     font-['Fraunces']
                     text-5xl
-                    text-[#1EA5BE]/25
+                    text-[#476763]/35
                     font-medium
                   "
                 >
@@ -92,7 +81,7 @@ export default function AboutUs_Process() {
                     font-['Fraunces']
                     font-medium
                     text-xl
-                    text-[#0B3C49]
+                    text-[#476763]
                     mt-3
                   "
                 >
@@ -102,7 +91,7 @@ export default function AboutUs_Process() {
                 <p
                   className="
                     font-['Inter']
-                    text-[#6D6D6D]
+                    text-[#476763]/55
                     text-[15px]
                     leading-relaxed
                     mt-3
@@ -113,10 +102,6 @@ export default function AboutUs_Process() {
               </div>
             ))}
           </div>
-
-          {/* =================================================
-              CTA
-          ================================================== */}
 
           <div className="text-center mt-14">
             <button
@@ -178,10 +163,6 @@ export default function AboutUs_Process() {
           </div>
         </div>
       </section>
-
-      {/* =====================================================
-          QUOTATION MODAL
-      ====================================================== */}
 
       {isQuoteOpen && (
         <AboutUs_Quotation_Form

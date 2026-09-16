@@ -18,7 +18,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
       className="
         relative
         overflow-hidden
-        bg-[#F2FAFB]
+        bg-white
         px-5
         py-20
         sm:px-8
@@ -34,10 +34,10 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
           absolute
           -right-40
           top-0
-          h-[600px]
-          w-[600px]
+          h-150
+          w-150
           rounded-full
-          bg-[#F58634]/[0.045]
+          bg-[#F58634]/4.5
           blur-3xl
         "
       />
@@ -49,15 +49,15 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
           absolute
           -left-48
           bottom-0
-          h-[500px]
-          w-[500px]
+          h-125
+          w-125
           rounded-full
-          bg-[#124D56]/[0.04]
+          bg-[#124D56]/4
           blur-3xl
         "
       />
 
-      <div className="relative mx-auto max-w-[1250px]">
+      <div className="relative mx-auto max-w-312.5">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
           transition={{ duration: 0.7 }}
           className="flex items-center gap-4"
         >
-          <span className="font-['Fraunces'] text-xl italic text-[#F58634]">
+          <span className="font-['Fraunces'] text-xl italic text-[#B85128]">
             02
           </span>
 
@@ -101,7 +101,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
                 font-semibold
                 uppercase
                 tracking-[0.3em]
-                text-[#F58634]
+                text-[#B85128]
               "
             >
               Your journey, one day at a time
@@ -121,7 +121,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
               "
             >
               Every day has
-              <span className="block italic text-[#F58634]">
+              <span className="block italic text-[#B85128]">
                 its own story.
               </span>
             </h2>
@@ -157,7 +157,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
             className="
               absolute
               bottom-8
-              left-[27px]
+              left-6.75
               top-8
               hidden
               w-px
@@ -241,7 +241,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
                       className="
                         relative
                         overflow-hidden
-                        rounded-[24px]
+                        rounded-3xl
                         border
                         border-[#124D56]/10
                         bg-white
@@ -270,7 +270,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
                           text-[170px]
                           leading-none
                           tracking-[-0.08em]
-                          text-[#124D56]/[0.025]
+                          text-[#124D56]/2.5
                           transition-transform
                           duration-700
                           group-hover:translate-x-2
@@ -335,7 +335,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
                               text-2xl
                               font-medium
                               leading-tight
-                              tracking-[-0.025em]
+                              tracking-tight
                               text-[#0B3C49]
                               sm:text-3xl
                               lg:text-[34px]
@@ -371,7 +371,7 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
                           </div>
                         </div>
 
-                        <div className="mt-6 h-px w-full bg-[#124D56]/[0.08]" />
+                        <div className="mt-6 h-px w-full bg-[#124D56]/8" />
 
                         <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
 
@@ -421,14 +421,14 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
               className="
                 max-w-3xl
                 font-['Fraunces']
-                text-base
+                text-xl
                 italic
                 leading-7
                 text-[#124D56]/65
                 sm:text-lg
               "
             >
-              Every itinerary is just an idea; it can be customized
+              Every itinerary is just an idea , it can be customized
               as per your wishes and convenience.
             </p>
 
@@ -436,11 +436,11 @@ export default function TourPackage_Sub_Itinerary_5({ tour }) {
               className="
                 shrink-0
                 font-['Inter']
-                text-[9px]
+                text-[12px]
                 font-semibold
                 uppercase
                 tracking-[0.25em]
-                text-[#124D56]/40
+                text-[#124D56]/60
               "
             >
               Your journey · Your way

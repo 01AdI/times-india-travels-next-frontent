@@ -16,7 +16,7 @@ export default function Destination_Overview({ data }) {
       className="
         relative
         overflow-hidden
-        bg-[#F2FAFB]
+        bg-[#FAF5EB]
         py-13
         sm:py-13
         md:py-14
@@ -24,34 +24,6 @@ export default function Destination_Overview({ data }) {
       "
     >
         
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -right-32
-          top-20
-          h-72
-          w-72
-          rounded-full
-          bg-[#F58634]/5
-          blur-3xl
-        "
-      />
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -left-40
-          bottom-0
-          h-96
-          w-96
-          rounded-full
-          bg-[#103F4A]/5
-          blur-3xl
-        "
-      />
-
       <div
         className="
           relative
@@ -96,7 +68,7 @@ export default function Destination_Overview({ data }) {
                 h-full
                 w-full
                 border
-                border-[#F58634]/40
+                border-[#B85128]/40
               "
             />
 
@@ -186,7 +158,7 @@ export default function Destination_Overview({ data }) {
                 className="
                   h-px
                   w-10
-                  bg-[#F58634]
+                  bg-[#B85128]
                 "
               />
 
@@ -196,7 +168,7 @@ export default function Destination_Overview({ data }) {
                   font-semibold
                   uppercase
                   tracking-[0.35em]
-                  text-[#F58634]
+                  text-[#B85128]
                   sm:text-xs
                 "
               >
@@ -214,13 +186,13 @@ export default function Destination_Overview({ data }) {
                 font-medium
                 leading-[1.05]
                 tracking-tight
-                text-[#103F4A]
+                text-[#173C3A]
                 sm:text-5xl
                 md:text-6xl
               "
             >
               Discover the soul of{" "}
-              <span className="italic text-[#F58634]">
+              <span className="italic text-[#B85128]">
                 {data.name}
               </span>
             </h2>
@@ -245,7 +217,7 @@ export default function Destination_Overview({ data }) {
                 max-w-2xl
                 text-sm
                 leading-7
-                text-slate-600
+                text-[#476763]
                 sm:text-base
                 sm:leading-8
               "
@@ -275,7 +247,7 @@ export default function Destination_Overview({ data }) {
                     font-semibold
                     uppercase
                     tracking-[0.25em]
-                    text-slate-400
+                    text-[#173C3A]
                   "
                 >
                   Destination
@@ -286,7 +258,7 @@ export default function Destination_Overview({ data }) {
                     mt-2
                     font-['Fraunces']
                     text-xl
-                    text-[#103F4A]
+                    text-[#476763]
                   "
                 >
                   {data.name}
@@ -302,7 +274,7 @@ export default function Destination_Overview({ data }) {
                     font-semibold
                     uppercase
                     tracking-[0.25em]
-                    text-slate-400
+                    text-[#173C3A]
                   "
                 >
                   Packages
@@ -313,7 +285,7 @@ export default function Destination_Overview({ data }) {
                     mt-2
                     font-['Fraunces']
                     text-xl
-                    text-[#103F4A]
+                    text-[#476763]
                   "
                 >
                   {String(categoryCount).padStart(2, "0")}
@@ -329,7 +301,7 @@ export default function Destination_Overview({ data }) {
                     font-semibold
                     uppercase
                     tracking-[0.25em]
-                    text-slate-400
+                    text-[#173C3A]
                   "
                 >
                   Journey
@@ -340,7 +312,7 @@ export default function Destination_Overview({ data }) {
                     mt-2
                     font-['Fraunces']
                     text-xl
-                    text-[#103F4A]
+                    text-[#476763]
                   "
                 >
                   Tailored

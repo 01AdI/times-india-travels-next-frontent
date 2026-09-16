@@ -6,11 +6,18 @@ import {fetchHomeHero,} from "../../features/Home-page/homeHeroSlice";
 
 const SLIDE_DURATION = 3500;
 
-export default function Home_HeroSection() {
+export default function Home_HeroSection({ initialSlides = [] }) {
  
   const dispatch = useDispatch();
 
-  const {slides,status,error,} = useSelector((state) => state.homeHero);
+  const {slides: reduxSlides,status,error,} = useSelector((state) => state.homeHero);
+
+  // Use the slides fetched on the server for the very first paint so the
+  // hero image/heading is present in the server-rendered HTML (SEO +
+  // faster LCP) instead of only appearing once the client-side Redux
+  // fetch resolves. Once Redux has fetched its own copy, prefer that so
+  // auto-refresh/cache-busting keeps working exactly as before.
+  const slides = reduxSlides.length > 0 ? reduxSlides : initialSlides;
 
   const [current, setCurrent] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
@@ -409,6 +416,8 @@ if (status === "failed" && slides.length === 0) {
                 src={slide.mediaUrl}
                 alt={slide.place}
                 className="h-full w-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
               />
             )}
           </div>

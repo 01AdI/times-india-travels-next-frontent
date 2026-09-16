@@ -19,36 +19,9 @@ export default function Destination_Other({ data }) {
   return (
     <section
       id="destination-other"
-      className="relative overflow-hidden bg-[#F2FAFB] py-13 sm:py-13 md:py-13 lg:py-15"
+      className="relative overflow-hidden bg-[#FAF5EB] py-13 sm:py-13 md:py-13 lg:py-15"
     >
 
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -right-40
-          top-20
-          h-[420px]
-          w-[420px]
-          rounded-full
-          bg-[#F58634]/5
-          blur-[100px]
-        "
-      />
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -left-48
-          bottom-0
-          h-[450px]
-          w-[450px]
-          rounded-full
-          bg-[#124d56]/5
-          blur-[100px]
-        "
-      />
 
       <div
         className="
@@ -76,7 +49,7 @@ export default function Destination_Other({ data }) {
           {/* Eyebrow */}
 
           <div className="mb-5 flex items-center gap-3">
-            <span className="h-px w-10 bg-[#F58634]" />
+            <span className="h-px w-10 bg-[#B85128]" />
 
             <span
               className="
@@ -85,7 +58,7 @@ export default function Destination_Other({ data }) {
                 font-semibold
                 uppercase
                 tracking-[0.35em]
-                text-[#F58634]
+                text-[#B85128]
                 sm:text-xs
               "
             >
@@ -102,13 +75,13 @@ export default function Destination_Other({ data }) {
               font-medium
               leading-[1.05]
               tracking-tight
-              text-[#124d56]
+              text-[#173C3A]
               sm:text-5xl
               md:text-6xl
             "
           >
             There is more to{" "}
-            <span className="italic text-[#F58634]">
+            <span className="italic text-[#B85128]">
               discover.
             </span>
           </h2>
@@ -120,7 +93,7 @@ export default function Destination_Other({ data }) {
               font-['Inter']
               text-sm
               leading-7
-              text-[#124d56]/60
+              text-[#476763]/60
               sm:text-base
               sm:leading-8
             "
