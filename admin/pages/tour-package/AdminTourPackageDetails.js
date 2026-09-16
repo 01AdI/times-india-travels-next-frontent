@@ -29,7 +29,6 @@ export default function AdminTourPackageDetails() {
 
   const [tourPackage, setTourPackage] = useState(null);
   const [categoryName, setCategoryName] = useState("");
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -89,10 +88,6 @@ export default function AdminTourPackageDetails() {
     }
   }, [id]);
 
-  // ============================================================
-  // LOADING
-  // ============================================================
-
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -109,10 +104,6 @@ export default function AdminTourPackageDetails() {
       </div>
     );
   }
-
-  // ============================================================
-  // ERROR
-  // ============================================================
 
   if (error || !tourPackage) {
     return (
@@ -136,9 +127,7 @@ export default function AdminTourPackageDetails() {
 
               <button
                 type="button"
-                onClick={() =>
-                  navigate("/tour-packages")
-                }
+                onClick={() => navigate(-1)}
                 className="mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-[#F4EFE4] transition-colors duration-200 hover:bg-[#C9A24B] hover:text-[#101A2E]"
                 style={{
                   backgroundColor: NAVY,
@@ -153,10 +142,6 @@ export default function AdminTourPackageDetails() {
       </div>
     );
   }
-
-  // ============================================================
-  // NORMALIZED DATA
-  // ============================================================
 
   const duration = tourPackage.duration || {};
 
@@ -215,17 +200,13 @@ export default function AdminTourPackageDetails() {
       : "—");
 
   const handleDelete = () => {
-    navigate("/tour-packages", {
+    navigate(-1, {
       state: {
         openDeleteModal: true,
         package: tourPackage,
       },
     });
   };
-
-  // ============================================================
-  // UI
-  // ============================================================
 
   return (
     <div
@@ -234,19 +215,13 @@ export default function AdminTourPackageDetails() {
         backgroundColor: "#F5F7F6",
       }}
     >
-      {/* ======================================================
-          HEADER
-      ====================================================== */}
-
       <div className="border-b border-[#101A2E]/8 bg-white">
         <div className="mx-auto max-w-7xl px-6 py-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <button
                 type="button"
-                onClick={() =>
-                  navigate("/tour-packages")
-                }
+                onClick={() => navigate(-1)}
                 className="mb-3 inline-flex items-center gap-2 text-sm font-medium text-[#101A2E]/55 transition-colors duration-200 hover:text-[#101A2E]"
               >
                 <ArrowLeft size={16} />
@@ -255,10 +230,9 @@ export default function AdminTourPackageDetails() {
 
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-2xl font-bold tracking-tight text-[#101A2E]">
-                  {tourPackage.name || "Untitled Package"}
+                  {tourPackage.name ||
+                    "Untitled Package"}
                 </h1>
-
-                {/* MOST LOVED */}
 
                 {tourPackage.mostLoved === true && (
                   <span
@@ -276,8 +250,6 @@ export default function AdminTourPackageDetails() {
                   </span>
                 )}
 
-                {/* SPECIAL PACKAGE */}
-
                 {tourPackage.specialPackage === true && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#101A2E] px-2.5 py-1 text-xs font-semibold text-white">
                     <Sparkles size={13} />
@@ -290,8 +262,6 @@ export default function AdminTourPackageDetails() {
                 Tour Package Details
               </p>
             </div>
-
-            {/* ACTIONS */}
 
             <div className="flex items-center gap-2">
               <button
@@ -320,21 +290,9 @@ export default function AdminTourPackageDetails() {
         </div>
       </div>
 
-      {/* ======================================================
-          MAIN
-      ====================================================== */}
-
       <main className="mx-auto max-w-7xl px-6 py-8">
         <div className="grid gap-6 lg:grid-cols-3">
-
-          {/* ==================================================
-              LEFT COLUMN
-          ================================================== */}
-
           <div className="space-y-6 lg:col-span-2">
-
-            {/* HERO IMAGE */}
-
             <section className="overflow-hidden rounded-2xl border border-[#101A2E]/8 bg-white">
               <div className="relative aspect-[16/7] bg-[#101A2E]/5">
                 {heroImage ? (
@@ -351,8 +309,6 @@ export default function AdminTourPackageDetails() {
                     No package image available
                   </div>
                 )}
-
-                {/* IMAGE BADGES */}
 
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {tourPackage.mostLoved === true && (
@@ -376,8 +332,6 @@ export default function AdminTourPackageDetails() {
               </div>
             </section>
 
-            {/* PACKAGE OVERVIEW */}
-
             <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
               <div className="mb-5">
                 <h2 className="text-lg font-bold text-[#101A2E]">
@@ -390,9 +344,6 @@ export default function AdminTourPackageDetails() {
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
-
-                {/* CATEGORY */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Category
@@ -405,8 +356,6 @@ export default function AdminTourPackageDetails() {
                   </p>
                 </div>
 
-                {/* DURATION */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Duration
@@ -414,12 +363,9 @@ export default function AdminTourPackageDetails() {
 
                   <div className="mt-1 flex items-center gap-2 text-sm font-semibold text-[#101A2E]">
                     <Clock size={15} />
-
                     {durationLabel}
                   </div>
                 </div>
-
-                {/* PRICE */}
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
@@ -436,8 +382,6 @@ export default function AdminTourPackageDetails() {
                       : "Quote on request"}
                   </p>
                 </div>
-
-                {/* MOST LOVED */}
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
@@ -459,15 +403,14 @@ export default function AdminTourPackageDetails() {
                   </div>
                 </div>
 
-                {/* SPECIAL PACKAGE */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Special Package
                   </p>
 
                   <div className="mt-1 flex items-center gap-2 text-sm font-semibold text-[#101A2E]">
-                    {tourPackage.specialPackage === true ? (
+                    {tourPackage.specialPackage ===
+                    true ? (
                       <>
                         <CheckCircle2
                           size={16}
@@ -481,8 +424,6 @@ export default function AdminTourPackageDetails() {
                   </div>
                 </div>
 
-                {/* PACKAGE ID */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Package ID
@@ -494,8 +435,6 @@ export default function AdminTourPackageDetails() {
                 </div>
               </div>
             </section>
-
-            {/* ROUTE */}
 
             {route.length > 0 && (
               <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
@@ -522,15 +461,12 @@ export default function AdminTourPackageDetails() {
                         size={15}
                         className="text-[#101A2E]/35"
                       />
-
                       {place}
                     </div>
                   ))}
                 </div>
               </section>
             )}
-
-            {/* HIGHLIGHTS */}
 
             {highlights.length > 0 && (
               <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
@@ -563,8 +499,6 @@ export default function AdminTourPackageDetails() {
                 </div>
               </section>
             )}
-
-            {/* ITINERARY */}
 
             {itinerary.length > 0 && (
               <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
@@ -618,14 +552,9 @@ export default function AdminTourPackageDetails() {
               </section>
             )}
 
-            {/* INCLUSIONS / EXCLUSIONS */}
-
             {(inclusions.length > 0 ||
               exclusions.length > 0) && (
               <section className="grid gap-6 md:grid-cols-2">
-
-                {/* INCLUSIONS */}
-
                 {inclusions.length > 0 && (
                   <div className="rounded-2xl border border-emerald-100 bg-white p-6">
                     <h2 className="text-lg font-bold text-[#101A2E]">
@@ -652,8 +581,6 @@ export default function AdminTourPackageDetails() {
                   </div>
                 )}
 
-                {/* EXCLUSIONS */}
-
                 {exclusions.length > 0 && (
                   <div className="rounded-2xl border border-red-100 bg-white p-6">
                     <h2 className="text-lg font-bold text-[#101A2E]">
@@ -668,7 +595,6 @@ export default function AdminTourPackageDetails() {
                             className="flex gap-3 text-sm leading-6 text-[#101A2E]/70"
                           >
                             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
-
                             {item}
                           </li>
                         )
@@ -678,8 +604,6 @@ export default function AdminTourPackageDetails() {
                 )}
               </section>
             )}
-
-            {/* ALSO UNDER */}
 
             {alsoUnder.length > 0 && (
               <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
@@ -712,23 +636,13 @@ export default function AdminTourPackageDetails() {
             )}
           </div>
 
-          {/* ==================================================
-              RIGHT COLUMN
-          ================================================== */}
-
           <aside className="space-y-6">
-
-            {/* PACKAGE INFORMATION */}
-
             <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
               <h2 className="text-base font-bold text-[#101A2E]">
                 Package Information
               </h2>
 
               <div className="mt-5 space-y-4">
-
-                {/* ID */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Package ID
@@ -738,8 +652,6 @@ export default function AdminTourPackageDetails() {
                     {tourPackage.id || "—"}
                   </p>
                 </div>
-
-                {/* DATABASE ID */}
 
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
@@ -751,8 +663,6 @@ export default function AdminTourPackageDetails() {
                   </p>
                 </div>
 
-                {/* CATEGORY */}
-
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
                     Category Slug
@@ -763,8 +673,6 @@ export default function AdminTourPackageDetails() {
                       "—"}
                   </p>
                 </div>
-
-                {/* SOURCE */}
 
                 {tourPackage.sourceUrl && (
                   <div>
@@ -787,8 +695,6 @@ export default function AdminTourPackageDetails() {
                   </div>
                 )}
 
-                {/* CREATED */}
-
                 {tourPackage.createdAt && (
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wide text-[#101A2E]/35">
@@ -809,8 +715,6 @@ export default function AdminTourPackageDetails() {
                     </p>
                   </div>
                 )}
-
-                {/* UPDATED */}
 
                 {tourPackage.updatedAt && (
                   <div>
@@ -835,8 +739,6 @@ export default function AdminTourPackageDetails() {
               </div>
             </section>
 
-            {/* THUMBNAIL */}
-
             <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
               <h2 className="text-base font-bold text-[#101A2E]">
                 Thumbnail
@@ -857,15 +759,12 @@ export default function AdminTourPackageDetails() {
               </div>
             </section>
 
-            {/* STATUS */}
-
             <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
               <h2 className="text-base font-bold text-[#101A2E]">
                 Package Status
               </h2>
 
               <div className="mt-4 space-y-3">
-
                 <div className="flex items-center justify-between rounded-xl bg-[#F5F7F6] px-4 py-3">
                   <span className="text-sm text-[#101A2E]/65">
                     Most Loved
@@ -905,8 +804,6 @@ export default function AdminTourPackageDetails() {
                 </div>
               </div>
             </section>
-
-            {/* QUICK ACTIONS */}
 
             <section className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
               <h2 className="text-base font-bold text-[#101A2E]">

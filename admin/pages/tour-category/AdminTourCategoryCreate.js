@@ -12,6 +12,7 @@ import {
   Navigation,
   Compass,
   Link as LinkIcon,
+  Sparkles,
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -24,29 +25,118 @@ export default function AdminTourCategoryCreate() {
   const navigate = useNavigate();
   const errorRef = useRef(null);
 
+  /*
+   * ---------------------------------------------------------
+   * FORM
+   * ---------------------------------------------------------
+   */
+
   const [form, setForm] = useState({
     id: "",
     name: "",
     tagline: "",
+    shortDescription: "",
     description: "",
     showInNavbar: true,
     showInExplore: true,
   });
 
+  /*
+   * Tracks whether the user has manually changed
+   * the Category ID.
+   *
+   * If false:
+   *     Category ID follows Category Name automatically.
+   *
+   * If true:
+   *     We stop changing the ID automatically.
+   */
+  const [idManuallyEdited, setIdManuallyEdited] =
+    useState(false);
+
+  /*
+   * ---------------------------------------------------------
+   * HERO IMAGE
+   * ---------------------------------------------------------
+   */
+
   const [heroImage, setHeroImage] = useState(null);
   const [heroImageUrl, setHeroImageUrl] = useState("");
-  const [heroImagePreview, setHeroImagePreview] = useState("");
+  const [heroImagePreview, setHeroImagePreview] =
+    useState("");
+
+  /*
+   * Keep track of the currently active object URL so
+   * we only revoke it when it is actually replaced/removed.
+   */
+  const heroPreviewRef = useRef("");
+
+  /*
+   * ---------------------------------------------------------
+   * DESTINATIONS
+   * ---------------------------------------------------------
+   */
 
   const [destinations, setDestinations] = useState([]);
-  const [availableDestinations, setAvailableDestinations] = useState([]);
-  const [destinationsLoading, setDestinationsLoading] = useState(true);
+  const [availableDestinations, setAvailableDestinations] =
+    useState([]);
+  const [destinationsLoading, setDestinationsLoading] =
+    useState(true);
+
+  /*
+   * ---------------------------------------------------------
+   * GALLERY
+   * ---------------------------------------------------------
+   */
 
   const [gallery, setGallery] = useState([]);
   const [galleryUrl, setGalleryUrl] = useState("");
 
+  /*
+   * ---------------------------------------------------------
+   * UI STATE
+   * ---------------------------------------------------------
+   */
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  /*
+   * ---------------------------------------------------------
+   * HELPERS
+   * ---------------------------------------------------------
+   */
+
+  const slugify = (value) => {
+    return value
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-{2,}/g, "-");
+  };
+
+  const isValidImageUrl = (value) => {
+    try {
+      const parsedUrl = new URL(value);
+
+      return (
+        parsedUrl.protocol === "http:" ||
+        parsedUrl.protocol === "https:"
+      );
+    } catch {
+      return false;
+    }
+  };
+
+  /*
+   * ---------------------------------------------------------
+   * ERROR SCROLL
+   * ---------------------------------------------------------
+   */
 
   useEffect(() => {
     if (!error) return;
@@ -58,6 +148,12 @@ export default function AdminTourCategoryCreate() {
       });
     });
   }, [error]);
+
+  /*
+   * ---------------------------------------------------------
+   * LOAD DESTINATIONS
+   * ---------------------------------------------------------
+   */
 
   useEffect(() => {
     const loadDestinations = async () => {
@@ -73,10 +169,14 @@ export default function AdminTourCategoryCreate() {
             : []
         );
       } catch (err) {
-        console.error("Failed to load destinations:", err);
+        console.error(
+          "Failed to load destinations:",
+          err
+        );
 
         setError(
-          err.message || "Unable to load destinations."
+          err?.message ||
+            "Unable to load destinations."
         );
       } finally {
         setDestinationsLoading(false);
@@ -86,26 +186,57 @@ export default function AdminTourCategoryCreate() {
     loadDestinations();
   }, []);
 
+  /*
+   * ---------------------------------------------------------
+   * HERO OBJECT URL CLEANUP
+   * ---------------------------------------------------------
+   *
+   * IMPORTANT:
+   * Do not put heroImagePreview in a normal useEffect
+   * dependency cleanup because that can revoke the current
+   * preview whenever the state changes.
+   */
+
   useEffect(() => {
     return () => {
-      if (heroImagePreview) {
-        URL.revokeObjectURL(heroImagePreview);
+      if (heroPreviewRef.current) {
+        URL.revokeObjectURL(heroPreviewRef.current);
       }
     };
-  }, [heroImagePreview]);
+  }, []);
+
+  /*
+   * ---------------------------------------------------------
+   * GALLERY OBJECT URL CLEANUP
+   * ---------------------------------------------------------
+   */
 
   useEffect(() => {
     return () => {
       gallery.forEach((item) => {
-        if (item.type === "file" && item.preview) {
+        if (
+          item.type === "file" &&
+          item.preview
+        ) {
           URL.revokeObjectURL(item.preview);
         }
       });
     };
-  }, [gallery]);
+  }, []);
+
+  /*
+   * ---------------------------------------------------------
+   * BASIC FORM CHANGE
+   * ---------------------------------------------------------
+   */
 
   const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
 
     if (error) {
       setError("");
@@ -113,9 +244,82 @@ export default function AdminTourCategoryCreate() {
 
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : value,
     }));
+
+    /*
+     * Automatically generate ID from name.
+     *
+     * Example:
+     * "Rajasthan Tours"
+     * ->
+     * "rajasthan-tours"
+     */
+    if (name === "name" && !idManuallyEdited) {
+      const generatedId = slugify(value);
+
+      setForm((prev) => ({
+        ...prev,
+        name: value,
+        id: generatedId,
+      }));
+    }
   };
+
+  /*
+   * ---------------------------------------------------------
+   * CATEGORY ID CHANGE
+   * ---------------------------------------------------------
+   */
+
+  const handleIdChange = (event) => {
+    const value = event.target.value;
+
+    /*
+     * Once the user manually edits the ID,
+     * don't automatically overwrite it anymore.
+     */
+    setIdManuallyEdited(true);
+
+    const cleanedValue = value
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "-")
+      .replace(/-{2,}/g, "-");
+
+    setForm((prev) => ({
+      ...prev,
+      id: cleanedValue,
+    }));
+
+    if (error) {
+      setError("");
+    }
+  };
+
+  /*
+   * Allow user to restore automatic ID generation.
+   */
+  const resetAutoGeneratedId = () => {
+    const generatedId = slugify(form.name);
+
+    setIdManuallyEdited(false);
+
+    setForm((prev) => ({
+      ...prev,
+      id: generatedId,
+    }));
+
+    setError("");
+  };
+
+  /*
+   * ---------------------------------------------------------
+   * DESTINATIONS
+   * ---------------------------------------------------------
+   */
 
   const addDestination = (destinationId) => {
     if (!destinationId) {
@@ -130,13 +334,23 @@ export default function AdminTourCategoryCreate() {
       ...prev,
       destinationId,
     ]);
+
+    setError("");
   };
 
   const removeDestination = (destinationId) => {
     setDestinations((prev) =>
-      prev.filter((id) => id !== destinationId)
+      prev.filter(
+        (id) => id !== destinationId
+      )
     );
   };
+
+  /*
+   * ---------------------------------------------------------
+   * HERO IMAGE - FILE
+   * ---------------------------------------------------------
+   */
 
   const handleHeroImageChange = (event) => {
     const file = event.target.files?.[0];
@@ -145,37 +359,85 @@ export default function AdminTourCategoryCreate() {
       return;
     }
 
-    if (heroImagePreview) {
-      URL.revokeObjectURL(heroImagePreview);
+    if (!file.type.startsWith("image/")) {
+      setError(
+        "Please select a valid image file."
+      );
+
+      event.target.value = "";
+      return;
     }
 
-    const previewUrl = URL.createObjectURL(file);
+    /*
+     * Revoke previous object URL.
+     */
+    if (heroPreviewRef.current) {
+      URL.revokeObjectURL(
+        heroPreviewRef.current
+      );
+    }
+
+    const previewUrl =
+      URL.createObjectURL(file);
+
+    heroPreviewRef.current = previewUrl;
 
     setHeroImage(file);
     setHeroImagePreview(previewUrl);
+
+    /*
+     * File and URL are mutually exclusive.
+     */
     setHeroImageUrl("");
+
     setError("");
 
     event.target.value = "";
   };
 
+  /*
+   * ---------------------------------------------------------
+   * HERO IMAGE - REMOVE
+   * ---------------------------------------------------------
+   */
+
   const removeHeroImage = () => {
-    if (heroImagePreview) {
-      URL.revokeObjectURL(heroImagePreview);
+    if (heroPreviewRef.current) {
+      URL.revokeObjectURL(
+        heroPreviewRef.current
+      );
+
+      heroPreviewRef.current = "";
     }
 
     setHeroImage(null);
     setHeroImagePreview("");
   };
 
-  const handleHeroImageUrlChange = (event) => {
+  /*
+   * ---------------------------------------------------------
+   * HERO IMAGE - URL
+   * ---------------------------------------------------------
+   */
+
+  const handleHeroImageUrlChange = (
+    event
+  ) => {
     const value = event.target.value;
 
     setHeroImageUrl(value);
 
-    if (value) {
-      if (heroImagePreview) {
-        URL.revokeObjectURL(heroImagePreview);
+    /*
+     * If user starts entering a URL,
+     * remove selected local file.
+     */
+    if (value.trim()) {
+      if (heroPreviewRef.current) {
+        URL.revokeObjectURL(
+          heroPreviewRef.current
+        );
+
+        heroPreviewRef.current = "";
       }
 
       setHeroImage(null);
@@ -184,6 +446,12 @@ export default function AdminTourCategoryCreate() {
 
     setError("");
   };
+
+  /*
+   * ---------------------------------------------------------
+   * GALLERY - FILES
+   * ---------------------------------------------------------
+   */
 
   const handleGalleryChange = (event) => {
     const files = Array.from(
@@ -194,6 +462,20 @@ export default function AdminTourCategoryCreate() {
       return;
     }
 
+    const invalidFile = files.find(
+      (file) =>
+        !file.type.startsWith("image/")
+    );
+
+    if (invalidFile) {
+      setError(
+        "Only image files can be added to the gallery."
+      );
+
+      event.target.value = "";
+      return;
+    }
+
     setGallery((prev) => {
       const remaining = 15 - prev.length;
 
@@ -201,28 +483,50 @@ export default function AdminTourCategoryCreate() {
         return prev;
       }
 
-      const newItems = files
-        .slice(0, remaining)
-        .map((file) => ({
-          type: "file",
-          file,
-          url: "",
-          caption: "",
-          preview: URL.createObjectURL(file),
-        }));
+      const selectedFiles =
+        files.slice(0, remaining);
+
+      const newItems =
+        selectedFiles.map((file) => {
+          const preview =
+            URL.createObjectURL(file);
+
+          return {
+            type: "file",
+            file,
+            url: "",
+            caption: "",
+            preview,
+          };
+        });
 
       return [...prev, ...newItems];
     });
 
-    setError("");
+    if (gallery.length + files.length > 15) {
+      setError(
+        "Only 15 gallery images are allowed. Extra images were ignored."
+      );
+    } else {
+      setError("");
+    }
+
     event.target.value = "";
   };
+
+  /*
+   * ---------------------------------------------------------
+   * GALLERY - URL
+   * ---------------------------------------------------------
+   */
 
   const addGalleryUrl = () => {
     const url = galleryUrl.trim();
 
     if (!url) {
-      setError("Please enter a gallery image URL.");
+      setError(
+        "Please enter a gallery image URL."
+      );
       return;
     }
 
@@ -233,27 +537,21 @@ export default function AdminTourCategoryCreate() {
       return;
     }
 
-    try {
-      const parsedUrl = new URL(url);
-
-      if (
-        parsedUrl.protocol !== "http:" &&
-        parsedUrl.protocol !== "https:"
-      ) {
-        throw new Error();
-      }
-    } catch {
-      setError("Please enter a valid image URL.");
+    if (!isValidImageUrl(url)) {
+      setError(
+        "Please enter a valid image URL."
+      );
       return;
     }
 
-    if (
+    const alreadyExists =
       gallery.some(
         (item) =>
           item.type === "url" &&
           item.url === url
-      )
-    ) {
+      );
+
+    if (alreadyExists) {
       setError(
         "This gallery image URL has already been added."
       );
@@ -275,6 +573,12 @@ export default function AdminTourCategoryCreate() {
     setError("");
   };
 
+  /*
+   * ---------------------------------------------------------
+   * REMOVE GALLERY IMAGE
+   * ---------------------------------------------------------
+   */
+
   const removeGalleryImage = (index) => {
     setGallery((prev) => {
       const image = prev[index];
@@ -283,14 +587,25 @@ export default function AdminTourCategoryCreate() {
         image?.type === "file" &&
         image.preview
       ) {
-        URL.revokeObjectURL(image.preview);
+        URL.revokeObjectURL(
+          image.preview
+        );
       }
 
       return prev.filter(
-        (_, itemIndex) => itemIndex !== index
+        (_, itemIndex) =>
+          itemIndex !== index
       );
     });
+
+    setError("");
   };
+
+  /*
+   * ---------------------------------------------------------
+   * GALLERY CAPTION
+   * ---------------------------------------------------------
+   */
 
   const updateGalleryCaption = (
     index,
@@ -308,6 +623,12 @@ export default function AdminTourCategoryCreate() {
     );
   };
 
+  /*
+   * ---------------------------------------------------------
+   * SUBMIT
+   * ---------------------------------------------------------
+   */
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -318,73 +639,172 @@ export default function AdminTourCategoryCreate() {
     setError("");
     setSuccess("");
 
-    const categoryId = form.id
-      .trim()
-      .toLowerCase();
-
+    const categoryId = slugify(form.id);
     const categoryName = form.name.trim();
-    const categoryTagline = form.tagline.trim();
+    const categoryTagline =
+      form.tagline.trim();
+
+    const categoryShortDescription =
+      form.shortDescription.trim();
+
     const categoryDescription =
       form.description.trim();
 
+    /*
+     * -----------------------------------------------------
+     * VALIDATION
+     * -----------------------------------------------------
+     */
+
     if (!categoryId) {
-      setError("Category ID is required.");
+      setError(
+        "Category ID is required."
+      );
       return;
     }
 
     if (!categoryName) {
-      setError("Category name is required.");
+      setError(
+        "Category name is required."
+      );
       return;
     }
 
     if (!categoryTagline) {
-      setError("Category tagline is required.");
+      setError(
+        "Category tagline is required."
+      );
+      return;
+    }
+
+    if (!categoryShortDescription) {
+      setError(
+        "Short description is required."
+      );
+      return;
+    }
+
+    if (
+      categoryShortDescription.length >
+      1200
+    ) {
+      setError(
+        "Short description must be 1200 characters or fewer."
+      );
       return;
     }
 
     if (!categoryDescription) {
-      setError("Category description is required.");
+      setError(
+        "Category description is required."
+      );
+      return;
+    }
+
+    /*
+     * Validate hero URL if provided.
+     */
+    if (
+      heroImageUrl.trim() &&
+      !isValidImageUrl(
+        heroImageUrl.trim()
+      )
+    ) {
+      setError(
+        "Please enter a valid hero image URL."
+      );
       return;
     }
 
     try {
       setLoading(true);
 
+      /*
+       * -----------------------------------------------------
+       * GALLERY FILES
+       * -----------------------------------------------------
+       */
+
       const galleryFiles = gallery
-        .filter((item) => item.type === "file")
+        .filter(
+          (item) =>
+            item.type === "file" &&
+            item.file instanceof File
+        )
         .map((item) => item.file);
 
+      /*
+       * -----------------------------------------------------
+       * GALLERY URLS
+       * -----------------------------------------------------
+       */
+
       const galleryImageUrls = gallery
-        .filter((item) => item.type === "url")
+        .filter(
+          (item) => item.type === "url"
+        )
         .map((item) => ({
           url: item.url,
-          caption: item.caption?.trim() || "",
+          caption:
+            item.caption?.trim() || "",
         }));
 
+      /*
+       * -----------------------------------------------------
+       * FILE CAPTIONS
+       * -----------------------------------------------------
+       */
+
       const galleryCaptions = gallery
-        .filter((item) => item.type === "file")
+        .filter(
+          (item) => item.type === "file"
+        )
         .map(
           (item) =>
             item.caption?.trim() || ""
         );
+
+      /*
+       * -----------------------------------------------------
+       * API REQUEST
+       * -----------------------------------------------------
+       */
 
       const response =
         await createAdminTourCategory({
           id: categoryId,
           name: categoryName,
           tagline: categoryTagline,
-          description: categoryDescription,
-          showInNavbar: form.showInNavbar,
-          showInExplore: form.showInExplore,
+          shortDescription:
+            categoryShortDescription,
+          description:
+            categoryDescription,
+
+          showInNavbar:
+            form.showInNavbar,
+
+          showInExplore:
+            form.showInExplore,
+
           heroImage:
             heroImage instanceof File
               ? heroImage
               : heroImageUrl.trim() || "",
+
           destinations,
+
           galleryImages: galleryFiles,
+
           galleryCaptions,
+
           galleryImageUrls,
         });
+
+      /*
+       * -----------------------------------------------------
+       * SUCCESS
+       * -----------------------------------------------------
+       */
 
       setSuccess(
         response?.message ||
@@ -397,6 +817,11 @@ export default function AdminTourCategoryCreate() {
         );
       }, 700);
     } catch (err) {
+      console.error(
+        "Create category error:",
+        err
+      );
+
       setError(
         err?.message ||
           "Unable to create tour category."
@@ -408,8 +833,18 @@ export default function AdminTourCategoryCreate() {
     }
   };
 
+  /*
+   * ---------------------------------------------------------
+   * RENDER
+   * ---------------------------------------------------------
+   */
+
   return (
     <div className="mx-auto max-w-6xl space-y-6 pb-10">
+      {/* =====================================================
+          HEADER
+      ====================================================== */}
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <button
@@ -433,11 +868,16 @@ export default function AdminTourCategoryCreate() {
           </h1>
 
           <p className="mt-1 text-sm text-slate-500">
-            Create a new tour category and connect it
-            with destinations and gallery images.
+            Create a new tour category and
+            connect it with destinations and
+            gallery images.
           </p>
         </div>
       </div>
+
+      {/* =====================================================
+          ERROR
+      ====================================================== */}
 
       {error && (
         <div
@@ -471,6 +911,10 @@ export default function AdminTourCategoryCreate() {
         </div>
       )}
 
+      {/* =====================================================
+          SUCCESS
+      ====================================================== */}
+
       {success && (
         <div
           role="status"
@@ -484,6 +928,10 @@ export default function AdminTourCategoryCreate() {
         onSubmit={handleSubmit}
         className="space-y-6"
       >
+        {/* ===================================================
+            BASIC INFORMATION
+        ==================================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-base font-bold text-slate-900">
@@ -491,31 +939,13 @@ export default function AdminTourCategoryCreate() {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Define the identity and content of this tour
-              category.
+              Define the identity and content
+              of this tour category.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700">
-                Category ID
-              </label>
-
-              <input
-                type="text"
-                name="id"
-                value={form.id}
-                onChange={handleChange}
-                placeholder="e.g. rajasthan-tours"
-                disabled={loading}
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
-              />
-
-              <p className="mt-1.5 text-xs text-slate-400">
-                This becomes the category slug/ID.
-              </p>
-            </div>
+            {/* CATEGORY NAME */}
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-slate-700">
@@ -533,6 +963,56 @@ export default function AdminTourCategoryCreate() {
               />
             </div>
 
+            {/* CATEGORY ID */}
+
+            <div>
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <label className="block text-sm font-semibold text-slate-700">
+                  Category ID
+                </label>
+
+                {!idManuallyEdited && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.08em] text-orange-600">
+                    <Sparkles size={11} />
+                    Auto
+                  </span>
+                )}
+              </div>
+
+              <div className="relative">
+                <input
+                  type="text"
+                  name="id"
+                  value={form.id}
+                  onChange={handleIdChange}
+                  placeholder="rajasthan-tours"
+                  disabled={loading}
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 pr-24 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
+                />
+
+                {idManuallyEdited && (
+                  <button
+                    type="button"
+                    onClick={
+                      resetAutoGeneratedId
+                    }
+                    disabled={loading}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-orange-600 transition hover:text-orange-700 disabled:opacity-50"
+                  >
+                    Use auto
+                  </button>
+                )}
+              </div>
+
+              <p className="mt-1.5 text-xs text-slate-400">
+                {idManuallyEdited
+                  ? "Custom ID. Use lowercase letters, numbers and hyphens."
+                  : "Automatically generated from the category name."}
+              </p>
+            </div>
+
+            {/* TAGLINE */}
+
             <div className="md:col-span-2">
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Tagline
@@ -549,6 +1029,39 @@ export default function AdminTourCategoryCreate() {
               />
             </div>
 
+            {/* SHORT DESCRIPTION */}
+
+            <div className="md:col-span-2">
+              <label className="mb-2 block text-sm font-semibold text-slate-700">
+                Short Description
+              </label>
+
+              <textarea
+                name="shortDescription"
+                value={form.shortDescription}
+                onChange={handleChange}
+                rows={2}
+                maxLength={1200}
+                placeholder="A one- or two-line hook for the hero section and image overlays..."
+                disabled={loading}
+                className="w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm leading-6 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
+              />
+
+              <p className="mt-1.5 flex items-center justify-between text-xs text-slate-400">
+                <span>
+                  Used in the hero section and
+                  hero image overlay.
+                </span>
+
+                <span className="shrink-0 pl-3">
+                  {form.shortDescription.length}
+                  /1200
+                </span>
+              </p>
+            </div>
+
+            {/* DESCRIPTION */}
+
             <div className="md:col-span-2">
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Description
@@ -563,9 +1076,18 @@ export default function AdminTourCategoryCreate() {
                 disabled={loading}
                 className="w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm leading-6 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               />
+
+              <p className="mt-1.5 text-xs text-slate-400">
+                Shown on the main category
+                content page.
+              </p>
             </div>
           </div>
         </section>
+
+        {/* ===================================================
+            VISIBILITY
+        ==================================================== */}
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
@@ -574,12 +1096,14 @@ export default function AdminTourCategoryCreate() {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Choose where this tour category should
-              appear on the website.
+              Choose where this tour category
+              should appear on the website.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* NAVBAR */}
+
             <label
               className={`group flex cursor-pointer items-start gap-4 rounded-xl border p-5 transition ${
                 form.showInNavbar
@@ -618,8 +1142,8 @@ export default function AdminTourCategoryCreate() {
                     </p>
 
                     <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Display this category in the main
-                      website navigation.
+                      Display this category in the
+                      main website navigation.
                     </p>
                   </div>
 
@@ -653,6 +1177,8 @@ export default function AdminTourCategoryCreate() {
                 </p>
               </div>
             </label>
+
+            {/* EXPLORE */}
 
             <label
               className={`group flex cursor-pointer items-start gap-4 rounded-xl border p-5 transition ${
@@ -692,8 +1218,9 @@ export default function AdminTourCategoryCreate() {
                     </p>
 
                     <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Display this category when users
-                      explore all tour categories.
+                      Display this category when
+                      users explore all tour
+                      categories.
                     </p>
                   </div>
 
@@ -730,6 +1257,10 @@ export default function AdminTourCategoryCreate() {
           </div>
         </section>
 
+        {/* ===================================================
+            HERO IMAGE
+        ==================================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-base font-bold text-slate-900">
@@ -737,12 +1268,14 @@ export default function AdminTourCategoryCreate() {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Upload an image or provide a Cloudinary/
-              external image URL.
+              Upload an image or provide a
+              Cloudinary/external image URL.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* FILE UPLOAD */}
+
             <div>
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Upload Image
@@ -772,7 +1305,9 @@ export default function AdminTourCategoryCreate() {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={handleHeroImageChange}
+                    onChange={
+                      handleHeroImageChange
+                    }
                     disabled={loading}
                     className="hidden"
                   />
@@ -788,9 +1323,12 @@ export default function AdminTourCategoryCreate() {
 
                     <button
                       type="button"
-                      onClick={removeHeroImage}
+                      onClick={
+                        removeHeroImage
+                      }
                       disabled={loading}
                       className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-red-600 disabled:opacity-50"
+                      aria-label="Remove hero image"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -813,7 +1351,9 @@ export default function AdminTourCategoryCreate() {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={handleHeroImageChange}
+                        onChange={
+                          handleHeroImageChange
+                        }
                         disabled={loading}
                         className="hidden"
                       />
@@ -823,6 +1363,8 @@ export default function AdminTourCategoryCreate() {
               )}
             </div>
 
+            {/* URL */}
+
             <div>
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Or Image URL
@@ -831,14 +1373,16 @@ export default function AdminTourCategoryCreate() {
               <input
                 type="url"
                 value={heroImageUrl}
-                onChange={handleHeroImageUrlChange}
+                onChange={
+                  handleHeroImageUrlChange
+                }
                 placeholder="https://..."
                 disabled={loading}
                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               />
 
               {heroImageUrl && (
-                <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <div className="relative mt-4 overflow-hidden rounded-xl border border-slate-200">
                   <img
                     src={heroImageUrl}
                     alt="Hero preview"
@@ -854,6 +1398,10 @@ export default function AdminTourCategoryCreate() {
           </div>
         </section>
 
+        {/* ===================================================
+            DESTINATIONS
+        ==================================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-base font-bold text-slate-900">
@@ -861,8 +1409,8 @@ export default function AdminTourCategoryCreate() {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Select destinations belonging to this
-              category.
+              Select destinations belonging to
+              this category.
             </p>
           </div>
 
@@ -938,6 +1486,10 @@ export default function AdminTourCategoryCreate() {
                             }
                             disabled={loading}
                             className="text-slate-400 transition hover:text-red-500 disabled:opacity-50"
+                            aria-label={`Remove ${
+                              destination?.name ||
+                              destinationId
+                            }`}
                           >
                             <X size={14} />
                           </button>
@@ -951,6 +1503,10 @@ export default function AdminTourCategoryCreate() {
           )}
         </section>
 
+        {/* ===================================================
+            GALLERY
+        ==================================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -959,8 +1515,8 @@ export default function AdminTourCategoryCreate() {
               </h2>
 
               <p className="mt-1 text-sm text-slate-500">
-                Add up to 15 gallery images using uploads
-                or external image URLs.
+                Add up to 15 gallery images using
+                uploads or external image URLs.
               </p>
             </div>
 
@@ -969,7 +1525,9 @@ export default function AdminTourCategoryCreate() {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto]">
+          {/* ADD IMAGE */}
+
+          <div className="mt-6 grid grid-cols-1 gap-3 lg:grid-cols-[1fr_auto]">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <LinkIcon
@@ -1031,7 +1589,9 @@ export default function AdminTourCategoryCreate() {
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={handleGalleryChange}
+                onChange={
+                  handleGalleryChange
+                }
                 disabled={
                   loading ||
                   gallery.length >= 15
@@ -1040,6 +1600,8 @@ export default function AdminTourCategoryCreate() {
               />
             </label>
           </div>
+
+          {/* EMPTY */}
 
           {gallery.length === 0 ? (
             <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center">
@@ -1053,10 +1615,13 @@ export default function AdminTourCategoryCreate() {
               </p>
 
               <p className="mt-1 text-xs text-slate-400">
-                Upload images or add image URLs above.
+                Upload images or add image URLs
+                above.
               </p>
             </div>
           ) : (
+            /* GALLERY GRID */
+
             <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {gallery.map(
                 (item, index) => (
@@ -1064,10 +1629,14 @@ export default function AdminTourCategoryCreate() {
                     key={`${item.type}-${item.url || item.file?.name}-${index}`}
                     className="overflow-hidden rounded-xl border border-slate-200 bg-white"
                   >
+                    {/* IMAGE */}
+
                     <div className="relative h-40 bg-slate-100">
                       <img
                         src={item.preview}
-                        alt={`Gallery ${index + 1}`}
+                        alt={`Gallery ${
+                          index + 1
+                        }`}
                         className="h-full w-full object-cover"
                         onError={(event) => {
                           event.currentTarget.style.display =
@@ -1075,25 +1644,34 @@ export default function AdminTourCategoryCreate() {
                         }}
                       />
 
+                      {/* TYPE */}
+
                       <div className="absolute left-2 top-2">
                         <span
                           className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-white shadow-sm ${
-                            item.type === "file"
+                            item.type ===
+                            "file"
                               ? "bg-black/60"
                               : "bg-orange-500/90"
                           }`}
                         >
-                          {item.type === "file" ? (
+                          {item.type ===
+                          "file" ? (
                             <Upload size={11} />
                           ) : (
-                            <LinkIcon size={11} />
+                            <LinkIcon
+                              size={11}
+                            />
                           )}
 
-                          {item.type === "file"
+                          {item.type ===
+                          "file"
                             ? "Upload"
                             : "URL"}
                         </span>
                       </div>
+
+                      {/* REMOVE */}
 
                       <button
                         type="button"
@@ -1112,9 +1690,12 @@ export default function AdminTourCategoryCreate() {
                       </button>
                     </div>
 
+                    {/* DETAILS */}
+
                     <div className="p-3">
                       <p className="mb-2 truncate text-xs font-medium text-slate-500">
-                        {item.type === "file"
+                        {item.type ===
+                        "file"
                           ? item.file?.name
                           : item.url}
                       </p>
@@ -1125,7 +1706,8 @@ export default function AdminTourCategoryCreate() {
                         onChange={(event) =>
                           updateGalleryCaption(
                             index,
-                            event.target.value
+                            event.target
+                              .value
                           )
                         }
                         placeholder="Image caption (optional)"
@@ -1139,6 +1721,10 @@ export default function AdminTourCategoryCreate() {
             </div>
           )}
         </section>
+
+        {/* ===================================================
+            ACTIONS
+        ==================================================== */}
 
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <button

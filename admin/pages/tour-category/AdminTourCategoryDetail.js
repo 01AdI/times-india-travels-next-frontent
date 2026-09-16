@@ -303,9 +303,9 @@ export default function AdminTourCategoryDetail() {
                 {category.name}
               </h2>
 
-              {category.tagline && (
+              {(category.shortDescription || category.tagline) && (
                 <p className="mt-2 max-w-2xl text-sm text-white/80">
-                  {category.tagline}
+                  {category.shortDescription || category.tagline}
                 </p>
               )}
             </div>
@@ -513,6 +513,30 @@ export default function AdminTourCategoryDetail() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="mb-5">
+          <h2 className="text-base font-bold text-slate-900">
+            Short Description
+          </h2>
+
+          <p className="mt-1 text-sm text-slate-500">
+            Used in the hero section and hero image overlay.
+          </p>
+        </div>
+
+        {category.shortDescription ? (
+          <p className="text-sm leading-7 text-slate-600">
+            {category.shortDescription}
+          </p>
+        ) : (
+          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-center">
+            <p className="text-sm font-semibold text-slate-500">
+              No short description available
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">

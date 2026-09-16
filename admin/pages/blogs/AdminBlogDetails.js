@@ -19,10 +19,6 @@ import {
   deleteAdminBlog,
 } from "../../services/adminApi";
 
-// ============================================================
-// STATUS BADGE
-// ============================================================
-
 function StatusBadge({ status }) {
   const config = {
     published: {
@@ -30,7 +26,6 @@ function StatusBadge({ status }) {
       className:
         "bg-emerald-50 text-emerald-600 border-emerald-100",
     },
-
     draft: {
       label: "Draft",
       className:
@@ -61,10 +56,6 @@ function StatusBadge({ status }) {
   );
 }
 
-// ============================================================
-// DATE FORMATTER
-// ============================================================
-
 function formatDate(date) {
   if (!date) {
     return "—";
@@ -83,31 +74,124 @@ function formatDate(date) {
   });
 }
 
-// ============================================================
-// ADMIN BLOG DETAILS
-// ============================================================
+function BlogContent({ content }) {
+  if (!content) {
+    return (
+      <p className="text-sm text-[#9AA1AA]">
+        No content available.
+      </p>
+    );
+  }
+
+  return (
+    <div
+      className="
+        blog-content
+        font-['Inter']
+        text-sm
+        leading-7
+        text-[#4E5762]
+        md:text-base
+        md:leading-8
+
+        [&_p]:mb-6
+        [&_p:last-child]:mb-0
+
+        [&_h1]:mt-10
+        [&_h1]:mb-5
+        [&_h1]:font-['Fraunces']
+        [&_h1]:text-3xl
+        [&_h1]:font-medium
+        [&_h1]:leading-tight
+        [&_h1]:text-[#101A2E]
+        md:[&_h1]:text-4xl
+
+        [&_h2]:mt-10
+        [&_h2]:mb-5
+        [&_h2]:font-['Fraunces']
+        [&_h2]:text-2xl
+        [&_h2]:font-medium
+        [&_h2]:leading-tight
+        [&_h2]:text-[#101A2E]
+        md:[&_h2]:text-3xl
+
+        [&_h3]:mt-8
+        [&_h3]:mb-4
+        [&_h3]:font-['Fraunces']
+        [&_h3]:text-xl
+        [&_h3]:font-medium
+        [&_h3]:leading-tight
+        [&_h3]:text-[#101A2E]
+        md:[&_h3]:text-2xl
+
+        [&_strong]:font-bold
+        [&_strong]:text-[#101A2E]
+
+        [&_em]:italic
+
+        [&_u]:underline
+        [&_u]:underline-offset-4
+
+        [&_ul]:my-6
+        [&_ul]:list-disc
+        [&_ul]:pl-6
+
+        [&_ol]:my-6
+        [&_ol]:list-decimal
+        [&_ol]:pl-6
+
+        [&_li]:my-2
+        [&_li]:pl-1
+
+        [&_blockquote]:my-8
+        [&_blockquote]:border-l-4
+        [&_blockquote]:border-[#C9A24B]
+        [&_blockquote]:bg-[#F8F9F9]
+        [&_blockquote]:px-5
+        [&_blockquote]:py-4
+        [&_blockquote]:font-['Fraunces']
+        [&_blockquote]:text-lg
+        [&_blockquote]:italic
+        [&_blockquote]:leading-7
+        [&_blockquote]:text-[#101A2E]
+
+        [&_a]:text-[#124D56]
+        [&_a]:underline
+        [&_a]:decoration-[#C9A24B]
+        [&_a]:underline-offset-4
+        [&_a]:transition-colors
+        [&_a:hover]:text-[#C9A24B]
+
+        [&_mark]:rounded
+        [&_mark]:bg-yellow-200
+        [&_mark]:px-1
+
+        [&_hr]:my-10
+        [&_hr]:border-0
+        [&_hr]:border-t
+        [&_hr]:border-[#101A2E]/10
+
+        [&_img]:my-8
+        [&_img]:block
+        [&_img]:h-auto
+        [&_img]:w-full
+        [&_img]:rounded-xl
+        [&_img]:border
+        [&_img]:border-[#101A2E]/8
+      "
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
+}
 
 export default function AdminBlogDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // ==========================================================
-  // DATA
-  // ==========================================================
-
   const [blog, setBlog] = useState(null);
-
-  // ==========================================================
-  // UI
-  // ==========================================================
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [deleteLoading, setDeleteLoading] = useState(false);
-
-  // ==========================================================
-  // FETCH
-  // ==========================================================
 
   const fetchBlog = async () => {
     try {
@@ -127,19 +211,11 @@ export default function AdminBlogDetails() {
     }
   };
 
-  // ==========================================================
-  // INITIAL FETCH
-  // ==========================================================
-
   useEffect(() => {
     if (id) {
       fetchBlog();
     }
   }, [id]);
-
-  // ==========================================================
-  // DELETE
-  // ==========================================================
 
   const handleDelete = async () => {
     if (!blog) {
@@ -171,51 +247,35 @@ export default function AdminBlogDetails() {
     }
   };
 
-  // ==========================================================
-  // LOADING
-  // ==========================================================
-
   if (loading) {
     return (
       <section className="space-y-6">
-
-        <div className="flex items-center justify-center min-h-[400px]">
-
+        <div className="flex min-h-[400px] items-center justify-center">
           <div className="flex flex-col items-center">
-
-            <div className="w-8 h-8 border-2 border-[#C9A24B]/30 border-t-[#C9A24B] rounded-full animate-spin" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#C9A24B]/30 border-t-[#C9A24B]" />
 
             <p className="mt-4 text-sm text-[#7A828D]">
               Loading blog...
             </p>
-
           </div>
-
         </div>
-
       </section>
     );
   }
 
-  // ==========================================================
-  // ERROR / NOT FOUND
-  // ==========================================================
-
   if (error || !blog) {
     return (
       <section className="space-y-6">
-
         <button
           type="button"
           onClick={() => navigate("/blogs")}
-          className="inline-flex items-center gap-2 text-xs text-[#68717D] hover:text-[#101A2E]"
+          className="inline-flex items-center gap-2 text-xs text-[#68717D] transition-colors hover:text-[#101A2E]"
         >
           <ArrowLeft size={14} />
           Back to Blogs
         </button>
 
         <div className="rounded-2xl border border-red-200 bg-red-50 px-6 py-8">
-
           <p className="text-sm text-red-600">
             {error || "Blog not found."}
           </p>
@@ -228,32 +288,19 @@ export default function AdminBlogDetails() {
             <RefreshCw size={12} />
             Try again
           </button>
-
         </div>
-
       </section>
     );
   }
 
-  // ==========================================================
-  // UI
-  // ==========================================================
-
   return (
     <section className="space-y-6">
-
-      {/* ======================================================
-          HEADER
-      ====================================================== */}
-
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-
           <button
             type="button"
             onClick={() => navigate("/blogs")}
-            className="inline-flex items-center gap-2 text-xs text-[#68717D] hover:text-[#101A2E] transition-colors"
+            className="inline-flex items-center gap-2 text-xs text-[#68717D] transition-colors hover:text-[#101A2E]"
           >
             <ArrowLeft size={14} />
             Back to Blogs
@@ -263,30 +310,26 @@ export default function AdminBlogDetails() {
             Editorial Management
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 mt-2">
-
-            <h2 className="text-2xl md:text-3xl font-medium text-[#101A2E]">
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-2xl font-medium text-[#101A2E] md:text-3xl">
               {blog.title}
             </h2>
 
             <StatusBadge status={blog.status} />
-
           </div>
 
           <p className="mt-2 text-sm text-[#6F7782]">
             Blog details and editorial information.
           </p>
-
         </div>
 
         <div className="flex items-center gap-2">
-
           <button
             type="button"
             onClick={() =>
               navigate(`/blogs/${blog._id}/edit`)
             }
-            className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#101A2E] hover:text-white transition-all"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#101A2E]/10 bg-white px-4 text-xs text-[#101A2E] transition-all hover:bg-[#101A2E] hover:text-white"
           >
             <Pencil size={14} />
             Edit
@@ -296,7 +339,7 @@ export default function AdminBlogDetails() {
             type="button"
             disabled={deleteLoading}
             onClick={handleDelete}
-            className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg border border-red-100 bg-white text-xs text-red-500 hover:bg-red-50 transition-all disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-red-100 bg-white px-4 text-xs text-red-500 transition-all hover:bg-red-50 disabled:opacity-50"
           >
             {deleteLoading ? (
               <RefreshCw
@@ -309,61 +352,38 @@ export default function AdminBlogDetails() {
 
             Delete
           </button>
-
         </div>
-
       </div>
-
-      {/* ======================================================
-          ERROR
-      ====================================================== */}
 
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4">
-
           <p className="text-sm text-red-600">
             {error}
           </p>
-
         </div>
       )}
 
-      {/* ======================================================
-          HERO IMAGE
-      ====================================================== */}
-
-      <div className="bg-white border border-[#101A2E]/8 rounded-2xl overflow-hidden">
-
+      <div className="overflow-hidden rounded-2xl border border-[#101A2E]/8 bg-white">
         {blog.image ? (
           <img
             src={blog.image}
             alt={blog.title}
-            className="w-full h-[280px] md:h-[380px] object-cover"
+            className="h-[280px] w-full object-cover md:h-[380px]"
           />
         ) : (
-          <div className="w-full h-[280px] md:h-[380px] bg-[#F8F9F9] flex items-center justify-center">
-
+          <div className="flex h-[280px] w-full items-center justify-center bg-[#F8F9F9] md:h-[380px]">
             <FileText
               size={40}
               strokeWidth={1.3}
               className="text-[#B1B7BE]"
             />
-
           </div>
         )}
-
       </div>
 
-      {/* ======================================================
-          META
-      ====================================================== */}
-
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center gap-2">
-
             <User
               size={15}
               className="text-[#9AA1AA]"
@@ -372,19 +392,15 @@ export default function AdminBlogDetails() {
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Author
             </p>
-
           </div>
 
           <p className="mt-3 text-sm text-[#101A2E]">
             {blog.author || "Times India Travels"}
           </p>
-
         </div>
 
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center gap-2">
-
             <Tag
               size={15}
               className="text-[#9AA1AA]"
@@ -393,19 +409,15 @@ export default function AdminBlogDetails() {
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Category
             </p>
-
           </div>
 
           <p className="mt-3 text-sm text-[#101A2E]">
             {blog.category || "Uncategorized"}
           </p>
-
         </div>
 
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center gap-2">
-
             <CalendarDays
               size={15}
               className="text-[#9AA1AA]"
@@ -414,19 +426,15 @@ export default function AdminBlogDetails() {
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Published
             </p>
-
           </div>
 
           <p className="mt-3 text-sm text-[#101A2E]">
             {formatDate(blog.publishedAt)}
           </p>
-
         </div>
 
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center gap-2">
-
             <Clock3
               size={15}
               className="text-[#9AA1AA]"
@@ -435,19 +443,15 @@ export default function AdminBlogDetails() {
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Created
             </p>
-
           </div>
 
           <p className="mt-3 text-sm text-[#101A2E]">
             {formatDate(blog.createdAt)}
           </p>
-
         </div>
 
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center gap-2">
-
             <Home
               size={15}
               className="text-[#C9A24B]"
@@ -456,7 +460,6 @@ export default function AdminBlogDetails() {
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Homepage
             </p>
-
           </div>
 
           <p
@@ -470,49 +473,32 @@ export default function AdminBlogDetails() {
               ? "Featured"
               : "Not featured"}
           </p>
-
         </div>
-
       </div>
 
-      {/* ======================================================
-          ARTICLE
-      ====================================================== */}
-
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_280px] gap-6">
-
-        {/* ARTICLE */}
-
-        <article className="bg-white border border-[#101A2E]/8 rounded-2xl p-6 md:p-8">
-
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_280px]">
+        <article className="rounded-2xl border border-[#101A2E]/8 bg-white p-6 md:p-8">
           <p className="text-[10px] uppercase tracking-[0.18em] text-[#C9A24B]">
             {blog.category || "Travel"}
           </p>
 
-          <h1 className="mt-3 text-2xl md:text-4xl font-medium leading-tight text-[#101A2E]">
+          <h1 className="mt-3 text-2xl font-medium leading-tight text-[#101A2E] md:text-4xl">
             {blog.title}
           </h1>
 
-          <p className="mt-5 text-base leading-7 text-[#68717D]">
-            {blog.shortDescription}
-          </p>
+          {blog.shortDescription && (
+            <p className="mt-5 text-base leading-7 text-[#68717D]">
+              {blog.shortDescription}
+            </p>
+          )}
 
           <div className="my-8 h-px bg-[#101A2E]/8" />
 
-          <div className="whitespace-pre-wrap text-sm md:text-base leading-7 text-[#4E5762]">
-            {blog.content}
-          </div>
-
+          <BlogContent content={blog.content} />
         </article>
 
-        {/* SIDEBAR */}
-
         <aside className="space-y-5">
-
-          {/* SLUG */}
-
-          <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+          <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               URL Slug
             </p>
@@ -520,42 +506,32 @@ export default function AdminBlogDetails() {
             <p className="mt-3 break-all text-xs leading-5 text-[#68717D]">
               /{blog.slug}
             </p>
-
           </div>
 
-          {/* TAGS */}
-
-          <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+          <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
               Tags
             </p>
 
             {blog.tags?.length > 0 ? (
               <div className="mt-4 flex flex-wrap gap-2">
-
                 {blog.tags.map((tag, index) => (
                   <span
                     key={`${tag}-${index}`}
-                    className="px-2.5 py-1 rounded-full bg-[#F8F9F9] border border-[#101A2E]/8 text-[10px] text-[#68717D]"
+                    className="rounded-full border border-[#101A2E]/8 bg-[#F8F9F9] px-2.5 py-1 text-[10px] text-[#68717D]"
                   >
                     {tag}
                   </span>
                 ))}
-
               </div>
             ) : (
               <p className="mt-3 text-xs text-[#9AA1AA]">
                 No tags added.
               </p>
             )}
-
           </div>
-
         </aside>
-
       </div>
-
     </section>
   );
 }

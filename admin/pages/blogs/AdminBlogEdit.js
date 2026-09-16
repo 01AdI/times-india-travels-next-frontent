@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
@@ -16,23 +17,13 @@ import {
   updateAdminBlog,
 } from "../../services/adminApi";
 
-// ============================================================
-// ADMIN EDIT BLOG
-// ============================================================
+import BlogRichTextEditor from "./BlogRichTextEditor";
 
 export default function AdminBlogEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // ==========================================================
-  // ERROR REF
-  // ==========================================================
-
   const errorRef = useRef(null);
-
-  // ==========================================================
-  // FORM
-  // ==========================================================
 
   const [formData, setFormData] = useState({
     title: "",
@@ -46,22 +37,9 @@ export default function AdminBlogEdit() {
     featured: false,
   });
 
-  // ==========================================================
-  // IMAGE
-  // ==========================================================
-
-  // Uploaded file
   const [image, setImage] = useState(null);
-
-  // Image URL
   const [imageUrl, setImageUrl] = useState("");
-
-  // Preview of either uploaded file or URL
   const [imagePreview, setImagePreview] = useState("");
-
-  // ==========================================================
-  // UI
-  // ==========================================================
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -69,16 +47,11 @@ export default function AdminBlogEdit() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // ==========================================================
-  // SCROLL TO ERROR
-  // ==========================================================
-
   useEffect(() => {
     if (!error || !errorRef.current) {
       return;
     }
 
-    // Wait until React has rendered the error element
     requestAnimationFrame(() => {
       errorRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -87,10 +60,6 @@ export default function AdminBlogEdit() {
     });
   }, [error]);
 
-  // ==========================================================
-  // FETCH BLOG
-  // ==========================================================
-
   const fetchBlog = async () => {
     try {
       setLoading(true);
@@ -98,49 +67,25 @@ export default function AdminBlogEdit() {
       setSuccess("");
 
       const response = await getAdminBlog(id);
-
       const blog = response.data;
 
       if (!blog) {
         throw new Error("Blog not found.");
       }
 
-      // --------------------------------------------------------
-      // SET FORM DATA
-      // --------------------------------------------------------
-
       setFormData({
         title: blog.title || "",
-
         slug: blog.slug || "",
-
-        shortDescription:
-          blog.shortDescription || "",
-
-        content:
-          blog.content || "",
-
-        category:
-          blog.category || "",
-
-        tags:
-          Array.isArray(blog.tags)
-            ? blog.tags.join(", ")
-            : blog.tags || "",
-
-        author:
-          blog.author || "Times India Travels",
-
-        status:
-          blog.status || "draft",
-
-        featured:
-          Boolean(blog.featured),
+        shortDescription: blog.shortDescription || "",
+        content: blog.content || "",
+        category: blog.category || "",
+        tags: Array.isArray(blog.tags)
+          ? blog.tags.join(", ")
+          : blog.tags || "",
+        author: blog.author || "Times India Travels",
+        status: blog.status || "draft",
+        featured: Boolean(blog.featured),
       });
-
-      // --------------------------------------------------------
-      // EXISTING IMAGE
-      // --------------------------------------------------------
 
       if (blog.image) {
         setImageUrl(blog.image);
@@ -152,33 +97,21 @@ export default function AdminBlogEdit() {
 
       setImage(null);
     } catch (error) {
-      console.error(
-        "Failed to fetch blog:",
-        error
-      );
+      console.error("Failed to fetch blog:", error);
 
       setError(
-        error.message ||
-          "Unable to load this blog."
+        error.message || "Unable to load this blog."
       );
     } finally {
       setLoading(false);
     }
   };
 
-  // ==========================================================
-  // INITIAL FETCH
-  // ==========================================================
-
   useEffect(() => {
     if (id) {
       fetchBlog();
     }
   }, [id]);
-
-  // ==========================================================
-  // INPUT
-  // ==========================================================
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -189,10 +122,6 @@ export default function AdminBlogEdit() {
     }));
   };
 
-  // ==========================================================
-  // IMAGE FILE
-  // ==========================================================
-
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
 
@@ -200,72 +129,36 @@ export default function AdminBlogEdit() {
       return;
     }
 
-    // --------------------------------------------------------
-    // VALIDATE FILE TYPE
-    // --------------------------------------------------------
-
     if (!file.type.startsWith("image/")) {
       setError("Please select a valid image.");
       return;
     }
 
-    // --------------------------------------------------------
-    // VALIDATE FILE SIZE
-    // --------------------------------------------------------
-
     if (file.size > 5 * 1024 * 1024) {
-      setError(
-        "Image size must be less than 5MB."
-      );
+      setError("Image size must be less than 5MB.");
       return;
     }
 
     setError("");
-
-    // --------------------------------------------------------
-    // FILE TAKES PRIORITY OVER URL
-    // --------------------------------------------------------
-
     setImage(file);
-
-    // Clear URL because uploaded image takes priority
     setImageUrl("");
 
-    // --------------------------------------------------------
-    // CREATE PREVIEW
-    // --------------------------------------------------------
-
-    const previewUrl =
-      URL.createObjectURL(file);
-
+    const previewUrl = URL.createObjectURL(file);
     setImagePreview(previewUrl);
   };
-
-  // ==========================================================
-  // IMAGE URL
-  // ==========================================================
 
   const handleImageUrlChange = (event) => {
     const value = event.target.value;
 
     setImageUrl(value);
 
-    // --------------------------------------------------------
-    // URL TAKES PRIORITY
-    // --------------------------------------------------------
-
     if (image) {
       setImage(null);
     }
 
     setImagePreview(value);
-
     setError("");
   };
-
-  // ==========================================================
-  // REMOVE IMAGE
-  // ==========================================================
 
   const removeImage = () => {
     setImage(null);
@@ -274,19 +167,19 @@ export default function AdminBlogEdit() {
     setError("");
   };
 
-  // ==========================================================
-  // IMAGE PREVIEW ERROR
-  // ==========================================================
-
   const handleImagePreviewError = () => {
     setError(
       "Unable to load this image. Please check the image URL."
     );
   };
 
-  // ==========================================================
-  // SUBMIT
-  // ==========================================================
+  const getPlainTextFromHtml = (html) => {
+    const div = document.createElement("div");
+
+    div.innerHTML = html;
+
+    return div.textContent?.trim() || "";
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -295,10 +188,6 @@ export default function AdminBlogEdit() {
       setSaving(true);
       setError("");
       setSuccess("");
-
-      // ======================================================
-      // VALIDATION
-      // ======================================================
 
       if (!formData.title.trim()) {
         setError("Blog title is required.");
@@ -311,83 +200,39 @@ export default function AdminBlogEdit() {
       }
 
       if (!formData.shortDescription.trim()) {
-        setError(
-          "Short description is required."
-        );
+        setError("Short description is required.");
         return;
       }
 
-      if (!formData.content.trim()) {
+      if (!getPlainTextFromHtml(formData.content)) {
         setError("Blog content is required.");
         return;
       }
 
-      // ======================================================
-      // IMAGE
-      //
-      // Uploaded file has priority.
-      // Otherwise use image URL.
-      // ======================================================
+      const imageValue = image || imageUrl.trim();
 
-      const imageValue =
-        image || imageUrl.trim();
-
-      // ======================================================
-      // UPDATE BLOG
-      // ======================================================
-
-      const response = await updateAdminBlog(
-        id,
-        {
-          title: formData.title,
-          slug: formData.slug,
-
-          image: imageValue,
-
-          shortDescription:
-            formData.shortDescription,
-
-          content:
-            formData.content,
-
-          category:
-            formData.category,
-
-          tags:
-            formData.tags,
-
-          author:
-            formData.author,
-
-          status:
-            formData.status,
-
-          featured:
-            formData.featured,
-        }
-      );
-
-      // ======================================================
-      // SUCCESS
-      // ======================================================
+      const response = await updateAdminBlog(id, {
+        title: formData.title,
+        slug: formData.slug,
+        image: imageValue,
+        shortDescription: formData.shortDescription,
+        content: formData.content,
+        category: formData.category,
+        tags: formData.tags,
+        author: formData.author,
+        status: formData.status,
+        featured: formData.featured,
+      });
 
       setSuccess(
-        response?.message ||
-          "Blog updated successfully."
+        response?.message || "Blog updated successfully."
       );
-
-      // ======================================================
-      // REDIRECT
-      // ======================================================
 
       setTimeout(() => {
         navigate(`/blogs/${id}`);
       }, 700);
     } catch (error) {
-      console.error(
-        "Failed to update blog:",
-        error
-      );
+      console.error("Failed to update blog:", error);
 
       setError(
         error.message ||
@@ -398,51 +243,33 @@ export default function AdminBlogEdit() {
     }
   };
 
-  // ==========================================================
-  // LOADING
-  // ==========================================================
-
   if (loading) {
     return (
       <section className="space-y-6">
-        <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex min-h-[400px] items-center justify-center">
           <div className="flex flex-col items-center">
-
-            <div className="w-8 h-8 border-2 border-[#C9A24B]/30 border-t-[#C9A24B] rounded-full animate-spin" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#C9A24B]/30 border-t-[#C9A24B]" />
 
             <p className="mt-4 text-sm text-[#7A828D]">
               Loading blog...
             </p>
-
           </div>
         </div>
       </section>
     );
   }
 
-  // ==========================================================
-  // INITIAL FETCH ERROR
-  // ==========================================================
-
   if (error && !formData.title) {
     return (
       <section className="space-y-6">
-
-        {/* BACK BUTTON */}
-
         <button
           type="button"
-          onClick={() =>
-            navigate("/blogs")
-          }
-          className="inline-flex items-center gap-2 text-xs text-[#68717D] hover:text-[#101A2E] transition-colors"
+          onClick={() => navigate("/blogs")}
+          className="inline-flex items-center gap-2 text-xs text-[#68717D] transition-colors hover:text-[#101A2E]"
         >
           <ArrowLeft size={14} />
-
           Back to Blogs
         </button>
-
-        {/* ERROR */}
 
         <div
           ref={errorRef}
@@ -458,37 +285,22 @@ export default function AdminBlogEdit() {
             className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-red-700 underline"
           >
             <RefreshCw size={12} />
-
             Try again
           </button>
         </div>
-
       </section>
     );
   }
 
-  // ==========================================================
-  // UI
-  // ==========================================================
-
   return (
     <section className="space-y-6">
-
-      {/* ======================================================
-          HEADER
-      ====================================================== */}
-
       <div>
-
         <button
           type="button"
-          onClick={() =>
-            navigate(`/blogs/${id}`)
-          }
-          className="inline-flex items-center gap-2 text-xs text-[#68717D] hover:text-[#101A2E] transition-colors"
+          onClick={() => navigate(`/blogs/${id}`)}
+          className="inline-flex items-center gap-2 text-xs text-[#68717D] transition-colors hover:text-[#101A2E]"
         >
           <ArrowLeft size={14} />
-
           Back to Blog
         </button>
 
@@ -496,20 +308,14 @@ export default function AdminBlogEdit() {
           Editorial Management
         </p>
 
-        <h2 className="mt-2 text-2xl md:text-3xl font-medium text-[#101A2E]">
+        <h2 className="mt-2 text-2xl font-medium text-[#101A2E] md:text-3xl">
           Edit Blog
         </h2>
 
         <p className="mt-2 text-sm text-[#6F7782]">
-          Update your travel story and publishing
-          settings.
+          Update your travel story and publishing settings.
         </p>
-
       </div>
-
-      {/* ======================================================
-          ERROR
-      ====================================================== */}
 
       {error && (
         <div
@@ -522,10 +328,6 @@ export default function AdminBlogEdit() {
         </div>
       )}
 
-      {/* ======================================================
-          SUCCESS
-      ====================================================== */}
-
       {success && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
           <p className="text-sm text-emerald-600">
@@ -534,54 +336,33 @@ export default function AdminBlogEdit() {
         </div>
       )}
 
-      {/* ======================================================
-          FORM
-      ====================================================== */}
-
       <form
         onSubmit={handleSubmit}
         className="space-y-6"
       >
-
-        {/* ====================================================
-            INFORMATION
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
-          <div className="flex items-center gap-3 mb-6">
-
-            <div className="w-9 h-9 rounded-xl bg-[#101A2E]/5 flex items-center justify-center">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#101A2E]/5">
               <FileText
                 size={17}
                 className="text-[#101A2E]"
               />
-
             </div>
 
             <div>
-
               <h3 className="text-sm font-medium text-[#101A2E]">
                 Blog Information
               </h3>
 
-              <p className="text-xs text-[#8A929D] mt-1">
-                Update the main information for this
-                article.
+              <p className="mt-1 text-xs text-[#8A929D]">
+                Update the main information for this article.
               </p>
-
             </div>
-
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-
-            {/* TITLE */}
-
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div className="lg:col-span-2">
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Blog Title *
               </label>
 
@@ -590,16 +371,12 @@ export default function AdminBlogEdit() {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* SLUG */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Slug *
               </label>
 
@@ -608,16 +385,12 @@ export default function AdminBlogEdit() {
                 name="slug"
                 value={formData.slug}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* CATEGORY */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Category
               </label>
 
@@ -626,16 +399,12 @@ export default function AdminBlogEdit() {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* AUTHOR */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Author
               </label>
 
@@ -644,16 +413,12 @@ export default function AdminBlogEdit() {
                 name="author"
                 value={formData.author}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* TAGS */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Tags
               </label>
 
@@ -663,52 +428,33 @@ export default function AdminBlogEdit() {
                 value={formData.tags}
                 onChange={handleChange}
                 placeholder="Rajasthan, Jaipur, Travel"
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
 
               <p className="mt-2 text-[10px] text-[#9AA1AA]">
                 Separate tags with commas.
               </p>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            IMAGE
-        ==================================================== */}
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
+          <div>
+            <h3 className="text-sm font-medium text-[#101A2E]">
+              Cover Image
+            </h3>
 
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
-          <div className="flex items-start justify-between gap-4">
-
-            <div>
-
-              <h3 className="text-sm font-medium text-[#101A2E]">
-                Cover Image
-              </h3>
-
-              <p className="mt-1 text-xs text-[#8A929D]">
-                Upload an image or use an external image
-                URL.
-              </p>
-
-            </div>
-
+            <p className="mt-1 text-xs text-[#8A929D]">
+              Upload an image or use an external image URL.
+            </p>
           </div>
 
-          {/* IMAGE URL */}
-
           <div className="mt-5">
-
-            <label className="block text-xs font-medium text-[#4E5762] mb-2">
+            <label className="mb-2 block text-xs font-medium text-[#4E5762]">
               Image URL
             </label>
 
             <div className="relative">
-
               <LinkIcon
                 size={15}
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9AA1AA]"
@@ -719,22 +465,16 @@ export default function AdminBlogEdit() {
                 value={imageUrl}
                 onChange={handleImageUrlChange}
                 placeholder="https://example.com/travel-image.jpg"
-                className="w-full h-11 pl-11 pr-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] pl-11 pr-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
             <p className="mt-2 text-[10px] text-[#9AA1AA]">
-              Paste a publicly accessible image URL.
-              Selecting a file will replace this URL.
+              Paste a publicly accessible image URL. Selecting a file will replace this URL.
             </p>
-
           </div>
 
-          {/* DIVIDER */}
-
-          <div className="flex items-center gap-4 my-6">
-
+          <div className="my-6 flex items-center gap-4">
             <div className="h-px flex-1 bg-[#101A2E]/8" />
 
             <span className="text-[10px] uppercase tracking-[0.16em] text-[#9AA1AA]">
@@ -742,13 +482,9 @@ export default function AdminBlogEdit() {
             </span>
 
             <div className="h-px flex-1 bg-[#101A2E]/8" />
-
           </div>
 
-          {/* FILE UPLOAD */}
-
-          <label className="flex flex-col items-center justify-center h-40 rounded-2xl border border-dashed border-[#101A2E]/15 bg-[#F8F9F9] cursor-pointer hover:border-[#C9A24B] transition-colors">
-
+          <label className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#101A2E]/15 bg-[#F8F9F9] transition-colors hover:border-[#C9A24B]">
             <ImagePlus
               size={28}
               strokeWidth={1.4}
@@ -769,16 +505,11 @@ export default function AdminBlogEdit() {
               onChange={handleImageChange}
               className="hidden"
             />
-
           </label>
-
-          {/* PREVIEW */}
 
           {imagePreview && (
             <div className="mt-5">
-
-              <div className="flex items-center justify-between mb-2">
-
+              <div className="mb-2 flex items-center justify-between">
                 <p className="text-xs font-medium text-[#4E5762]">
                   Image Preview
                 </p>
@@ -789,61 +520,42 @@ export default function AdminBlogEdit() {
                   className="inline-flex items-center gap-1.5 text-xs text-red-500 hover:text-red-600"
                 >
                   <X size={13} />
-
                   Remove image
                 </button>
-
               </div>
 
               <div className="relative">
-
                 <img
                   src={imagePreview}
                   alt="Blog cover preview"
                   onError={handleImagePreviewError}
-                  className="w-full h-64 object-cover rounded-2xl border border-[#101A2E]/8 bg-[#F8F9F9]"
+                  className="h-64 w-full rounded-2xl border border-[#101A2E]/8 bg-[#F8F9F9] object-cover"
                 />
 
-                {/* FILE INDICATOR */}
-
                 {image && (
-                  <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-lg bg-black/70 text-white text-[10px]">
+                  <div className="absolute bottom-3 left-3 rounded-lg bg-black/70 px-3 py-1.5 text-[10px] text-white">
                     Uploaded image
                   </div>
                 )}
 
-                {/* URL INDICATOR */}
-
                 {!image && imageUrl && (
-                  <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-lg bg-black/70 text-white text-[10px]">
+                  <div className="absolute bottom-3 left-3 rounded-lg bg-black/70 px-3 py-1.5 text-[10px] text-white">
                     Image URL
                   </div>
                 )}
-
               </div>
-
             </div>
           )}
-
         </div>
 
-        {/* ====================================================
-            CONTENT
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
           <h3 className="text-sm font-medium text-[#101A2E]">
             Content
           </h3>
 
           <div className="mt-5 space-y-5">
-
-            {/* SHORT DESCRIPTION */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Short Description *
               </label>
 
@@ -852,50 +564,36 @@ export default function AdminBlogEdit() {
                 value={formData.shortDescription}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-4 py-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none resize-y focus:border-[#C9A24B]"
+                className="w-full resize-y rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 py-3 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* CONTENT */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Blog Content *
               </label>
 
-              <textarea
-                name="content"
+              <BlogRichTextEditor
                 value={formData.content}
-                onChange={handleChange}
-                rows={18}
-                className="w-full px-4 py-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm leading-6 text-[#101A2E] outline-none resize-y focus:border-[#C9A24B]"
+                onChange={(content) =>
+                  setFormData((previous) => ({
+                    ...previous,
+                    content,
+                  }))
+                }
               />
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            PUBLISHING
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
           <h3 className="text-sm font-medium text-[#101A2E]">
             Publishing Settings
           </h3>
 
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-
-            {/* STATUS */}
-
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Status
               </label>
 
@@ -903,96 +601,63 @@ export default function AdminBlogEdit() {
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               >
-                <option value="draft">
-                  Draft
-                </option>
-
-                <option value="published">
-                  Published
-                </option>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
               </select>
-
             </div>
 
-            {/* FEATURED */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Featured Story
               </label>
 
-              <label className="h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] flex items-center gap-3 cursor-pointer">
-
+              <label className="flex h-11 cursor-pointer items-center gap-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4">
                 <input
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(event) =>
                     setFormData((previous) => ({
                       ...previous,
-                      featured:
-                        event.target.checked,
+                      featured: event.target.checked,
                     }))
                   }
-                  className="w-4 h-4 accent-[#C9A24B]"
+                  className="h-4 w-4 accent-[#C9A24B]"
                 />
 
                 <span className="text-sm text-[#68717D]">
                   Feature this blog on homepage
                 </span>
-
               </label>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            ACTIONS
-        ==================================================== */}
-
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
-
-          {/* CANCEL */}
-
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
           <button
             type="button"
-            onClick={() =>
-              navigate(`/blogs/${id}`)
-            }
-            className="h-11 px-5 rounded-xl border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#F8F9F9] transition-all"
+            onClick={() => navigate(`/blogs/${id}`)}
+            className="h-11 rounded-xl border border-[#101A2E]/10 bg-white px-5 text-xs text-[#101A2E] transition-all hover:bg-[#F8F9F9]"
           >
             Cancel
           </button>
 
-          {/* SAVE */}
-
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-[#101A2E] text-white text-xs hover:bg-[#C9A24B] hover:text-[#101A2E] transition-all disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#101A2E] px-6 text-xs text-white transition-all hover:bg-[#C9A24B] hover:text-[#101A2E] disabled:opacity-50"
           >
-
             {saving ? (
-              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
             ) : (
               <Save size={14} />
             )}
 
-            {saving
-              ? "Saving..."
-              : "Save Changes"}
-
+            {saving ? "Saving..." : "Save Changes"}
           </button>
-
         </div>
-
       </form>
-
     </section>
   );
 }

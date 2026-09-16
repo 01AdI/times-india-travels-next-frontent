@@ -12,17 +12,10 @@ import {
 } from "lucide-react";
 
 import { createAdminBlog } from "../../services/adminApi";
-
-// ============================================================
-// ADMIN CREATE BLOG
-// ============================================================
+import BlogRichTextEditor from "./BlogRichTextEditor";
 
 export default function AdminBlogCreate() {
   const navigate = useNavigate();
-
-  // ==========================================================
-  // FORM STATE
-  // ==========================================================
 
   const [formData, setFormData] = useState({
     title: "",
@@ -36,46 +29,27 @@ export default function AdminBlogCreate() {
     featured: false,
   });
 
-  // ==========================================================
-  // IMAGE STATE
-  // ==========================================================
-
-  // "upload" | "url"
   const errorRef = useRef(null);
 
   const [imageType, setImageType] = useState("upload");
-
   const [image, setImage] = useState(null);
-
   const [imageUrl, setImageUrl] = useState("");
-
   const [imagePreview, setImagePreview] = useState("");
 
-  // ==========================================================
-  // UI STATE
-  // ==========================================================
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
-
   const [success, setSuccess] = useState("");
 
-  // ==========================================================
-  // HANDLE INPUT
-  // ==========================================================
-
   useEffect(() => {
-  if (!error || !errorRef.current) {
-    return;
-  }
+    if (!error || !errorRef.current) {
+      return;
+    }
 
-  errorRef.current.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
-}, [error]);
-
+    errorRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [error]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -86,9 +60,12 @@ export default function AdminBlogCreate() {
     }));
   };
 
-  // ==========================================================
-  // GENERATE SLUG
-  // ==========================================================
+  const handleContentChange = (content) => {
+    setFormData((previous) => ({
+      ...previous,
+      content,
+    }));
+  };
 
   const generateSlug = () => {
     const slug = formData.title
@@ -104,24 +81,13 @@ export default function AdminBlogCreate() {
     }));
   };
 
-  // ==========================================================
-  // CHANGE IMAGE TYPE
-  // ==========================================================
-
   const handleImageTypeChange = (type) => {
     setImageType(type);
-
-    // Reset image state when switching methods
     setImage(null);
     setImageUrl("");
     setImagePreview("");
-
     setError("");
   };
-
-  // ==========================================================
-  // IMAGE FILE UPLOAD
-  // ==========================================================
 
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
@@ -130,18 +96,10 @@ export default function AdminBlogCreate() {
       return;
     }
 
-    // --------------------------------------------------------
-    // VALIDATE FILE TYPE
-    // --------------------------------------------------------
-
     if (!file.type.startsWith("image/")) {
       setError("Please select a valid image.");
       return;
     }
-
-    // --------------------------------------------------------
-    // VALIDATE FILE SIZE
-    // --------------------------------------------------------
 
     if (file.size > 5 * 1024 * 1024) {
       setError("Image size must be less than 5MB.");
@@ -149,38 +107,20 @@ export default function AdminBlogCreate() {
     }
 
     setError("");
-
     setImage(file);
-
-    // --------------------------------------------------------
-    // CREATE PREVIEW
-    // --------------------------------------------------------
 
     const previewUrl = URL.createObjectURL(file);
 
     setImagePreview(previewUrl);
-
-    // Make sure URL field is cleared
     setImageUrl("");
   };
-
-  // ==========================================================
-  // IMAGE URL
-  // ==========================================================
 
   const handleImageUrlChange = (event) => {
     const value = event.target.value;
 
     setImageUrl(value);
-
-    // Clear uploaded file
     setImage(null);
-
     setError("");
-
-    // --------------------------------------------------------
-    // PREVIEW URL
-    // --------------------------------------------------------
 
     if (value.trim()) {
       setImagePreview(value.trim());
@@ -188,10 +128,6 @@ export default function AdminBlogCreate() {
       setImagePreview("");
     }
   };
-
-  // ==========================================================
-  // URL IMAGE ERROR
-  // ==========================================================
 
   const handleImagePreviewError = () => {
     if (imageType === "url" && imageUrl.trim()) {
@@ -201,21 +137,20 @@ export default function AdminBlogCreate() {
     }
   };
 
-  // ==========================================================
-  // REMOVE IMAGE
-  // ==========================================================
-
   const removeImage = () => {
     setImage(null);
     setImageUrl("");
     setImagePreview("");
-
     setError("");
   };
 
-  // ==========================================================
-  // SUBMIT
-  // ==========================================================
+  const hasBlogContent = (html) => {
+    const container = document.createElement("div");
+
+    container.innerHTML = html;
+
+    return Boolean(container.textContent?.trim());
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -224,10 +159,6 @@ export default function AdminBlogCreate() {
       setLoading(true);
       setError("");
       setSuccess("");
-
-      // ======================================================
-      // VALIDATION
-      // ======================================================
 
       if (!formData.title.trim()) {
         setError("Blog title is required.");
@@ -244,14 +175,10 @@ export default function AdminBlogCreate() {
         return;
       }
 
-      if (!formData.content.trim()) {
+      if (!hasBlogContent(formData.content)) {
         setError("Blog content is required.");
         return;
       }
-
-      // ======================================================
-      // IMAGE VALIDATION
-      // ======================================================
 
       if (imageType === "upload" && !image) {
         setError("Please upload a cover image.");
@@ -263,18 +190,10 @@ export default function AdminBlogCreate() {
         return;
       }
 
-      // ======================================================
-      // IMAGE VALUE
-      // ======================================================
-
       const imageValue =
         imageType === "upload"
           ? image
           : imageUrl.trim();
-
-      // ======================================================
-      // CREATE BLOG
-      // ======================================================
 
       const response = await createAdminBlog({
         title: formData.title,
@@ -288,10 +207,6 @@ export default function AdminBlogCreate() {
         status: formData.status,
         featured: formData.featured,
       });
-
-      // ======================================================
-      // SUCCESS
-      // ======================================================
 
       setSuccess(
         response?.message ||
@@ -311,28 +226,16 @@ export default function AdminBlogCreate() {
     }
   };
 
-  // ==========================================================
-  // UI
-  // ==========================================================
-
   return (
     <section className="space-y-6">
-
-      {/* ======================================================
-          HEADER
-      ====================================================== */}
-
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-
           <button
             type="button"
             onClick={() => navigate("/blogs")}
-            className="inline-flex items-center gap-2 text-xs text-[#68717D] hover:text-[#101A2E] transition-colors"
+            className="inline-flex items-center gap-2 text-xs text-[#68717D] transition-colors hover:text-[#101A2E]"
           >
             <ArrowLeft size={14} />
-
             Back to Blogs
           </button>
 
@@ -340,7 +243,7 @@ export default function AdminBlogCreate() {
             Editorial Management
           </p>
 
-          <h2 className="mt-2 text-2xl md:text-3xl font-medium text-[#101A2E]">
+          <h2 className="mt-2 text-2xl font-medium text-[#101A2E] md:text-3xl">
             Create Blog
           </h2>
 
@@ -348,88 +251,55 @@ export default function AdminBlogCreate() {
             Create a new travel story, destination guide or
             travel insight.
           </p>
-
         </div>
-
       </div>
-
-      {/* ======================================================
-          ERROR
-      ====================================================== */}
 
       {error && (
         <div
-         ref={errorRef} 
-          className="rounded-xl border border-red-200 bg-red-50 px-5 py-4">
-
+          ref={errorRef}
+          className="rounded-xl border border-red-200 bg-red-50 px-5 py-4"
+        >
           <p className="text-sm text-red-600">
             {error}
           </p>
-
         </div>
       )}
-
-      {/* ======================================================
-          SUCCESS
-      ====================================================== */}
 
       {success && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
-
           <p className="text-sm text-emerald-600">
             {success}
           </p>
-
         </div>
       )}
-
-      {/* ======================================================
-          FORM
-      ====================================================== */}
 
       <form
         onSubmit={handleSubmit}
         className="space-y-6"
       >
-
-        {/* ====================================================
-            BASIC INFORMATION
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
-          <div className="flex items-center gap-3 mb-6">
-
-            <div className="w-9 h-9 rounded-xl bg-[#101A2E]/5 flex items-center justify-center">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#101A2E]/5">
               <FileText
                 size={17}
                 className="text-[#101A2E]"
               />
-
             </div>
 
             <div>
-
               <h3 className="text-sm font-medium text-[#101A2E]">
                 Blog Information
               </h3>
 
-              <p className="text-xs text-[#8A929D] mt-1">
+              <p className="mt-1 text-xs text-[#8A929D]">
                 Define the main information for your article.
               </p>
-
             </div>
-
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-
-            {/* TITLE */}
-
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div className="lg:col-span-2">
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Blog Title *
               </label>
 
@@ -439,47 +309,37 @@ export default function AdminBlogCreate() {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Example: The Ultimate Guide to Rajasthan"
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* SLUG */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Slug *
               </label>
 
               <div className="flex gap-2">
-
                 <input
                   type="text"
                   name="slug"
                   value={formData.slug}
                   onChange={handleChange}
                   placeholder="ultimate-guide-to-rajasthan"
-                  className="flex-1 h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                  className="h-11 flex-1 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
                 />
 
                 <button
                   type="button"
                   onClick={generateSlug}
-                  className="h-11 px-3 rounded-xl border border-[#101A2E]/10 text-xs text-[#68717D] hover:bg-[#101A2E] hover:text-white transition-all"
+                  className="h-11 rounded-xl border border-[#101A2E]/10 px-3 text-xs text-[#68717D] transition-all hover:bg-[#101A2E] hover:text-white"
                 >
                   Generate
                 </button>
-
               </div>
-
             </div>
 
-            {/* CATEGORY */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Category
               </label>
 
@@ -489,16 +349,12 @@ export default function AdminBlogCreate() {
                 value={formData.category}
                 onChange={handleChange}
                 placeholder="Rajasthan Travel"
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* AUTHOR */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Author
               </label>
 
@@ -507,16 +363,12 @@ export default function AdminBlogCreate() {
                 name="author"
                 value={formData.author}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* TAGS */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Tags
               </label>
 
@@ -526,25 +378,17 @@ export default function AdminBlogCreate() {
                 value={formData.tags}
                 onChange={handleChange}
                 placeholder="Rajasthan, Jaipur, Travel"
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
 
               <p className="mt-2 text-[10px] text-[#9AA1AA]">
                 Separate tags with commas.
               </p>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            IMAGE
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
           <h3 className="text-sm font-medium text-[#101A2E]">
             Cover Image
           </h3>
@@ -553,36 +397,22 @@ export default function AdminBlogCreate() {
             Upload an image or use an existing public image URL.
           </p>
 
-          {/* ==================================================
-              IMAGE TYPE SELECTOR
-          ================================================== */}
-
-          <div className="mt-5 flex items-center gap-2 p-1 rounded-xl bg-[#F8F9F9] border border-[#101A2E]/8 w-fit">
-
-            {/* UPLOAD */}
-
+          <div className="mt-5 flex w-fit items-center gap-2 rounded-xl border border-[#101A2E]/8 bg-[#F8F9F9] p-1">
             <button
               type="button"
               onClick={() =>
                 handleImageTypeChange("upload")
               }
               className={[
-                "inline-flex items-center gap-2",
-                "h-9 px-4",
-                "rounded-lg",
-                "text-xs",
-                "transition-all",
+                "inline-flex h-9 items-center gap-2 rounded-lg px-4 text-xs transition-all",
                 imageType === "upload"
                   ? "bg-[#101A2E] text-white shadow-sm"
                   : "text-[#68717D] hover:text-[#101A2E]",
               ].join(" ")}
             >
               <Upload size={13} />
-
               Upload Image
             </button>
-
-            {/* URL */}
 
             <button
               type="button"
@@ -590,30 +420,19 @@ export default function AdminBlogCreate() {
                 handleImageTypeChange("url")
               }
               className={[
-                "inline-flex items-center gap-2",
-                "h-9 px-4",
-                "rounded-lg",
-                "text-xs",
-                "transition-all",
+                "inline-flex h-9 items-center gap-2 rounded-lg px-4 text-xs transition-all",
                 imageType === "url"
                   ? "bg-[#101A2E] text-white shadow-sm"
                   : "text-[#68717D] hover:text-[#101A2E]",
               ].join(" ")}
             >
               <LinkIcon size={13} />
-
               Image URL
             </button>
-
           </div>
 
-          {/* ==================================================
-              UPLOAD IMAGE
-          ================================================== */}
-
           {imageType === "upload" && !imagePreview && (
-            <label className="mt-5 flex flex-col items-center justify-center h-52 rounded-2xl border border-dashed border-[#101A2E]/15 bg-[#F8F9F9] cursor-pointer hover:border-[#C9A24B] transition-colors">
-
+            <label className="mt-5 flex h-52 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#101A2E]/15 bg-[#F8F9F9] transition-colors hover:border-[#C9A24B]">
               <ImagePlus
                 size={28}
                 strokeWidth={1.4}
@@ -634,23 +453,16 @@ export default function AdminBlogCreate() {
                 onChange={handleImageChange}
                 className="hidden"
               />
-
             </label>
           )}
 
-          {/* ==================================================
-              IMAGE URL
-          ================================================== */}
-
           {imageType === "url" && (
             <div className="mt-5">
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Image URL
               </label>
 
               <div className="relative">
-
                 <LinkIcon
                   size={15}
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9AA1AA]"
@@ -661,47 +473,36 @@ export default function AdminBlogCreate() {
                   value={imageUrl}
                   onChange={handleImageUrlChange}
                   placeholder="https://example.com/images/rajasthan.jpg"
-                  className="w-full h-11 pl-11 pr-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                  className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] pl-11 pr-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
                 />
-
               </div>
 
               <p className="mt-2 text-[10px] text-[#9AA1AA]">
                 Use a publicly accessible image URL.
               </p>
-
             </div>
           )}
 
-          {/* ==================================================
-              IMAGE PREVIEW
-          ================================================== */}
-
           {imagePreview && (
-            <div className="mt-5 relative">
-
+            <div className="relative mt-5">
               <img
                 src={imagePreview}
                 alt="Blog preview"
                 onError={handleImagePreviewError}
-                className="w-full h-64 object-cover rounded-2xl border border-[#101A2E]/8"
+                className="h-64 w-full rounded-2xl border border-[#101A2E]/8 object-cover"
               />
 
               <button
                 type="button"
                 onClick={removeImage}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/95 text-red-500 shadow-sm flex items-center justify-center hover:bg-white transition-colors"
+                className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-red-500 shadow-sm transition-colors hover:bg-white"
                 title="Remove image"
               >
                 <X size={15} />
               </button>
 
-              {/* IMAGE TYPE LABEL */}
-
               <div className="absolute bottom-3 left-3">
-
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/65 text-white text-[10px] backdrop-blur-sm">
-
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/65 px-3 py-1.5 text-[10px] text-white backdrop-blur-sm">
                   {imageType === "upload" ? (
                     <>
                       <Upload size={11} />
@@ -713,22 +514,13 @@ export default function AdminBlogCreate() {
                       Image URL
                     </>
                   )}
-
                 </span>
-
               </div>
-
             </div>
           )}
-
         </div>
 
-        {/* ====================================================
-            CONTENT
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
           <h3 className="text-sm font-medium text-[#101A2E]">
             Content
           </h3>
@@ -738,12 +530,8 @@ export default function AdminBlogCreate() {
           </p>
 
           <div className="mt-5 space-y-5">
-
-            {/* SHORT DESCRIPTION */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Short Description *
               </label>
 
@@ -753,51 +541,36 @@ export default function AdminBlogCreate() {
                 onChange={handleChange}
                 rows={3}
                 placeholder="A short introduction that will appear on blog cards..."
-                className="w-full px-4 py-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none resize-y focus:border-[#C9A24B]"
+                className="w-full resize-y rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 py-3 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               />
-
             </div>
 
-            {/* CONTENT */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Blog Content *
               </label>
 
-              <textarea
-                name="content"
+              <BlogRichTextEditor
                 value={formData.content}
-                onChange={handleChange}
-                rows={18}
-                placeholder="Write your complete travel article here..."
-                className="w-full px-4 py-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm leading-6 text-[#101A2E] outline-none resize-y focus:border-[#C9A24B]"
+                onChange={handleContentChange}
               />
 
+              <p className="mt-2 text-[10px] text-[#9AA1AA]">
+                Format your article using headings, bold, italic,
+                underline, lists, links and highlights.
+              </p>
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            PUBLISH SETTINGS
-        ==================================================== */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-6">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-6">
           <h3 className="text-sm font-medium text-[#101A2E]">
             Publishing Settings
           </h3>
 
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-
-            {/* STATUS */}
-
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Status
               </label>
 
@@ -805,7 +578,7 @@ export default function AdminBlogCreate() {
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
+                className="h-11 w-full rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none focus:border-[#C9A24B]"
               >
                 <option value="draft">
                   Draft
@@ -814,88 +587,59 @@ export default function AdminBlogCreate() {
                 <option value="published">
                   Published
                 </option>
-
               </select>
-
             </div>
 
-            {/* FEATURED */}
-
             <div>
-
-              <label className="block text-xs font-medium text-[#4E5762] mb-2">
+              <label className="mb-2 block text-xs font-medium text-[#4E5762]">
                 Featured Story
               </label>
 
-              <label className="h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] flex items-center gap-3 cursor-pointer">
-
+              <label className="flex h-11 cursor-pointer items-center gap-3 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4">
                 <input
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(event) =>
                     setFormData((previous) => ({
                       ...previous,
-                      featured:
-                        event.target.checked,
+                      featured: event.target.checked,
                     }))
                   }
-                  className="w-4 h-4 accent-[#C9A24B]"
+                  className="h-4 w-4 accent-[#C9A24B]"
                 />
 
                 <span className="text-sm text-[#68717D]">
                   Feature this blog on homepage
                 </span>
-
               </label>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ====================================================
-            ACTIONS
-        ==================================================== */}
-
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
-
-          {/* CANCEL */}
-
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
           <button
             type="button"
-            onClick={() =>
-              navigate("/blogs")
-            }
-            className="h-11 px-5 rounded-xl border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#F8F9F9] transition-all"
+            onClick={() => navigate("/blogs")}
+            className="h-11 rounded-xl border border-[#101A2E]/10 bg-white px-5 text-xs text-[#101A2E] transition-all hover:bg-[#F8F9F9]"
           >
             Cancel
           </button>
 
-          {/* CREATE */}
-
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-[#101A2E] text-white text-xs hover:bg-[#C9A24B] hover:text-[#101A2E] transition-all disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#101A2E] px-6 text-xs text-white transition-all hover:bg-[#C9A24B] hover:text-[#101A2E] disabled:opacity-50"
           >
-
             {loading ? (
-              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
             ) : (
               <Save size={14} />
             )}
 
-            {loading
-              ? "Creating..."
-              : "Create Blog"}
-
+            {loading ? "Creating..." : "Create Blog"}
           </button>
-
         </div>
-
       </form>
-
     </section>
   );
 }

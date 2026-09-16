@@ -13,16 +13,13 @@ import {
   Plus,
   Tag,
   User,
+  CalendarDays,
 } from "lucide-react";
 
 import {
   getAdminBlogs,
   deleteAdminBlog,
 } from "../../services/adminApi";
-
-// ============================================================
-// STATUS BADGE
-// ============================================================
 
 function StatusBadge({ status }) {
   const config = {
@@ -31,7 +28,6 @@ function StatusBadge({ status }) {
       className:
         "bg-emerald-50 text-emerald-600 border-emerald-100",
     },
-
     draft: {
       label: "Draft",
       className:
@@ -49,9 +45,9 @@ function StatusBadge({ status }) {
     <span
       className={[
         "inline-flex items-center",
-        "px-2.5 py-1",
         "rounded-full",
         "border",
+        "px-2.5 py-1",
         "text-[10px]",
         "font-medium",
         current.className,
@@ -62,30 +58,23 @@ function StatusBadge({ status }) {
   );
 }
 
-// ============================================================
-// FEATURED BADGE
-// ============================================================
-
 function FeaturedBadge({ featured }) {
   if (!featured) {
     return (
-      <span className="text-xs text-[#9AA1AA]">
+      <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-[#9AA1AA]">
+        <Home size={12} />
         Not featured
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-[#C9A24B]">
-      <Home size={13} />
+    <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#C9A24B]">
+      <Home size={12} />
       Featured
     </span>
   );
 }
-
-// ============================================================
-// DATE FORMATTER
-// ============================================================
 
 function formatDate(date) {
   if (!date) {
@@ -105,16 +94,8 @@ function formatDate(date) {
   });
 }
 
-// ============================================================
-// ADMIN BLOGS
-// ============================================================
-
 export default function AdminBlogs() {
   const navigate = useNavigate();
-
-  // ==========================================================
-  // DATA
-  // ==========================================================
 
   const [blogs, setBlogs] = useState([]);
 
@@ -127,23 +108,11 @@ export default function AdminBlogs() {
     hasPreviousPage: false,
   });
 
-  // ==========================================================
-  // UI STATE
-  // ==========================================================
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(null);
 
-  // ==========================================================
-  // FILTER
-  // ==========================================================
-
   const [statusFilter, setStatusFilter] = useState("all");
-
-  // ==========================================================
-  // FETCH BLOGS
-  // ==========================================================
 
   const fetchBlogs = async (page = 1) => {
     try {
@@ -178,41 +147,21 @@ export default function AdminBlogs() {
     }
   };
 
-  // ==========================================================
-  // INITIAL FETCH
-  // ==========================================================
-
   useEffect(() => {
     fetchBlogs(1);
   }, [statusFilter]);
-
-  // ==========================================================
-  // CREATE
-  // ==========================================================
 
   const handleCreate = () => {
     navigate("/blogs/create");
   };
 
-  // ==========================================================
-  // VIEW
-  // ==========================================================
-
   const handleView = (id) => {
     navigate(`/blogs/${id}`);
   };
 
-  // ==========================================================
-  // EDIT
-  // ==========================================================
-
   const handleEdit = (id) => {
     navigate(`/blogs/${id}/edit`);
   };
-
-  // ==========================================================
-  // DELETE
-  // ==========================================================
 
   const handleDelete = async (blog) => {
     const confirmed = window.confirm(
@@ -228,11 +177,6 @@ export default function AdminBlogs() {
       setError("");
 
       await deleteAdminBlog(blog._id);
-
-      // ------------------------------------------------------
-      // If the current page only had one item and we're not
-      // on the first page, move back one page.
-      // ------------------------------------------------------
 
       const shouldGoBack =
         blogs.length === 1 &&
@@ -253,18 +197,6 @@ export default function AdminBlogs() {
     }
   };
 
-  // ==========================================================
-  // COUNTS
-  // ==========================================================
-  //
-  // NOTE:
-  // The admin API is paginated, so these counts are based on
-  // the current loaded page only.
-  //
-  // If later you want global counts, we can add a dedicated
-  // dashboard stats endpoint.
-  // ==========================================================
-
   const publishedCount = blogs.filter(
     (blog) => blog.status === "published"
   ).length;
@@ -276,10 +208,6 @@ export default function AdminBlogs() {
   const featuredCount = blogs.filter(
     (blog) => blog.featured
   ).length;
-
-  // ==========================================================
-  // PAGINATION
-  // ==========================================================
 
   const handlePreviousPage = () => {
     if (
@@ -307,38 +235,25 @@ export default function AdminBlogs() {
     );
   };
 
-  // ==========================================================
-  // UI
-  // ==========================================================
-
   return (
     <section className="space-y-6">
-
-      {/* ======================================================
-          HEADER
-      ====================================================== */}
-
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.22em] text-[#C9A24B] font-['Inter']">
+          <p className="font-['Inter'] text-[10px] font-medium uppercase tracking-[0.22em] text-[#C9A24B]">
             Editorial Management
           </p>
 
-          <h2 className="mt-2 text-2xl md:text-3xl font-medium text-[#101A2E] font-['Inter']">
+          <h2 className="mt-2 font-['Inter'] text-2xl font-medium tracking-tight text-[#101A2E] md:text-3xl">
             Blog
           </h2>
 
-          <p className="mt-2 text-sm text-[#6F7782] font-['Inter']">
+          <p className="mt-2 max-w-2xl font-['Inter'] text-sm leading-6 text-[#6F7782]">
             Create, publish and manage travel stories,
             guides and destination insights.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-
-          {/* REFRESH */}
-
           <button
             type="button"
             onClick={() =>
@@ -347,7 +262,7 @@ export default function AdminBlogs() {
               )
             }
             disabled={loading}
-            className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#101A2E] hover:text-white transition-all disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#101A2E]/10 bg-white px-4 text-xs text-[#101A2E] transition-all hover:bg-[#101A2E] hover:text-white disabled:opacity-50"
           >
             <RefreshCw
               size={14}
@@ -358,41 +273,27 @@ export default function AdminBlogs() {
                   : ""
               }
             />
-
             Refresh
           </button>
-
-          {/* CREATE */}
 
           <button
             type="button"
             onClick={handleCreate}
-            className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-[#101A2E] text-white text-xs hover:bg-[#C9A24B] hover:text-[#101A2E] transition-all"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#101A2E] px-4 text-xs text-white transition-all hover:bg-[#C9A24B] hover:text-[#101A2E]"
           >
             <Plus
               size={14}
               strokeWidth={1.8}
             />
-
             Create Blog
           </button>
-
         </div>
       </div>
 
-      {/* ======================================================
-          SUMMARY CARDS
-      ====================================================== */}
-
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-
-        {/* TOTAL */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center justify-between">
-
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#7A828D]">
               Total
             </p>
 
@@ -400,22 +301,16 @@ export default function AdminBlogs() {
               size={16}
               className="text-[#68717D]"
             />
-
           </div>
 
           <p className="mt-3 text-2xl font-medium text-[#101A2E]">
             {pagination.totalBlogs}
           </p>
-
         </div>
 
-        {/* PUBLISHED */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center justify-between">
-
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#7A828D]">
               Published
             </p>
 
@@ -423,7 +318,6 @@ export default function AdminBlogs() {
               size={16}
               className="text-emerald-500"
             />
-
           </div>
 
           <p className="mt-3 text-2xl font-medium text-[#101A2E]">
@@ -433,16 +327,11 @@ export default function AdminBlogs() {
           <p className="mt-1 text-[10px] text-[#9AA1AA]">
             Current page
           </p>
-
         </div>
 
-        {/* DRAFT */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center justify-between">
-
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#7A828D]">
               Drafts
             </p>
 
@@ -450,7 +339,6 @@ export default function AdminBlogs() {
               size={16}
               className="text-amber-500"
             />
-
           </div>
 
           <p className="mt-3 text-2xl font-medium text-[#101A2E]">
@@ -460,16 +348,11 @@ export default function AdminBlogs() {
           <p className="mt-1 text-[10px] text-[#9AA1AA]">
             Current page
           </p>
-
         </div>
 
-        {/* FEATURED */}
-
-        <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-5">
-
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-5">
           <div className="flex items-center justify-between">
-
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[#7A828D]">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#7A828D]">
               Featured
             </p>
 
@@ -477,7 +360,6 @@ export default function AdminBlogs() {
               size={16}
               className="text-[#C9A24B]"
             />
-
           </div>
 
           <p className="mt-3 text-2xl font-medium text-[#101A2E]">
@@ -487,44 +369,32 @@ export default function AdminBlogs() {
           <p className="mt-1 text-[10px] text-[#9AA1AA]">
             Current page
           </p>
-
         </div>
-
       </div>
 
-      {/* ======================================================
-          FILTER BAR
-      ====================================================== */}
+      <div className="rounded-2xl border border-[#101A2E]/8 bg-white p-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <select
+            value={statusFilter}
+            onChange={(event) =>
+              setStatusFilter(
+                event.target.value
+              )
+            }
+            className="h-11 cursor-pointer rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] px-4 text-sm text-[#101A2E] outline-none transition-colors focus:border-[#C9A24B]"
+          >
+            <option value="all">
+              All Status
+            </option>
 
-      <div className="bg-white border border-[#101A2E]/8 rounded-2xl p-4">
+            <option value="published">
+              Published
+            </option>
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-
-          <div className="flex items-center gap-3">
-
-            <select
-              value={statusFilter}
-              onChange={(event) =>
-                setStatusFilter(
-                  event.target.value
-                )
-              }
-              className="h-11 px-4 rounded-xl border border-[#101A2E]/10 bg-[#F8F9F9] text-sm text-[#101A2E] outline-none focus:border-[#C9A24B] cursor-pointer"
-            >
-              <option value="all">
-                All Status
-              </option>
-
-              <option value="published">
-                Published
-              </option>
-
-              <option value="draft">
-                Drafts
-              </option>
-            </select>
-
-          </div>
+            <option value="draft">
+              Drafts
+            </option>
+          </select>
 
           <p className="text-xs text-[#7A828D]">
             {pagination.totalBlogs}{" "}
@@ -533,18 +403,11 @@ export default function AdminBlogs() {
               : "blogs"}{" "}
             found
           </p>
-
         </div>
-
       </div>
-
-      {/* ======================================================
-          ERROR
-      ====================================================== */}
 
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4">
-
           <p className="text-sm text-red-600">
             {error}
           </p>
@@ -560,404 +423,289 @@ export default function AdminBlogs() {
           >
             Try again
           </button>
-
         </div>
       )}
 
-      {/* ======================================================
-          TABLE
-      ====================================================== */}
+      {loading ? (
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {Array.from({ length: 6 }).map(
+            (_, index) => (
+              <div
+                key={index}
+                className="overflow-hidden rounded-2xl border border-[#101A2E]/8 bg-white"
+              >
+                <div className="h-48 animate-pulse bg-[#EEF1F1]" />
 
-      <div className="bg-white border border-[#101A2E]/8 rounded-2xl overflow-hidden">
+                <div className="space-y-4 p-5">
+                  <div className="h-4 w-24 animate-pulse rounded bg-[#EEF1F1]" />
 
-        <div className="overflow-x-auto">
+                  <div className="h-6 w-4/5 animate-pulse rounded bg-[#EEF1F1]" />
 
-          <table className="w-full min-w-[1200px]">
+                  <div className="h-4 w-full animate-pulse rounded bg-[#EEF1F1]" />
 
-            <thead>
+                  <div className="h-4 w-3/4 animate-pulse rounded bg-[#EEF1F1]" />
 
-              <tr className="border-b border-[#101A2E]/8 bg-[#F8F9F9]">
+                  <div className="flex gap-2 pt-2">
+                    <div className="h-9 flex-1 animate-pulse rounded-lg bg-[#EEF1F1]" />
+                    <div className="h-9 w-10 animate-pulse rounded-lg bg-[#EEF1F1]" />
+                  </div>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      ) : !error &&
+        blogs.length === 0 ? (
+        <div className="rounded-2xl border border-[#101A2E]/8 bg-white px-6 py-16 text-center">
+          <FileText
+            size={30}
+            strokeWidth={1.4}
+            className="mx-auto text-[#B1B7BE]"
+          />
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Blog
-                </th>
+          <p className="mt-4 text-sm text-[#6F7782]">
+            No blogs found.
+          </p>
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Category
-                </th>
+          <p className="mt-1 text-xs text-[#9AA1AA]">
+            Create your first travel story
+            to get started.
+          </p>
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Author
-                </th>
+          <button
+            type="button"
+            onClick={handleCreate}
+            className="mt-5 inline-flex h-9 items-center gap-2 rounded-lg bg-[#101A2E] px-4 text-xs text-white transition-all hover:bg-[#C9A24B] hover:text-[#101A2E]"
+          >
+            <Plus size={13} />
+            Create Blog
+          </button>
+        </div>
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {blogs.map((blog) => {
+            const deleteLoading =
+              actionLoading ===
+              `delete-${blog._id}`;
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Status
-                </th>
+            return (
+              <article
+                key={blog._id}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-[#101A2E]/8 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A24B]/30 hover:shadow-[0_18px_45px_rgba(16,26,46,0.08)]"
+              >
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleView(blog._id)
+                  }
+                  className="relative block w-full overflow-hidden bg-[#101A2E]/5 text-left"
+                >
+                  <div className="aspect-[16/9]">
+                    {blog.image ? (
+                      <img
+                        src={blog.image}
+                        alt={
+                          blog.title ||
+                          "Blog"
+                        }
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <FileText
+                          size={34}
+                          strokeWidth={1.3}
+                          className="text-[#9AA1AA]"
+                        />
+                      </div>
+                    )}
+                  </div>
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Published
-                </th>
+                  <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+                    <StatusBadge
+                      status={blog.status}
+                    />
 
-                <th className="text-left px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Homepage
-                </th>
+                    {blog.featured && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-[#C9A24B] shadow-sm backdrop-blur-sm">
+                        <Home size={11} />
+                        Featured
+                      </span>
+                    )}
+                  </div>
+                </button>
 
-                <th className="text-right px-5 py-4 text-[10px] uppercase tracking-[0.12em] text-[#7A828D] font-medium">
-                  Actions
-                </th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {/* ==================================================
-                  LOADING
-              ================================================== */}
-
-              {loading && (
-                <tr>
-
-                  <td
-                    colSpan="7"
-                    className="px-5 py-16 text-center"
-                  >
-
-                    <div className="flex flex-col items-center">
-
-                      <div className="w-7 h-7 border-2 border-[#C9A24B]/30 border-t-[#C9A24B] rounded-full animate-spin" />
-
-                      <p className="mt-4 text-sm text-[#7A828D]">
-                        Loading blogs...
-                      </p>
-
-                    </div>
-
-                  </td>
-
-                </tr>
-              )}
-
-              {/* ==================================================
-                  EMPTY
-              ================================================== */}
-
-              {!loading &&
-                !error &&
-                blogs.length === 0 && (
-                  <tr>
-
-                    <td
-                      colSpan="7"
-                      className="px-5 py-16 text-center"
-                    >
-
-                      <FileText
-                        size={27}
-                        strokeWidth={1.4}
-                        className="mx-auto text-[#B1B7BE]"
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <Tag
+                        size={12}
+                        className="shrink-0 text-[#C9A24B]"
                       />
 
-                      <p className="mt-4 text-sm text-[#6F7782]">
-                        No blogs found.
-                      </p>
+                      <span className="truncate text-[10px] font-semibold uppercase tracking-[0.1em] text-[#68717D]">
+                        {blog.category ||
+                          "Uncategorized"}
+                      </span>
+                    </div>
 
-                      <p className="text-xs text-[#9AA1AA] mt-1">
-                        Create your first travel story
-                        to get started.
-                      </p>
+                    <FeaturedBadge
+                      featured={blog.featured}
+                    />
+                  </div>
 
-                      <button
-                        type="button"
-                        onClick={handleCreate}
-                        className="mt-5 inline-flex items-center gap-2 px-4 h-9 rounded-lg bg-[#101A2E] text-white text-xs hover:bg-[#C9A24B] hover:text-[#101A2E] transition-all"
-                      >
-                        <Plus size={13} />
+                  <h3 className="mt-3 line-clamp-2 font-['Inter'] text-lg font-semibold leading-7 text-[#101A2E]">
+                    {blog.title ||
+                      "Untitled Blog"}
+                  </h3>
 
-                        Create Blog
-                      </button>
+                  {blog.shortDescription && (
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#6F7782]">
+                      {
+                        blog.shortDescription
+                      }
+                    </p>
+                  )}
 
-                    </td>
+                  <div className="mt-5 space-y-2.5 border-t border-[#101A2E]/7 pt-4">
+                    <div className="flex items-center gap-2">
+                      <User
+                        size={13}
+                        className="shrink-0 text-[#9AA1AA]"
+                      />
 
-                  </tr>
-                )}
+                      <span className="truncate text-xs text-[#68717D]">
+                        {blog.author ||
+                          "Times India Travels"}
+                      </span>
+                    </div>
 
-              {/* ==================================================
-                  BLOGS
-              ================================================== */}
+                    <div className="flex items-center gap-2">
+                      <CalendarDays
+                        size={13}
+                        className="shrink-0 text-[#9AA1AA]"
+                      />
 
-              {!loading &&
-                blogs.map((blog) => {
+                      <span className="text-xs text-[#68717D]">
+                        {formatDate(
+                          blog.publishedAt ||
+                            blog.createdAt
+                        )}
+                      </span>
+                    </div>
+                  </div>
 
-                  const deleteLoading =
-                    actionLoading ===
-                    `delete-${blog._id}`;
-
-                  return (
-                    <tr
-                      key={blog._id}
-                      className="border-b border-[#101A2E]/6 last:border-b-0 hover:bg-[#FAFBFB] transition-colors"
+                  <div className="mt-auto flex items-center gap-2 pt-5">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleView(
+                          blog._id
+                        )
+                      }
+                      className="flex h-9 flex-1 items-center justify-center gap-2 rounded-lg bg-[#101A2E] text-xs font-medium text-white transition-all hover:bg-[#C9A24B] hover:text-[#101A2E]"
                     >
+                      <Eye size={14} />
+                      View
+                    </button>
 
-                      {/* BLOG */}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleEdit(
+                          blog._id
+                        )
+                      }
+                      className="flex h-9 w-10 items-center justify-center rounded-lg border border-[#101A2E]/10 bg-white text-[#68717D] transition-all hover:border-[#101A2E] hover:bg-[#101A2E] hover:text-white"
+                      title="Edit blog"
+                    >
+                      <Pencil size={14} />
+                    </button>
 
-                      <td className="px-5 py-4">
-
-                        <div className="flex items-center gap-3">
-
-                          {blog.image ? (
-                            <img
-                              src={blog.image}
-                              alt={blog.title}
-                              className="w-16 h-11 rounded-lg object-cover border border-[#101A2E]/8 shrink-0"
-                            />
-                          ) : (
-                            <div className="w-16 h-11 rounded-lg bg-[#101A2E]/5 border border-[#101A2E]/8 flex items-center justify-center shrink-0">
-                              <FileText
-                                size={16}
-                                className="text-[#68717D]"
-                              />
-                            </div>
-                          )}
-
-                          <div className="min-w-0">
-
-                            <p className="text-sm font-medium text-[#101A2E] line-clamp-1">
-                              {blog.title || "Untitled Blog"}
-                            </p>
-
-                            <p className="mt-1 text-[11px] text-[#9AA1AA] line-clamp-1">
-                              /{blog.slug || "—"}
-                            </p>
-
-                          </div>
-
-                        </div>
-
-                      </td>
-
-                      {/* CATEGORY */}
-
-                      <td className="px-5 py-4">
-
-                        <div className="flex items-center gap-1.5">
-
-                          <Tag
-                            size={12}
-                            className="text-[#9AA1AA]"
-                          />
-
-                          <span className="text-xs text-[#68717D]">
-                            {blog.category ||
-                              "Uncategorized"}
-                          </span>
-
-                        </div>
-
-                      </td>
-
-                      {/* AUTHOR */}
-
-                      <td className="px-5 py-4">
-
-                        <div className="flex items-center gap-1.5">
-
-                          <User
-                            size={12}
-                            className="text-[#9AA1AA]"
-                          />
-
-                          <span className="text-xs text-[#68717D]">
-                            {blog.author ||
-                              "Times India Travels"}
-                          </span>
-
-                        </div>
-
-                      </td>
-
-                      {/* STATUS */}
-
-                      <td className="px-5 py-4">
-
-                        <StatusBadge
-                          status={blog.status}
+                    <button
+                      type="button"
+                      disabled={
+                        deleteLoading
+                      }
+                      onClick={() =>
+                        handleDelete(blog)
+                      }
+                      className="flex h-9 w-10 items-center justify-center rounded-lg border border-[#101A2E]/10 bg-white text-[#68717D] transition-all hover:border-red-200 hover:bg-red-50 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-40"
+                      title="Delete blog"
+                    >
+                      {deleteLoading ? (
+                        <RefreshCw
+                          size={14}
+                          className="animate-spin"
                         />
-
-                      </td>
-
-                      {/* DATE */}
-
-                      <td className="px-5 py-4">
-
-                        <span className="text-xs text-[#68717D]">
-                          {formatDate(
-                            blog.publishedAt
-                          )}
-                        </span>
-
-                      </td>
-
-                      {/* HOMEPAGE */}
-
-                      <td className="px-5 py-4">
-
-                        <FeaturedBadge
-                          featured={blog.featured}
-                        />
-
-                      </td>
-
-                      {/* ACTIONS */}
-
-                      <td className="px-5 py-4">
-
-                        <div className="flex items-center justify-end gap-2">
-
-                          {/* VIEW */}
-
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleView(
-                                blog._id
-                              )
-                            }
-                            className="w-8 h-8 rounded-lg border border-[#101A2E]/10 text-[#68717D] hover:bg-[#101A2E] hover:text-white flex items-center justify-center transition-all"
-                            title="View blog"
-                          >
-                            <Eye size={14} />
-                          </button>
-
-                          {/* EDIT */}
-
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleEdit(
-                                blog._id
-                              )
-                            }
-                            className="w-8 h-8 rounded-lg border border-[#101A2E]/10 text-[#68717D] hover:bg-[#101A2E] hover:text-white flex items-center justify-center transition-all"
-                            title="Edit blog"
-                          >
-                            <Pencil size={14} />
-                          </button>
-
-                          {/* DELETE */}
-
-                          <button
-                            type="button"
-                            disabled={
-                              deleteLoading
-                            }
-                            onClick={() =>
-                              handleDelete(blog)
-                            }
-                            className="w-8 h-8 rounded-lg border border-[#101A2E]/10 text-[#68717D] hover:bg-red-50 hover:text-red-500 hover:border-red-100 flex items-center justify-center transition-all disabled:opacity-40"
-                            title="Delete blog"
-                          >
-                            {deleteLoading ? (
-                              <RefreshCw
-                                size={14}
-                                className="animate-spin"
-                              />
-                            ) : (
-                              <Trash2
-                                size={14}
-                              />
-                            )}
-                          </button>
-
-                        </div>
-
-                      </td>
-
-                    </tr>
-                  );
-                })}
-
-            </tbody>
-
-          </table>
-
+                      ) : (
+                        <Trash2 size={14} />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
+      )}
 
-        {/* ======================================================
-            PAGINATION FOOTER
-        ====================================================== */}
+      {!loading &&
+        blogs.length > 0 && (
+          <div className="flex flex-col gap-4 border-t border-[#101A2E]/8 pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs text-[#7A828D]">
+              Showing{" "}
+              <span className="font-medium text-[#101A2E]">
+                {blogs.length}
+              </span>{" "}
+              of{" "}
+              <span className="font-medium text-[#101A2E]">
+                {pagination.totalBlogs}
+              </span>{" "}
+              blogs
+            </p>
 
-        {!loading &&
-          blogs.length > 0 && (
-            <div className="border-t border-[#101A2E]/8 px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={
+                  !pagination.hasPreviousPage ||
+                  loading
+                }
+                onClick={
+                  handlePreviousPage
+                }
+                className="h-9 rounded-lg border border-[#101A2E]/10 bg-white px-3 text-xs text-[#101A2E] transition-all hover:bg-[#101A2E] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Previous
+              </button>
 
-              <p className="text-xs text-[#7A828D]">
-
-                Showing{" "}
-
+              <span className="min-w-[90px] text-center text-xs text-[#68717D]">
+                Page{" "}
                 <span className="font-medium text-[#101A2E]">
-                  {blogs.length}
+                  {pagination.currentPage}
                 </span>{" "}
-
                 of{" "}
-
                 <span className="font-medium text-[#101A2E]">
-                  {pagination.totalBlogs}
-                </span>{" "}
-
-                blogs
-
-              </p>
-
-              <div className="flex items-center gap-2">
-
-                <button
-                  type="button"
-                  disabled={
-                    !pagination.hasPreviousPage ||
-                    loading
-                  }
-                  onClick={
-                    handlePreviousPage
-                  }
-                  className="h-9 px-3 rounded-lg border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#101A2E] hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Previous
-                </button>
-
-                <span className="min-w-[80px] text-center text-xs text-[#68717D]">
-                  Page{" "}
-                  <span className="font-medium text-[#101A2E]">
-                    {pagination.currentPage}
-                  </span>{" "}
-                  of{" "}
-                  <span className="font-medium text-[#101A2E]">
-                    {pagination.totalPages || 1}
-                  </span>
+                  {pagination.totalPages ||
+                    1}
                 </span>
+              </span>
 
-                <button
-                  type="button"
-                  disabled={
-                    !pagination.hasNextPage ||
-                    loading
-                  }
-                  onClick={
-                    handleNextPage
-                  }
-                  className="h-9 px-3 rounded-lg border border-[#101A2E]/10 bg-white text-xs text-[#101A2E] hover:bg-[#101A2E] hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
-
-              </div>
-
+              <button
+                type="button"
+                disabled={
+                  !pagination.hasNextPage ||
+                  loading
+                }
+                onClick={handleNextPage}
+                className="h-9 rounded-lg border border-[#101A2E]/10 bg-white px-3 text-xs text-[#101A2E] transition-all hover:bg-[#101A2E] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Next
+              </button>
             </div>
-          )}
-
-      </div>
-
+          </div>
+        )}
     </section>
   );
 }

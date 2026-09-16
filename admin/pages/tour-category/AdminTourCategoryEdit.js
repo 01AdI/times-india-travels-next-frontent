@@ -33,22 +33,39 @@ export default function AdminTourCategoryEdit() {
     id: "",
     name: "",
     tagline: "",
+    shortDescription: "",
     description: "",
     showInNavbar: false,
     showInExplore: false,
   });
+
+  // --------------------------------------------------
+  // HERO IMAGE
+  // --------------------------------------------------
 
   const [existingHeroImage, setExistingHeroImage] = useState("");
   const [heroImage, setHeroImage] = useState(null);
   const [heroImagePreview, setHeroImagePreview] = useState("");
   const [heroImageUrl, setHeroImageUrl] = useState("");
 
+  // --------------------------------------------------
+  // DESTINATIONS
+  // --------------------------------------------------
+
   const [destinations, setDestinations] = useState([]);
   const [availableDestinations, setAvailableDestinations] = useState([]);
   const [destinationsLoading, setDestinationsLoading] = useState(true);
 
+  // --------------------------------------------------
+  // EXISTING GALLERY
+  // --------------------------------------------------
+
   const [existingGallery, setExistingGallery] = useState([]);
   const [removedGalleryImageIds, setRemovedGalleryImageIds] = useState([]);
+
+  // --------------------------------------------------
+  // NEW GALLERY
+  // --------------------------------------------------
 
   const [newGallery, setNewGallery] = useState([]);
 
@@ -56,10 +73,18 @@ export default function AdminTourCategoryEdit() {
   const [galleryUrlPreview, setGalleryUrlPreview] = useState("");
   const [galleryUrlError, setGalleryUrlError] = useState("");
 
+  // --------------------------------------------------
+  // STATUS
+  // --------------------------------------------------
+
   const [initialLoading, setInitialLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // --------------------------------------------------
+  // ERROR SCROLL
+  // --------------------------------------------------
 
   useEffect(() => {
     if (!error || !errorRef.current) return;
@@ -71,6 +96,10 @@ export default function AdminTourCategoryEdit() {
       });
     });
   }, [error]);
+
+  // --------------------------------------------------
+  // LOAD CATEGORY
+  // --------------------------------------------------
 
   useEffect(() => {
     const loadCategory = async () => {
@@ -87,17 +116,29 @@ export default function AdminTourCategoryEdit() {
           response;
 
         if (!category) {
-          throw new Error("Tour category data was not returned.");
+          throw new Error(
+            "Tour category data was not returned."
+          );
         }
+
+        // ------------------------------
+        // BASIC INFORMATION
+        // ------------------------------
 
         setForm({
           id: category.id || category._id || id || "",
           name: category.name || "",
           tagline: category.tagline || "",
+          shortDescription:
+            category.shortDescription || "",
           description: category.description || "",
           showInNavbar: Boolean(category.showInNavbar),
           showInExplore: Boolean(category.showInExplore),
         });
+
+        // ------------------------------
+        // HERO IMAGE
+        // ------------------------------
 
         const hero = category.heroImage || "";
 
@@ -105,6 +146,10 @@ export default function AdminTourCategoryEdit() {
         setHeroImageUrl(hero);
         setHeroImage(null);
         setHeroImagePreview("");
+
+        // ------------------------------
+        // DESTINATIONS
+        // ------------------------------
 
         const categoryDestinations = Array.isArray(
           category.destinations
@@ -118,18 +163,28 @@ export default function AdminTourCategoryEdit() {
               return destination;
             }
 
-            return destination?.id || destination?._id || null;
+            return (
+              destination?.id ||
+              destination?._id ||
+              null
+            );
           })
           .filter(Boolean);
 
         setDestinations(destinationIds);
 
-        const gallery = Array.isArray(category.destinations_gallery)
+        // ------------------------------
+        // EXISTING GALLERY
+        // ------------------------------
+
+        const categoryGallery = Array.isArray(
+          category.destinations_gallery
+        )
           ? category.destinations_gallery
           : [];
 
         setExistingGallery(
-          gallery.map((item) => ({
+          categoryGallery.map((item) => ({
             id: item?._id || item?.id || null,
             url: item?.url || "",
             caption: item?.caption || "",
@@ -141,10 +196,14 @@ export default function AdminTourCategoryEdit() {
         setRemovedGalleryImageIds([]);
         setNewGallery([]);
       } catch (err) {
-        console.error("Failed to load tour category:", err);
+        console.error(
+          "Failed to load tour category:",
+          err
+        );
 
         setError(
-          err?.message || "Unable to load tour category."
+          err?.message ||
+            "Unable to load tour category."
         );
       } finally {
         setInitialLoading(false);
@@ -156,12 +215,17 @@ export default function AdminTourCategoryEdit() {
     }
   }, [id]);
 
+  // --------------------------------------------------
+  // LOAD DESTINATIONS
+  // --------------------------------------------------
+
   useEffect(() => {
     const loadDestinations = async () => {
       try {
         setDestinationsLoading(true);
 
-        const response = await getAdminDestinations();
+        const response =
+          await getAdminDestinations();
 
         setAvailableDestinations(
           Array.isArray(response?.destinations)
@@ -169,10 +233,14 @@ export default function AdminTourCategoryEdit() {
             : []
         );
       } catch (err) {
-        console.error("Failed to load destinations:", err);
+        console.error(
+          "Failed to load destinations:",
+          err
+        );
 
         setError(
-          err?.message || "Unable to load destinations."
+          err?.message ||
+            "Unable to load destinations."
         );
       } finally {
         setDestinationsLoading(false);
@@ -182,6 +250,10 @@ export default function AdminTourCategoryEdit() {
     loadDestinations();
   }, []);
 
+  // --------------------------------------------------
+  // HERO PREVIEW CLEANUP
+  // --------------------------------------------------
+
   useEffect(() => {
     return () => {
       if (heroImagePreview) {
@@ -189,6 +261,10 @@ export default function AdminTourCategoryEdit() {
       }
     };
   }, [heroImagePreview]);
+
+  // --------------------------------------------------
+  // NEW GALLERY PREVIEW CLEANUP
+  // --------------------------------------------------
 
   useEffect(() => {
     return () => {
@@ -201,19 +277,35 @@ export default function AdminTourCategoryEdit() {
         }
       });
     };
-  }, []);
+  }, [newGallery]);
+
+  // --------------------------------------------------
+  // BASIC INPUT CHANGE
+  // --------------------------------------------------
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : value,
     }));
 
     setError("");
     setSuccess("");
   };
+
+  // --------------------------------------------------
+  // TOGGLE
+  // --------------------------------------------------
 
   const handleToggleChange = (name) => {
     setForm((prev) => ({
@@ -225,12 +317,21 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
+  // --------------------------------------------------
+  // DESTINATIONS
+  // --------------------------------------------------
+
   const addDestination = (destinationId) => {
     if (!destinationId) return;
 
-    if (destinations.includes(destinationId)) return;
+    if (destinations.includes(destinationId)) {
+      return;
+    }
 
-    setDestinations((prev) => [...prev, destinationId]);
+    setDestinations((prev) => [
+      ...prev,
+      destinationId,
+    ]);
 
     setError("");
     setSuccess("");
@@ -238,12 +339,18 @@ export default function AdminTourCategoryEdit() {
 
   const removeDestination = (destinationId) => {
     setDestinations((prev) =>
-      prev.filter((item) => item !== destinationId)
+      prev.filter(
+        (item) => item !== destinationId
+      )
     );
 
     setError("");
     setSuccess("");
   };
+
+  // --------------------------------------------------
+  // HERO IMAGE UPLOAD
+  // --------------------------------------------------
 
   const handleHeroImageChange = (event) => {
     const file = event.target.files?.[0];
@@ -251,16 +358,22 @@ export default function AdminTourCategoryEdit() {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      setError("Please select a valid image file.");
+      setError(
+        "Please select a valid image file."
+      );
+
       event.target.value = "";
       return;
     }
 
     if (heroImagePreview) {
-      URL.revokeObjectURL(heroImagePreview);
+      URL.revokeObjectURL(
+        heroImagePreview
+      );
     }
 
-    const previewUrl = URL.createObjectURL(file);
+    const previewUrl =
+      URL.createObjectURL(file);
 
     setHeroImage(file);
     setHeroImagePreview(previewUrl);
@@ -272,18 +385,32 @@ export default function AdminTourCategoryEdit() {
     event.target.value = "";
   };
 
+  // --------------------------------------------------
+  // REMOVE HERO IMAGE
+  // --------------------------------------------------
+
   const removeHeroImage = () => {
     if (heroImagePreview) {
-      URL.revokeObjectURL(heroImagePreview);
+      URL.revokeObjectURL(
+        heroImagePreview
+      );
     }
 
     setHeroImage(null);
     setHeroImagePreview("");
-    setHeroImageUrl(existingHeroImage || "");
+
+    // Restore existing image URL
+    setHeroImageUrl(
+      existingHeroImage || ""
+    );
 
     setError("");
     setSuccess("");
   };
+
+  // --------------------------------------------------
+  // HERO URL
+  // --------------------------------------------------
 
   const handleHeroUrlChange = (event) => {
     const value = event.target.value;
@@ -292,7 +419,9 @@ export default function AdminTourCategoryEdit() {
 
     if (value.trim()) {
       if (heroImagePreview) {
-        URL.revokeObjectURL(heroImagePreview);
+        URL.revokeObjectURL(
+          heroImagePreview
+        );
       }
 
       setHeroImage(null);
@@ -303,7 +432,14 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
-  const updateExistingGalleryCaption = (index, caption) => {
+  // --------------------------------------------------
+  // EXISTING GALLERY CAPTION
+  // --------------------------------------------------
+
+  const updateExistingGalleryCaption = (
+    index,
+    caption
+  ) => {
     setExistingGallery((prev) =>
       prev.map((item, itemIndex) =>
         itemIndex === index
@@ -319,37 +455,64 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
-  const removeExistingGalleryImage = (index) => {
-    const image = existingGallery[index];
+  // --------------------------------------------------
+  // REMOVE EXISTING GALLERY IMAGE
+  // --------------------------------------------------
+
+  const removeExistingGalleryImage = (
+    index
+  ) => {
+    const image =
+      existingGallery[index];
 
     if (!image) return;
 
     if (
       image.id &&
-      !removedGalleryImageIds.includes(image.id)
+      !removedGalleryImageIds.includes(
+        image.id
+      )
     ) {
-      setRemovedGalleryImageIds((prev) => [
-        ...prev,
-        image.id,
-      ]);
+      setRemovedGalleryImageIds(
+        (prev) => [
+          ...prev,
+          image.id,
+        ]
+      );
     }
 
     setExistingGallery((prev) =>
-      prev.filter((_, itemIndex) => itemIndex !== index)
+      prev.filter(
+        (_, itemIndex) =>
+          itemIndex !== index
+      )
     );
 
     setError("");
     setSuccess("");
   };
 
+  // --------------------------------------------------
+  // GALLERY COUNTS
+  // --------------------------------------------------
+
   const totalGalleryImages =
-    existingGallery.length + newGallery.length;
+    existingGallery.length +
+    newGallery.length;
 
   const remainingGallerySlots =
     15 - totalGalleryImages;
 
-  const handleGalleryChange = (event) => {
-    const files = Array.from(event.target.files || []);
+  // --------------------------------------------------
+  // GALLERY UPLOAD
+  // --------------------------------------------------
+
+  const handleGalleryChange = (
+    event
+  ) => {
+    const files = Array.from(
+      event.target.files || []
+    );
 
     if (!files.length) return;
 
@@ -367,31 +530,49 @@ export default function AdminTourCategoryEdit() {
       return;
     }
 
-    const imageFiles = files.filter((file) =>
-      file.type.startsWith("image/")
-    );
+    const imageFiles =
+      files.filter((file) =>
+        file.type.startsWith("image/")
+      );
 
     if (!imageFiles.length) {
-      setError("Please select valid image files.");
+      setError(
+        "Please select valid image files."
+      );
+
       event.target.value = "";
       return;
     }
 
-    const filesToAdd = imageFiles.slice(0, remaining);
+    const filesToAdd =
+      imageFiles.slice(
+        0,
+        remaining
+      );
 
-    const newItems = filesToAdd.map((file) => ({
-      type: "upload",
-      file,
-      caption: "",
-      preview: URL.createObjectURL(file),
-    }));
+    const newItems =
+      filesToAdd.map((file) => ({
+        type: "upload",
+        file,
+        caption: "",
+        preview:
+          URL.createObjectURL(file),
+      }));
 
-    setNewGallery((prev) => [...prev, ...newItems]);
+    setNewGallery((prev) => [
+      ...prev,
+      ...newItems,
+    ]);
 
-    if (imageFiles.length > remaining) {
+    if (
+      imageFiles.length >
+      remaining
+    ) {
       setError(
         `Only ${remaining} image${
-          remaining === 1 ? "" : "s"
+          remaining === 1
+            ? ""
+            : "s"
         } could be added. Maximum gallery size is 15 images.`
       );
     } else {
@@ -402,8 +583,15 @@ export default function AdminTourCategoryEdit() {
     event.target.value = "";
   };
 
-  const handleGalleryUrlChange = (event) => {
-    const value = event.target.value;
+  // --------------------------------------------------
+  // GALLERY URL INPUT
+  // --------------------------------------------------
+
+  const handleGalleryUrlChange = (
+    event
+  ) => {
+    const value =
+      event.target.value;
 
     setGalleryUrl(value);
     setGalleryUrlError("");
@@ -413,29 +601,54 @@ export default function AdminTourCategoryEdit() {
       return;
     }
 
-    setGalleryUrlPreview(value.trim());
+    setGalleryUrlPreview(
+      value.trim()
+    );
   };
 
+  // --------------------------------------------------
+  // ADD GALLERY URL
+  // --------------------------------------------------
+
   const addGalleryUrl = () => {
-    const url = galleryUrl.trim();
+    const url =
+      galleryUrl.trim();
 
     if (!url) {
-      setGalleryUrlError("Please enter an image URL.");
+      setGalleryUrlError(
+        "Please enter an image URL."
+      );
       return;
     }
 
-    if (remainingGallerySlots <= 0) {
+    if (
+      remainingGallerySlots <= 0
+    ) {
       setGalleryUrlError(
         "A maximum of 15 gallery images is allowed."
       );
       return;
     }
 
+    let parsedUrl;
+
     try {
-      new URL(url);
+      parsedUrl = new URL(url);
     } catch {
       setGalleryUrlError(
         "Please enter a valid image URL."
+      );
+      return;
+    }
+
+    if (
+      parsedUrl.protocol !==
+        "http:" &&
+      parsedUrl.protocol !==
+        "https:"
+    ) {
+      setGalleryUrlError(
+        "Please enter a valid HTTP or HTTPS image URL."
       );
       return;
     }
@@ -447,7 +660,8 @@ export default function AdminTourCategoryEdit() {
           item.url === url
       ) ||
       existingGallery.some(
-        (item) => item.url === url
+        (item) =>
+          item.url === url
       );
 
     if (duplicate) {
@@ -475,7 +689,13 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
-  const removeNewGalleryImage = (index) => {
+  // --------------------------------------------------
+  // REMOVE NEW GALLERY IMAGE
+  // --------------------------------------------------
+
+  const removeNewGalleryImage = (
+    index
+  ) => {
     setNewGallery((prev) => {
       const image = prev[index];
 
@@ -483,11 +703,14 @@ export default function AdminTourCategoryEdit() {
         image?.type === "upload" &&
         image?.preview
       ) {
-        URL.revokeObjectURL(image.preview);
+        URL.revokeObjectURL(
+          image.preview
+        );
       }
 
       return prev.filter(
-        (_, itemIndex) => itemIndex !== index
+        (_, itemIndex) =>
+          itemIndex !== index
       );
     });
 
@@ -495,7 +718,14 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
-  const updateNewGalleryCaption = (index, caption) => {
+  // --------------------------------------------------
+  // NEW GALLERY CAPTION
+  // --------------------------------------------------
+
+  const updateNewGalleryCaption = (
+    index,
+    caption
+  ) => {
     setNewGallery((prev) =>
       prev.map((item, itemIndex) =>
         itemIndex === index
@@ -511,7 +741,13 @@ export default function AdminTourCategoryEdit() {
     setSuccess("");
   };
 
-  const handleSubmit = async (event) => {
+  // --------------------------------------------------
+  // SUBMIT
+  // --------------------------------------------------
+
+  const handleSubmit = async (
+    event
+  ) => {
     event.preventDefault();
 
     if (loading) return;
@@ -519,20 +755,61 @@ export default function AdminTourCategoryEdit() {
     setError("");
     setSuccess("");
 
-    if (!form.name.trim()) {
-      setError("Category name is required.");
+    // --------------------------------
+    // VALIDATION
+    // --------------------------------
+
+    const categoryName =
+      form.name.trim();
+
+    const categoryTagline =
+      form.tagline.trim();
+
+    const categoryShortDescription =
+      form.shortDescription.trim();
+
+    const categoryDescription =
+      form.description.trim();
+
+    if (!categoryName) {
+      setError(
+        "Category name is required."
+      );
       return;
     }
 
-    if (!form.tagline.trim()) {
-      setError("Category tagline is required.");
+    if (!categoryTagline) {
+      setError(
+        "Category tagline is required."
+      );
       return;
     }
 
-    if (!form.description.trim()) {
-      setError("Category description is required.");
+    if (!categoryShortDescription) {
+      setError(
+        "Short description is required."
+      );
       return;
     }
+
+    if (
+      categoryShortDescription.length >1200) {
+      setError(
+        "Short description must be 1200 characters or fewer."
+      );
+      return;
+    }
+
+    if (!categoryDescription) {
+      setError(
+        "Category description is required."
+      );
+      return;
+    }
+
+    // --------------------------------
+    // GALLERY LIMIT
+    // --------------------------------
 
     const totalImages =
       existingGallery.length +
@@ -545,18 +822,34 @@ export default function AdminTourCategoryEdit() {
       return;
     }
 
+    // --------------------------------
+    // HERO IMAGE PAYLOAD
+    // --------------------------------
+
     let heroImagePayload;
 
-    if (heroImage instanceof File) {
-      heroImagePayload = heroImage;
+    if (
+      heroImage instanceof File
+    ) {
+      // New upload
+      heroImagePayload =
+        heroImage;
     } else if (
       heroImageUrl.trim() !==
       existingHeroImage.trim()
     ) {
-      heroImagePayload = heroImageUrl.trim();
+      // URL changed
+      heroImagePayload =
+        heroImageUrl.trim();
     } else {
-      heroImagePayload = undefined;
+      // No hero image change
+      heroImagePayload =
+        undefined;
     }
+
+    // --------------------------------
+    // NEW UPLOAD GALLERY
+    // --------------------------------
 
     const galleryUploadItems =
       newGallery.filter(
@@ -573,8 +866,13 @@ export default function AdminTourCategoryEdit() {
     const galleryUploadCaptions =
       galleryUploadItems.map(
         (item) =>
-          item.caption?.trim() || ""
+          item.caption?.trim() ||
+          ""
       );
+
+    // --------------------------------
+    // NEW URL GALLERY
+    // --------------------------------
 
     const galleryUrlItems =
       newGallery.filter(
@@ -590,31 +888,66 @@ export default function AdminTourCategoryEdit() {
     const galleryUrlCaptions =
       galleryUrlItems.map(
         (item) =>
-          item.caption?.trim() || ""
+          item.caption?.trim() ||
+          ""
       );
 
     try {
       setLoading(true);
 
+      // --------------------------------
+      // UPDATE CATEGORY
+      // --------------------------------
+
       const response =
         await updateAdminTourCategory(
           id,
           {
-            name: form.name.trim(),
-            tagline: form.tagline.trim(),
-            description: form.description.trim(),
-            showInNavbar: Boolean(form.showInNavbar),
-            showInExplore: Boolean(form.showInExplore),
-            heroImage: heroImagePayload,
+            name: categoryName,
+            tagline: categoryTagline,
+
+            // IMPORTANT:
+            // Short description is explicitly
+            // included in update payload.
+            shortDescription:
+              categoryShortDescription,
+
+            description:
+              categoryDescription,
+
+            showInNavbar:
+              Boolean(
+                form.showInNavbar
+              ),
+
+            showInExplore:
+              Boolean(
+                form.showInExplore
+              ),
+
+            heroImage:
+              heroImagePayload,
+
             destinations,
-            galleryImages: galleryUploadImages,
-            galleryCaptions: galleryUploadCaptions,
+
+            galleryImages:
+              galleryUploadImages,
+
+            galleryCaptions:
+              galleryUploadCaptions,
+
             galleryUrls,
+
             galleryUrlCaptions,
+
             removeGalleryImageIds:
               removedGalleryImageIds,
           }
         );
+
+      // --------------------------------
+      // UPDATE EXISTING CAPTIONS
+      // --------------------------------
 
       const captionUpdates =
         existingGallery
@@ -632,9 +965,17 @@ export default function AdminTourCategoryEdit() {
             )
           );
 
-      if (captionUpdates.length > 0) {
-        await Promise.all(captionUpdates);
+      if (
+        captionUpdates.length > 0
+      ) {
+        await Promise.all(
+          captionUpdates
+        );
       }
+
+      // --------------------------------
+      // SUCCESS
+      // --------------------------------
 
       setSuccess(
         response?.message ||
@@ -663,6 +1004,10 @@ export default function AdminTourCategoryEdit() {
     }
   };
 
+  // --------------------------------------------------
+  // INITIAL LOADING
+  // --------------------------------------------------
+
   if (initialLoading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -671,14 +1016,24 @@ export default function AdminTourCategoryEdit() {
             size={20}
             className="animate-spin"
           />
+
           Loading tour category...
         </div>
       </div>
     );
   }
 
+  // --------------------------------------------------
+  // UI
+  // --------------------------------------------------
+
   return (
     <div className="mx-auto max-w-6xl space-y-6 pb-10">
+
+      {/* ==========================================
+          HEADER
+      ========================================== */}
+
       <div>
         <button
           type="button"
@@ -708,6 +1063,10 @@ export default function AdminTourCategoryEdit() {
           destination gallery.
         </p>
       </div>
+
+      {/* ==========================================
+          ERROR
+      ========================================== */}
 
       {error && (
         <div
@@ -741,6 +1100,10 @@ export default function AdminTourCategoryEdit() {
         </div>
       )}
 
+      {/* ==========================================
+          SUCCESS
+      ========================================== */}
+
       {success && (
         <div
           role="status"
@@ -754,7 +1117,13 @@ export default function AdminTourCategoryEdit() {
         onSubmit={handleSubmit}
         className="space-y-6"
       >
+
+        {/* ========================================
+            BASIC INFORMATION
+        ======================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
           <div className="mb-6">
             <h2 className="text-base font-bold text-slate-900">
               Basic Information
@@ -768,6 +1137,9 @@ export default function AdminTourCategoryEdit() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+            {/* CATEGORY ID */}
+
             <div>
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Category ID
@@ -786,6 +1158,8 @@ export default function AdminTourCategoryEdit() {
               </p>
             </div>
 
+            {/* CATEGORY NAME */}
+
             <div>
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Category Name
@@ -801,6 +1175,8 @@ export default function AdminTourCategoryEdit() {
                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               />
             </div>
+
+            {/* TAGLINE */}
 
             <div className="md:col-span-2">
               <label className="mb-2 block text-sm font-semibold text-slate-700">
@@ -818,26 +1194,85 @@ export default function AdminTourCategoryEdit() {
               />
             </div>
 
+            {/* ====================================
+                SHORT DESCRIPTION
+            ==================================== */}
+
             <div className="md:col-span-2">
+
+              <label className="mb-2 block text-sm font-semibold text-slate-700">
+                Short Description
+              </label>
+
+              <textarea
+                name="shortDescription"
+                value={
+                  form.shortDescription
+                }
+                onChange={handleChange}
+                rows={2}
+                maxLength={1200}
+                placeholder="A one- or two-line hook for the hero section and image overlays..."
+                disabled={loading}
+                className="w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm leading-6 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
+              />
+
+              <div className="mt-1.5 flex items-center justify-between gap-4 text-xs text-slate-400">
+
+                <span>
+                  Used in the hero
+                  section and hero
+                  image overlay. Keep
+                  it short and punchy.
+                </span>
+
+                <span className="shrink-0 font-medium">
+                  {form.shortDescription.length}/1200
+                </span>
+
+              </div>
+            </div>
+
+            {/* ====================================
+                DESCRIPTION
+            ==================================== */}
+
+            <div className="md:col-span-2">
+
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Description
               </label>
 
               <textarea
                 name="description"
-                value={form.description}
+                value={
+                  form.description
+                }
                 onChange={handleChange}
                 rows={6}
                 placeholder="Describe this tour category..."
                 disabled={loading}
                 className="w-full resize-y rounded-xl border border-slate-200 px-4 py-3 text-sm leading-6 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               />
+
+              <p className="mt-1.5 text-xs text-slate-400">
+                Shown on the main
+                category content page.
+              </p>
+
             </div>
+
           </div>
         </section>
 
+        {/* ========================================
+            VISIBILITY
+        ======================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
           <div className="mb-6">
+
             <h2 className="text-base font-bold text-slate-900">
               Visibility
             </h2>
@@ -847,9 +1282,13 @@ export default function AdminTourCategoryEdit() {
               category appears on the
               website.
             </p>
+
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+            {/* NAVBAR */}
+
             <button
               type="button"
               onClick={() =>
@@ -864,7 +1303,9 @@ export default function AdminTourCategoryEdit() {
                   : "border-slate-200 bg-white hover:bg-slate-50"
               } disabled:cursor-not-allowed disabled:opacity-60`}
             >
+
               <div className="flex min-w-0 items-center gap-3">
+
                 <div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                     form.showInNavbar
@@ -876,6 +1317,7 @@ export default function AdminTourCategoryEdit() {
                 </div>
 
                 <div className="min-w-0">
+
                   <p className="text-sm font-bold text-slate-900">
                     Show in Navbar
                   </p>
@@ -885,7 +1327,9 @@ export default function AdminTourCategoryEdit() {
                     the website navigation
                     menu.
                   </p>
+
                 </div>
+
               </div>
 
               <span
@@ -903,7 +1347,10 @@ export default function AdminTourCategoryEdit() {
                   }`}
                 />
               </span>
+
             </button>
+
+            {/* EXPLORE */}
 
             <button
               type="button"
@@ -915,15 +1362,17 @@ export default function AdminTourCategoryEdit() {
               disabled={loading}
               className={`flex items-center justify-between rounded-xl border p-4 text-left transition ${
                 form.showInExplore
-                  ? "border-orange-200 bg-orange-50"
+                  ? "border-teal-200 bg-teal-50"
                   : "border-slate-200 bg-white hover:bg-slate-50"
               } disabled:cursor-not-allowed disabled:opacity-60`}
             >
+
               <div className="flex min-w-0 items-center gap-3">
+
                 <div
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                     form.showInExplore
-                      ? "bg-orange-100 text-orange-600"
+                      ? "bg-teal-100 text-teal-600"
                       : "bg-slate-100 text-slate-400"
                   }`}
                 >
@@ -931,6 +1380,7 @@ export default function AdminTourCategoryEdit() {
                 </div>
 
                 <div className="min-w-0">
+
                   <p className="text-sm font-bold text-slate-900">
                     Show in Explore
                   </p>
@@ -939,13 +1389,15 @@ export default function AdminTourCategoryEdit() {
                     Display this category in
                     the Explore section.
                   </p>
+
                 </div>
+
               </div>
 
               <span
                 className={`relative ml-4 h-6 w-11 shrink-0 rounded-full transition ${
                   form.showInExplore
-                    ? "bg-orange-500"
+                    ? "bg-teal-500"
                     : "bg-slate-300"
                 }`}
               >
@@ -957,12 +1409,20 @@ export default function AdminTourCategoryEdit() {
                   }`}
                 />
               </span>
+
             </button>
+
           </div>
         </section>
 
+        {/* ========================================
+            HERO IMAGE
+        ======================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
           <div className="mb-6">
+
             <h2 className="text-base font-bold text-slate-900">
               Hero Image
             </h2>
@@ -971,37 +1431,52 @@ export default function AdminTourCategoryEdit() {
               Replace the existing image
               or provide a new image URL.
             </p>
+
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+            {/* IMAGE UPLOAD */}
+
             <div>
+
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Image
               </label>
 
               <div className="overflow-hidden rounded-xl border-2 border-dashed border-slate-200 bg-slate-50">
+
                 <div className="relative h-56">
+
                   {heroImagePreview ? (
                     <>
                       <img
-                        src={heroImagePreview}
+                        src={
+                          heroImagePreview
+                        }
                         alt="New hero preview"
                         className="h-full w-full object-cover"
                       />
 
                       <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent px-4 pb-4 pt-12">
+
                         <p className="truncate text-xs font-semibold text-white">
                           New hero image
                         </p>
 
                         <p className="mt-0.5 truncate text-xs text-white/70">
-                          {heroImage?.name}
+                          {
+                            heroImage?.name
+                          }
                         </p>
+
                       </div>
 
                       <button
                         type="button"
-                        onClick={removeHeroImage}
+                        onClick={
+                          removeHeroImage
+                        }
                         disabled={loading}
                         className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
                         aria-label="Remove new hero image"
@@ -1012,19 +1487,24 @@ export default function AdminTourCategoryEdit() {
                   ) : existingHeroImage ? (
                     <>
                       <img
-                        src={existingHeroImage}
+                        src={
+                          existingHeroImage
+                        }
                         alt="Current hero"
                         className="h-full w-full object-cover"
                       />
 
                       <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent px-4 pb-4 pt-12">
+
                         <p className="text-xs font-semibold text-white">
                           Current hero image
                         </p>
+
                       </div>
                     </>
                   ) : (
                     <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+
                       <Upload
                         size={28}
                         className="text-slate-400"
@@ -1035,14 +1515,18 @@ export default function AdminTourCategoryEdit() {
                       </p>
 
                       <p className="mt-1 text-xs text-slate-400">
-                        Upload an image using
-                        the button below.
+                        Upload an image
+                        using the button
+                        below.
                       </p>
+
                     </div>
                   )}
+
                 </div>
 
                 <div className="border-t border-slate-200 bg-white p-3">
+
                   <label
                     className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 ${
                       loading
@@ -1050,6 +1534,7 @@ export default function AdminTourCategoryEdit() {
                         : ""
                     }`}
                   >
+
                     <Upload size={15} />
 
                     {heroImage
@@ -1061,16 +1546,25 @@ export default function AdminTourCategoryEdit() {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={handleHeroImageChange}
+                      onChange={
+                        handleHeroImageChange
+                      }
                       disabled={loading}
                       className="hidden"
                     />
+
                   </label>
+
                 </div>
+
               </div>
+
             </div>
 
+            {/* HERO URL */}
+
             <div>
+
               <label className="mb-2 block text-sm font-semibold text-slate-700">
                 Image URL
               </label>
@@ -1078,7 +1572,9 @@ export default function AdminTourCategoryEdit() {
               <input
                 type="url"
                 value={heroImageUrl}
-                onChange={handleHeroUrlChange}
+                onChange={
+                  handleHeroUrlChange
+                }
                 placeholder="https://..."
                 disabled={loading}
                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
@@ -1086,15 +1582,19 @@ export default function AdminTourCategoryEdit() {
 
               {heroImageUrl && (
                 <div className="relative mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+
                   <img
                     src={heroImageUrl}
                     alt="Hero URL preview"
                     className="h-56 w-full object-cover"
-                    onError={(event) => {
+                    onError={(
+                      event
+                    ) => {
                       event.currentTarget.style.display =
                         "none";
                     }}
                   />
+
                 </div>
               )}
 
@@ -1102,12 +1602,20 @@ export default function AdminTourCategoryEdit() {
                 Entering a URL removes any
                 selected upload.
               </p>
+
             </div>
+
           </div>
         </section>
 
+        {/* ========================================
+            DESTINATIONS
+        ======================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
           <div className="mb-6">
+
             <h2 className="text-base font-bold text-slate-900">
               Destinations
             </h2>
@@ -1116,15 +1624,19 @@ export default function AdminTourCategoryEdit() {
               Manage destinations belonging
               to this category.
             </p>
+
           </div>
 
           {destinationsLoading ? (
             <div className="flex items-center gap-2 text-sm text-slate-500">
+
               <Loader2
                 size={17}
                 className="animate-spin"
               />
+
               Loading destinations...
+
             </div>
           ) : (
             <>
@@ -1138,6 +1650,7 @@ export default function AdminTourCategoryEdit() {
                 disabled={loading}
                 className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-50"
               >
+
                 <option value="">
                   Select a destination
                   to add
@@ -1150,21 +1663,33 @@ export default function AdminTourCategoryEdit() {
                         destination.id
                       )
                   )
-                  .map((destination) => (
-                    <option
-                      key={destination.id}
-                      value={destination.id}
-                    >
-                      {destination.name ||
-                        destination.id}
-                    </option>
-                  ))}
+                  .map(
+                    (destination) => (
+                      <option
+                        key={
+                          destination.id
+                        }
+                        value={
+                          destination.id
+                        }
+                      >
+                        {destination.name ||
+                          destination.id}
+                      </option>
+                    )
+                  )}
+
               </select>
 
-              {destinations.length > 0 && (
+              {destinations.length >
+              0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
+
                   {destinations.map(
-                    (destinationId) => {
+                    (
+                      destinationId
+                    ) => {
+
                       const destination =
                         availableDestinations.find(
                           (item) =>
@@ -1174,9 +1699,12 @@ export default function AdminTourCategoryEdit() {
 
                       return (
                         <div
-                          key={destinationId}
+                          key={
+                            destinationId
+                          }
                           className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700"
                         >
+
                           <MapPin size={13} />
 
                           {destination?.name ||
@@ -1189,7 +1717,9 @@ export default function AdminTourCategoryEdit() {
                                 destinationId
                               )
                             }
-                            disabled={loading}
+                            disabled={
+                              loading
+                            }
                             className="text-slate-400 transition hover:text-red-500 disabled:opacity-50"
                             aria-label={`Remove ${
                               destination?.name ||
@@ -1198,15 +1728,19 @@ export default function AdminTourCategoryEdit() {
                           >
                             <X size={14} />
                           </button>
+
                         </div>
                       );
                     }
                   )}
+
                 </div>
               )}
 
-              {destinations.length === 0 && (
+              {destinations.length ===
+                0 && (
                 <div className="mt-4 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-5 py-6 text-center">
+
                   <MapPin
                     size={24}
                     className="mx-auto text-slate-300"
@@ -1222,15 +1756,23 @@ export default function AdminTourCategoryEdit() {
                     from the dropdown
                     above.
                   </p>
+
                 </div>
               )}
             </>
           )}
         </section>
 
+        {/* ========================================
+            DESTINATION GALLERY
+        ======================================== */}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
             <div>
+
               <h2 className="text-base font-bold text-slate-900">
                 Destination Gallery
               </h2>
@@ -1239,52 +1781,72 @@ export default function AdminTourCategoryEdit() {
                 Add gallery images using
                 uploads or image URLs.
               </p>
+
             </div>
 
             <label
               className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 ${
                 loading ||
-                remainingGallerySlots <= 0
+                remainingGallerySlots <=
+                  0
                   ? "pointer-events-none opacity-50"
                   : ""
               }`}
             >
+
               <Upload size={15} />
+
               Upload Images
 
               <input
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={handleGalleryChange}
+                onChange={
+                  handleGalleryChange
+                }
                 disabled={
                   loading ||
-                  remainingGallerySlots <= 0
+                  remainingGallerySlots <=
+                    0
                 }
                 className="hidden"
               />
+
             </label>
+
           </div>
 
+          {/* GALLERY COUNT */}
+
           <div className="mt-4 flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+
             <div>
+
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Gallery Images
               </p>
 
               <p className="mt-1 text-sm font-semibold text-slate-700">
-                {totalGalleryImages} / 15
+                {totalGalleryImages}{" "}
+                / 15
               </p>
+
             </div>
 
             <ImageIcon
               size={20}
               className="text-slate-400"
             />
+
           </div>
 
+          {/* URL ADDER */}
+
           <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+
             <div className="flex items-center gap-2">
+
               <LinkIcon
                 size={16}
                 className="text-slate-500"
@@ -1293,33 +1855,54 @@ export default function AdminTourCategoryEdit() {
               <p className="text-sm font-bold text-slate-700">
                 Add Image URL
               </p>
+
             </div>
 
             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]">
+
               <input
                 type="url"
                 value={galleryUrl}
-                onChange={handleGalleryUrlChange}
+                onChange={
+                  handleGalleryUrlChange
+                }
+                onKeyDown={(event) => {
+                  if (
+                    event.key ===
+                    "Enter"
+                  ) {
+                    event.preventDefault();
+                    addGalleryUrl();
+                  }
+                }}
                 placeholder="https://example.com/image.jpg"
                 disabled={
                   loading ||
-                  remainingGallerySlots <= 0
+                  remainingGallerySlots <=
+                    0
                 }
                 className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100"
               />
 
               <button
                 type="button"
-                onClick={addGalleryUrl}
+                onClick={
+                  addGalleryUrl
+                }
                 disabled={
                   loading ||
-                  remainingGallerySlots <= 0
+                  remainingGallerySlots <=
+                    0
                 }
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
+
                 <Plus size={15} />
+
                 Add URL
+
               </button>
+
             </div>
 
             {galleryUrlError && (
@@ -1330,9 +1913,13 @@ export default function AdminTourCategoryEdit() {
 
             {galleryUrlPreview && (
               <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
+
                 <div className="relative h-48">
+
                   <img
-                    src={galleryUrlPreview}
+                    src={
+                      galleryUrlPreview
+                    }
                     alt="Gallery URL preview"
                     className="h-full w-full object-cover"
                     onError={() => {
@@ -1341,16 +1928,24 @@ export default function AdminTourCategoryEdit() {
                       );
                     }}
                     onLoad={() => {
-                      setGalleryUrlError("");
+                      setGalleryUrlError(
+                        ""
+                      );
                     }}
                   />
+
                 </div>
 
                 <div className="border-t border-slate-200 px-3 py-2">
+
                   <p className="truncate text-xs text-slate-500">
-                    {galleryUrlPreview}
+                    {
+                      galleryUrlPreview
+                    }
                   </p>
+
                 </div>
+
               </div>
             )}
 
@@ -1358,19 +1953,30 @@ export default function AdminTourCategoryEdit() {
               You can mix uploaded images
               and external image URLs.
             </p>
+
           </div>
 
-          {existingGallery.length > 0 && (
+          {/* EXISTING GALLERY */}
+
+          {existingGallery.length >
+            0 && (
             <div className="mt-7">
+
               <div className="mb-3">
+
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">
                   Existing Images
                 </p>
+
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
                 {existingGallery.map(
-                  (item, index) => (
+                  (
+                    item,
+                    index
+                  ) => (
                     <div
                       key={
                         item.id ||
@@ -1378,7 +1984,9 @@ export default function AdminTourCategoryEdit() {
                       }
                       className="overflow-hidden rounded-xl border border-slate-200 bg-white"
                     >
+
                       <div className="relative h-40 bg-slate-100">
+
                         {item.url ? (
                           <img
                             src={item.url}
@@ -1392,10 +2000,12 @@ export default function AdminTourCategoryEdit() {
                           />
                         ) : (
                           <div className="flex h-full items-center justify-center">
+
                             <ImageIcon
                               size={28}
                               className="text-slate-300"
                             />
+
                           </div>
                         )}
 
@@ -1410,7 +2020,9 @@ export default function AdminTourCategoryEdit() {
                               index
                             )
                           }
-                          disabled={loading}
+                          disabled={
+                            loading
+                          }
                           className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
                           aria-label={`Remove gallery image ${
                             index + 1
@@ -1418,10 +2030,13 @@ export default function AdminTourCategoryEdit() {
                         >
                           <Trash2 size={15} />
                         </button>
+
                       </div>
 
                       <div className="p-3">
+
                         <div className="mb-2 flex items-center justify-between gap-2">
+
                           <p className="text-xs font-medium text-slate-500">
                             Existing gallery
                             image
@@ -1432,6 +2047,7 @@ export default function AdminTourCategoryEdit() {
                               ? "Cloudinary"
                               : "External URL"}
                           </span>
+
                         </div>
 
                         <label className="mb-1.5 block text-xs font-semibold text-slate-600">
@@ -1440,15 +2056,23 @@ export default function AdminTourCategoryEdit() {
 
                         <input
                           type="text"
-                          value={item.caption}
-                          onChange={(event) =>
+                          value={
+                            item.caption
+                          }
+                          onChange={(
+                            event
+                          ) =>
                             updateExistingGalleryCaption(
                               index,
-                              event.target.value
+                              event
+                                .target
+                                .value
                             )
                           }
                           placeholder="Image caption (optional)"
-                          disabled={loading}
+                          disabled={
+                            loading
+                          }
                           className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:bg-slate-50"
                         />
 
@@ -1458,17 +2082,26 @@ export default function AdminTourCategoryEdit() {
                             Caption modified
                           </p>
                         )}
+
                       </div>
+
                     </div>
                   )
                 )}
+
               </div>
+
             </div>
           )}
 
-          {newGallery.length > 0 && (
+          {/* NEW GALLERY */}
+
+          {newGallery.length >
+            0 && (
             <div className="mt-8">
+
               <div className="mb-3 flex items-center justify-between">
+
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-orange-500">
                   New Images
                 </p>
@@ -1476,11 +2109,16 @@ export default function AdminTourCategoryEdit() {
                 <p className="text-xs font-medium text-slate-400">
                   Uploads + URLs
                 </p>
+
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
                 {newGallery.map(
-                  (item, index) => (
+                  (
+                    item,
+                    index
+                  ) => (
                     <div
                       key={
                         item.type ===
@@ -1490,9 +2128,13 @@ export default function AdminTourCategoryEdit() {
                       }
                       className="overflow-hidden rounded-xl border border-orange-200 bg-white"
                     >
+
                       <div className="relative h-40 bg-slate-100">
+
                         <img
-                          src={item.preview}
+                          src={
+                            item.preview
+                          }
                           alt={
                             item.caption ||
                             `New gallery ${
@@ -1500,7 +2142,10 @@ export default function AdminTourCategoryEdit() {
                             }`
                           }
                           className="h-full w-full object-cover"
-                          onError={(event) => {
+                          onError={(
+                            event
+                          ) => {
+
                             if (
                               item.type ===
                               "url"
@@ -1508,6 +2153,7 @@ export default function AdminTourCategoryEdit() {
                               event.currentTarget.style.display =
                                 "none";
                             }
+
                           }}
                         />
 
@@ -1525,7 +2171,9 @@ export default function AdminTourCategoryEdit() {
                               index
                             )
                           }
-                          disabled={loading}
+                          disabled={
+                            loading
+                          }
                           className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
                           aria-label={`Remove new gallery image ${
                             index + 1
@@ -1533,17 +2181,24 @@ export default function AdminTourCategoryEdit() {
                         >
                           <Trash2 size={15} />
                         </button>
+
                       </div>
 
                       <div className="p-3">
+
                         {item.type ===
                         "upload" ? (
                           <p className="mb-2 truncate text-xs font-medium text-slate-500">
-                            {item.file?.name}
+                            {
+                              item.file
+                                ?.name
+                            }
                           </p>
                         ) : (
                           <p className="mb-2 truncate text-xs font-medium text-slate-500">
-                            {item.url}
+                            {
+                              item.url
+                            }
                           </p>
                         )}
 
@@ -1553,28 +2208,45 @@ export default function AdminTourCategoryEdit() {
 
                         <input
                           type="text"
-                          value={item.caption}
-                          onChange={(event) =>
+                          value={
+                            item.caption
+                          }
+                          onChange={(
+                            event
+                          ) =>
                             updateNewGalleryCaption(
                               index,
-                              event.target.value
+                              event
+                                .target
+                                .value
                             )
                           }
                           placeholder="Image caption (optional)"
-                          disabled={loading}
+                          disabled={
+                            loading
+                          }
                           className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-100 disabled:bg-slate-50"
                         />
+
                       </div>
+
                     </div>
                   )
                 )}
+
               </div>
+
             </div>
           )}
 
-          {existingGallery.length === 0 &&
-            newGallery.length === 0 && (
+          {/* EMPTY STATE */}
+
+          {existingGallery.length ===
+            0 &&
+            newGallery.length ===
+              0 && (
               <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center">
+
                 <ImageIcon
                   size={28}
                   className="mx-auto text-slate-300"
@@ -1588,11 +2260,18 @@ export default function AdminTourCategoryEdit() {
                   Upload images or add
                   image URLs above.
                 </p>
+
               </div>
             )}
+
         </section>
 
+        {/* ========================================
+            ACTIONS
+        ======================================== */}
+
         <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
+
           <button
             type="button"
             onClick={() =>
@@ -1614,6 +2293,7 @@ export default function AdminTourCategoryEdit() {
             }
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
+
             {loading ? (
               <Loader2
                 size={17}
@@ -1626,8 +2306,11 @@ export default function AdminTourCategoryEdit() {
             {loading
               ? "Saving Changes..."
               : "Save Changes"}
+
           </button>
+
         </div>
+
       </form>
     </div>
   );

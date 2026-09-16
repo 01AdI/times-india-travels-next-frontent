@@ -992,14 +992,22 @@ export const getCarRentalDashboardStats =
 export const getAdminTourPackages = async ({
   page = 1,
   limit = 20,
+  search = "",
   categorySlug = "",
   mostLoved,
   specialPackage,
 } = {}) => {
   const params = new URLSearchParams();
 
-  params.append("page", page);
-  params.append("limit", limit);
+  params.append("page", String(page));
+  params.append("limit", String(limit));
+
+  if (search.trim()) {
+    params.append(
+      "search",
+      search.trim()
+    );
+  }
 
   if (categorySlug) {
     params.append(
@@ -1027,35 +1035,23 @@ export const getAdminTourPackages = async ({
   );
 };
 
-export const getAdminTourPackage = async (
-  id
-) =>
-  adminRequest(
-    `/tour-package/${id}`
-  );
+export const getAdminTourPackage = async (id) =>adminRequest(`/tour-package/${id}`);
 
-export const createAdminTourPackage = async (
-  formData
-) =>
-  adminRequest(
+export const createAdminTourPackage = async (formData) =>adminRequest(
     "/tour-package/create",
     {
       method: "POST",
       body: formData,
     }
-  );
+);
 
-export const updateAdminTourPackage = async (
-  id,
-  formData
-) =>
-  adminRequest(
+export const updateAdminTourPackage = async (id,formData) =>adminRequest(
     `/tour-package/edit/${id}`,
     {
       method: "PUT",
       body: formData,
     }
-  );
+);
 
 export const deleteAdminTourPackage = async (
   id
@@ -1093,6 +1089,7 @@ export const createAdminTourCategory = async ({
   id,
   name,
   tagline,
+  shortDescription,
   description,
   showInNavbar,
   showInExplore,
@@ -1119,6 +1116,12 @@ export const createAdminTourCategory = async ({
     );
   }
 
+  if (!shortDescription?.trim()) {
+    throw new Error(
+      "Tour category short description is required."
+    );
+  }
+
   if (!description?.trim()) {
     throw new Error(
       "Tour category description is required."
@@ -1140,6 +1143,11 @@ export const createAdminTourCategory = async ({
   formData.append(
     "tagline",
     tagline.trim()
+  );
+
+  formData.append(
+    "shortDescription",
+    shortDescription.trim()
   );
 
   formData.append(
@@ -1215,6 +1223,7 @@ export const updateAdminTourCategory = async (
   {
     name,
     tagline,
+    shortDescription,
     description,
     showInNavbar,
     showInExplore,
@@ -1244,6 +1253,13 @@ export const updateAdminTourCategory = async (
     formData.append(
       "tagline",
       tagline || ""
+    );
+  }
+
+  if (shortDescription !== undefined) {
+    formData.append(
+      "shortDescription",
+      shortDescription || ""
     );
   }
 
