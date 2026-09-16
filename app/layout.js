@@ -11,6 +11,7 @@ import ReduxProvider from "../components/ReduxProvider";
 import AOSProvider from "../components/AOSProvider";
 import ScrollToTop from "../utils/ScrollToTop";
 import GlobalStructuredData from "../utils/GlobalStructuredData";
+import { getTourCategories } from "../lib/serverApi";
 
 const SITE_URL = "https://www.timesindiatravels.com";
 const DEFAULT_TITLE = "Times India Travels | Luxury Tours & Travel in India";
@@ -63,7 +64,16 @@ export const viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }) {
+// Revalidate the server-fetched tour categories (used by the Navbar
+// dropdown and Footer links on every page) every 5 minutes via ISR.
+export const revalidate = 300;
+
+export default async function RootLayout({ children }) {
+  const categoryData = await getTourCategories();
+  const initialCategories = Array.isArray(categoryData?.categories)
+    ? categoryData.categories
+    : [];
+
   return (
     <html lang="en-US" 
     className="h-full antialiased" 
@@ -86,9 +96,9 @@ export default function RootLayout({ children }) {
         <ReduxProvider>
           <AOSProvider>
             <ScrollToTop />
-            <Navbar/>
+            <Navbar initialCategories={initialCategories}/>
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer initialCategories={initialCategories} />
             <FloatingQuoteButton />
           </AOSProvider>
         </ReduxProvider>
