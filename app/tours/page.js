@@ -7,6 +7,13 @@ export const metadata = buildMetadata({
   description:
     "Explore carefully crafted India tour packages with Times India Travels. Discover Rajasthan, Delhi, Agra, Jaipur, Kerala and more with personalised travel experiences.",
   path: "/tours",
+  keywords: [
+    "India tour packages",
+    "Rajasthan tour package",
+    "Kerala tour package",
+    "luxury India tours",
+    "private guided tours India",
+  ],
   imageAlt: "Times India Travels Tour Packages , Luxury Tours & Travel in India",
 });
 

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { buildMetadata } from "../../../lib/buildMetadata";
 import { getTourCategories, getTourCategoryDetail } from "../../../lib/serverApi";
+import BreadcrumbStructuredData from "../../../components/StructuredData/BreadcrumbStructuredData";
 import TourPackage_category from "../../../components/pages/TourPackage_Category";
 
 const VIRTUAL_CATEGORIES = {
@@ -59,6 +60,12 @@ export async function generateMetadata({ params }) {
     title: `${categoryData.name} | India Tours | Times India Travels`,
     description: categoryData.description || `Explore ${categoryData.name} with Times India Travels. Discover carefully crafted tours and personalised journeys across India.`,
     path,
+    keywords: [
+      `${categoryData.name} tour package`,
+      `${categoryData.name} India`,
+      "India tour packages",
+      "custom India tours",
+    ],
     image: categoryData.heroImage,
     imageAlt: `${categoryData.name} tour package - Times India Travels`,
   });
@@ -70,5 +77,16 @@ export default async function Page({ params }) {
 
   if (!categoryData) notFound();
 
-  return <TourPackage_category initialCategory={categoryData} category={category} />;
+  return (
+    <>
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Tours", path: "/tours" },
+          { name: categoryData.name, path: `/tours/${category}` },
+        ]}
+      />
+      <TourPackage_category initialCategory={categoryData} category={category} />
+    </>
+  );
 }

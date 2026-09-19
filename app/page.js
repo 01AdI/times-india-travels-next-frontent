@@ -7,13 +7,16 @@ export const metadata = buildMetadata({
   description:
     "Discover unforgettable journeys across India and Asia with Times India Travels. Explore curated tours, destinations, travel experiences and personalised holidays.",
   path: "/",
+  keywords: [
+    "India tour packages",
+    "luxury travel India",
+    "India travel agency",
+    "custom India tours",
+    "best tour operator India",
+  ],
   imageAlt: "Times India Travels , Luxury Tours & Travel in India",
 });
 
-// Revalidate the server-fetched homepage data periodically (ISR) so key
-// content (hero, testimonials, destinations) is present in the
-// server-rendered HTML instead of only appearing after client-side
-// fetches resolve.
 export const revalidate = 300;
 
 export default async function Page() {

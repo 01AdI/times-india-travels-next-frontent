@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   description:
     "Read the Times India Travels privacy policy to understand how we collect, use and protect information submitted through our website.",
   path: "/privacy-policy",
+  keywords: ["Times India Travels privacy policy", "data privacy India travel"],
   imageAlt: "Privacy Policy Times India Travels , Luxury Tours & Travel in India",
 });
 

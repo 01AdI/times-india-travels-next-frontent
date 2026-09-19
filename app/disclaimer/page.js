@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   description:
     "Read the Times India Travels website disclaimer covering travel information, content, pricing and third-party services.",
   path: "/disclaimer",
+  keywords: ["Times India Travels disclaimer", "website disclaimer"],
   imageAlt: "Disclaimer Times India Travels , Luxury Tours & Travel in India",
 });
 

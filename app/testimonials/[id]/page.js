@@ -29,6 +29,7 @@ export async function generateMetadata({ params }) {
     title: `${review.name}'s Travel Story | Times India Travels`,
     description: review.review || `Read ${review.name}'s travel story and experience with Times India Travels.`,
     path,
+    keywords: ["Times India Travels reviews", "traveller story India"],
     image: review.avatar,
     imageAlt: `${review.name} – Times India Travels traveller story`,
   });

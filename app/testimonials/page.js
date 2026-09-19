@@ -7,6 +7,11 @@ export const metadata = buildMetadata({
   description:
     "Read real traveller stories and experiences from guests who explored India and Asia with Times India Travels.",
   path: "/testimonials",
+  keywords: [
+    "Times India Travels reviews",
+    "India tour reviews",
+    "traveller testimonials India",
+  ],
   imageAlt: "Traveller stories - Times India Travels",
 });
 

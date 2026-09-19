@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   description:
     "Read the Times India Travels refund and cancellation policy for travel services and bookings.",
   path: "/refund-policy",
+  keywords: ["Times India Travels refund policy", "India tour cancellation policy"],
   imageAlt: "Refund Policy Times India Travels , Luxury Tours & Travel in India",
 });
 

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { buildMetadata } from "../../../lib/buildMetadata";
 import { getDestinationDetail } from "../../../lib/serverApi";
 import DestinationStructuredData from "../../../components/StructuredData/DestinationStructuredData";
+import BreadcrumbStructuredData from "../../../components/StructuredData/BreadcrumbStructuredData";
 import Destination from "../../../components/pages/Destination";
 
 export const revalidate = 300;
@@ -29,6 +30,11 @@ export async function generateMetadata({ params }) {
     title: `${destination.name} Travel & Tours | Times India Travels`,
     description: destination.description || `Explore ${destination.name} with Times India Travels.`,
     path,
+    keywords: [
+      `${destination.name} travel`,
+      `${destination.name} tour package`,
+      `things to do in ${destination.name}`,
+    ],
     image: destination.heroImage,
     imageAlt: `${destination.name} travel with Times India Travels`,
   });
@@ -43,6 +49,13 @@ export default async function Page({ params }) {
   return (
     <>
       <DestinationStructuredData destination={destination} />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Destinations", path: "/destinations-all" },
+          { name: destination.name, path: `/destinations/${id}` },
+        ]}
+      />
       <Destination initialDestination={destination} id={id} />
     </>
   );

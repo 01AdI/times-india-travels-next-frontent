@@ -1,6 +1,8 @@
 import { SITE_URL } from "../lib/buildMetadata";
 import API_BASE_URL from "../utils/apiConfigPublic";
 
+export const revalidate = 3600;
+
 async function safeGet(endpoint) {
   try {
     const res = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -41,12 +43,19 @@ export default async function sitemap() {
       (!existing?.lastModified ||
         new Date(lastModified) > new Date(existing.lastModified))
     ) {
-      entries.set(url, { url, lastModified: new Date(lastModified) });
+      entries.set(url, {
+        url,
+        lastModified: new Date(lastModified),
+        changeFrequency: "weekly",
+      });
       return;
     }
 
     if (!existing) {
-      entries.set(url, { url });
+      entries.set(url, {
+        url,
+        changeFrequency: "weekly",
+      });
     }
   };
 

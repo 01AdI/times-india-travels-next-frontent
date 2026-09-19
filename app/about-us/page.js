@@ -6,6 +6,12 @@ export const metadata = buildMetadata({
   description:
     "Learn about Times India Travels, a trusted India travel company creating personalised journeys, private tours and unforgettable travel experiences across India and Asia.",
   path: "/about-us",
+  keywords: [
+    "about Times India Travels",
+    "India travel company",
+    "trusted India tour operator",
+    "private India tours",
+  ],
   imageAlt: "About Times India Travels , Luxury Tours & Travel in India",
 });
 

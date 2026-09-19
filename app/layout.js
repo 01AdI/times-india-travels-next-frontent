@@ -24,7 +24,14 @@ export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
+  applicationName: "Times India Travels",
   authors: [{ name: "Times India Travels" }],
+  creator: "Times India Travels",
+  publisher: "Times India Travels",
+  category: "travel",
+  formatDetection: {
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
@@ -35,13 +42,14 @@ export const metadata = {
   alternates: {
     canonical: "/",
   },
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: "/images/fevicon.png",
     apple: "/images/fevicon_app.png",
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     siteName: "Times India Travels",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
@@ -79,18 +87,7 @@ export default async function RootLayout({ children }) {
     className="h-full antialiased" 
     suppressHydrationWarning
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+
       <body className="min-h-full flex flex-col isolate">
         <GlobalStructuredData />
         <ReduxProvider>
