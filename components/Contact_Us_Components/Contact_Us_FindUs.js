@@ -28,23 +28,23 @@ export default function Contact_Us_FindUs() {
         >
           <div>
             <div className="mb-6 flex items-center gap-4">
-              <span className="font-['Fraunces'] text-xl italic text-cyan-300">
+              <span className="font-['Playfair',serif] text-xl italic text-cyan-300">
                 Find us
               </span>
               <span className="h-px w-14 bg-white/20" />
-              <span className="font-['Inter'] text-[11px] font-bold uppercase tracking-[0.3em] text-white/45">
+              <span className="font-['Playfair',serif] text-[11px] font-bold uppercase tracking-[0.3em] text-white/45">
                 Jaipur · Rajasthan
               </span>
             </div>
 
-            <h2 className="max-w-4xl font-['Fraunces'] text-5xl font-medium leading-[0.94] tracking-[-0.045em] text-white sm:text-6xl md:text-7xl">
+            <h2 className="max-w-4xl font-['Playfair_Display',serif] text-5xl font-medium leading-[0.94] tracking-[-0.045em] text-white sm:text-6xl md:text-7xl">
               A place to begin
               <span className="block italic text-cyan-500">your India story.</span>
             </h2>
           </div>
 
           <div className="max-w-md lg:pb-2">
-            <p className="font-['Inter'] text-sm leading-7 text-white/55 sm:text-base">
+            <p className="font-['Noto_Sans',sans-serif] text-sm leading-7 text-white/55 sm:text-base">
               From the heart of Jaipur, we create journeys that
               take you beyond the familiar — into the places,
               people and experiences that make India unforgettable.
@@ -60,11 +60,11 @@ export default function Contact_Us_FindUs() {
           transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mt-16 overflow-hidden rounded-[30px] border border-white/10 bg-[#082F39] shadow-[0_35px_100px_rgba(0,0,0,0.28)] sm:mt-20"
         >
-          <div className="h-[420px] sm:h-[500px] md:h-[570px]">
+          <div className="h-105 sm:h-125 md:h-142.5">
             <iframe
               title="Times India Travels Jaipur"
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-              className="h-full w-full border-0 grayscale-[20%]"
+              className="h-full w-full border-0 grayscale-20"
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
@@ -73,7 +73,7 @@ export default function Contact_Us_FindUs() {
 
           {/* Real contact card — address, phone, email, directions —
               replaces the small decorative "Jaipur" pill */}
-          <div className="absolute bottom-5 left-5 right-5 sm:bottom-7 sm:left-7 sm:right-auto sm:w-[340px]">
+          <div className="absolute bottom-5 left-5 right-5 sm:bottom-7 sm:left-7 sm:right-auto sm:w-85">
             <div className="rounded-2xl border border-white/15 bg-[#0B3C49]/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-xl">
               <div className="flex items-start gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F58634]">
@@ -110,7 +110,7 @@ export default function Contact_Us_FindUs() {
                 href={`https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-4 flex items-center justify-center gap-2 rounded-full bg-[#F58634] px-4 py-2.5 font-['Inter'] text-[12px] font-bold uppercase tracking-[0.1em] text-[#0B3C49] hover:bg-white transition-colors"
+                className="group mt-4 flex items-center justify-center gap-2 rounded-full bg-[#F58634] px-4 py-2.5 font-['Inter'] text-[12px] font-bold uppercase tracking-widest text-[#0B3C49] hover:bg-white transition-colors"
               >
                 Get Directions
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />

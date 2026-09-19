@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { tourCategories } from "../../utils/TourPackage_data";
@@ -53,7 +54,7 @@ const relatedTours = Object.values(tourCategories)
 
               <span
                 className="
-                  font-['Fraunces']
+                  font-['Playfair',serif]
                   text-xl
                   text-[#B85128]
                 "
@@ -65,7 +66,7 @@ const relatedTours = Object.values(tourCategories)
 
               <span
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[9px]
                   font-semibold
                   uppercase
@@ -81,7 +82,7 @@ const relatedTours = Object.values(tourCategories)
             <h2
               className="
                 max-w-3xl
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-5xl
                 font-medium
                 leading-[0.98]
@@ -105,7 +106,7 @@ const relatedTours = Object.values(tourCategories)
           <p
             className="
               max-w-sm
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               leading-7
               text-[#71878B]
@@ -116,10 +117,6 @@ const relatedTours = Object.values(tourCategories)
           </p>
 
         </motion.div>
-
-        {/* =====================================================
-            RELATED TOUR GRID
-        ====================================================== */}
 
         <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
 
@@ -176,10 +173,6 @@ const relatedTours = Object.values(tourCategories)
                 "
               >
 
-                {/* =================================================
-                    IMAGE
-                ================================================== */}
-
                 <Link
                   href={`/tours/${tour.categorySlug}/${relatedTour.id}`}
                   className="
@@ -189,21 +182,20 @@ const relatedTours = Object.values(tourCategories)
                   "
                 >
 
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-4/3 overflow-hidden">
 
-                    <img
+                    <Image
                       src={
                         relatedTour.thumbnail ||
                         relatedTour.heroImage
                       }
                       alt={relatedTour.name}
-                      loading="lazy"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       className="
-                        h-full
-                        w-full
                         object-cover
                         transition-transform
-                        duration-[1200ms]
+                        duration-1200
                         ease-out
                         group-hover:scale-105
                       "
@@ -217,7 +209,7 @@ const relatedTours = Object.values(tourCategories)
                     className="
                       absolute
                       inset-0
-                      bg-gradient-to-t
+                      bg-linear-to-t
                       from-black/45
                       via-black/5
                       to-transparent
@@ -280,10 +272,6 @@ const relatedTours = Object.values(tourCategories)
 
                 </Link>
 
-                {/* =================================================
-                    CONTENT
-                ================================================== */}
-
                 <div
                   className="
                     flex
@@ -322,7 +310,7 @@ const relatedTours = Object.values(tourCategories)
                       text-3xl
                       font-medium
                       leading-[1.05]
-                      tracking-[-0.025em]
+                      tracking-tight
                       text-[#0B3C49]
                     "
                   >
@@ -405,10 +393,6 @@ const relatedTours = Object.values(tourCategories)
           })}
 
         </div>
-
-        {/* =====================================================
-            BOTTOM LINK
-        ====================================================== */}
 
         <motion.div
           initial={{ opacity: 0 }}

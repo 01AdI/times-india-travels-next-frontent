@@ -8,6 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -129,15 +130,13 @@ function TourCard({
       `}
     >
 
-      <img
+      <Image
         src={image}
         alt={pkg.name}
-        loading={index === 0 ? "eager" : "lazy"}
+        fill
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        priority={index === 0}
         className="
-          absolute
-          inset-0
-          h-full
-          w-full
           scale-[1.02]
           object-cover
           transition-transform
@@ -637,10 +636,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  if (
-    categoryStatus === "failed" &&
-    categories.length === 0
-  ) {
+  if (categoryStatus === "failed" && categories.length === 0) {
     return (
       <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
@@ -698,10 +694,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  if (
-    !isCategoryListing &&
-    packageStatus === "failed"
-  ) {
+  if (!isCategoryListing && packageStatus === "failed") {
     return (
       <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
@@ -776,12 +769,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
     );
   }
 
-  if (
-    !isCategoryListing &&
-    !isMostPopular &&
-    !isSpecialPackages &&
-    !selectedCategory
-  ) {
+  if (!isCategoryListing && !isMostPopular && !isSpecialPackages && !selectedCategory) {
     return (
       <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
@@ -797,8 +785,8 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
           <div className="mx-auto mt-5 h-px w-16 bg-[#F58634]" />
 
           <p className="mt-6 font-['Inter'] text-sm leading-7 text-[#5F6F73]">
-            The tour category you're
-            looking for doesn't exist or
+            The tour category you&apos;re
+            looking for doesn&apos;t exist or
             may have been removed.
           </p>
 
@@ -835,11 +823,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
   }
 
 
-  if (
-    !isCategoryListing &&
-    packageStatus === "succeeded" &&
-    packages.length === 0
-  ) {
+  if (!isCategoryListing && packageStatus === "succeeded" && packages.length === 0) {
     return (
       <section className="flex min-h-[60vh] items-center justify-center bg-[#FAF5EB] px-6">
         <div className="max-w-xl text-center">
@@ -855,7 +839,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
           <div className="mx-auto mt-5 h-px w-16 bg-[#F58634]" />
 
           <p className="mt-6 font-['Inter'] text-sm leading-7 text-[#5F6F73]">
-            We couldn't find any journeys
+            We couldn&apos;t find any journeys
             in this collection yet.
           </p>
 
@@ -952,17 +936,17 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
             }}
             className="mx-auto mb-14 max-w-4xl text-center md:mb-16"
           >
-            <p className="mb-5 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#B85128] sm:text-[11px]">
+            <p className="mb-5 font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.32em] text-[#B85128] sm:text-[11px]">
               {sectionLabel}
             </p>
 
-            <h2 className="font-['Fraunces'] text-4xl font-medium leading-[1.08] tracking-tight text-[#173C3A] sm:text-5xl md:text-6xl lg:text-[64px]">
+            <h2 className="font-['Playfair_Display',serif] text-4xl font-medium leading-[1.08] tracking-tight text-[#173C3A] sm:text-5xl md:text-6xl lg:text-[64px]">
               {sectionTitle}
             </h2>
 
             <div className="mx-auto mt-5 h-px w-40 bg-[#F58634]" />
 
-            <p className="mx-auto mt-7 max-w-3xl font-['Inter'] text-sm leading-7 text-[#476763] sm:text-[15px] md:text-base">
+            <p className="mx-auto mt-7 max-w-3xl font-['Noto_Sans',sans-serif] text-sm leading-7 text-[#476763] sm:text-[15px] md:text-base">
               {sectionDescription}
             </p>
           </motion.div>
@@ -1073,7 +1057,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
 
               <div className="mt-12 max-w-4xl">
 
-                <h3 className="font-['Fraunces'] text-4xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                <h3 className="font-['Playfair_Display',serif] text-4xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                   Your India.
 
                   <span className="block italic text-cyan-300">
@@ -1081,10 +1065,10 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
                   </span>
                 </h3>
 
-                <p className="mt-5 max-w-2xl font-['Inter'] text-sm leading-7 text-white/60 sm:text-base">
+                <p className="mt-5 max-w-2xl font-['Noto_Sans',sans-serif] text-sm leading-7 text-white/60 sm:text-base">
                   Have something different in mind?
                   Tell us how you want to experience
-                  India and we'll create a journey
+                  India and we&apos;ll create a journey
                   around your interests, pace and
                   dreams.
                 </p>
@@ -1094,7 +1078,7 @@ export default function TourPackages_Grid({ initialCategories = [], initialPacka
 
               <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
-                <span className="font-['Inter'] text-[11px] uppercase tracking-[0.2em] text-white/35">
+                <span className="font-['Noto_Sans',sans-serif] text-[11px] uppercase tracking-[0.2em] text-white/35">
                   Completely personalised · Expertly planned
                 </span>
 

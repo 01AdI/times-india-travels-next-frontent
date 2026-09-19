@@ -2,6 +2,7 @@
 
 import { Users, Luggage, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 import CarRental_EnquiryModal from "./CarRental_EnquiryModal";
 
 const fleet = [
@@ -12,7 +13,7 @@ const fleet = [
     seats: "4 seats",
     luggage: "2 bags",
     image:
-      "https://i.pinimg.com/736x/ab/dd/20/abdd201186bb24cbe261e7c281fd042a.jpg",
+      "https://res.cloudinary.com/giz8nvjr/image/upload/v1789712563/Toyota-Etios.jpg",
   },
   {
     name: "Toyota Innova",
@@ -21,7 +22,7 @@ const fleet = [
     seats: "6 seats",
     luggage: "4 bags",
     image:
-      "https://i.pinimg.com/1200x/88/04/eb/8804eb9ab6a4b90afea4b3e81eac0009.jpg",
+      "https://res.cloudinary.com/giz8nvjr/image/upload/v1789712563/innova.jpg",
   },
   {
     name: "Tempo Traveller",
@@ -62,7 +63,7 @@ export default function CarRental_Fleet() {
         <div className="mb-14 text-center">
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[11px]
               font-semibold
               uppercase
@@ -77,7 +78,7 @@ export default function CarRental_Fleet() {
           <h2
             className="
               mt-4
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-[clamp(2rem,4vw,3rem)]
               font-medium
               text-white
@@ -93,7 +94,7 @@ export default function CarRental_Fleet() {
               mx-auto
               mt-6
               max-w-xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               leading-relaxed
               text-white/60
@@ -133,14 +134,12 @@ export default function CarRental_Fleet() {
                   sm:h-85
                 "
               >
-                <img
+                <Image
                   src={car.image}
                   alt={car.name}
-                  loading="lazy"
-                  decoding="async"
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
                   className="
-                    h-full
-                    w-full
                     cursor-pointer
                     object-cover
                     object-center
@@ -174,11 +173,11 @@ export default function CarRental_Fleet() {
                       bg-white/90
                       px-3.5
                       py-1.5
-                      font-['Inter']
                       text-[10px]
                       font-semibold
                       uppercase
                       tracking-[0.15em]
+                      font-['Playfair',serif]
                       text-[#124d56]
                       backdrop-blur-md
                     "
@@ -192,7 +191,7 @@ export default function CarRental_Fleet() {
                 <div className="absolute bottom-6 left-6 right-6 text-white">
                   <p
                     className="
-                      font-['Inter']
+                      font-['Playfair',serif]
                       text-[11px]
                       uppercase
                       tracking-[0.2em]
@@ -205,7 +204,7 @@ export default function CarRental_Fleet() {
                   <h3
                     className="
                       mt-1
-                      font-['Fraunces']
+                      font-['Playfair_Display',serif]
                       text-2xl
                       font-medium
                       sm:text-3xl
@@ -215,10 +214,6 @@ export default function CarRental_Fleet() {
                   </h3>
                 </div>
               </div>
-
-              {/* ==================================================
-                  CARD CONTENT
-              ================================================== */}
 
               <div className="p-6 sm:p-7">
                 <div className="flex items-center gap-6">
@@ -239,7 +234,7 @@ export default function CarRental_Fleet() {
                       <Users className="h-4 w-4 text-[#124d56]" />
                     </span>
 
-                    <span className="font-['Inter'] text-sm">{car.seats}</span>
+                    <span className="font-['Playfair',serif] text-sm">{car.seats}</span>
                   </div>
 
                   {/* Luggage */}
@@ -259,15 +254,11 @@ export default function CarRental_Fleet() {
                       <Luggage className="h-4 w-4 text-[#124d56]" />
                     </span>
 
-                    <span className="font-['Inter'] text-sm">
+                    <span className="font-['Playfair',serif] text-sm">
                       {car.luggage}
                     </span>
                   </div>
                 </div>
-
-                {/* ==================================================
-                    ENQUIRE BUTTON
-                ================================================== */}
 
                 <button
                   type="button"
@@ -279,7 +270,7 @@ export default function CarRental_Fleet() {
                     cursor-pointer
                     items-center
                     gap-2
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-sm
                     font-semibold
                     text-[#124d56]

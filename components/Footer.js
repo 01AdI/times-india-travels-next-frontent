@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import {
   MapPin,
   Phone,
@@ -51,7 +52,7 @@ const companyLinks = [
 const exploreLinks = [
   {
     label: "Wonders of India",
-    href: "/tours/wonders-of-india",
+    href: "/wonder-of-india",
   },
   {
     label: "Destinations",
@@ -59,7 +60,7 @@ const exploreLinks = [
   },
   {
     label: "Fairs & Festivals",
-    href: "/tours/fairs-&-festivals",
+    href: "/fair-festival",
   },
   {
     label: "Private Day Tours",
@@ -170,13 +171,12 @@ export default function Footer({ initialCategories = [] }) {
     <>
 
       <div className="relative w-full bg-[#FAF5EB] pt-10 leading-0">
-        <img
+        <Image
           src="https://res.cloudinary.com/giz8nvjr/image/upload/v1788784258/india_skyline_teal_transparent_pplv6o.png"
           alt=""
           aria-hidden="true"
-          decoding="async"
-          width="1440"
-          height="83"
+          width={1440}
+          height={83}
           className="block h-auto w-full select-none pointer-events-none"
         />
       </div>
@@ -198,14 +198,16 @@ export default function Footer({ initialCategories = [] }) {
                   hover:scale-[1.02]
                 "
               >
-                <img
+                <Image
                   src="https://res.cloudinary.com/images-backend/image/upload/v1786170474/times_logo_dyybpz.png"
                   alt="Times India Travels"
+                  width={230}
+                  height={64}
                   className="
-                    h-[58px]
-                    sm:h-[64px]
+                    h-14.5
+                    sm:h-16
                     w-auto
-                    max-w-[230px]
+                    max-w-57.5
                     object-contain
                   "
                   loading="lazy"
@@ -217,7 +219,7 @@ export default function Footer({ initialCategories = [] }) {
                 Bringing the world to India
               </p>
 
-              <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/60">
+              <p className="mt-6 font-['Noto_Sans',sans-serif] max-w-xs text-sm leading-relaxed text-white/60">
                 Hand-crafted journeys across India — from royal Rajasthan to
                 the backwaters of the South — planned with care, guided with
                 pride.
@@ -229,6 +231,7 @@ export default function Footer({ initialCategories = [] }) {
                 id="footer-company"
                 className="
                   mb-5
+                  font-['Playfair_Display',serif]
                   text-[11px]
                   uppercase
                   tracking-[0.2em]
@@ -247,6 +250,7 @@ export default function Footer({ initialCategories = [] }) {
                         text-white/60
                         transition-colors
                         hover:text-white
+                        font-['Noto_Sans',sans-serif]
                       "
                     >
                       {link.label}
@@ -265,6 +269,7 @@ export default function Footer({ initialCategories = [] }) {
                   uppercase
                   tracking-[0.2em]
                   text-[#7BCBDA]
+                  font-['Playfair_Display',serif]
                 "
               >
                 Explore
@@ -279,6 +284,7 @@ export default function Footer({ initialCategories = [] }) {
                         text-white/60
                         transition-colors
                         hover:text-white
+                        font-['Noto_Sans',sans-serif]
                       "
                     >
                       {link.label}
@@ -300,6 +306,7 @@ export default function Footer({ initialCategories = [] }) {
                   uppercase
                   tracking-[0.2em]
                   text-[#7BCBDA]
+                  font-['Playfair_Display',serif]
                 "
               >
                 Tour Packages
@@ -307,7 +314,7 @@ export default function Footer({ initialCategories = [] }) {
 
               <div
                 className="
-                  max-h-[330px]
+                  max-h-82.5
                   overflow-y-auto
                   pr-2
                   footer-tour-scroll
@@ -323,7 +330,7 @@ export default function Footer({ initialCategories = [] }) {
                           h-4
                           w-28
                           rounded
-                          bg-white/[0.06]
+                          bg-white/6
                           animate-pulse
                         "
                       />
@@ -367,7 +374,7 @@ export default function Footer({ initialCategories = [] }) {
                                 text-white/65
                                 transition-all
                                 duration-200
-                                hover:bg-white/[0.05]
+                                hover:bg-white/5
                                 hover:text-white
                               "
                             >
@@ -386,7 +393,7 @@ export default function Footer({ initialCategories = [] }) {
                                 "
                               />
 
-                              <span className="truncate">
+                              <span className="truncate font-['Noto_Sans',sans-serif]">
                                 {categoryName}
                               </span>
                             </Link>
@@ -406,6 +413,7 @@ export default function Footer({ initialCategories = [] }) {
                   items-center
                   gap-2
                   text-[11px]
+                  font-['Playfair',serif]
                   font-semibold
                   uppercase
                   tracking-[0.12em]
@@ -434,6 +442,7 @@ export default function Footer({ initialCategories = [] }) {
                   mb-5
                   text-[11px]
                   uppercase
+                  font-['Playfair_Display',serif]
                   tracking-[0.2em]
                   text-[#7BCBDA]
                 "
@@ -457,7 +466,7 @@ export default function Footer({ initialCategories = [] }) {
                     aria-hidden="true"
                   />
 
-                  <span>
+                  <span className="font-['Noto_Sans',sans-serif]">
                     {contactInfo.address}
                   </span>
                 </p>
@@ -474,6 +483,7 @@ export default function Footer({ initialCategories = [] }) {
                     items-center
                     gap-3
                     text-white/70
+                    font-['Noto_Sans',sans-serif]
                     transition-colors
                     hover:text-white
                   "
@@ -488,7 +498,7 @@ export default function Footer({ initialCategories = [] }) {
                     aria-hidden="true"
                   />
 
-                  <span>
+                  <span className="font-['Noto_Sans',sans-serif]">
                     {contactInfo.phone}
                   </span>
                 </a>
@@ -504,6 +514,7 @@ export default function Footer({ initialCategories = [] }) {
                     text-white/70
                     transition-colors
                     hover:text-white
+                    font-['Noto_Sans',sans-serif]
                   "
                 >
                   <Mail
@@ -516,7 +527,7 @@ export default function Footer({ initialCategories = [] }) {
                     aria-hidden="true"
                   />
 
-                  <span>
+                  <span className="font-['Noto_Sans',sans-serif]">
                     {contactInfo.email}
                   </span>
                 </a>

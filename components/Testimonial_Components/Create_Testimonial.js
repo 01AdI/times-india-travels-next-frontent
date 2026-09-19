@@ -742,7 +742,7 @@ export default function Create_Testimonials({ onClose }) {
                 text-[#123138]/55
               "
             >
-              We'd love to hear about your
+              We&apos;d love to hear about your
               journey with Times India Travels.
               Share your experience and help
               fellow travellers discover their

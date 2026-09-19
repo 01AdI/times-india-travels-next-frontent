@@ -43,7 +43,7 @@ export default function Testimonial_CTA() {
           <p className="mx-auto mt-6 max-w-2xl font-['Inter'] text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
             Every unforgettable journey begins with an idea. Tell us what you
             have in mind, and let our travel experts shape it into a journey
-            that's uniquely yours.
+            that&apos;s uniquely yours.
           </p>
 
           {/* CTA */}

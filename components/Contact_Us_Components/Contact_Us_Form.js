@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-input-2";
 
 
 import CountrySelect from "../../utils/CountrySelect";
+import Image from "next/image";
 
 import {
   AlertCircle,
@@ -31,28 +32,7 @@ import {
 
 import { createTourEnquiry } from "../../services/PublicApi";
 
-
-const MONTH_NAMES = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const CURRENT_YEAR = new Date().getFullYear();
-
-const YEAR_OPTIONS = Array.from(
-  { length: 15 },
-  (_, index) => CURRENT_YEAR + index,
-);
+import { MONTH_NAMES, YEAR_OPTIONS } from "../../utils/QuotationFormFields";
 
 const INITIAL_FORM = {
   name: "",
@@ -481,16 +461,12 @@ export default function Contact_Us_Form() {
               lg:min-h-225
             "
           >
-            <img
-              src="https://i.pinimg.com/736x/ea/3b/aa/ea3baa720fabc7eceb9705826f139f97.jpg"
+            <Image
+              src="https://images.pexels.com/photos/38877680/pexels-photo-38877680.jpeg"
               alt="India travel"
-              className="
-                absolute
-                inset-0
-                h-full
-                w-full
-                object-cover
-              "
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
             />
 
             {/* IMAGE OVERLAY */}
@@ -528,14 +504,12 @@ export default function Contact_Us_Form() {
                 lg:w-36
               "
             >
-              <img
-                src="https://i.pinimg.com/736x/33/71/0d/33710db2c6f74435a4b94b4929a08b40.jpg"
+              <Image
+                src="https://images.pexels.com/photos/36351057/pexels-photo-36351057.jpeg"
                 alt="India destination"
-                className="
-                  h-full
-                  w-full
-                  object-cover
-                "
+                fill
+                sizes="144px"
+                className="object-cover"
               />
 
               <div className="absolute inset-0 bg-[#0B3C49]/20" />
@@ -557,7 +531,7 @@ export default function Contact_Us_Form() {
               <div className="mb-6 flex items-center gap-4">
                 <span
                   className="
-                    font-['Fraunces']
+                    font-['Playfair',serif]
                     text-xl
                     italic
                     text-cyan-300
@@ -570,7 +544,7 @@ export default function Contact_Us_Form() {
 
                 <span
                   className="
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[8px]
                     font-semibold
                     uppercase
@@ -585,7 +559,7 @@ export default function Contact_Us_Form() {
               <h2
                 className="
                   max-w-md
-                  font-['Fraunces']
+                  font-['Playfair_Display',serif]
                   text-5xl
                   font-medium
                   leading-[0.94]
@@ -605,13 +579,13 @@ export default function Contact_Us_Form() {
                 className="
                   mt-6
                   max-w-sm
-                  font-['Inter']
+                  font-['Noto_Sans',sans-serif]
                   text-sm
                   leading-7
                   text-white/65
                 "
               >
-                Tell us what you have in mind. We'll
+                Tell us what you have in mind. We&apos;ll
                 shape the details around the way you
                 want to experience India.
               </p>
@@ -690,7 +664,7 @@ export default function Contact_Us_Form() {
 
                 <span
                   className="
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[8px]
                     font-bold
                     uppercase
@@ -714,7 +688,7 @@ export default function Contact_Us_Form() {
             <h3
               className="
                 max-w-xl
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-4xl
                 font-medium
                 leading-[0.98]
@@ -734,7 +708,7 @@ export default function Contact_Us_Form() {
               className="
                 mt-5
                 max-w-lg
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-sm
                 leading-7
                 text-white/55
@@ -774,7 +748,7 @@ export default function Contact_Us_Form() {
                 <div>
                   <p
                     className="
-                      font-['Inter']
+                      font-['Noto_Sans',sans-serif]
                       text-sm
                       font-semibold
                       text-emerald-200
@@ -786,7 +760,7 @@ export default function Contact_Us_Form() {
                   <p
                     className="
                       mt-1
-                      font-['Inter']
+                      font-['Noto_Sans',sans-serif]
                       text-xs
                       leading-relaxed
                       text-emerald-200/70
@@ -800,8 +774,7 @@ export default function Contact_Us_Form() {
               </div>
             )}
 
-            {submitStatus === "error" &&
-              submitError && (
+            {submitStatus === "error" &&submitError && (
                 <div
                   ref={submitMessageRef}
                   className="
@@ -1620,7 +1593,7 @@ export default function Contact_Us_Form() {
                       text-white/40
                     "
                   >
-                    We'll respond with your
+                    We&apos;ll respond with your
                     personalised options.
                   </p>
                 </div>

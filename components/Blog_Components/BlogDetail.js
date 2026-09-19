@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import {
   ArrowLeft,
@@ -240,19 +241,18 @@ function RelatedPostCard({ blog }) {
       "
     >
       <div className="relative aspect-16/10 overflow-hidden">
-        <img
+        <Image
           src={image}
           alt={blog.title}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="
-            h-full
-            w-full
             object-cover
             transition-transform
             duration-1200
             ease-out
             group-hover:scale-[1.07]
           "
-          loading="lazy"
           onError={(event) => {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
@@ -975,13 +975,13 @@ export default function BlogDetail({
                   md:rounded-[36px]
                 "
               >
-                <div className="aspect-16/11">
-                  <img
+                <div className="relative aspect-16/11">
+                  <Image
                     src={image}
                     alt={selectedBlog.title}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="
-                      h-full
-                      w-full
                       object-cover
                       transition-transform
                       duration-1400
@@ -1573,8 +1573,8 @@ export default function BlogDetail({
                     text-white/50
                   "
                 >
-                  Tell us what you're looking for
-                  and we'll help shape the journey
+                  Tell us what you&apos;re looking for
+                  and we&apos;ll help shape the journey
                   around you.
                 </p>
               </div>

@@ -4,7 +4,7 @@ export default function Testimonial_Hero() {
       className="hero-section relative h-95 sm:h-110 md:h-125 flex items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
         backgroundImage:
-          "url('https://i.pinimg.com/736x/2c/e6/b2/2ce6b2cd840cf13df5d962a1f0a0b54b.jpg')",
+          "url('https://images.pexels.com/photos/17935005/pexels-photo-17935005.jpeg')",
       }}
     >
       {/* Premium contrast overlay */}

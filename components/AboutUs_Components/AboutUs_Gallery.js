@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 import { fetchClientGallery } from "../../features/AboutUs-page/client_Gallery_Slice";
 
@@ -20,16 +21,8 @@ export default function AboutUs_Gallery() {
   }, [dispatch]);
 
 
-  useEffect(() => {
-    if (gallery.length === 0) {
-      setCurrent(0);
-      return;
-    }
-
-    if (current >= gallery.length) {
-      setCurrent(0);
-    }
-  }, [gallery.length, current]);
+  const safeCurrent =
+    gallery.length === 0 ? 0 : Math.min(current, gallery.length - 1);
 
   useEffect(() => {
     if (gallery.length <= 1) {
@@ -144,7 +137,7 @@ if (status === "loading" && gallery.length === 0) {
     return null;
   }
 
-  const activePhoto = gallery[current];
+  const activePhoto = gallery[safeCurrent];
 
   return (
     <section className="relative overflow-hidden bg-[#FAF5EB] py-13 md:py-14">
@@ -153,13 +146,13 @@ if (status === "loading" && gallery.length === 0) {
 
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
 
-          <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
+          <span className="font-['Playfair',serif] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
             The Journey, Remembered
           </span>
 
           <h2
             className="
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               font-medium
               text-[#173C3A]
               text-[clamp(1.75rem,3.5vw,2.75rem)]
@@ -175,7 +168,7 @@ if (status === "loading" && gallery.length === 0) {
 
           <p
             className="
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[#476763]/65
               text-[15px]
               leading-[1.8]
@@ -282,12 +275,12 @@ if (status === "loading" && gallery.length === 0) {
                     lg:p-10
                   "
                 >
-                  <img
+                  <Image
                     src={activePhoto.image}
                     alt={activePhoto.title || activePhoto.place || "Traveller story"}
+                    fill
+                    sizes="90vw"
                     className="
-                      w-full
-                      h-full
                       object-contain
                       rounded-[1.25rem]
                       drop-shadow-[0_25px_50px_rgba(0,0,0,0.35)]
@@ -325,7 +318,7 @@ if (status === "loading" && gallery.length === 0) {
                     inline-flex
                     items-center
                     gap-3
-                    font-['Inter']
+                    font-['Noto_Sans',sans-serif]
                     text-[10px]
                     uppercase
                     tracking-[0.25em]
@@ -357,7 +350,7 @@ if (status === "loading" && gallery.length === 0) {
                     text-xl
                   "
                 >
-                  {String(current + 1).padStart(2, "0")}
+                  {String(safeCurrent + 1).padStart(2, "0")}
                 </span>
 
                 <span className="w-8 h-px bg-white/40" />
@@ -410,7 +403,7 @@ if (status === "loading" && gallery.length === 0) {
                     {activePhoto.place && (
                       <p
                         className="
-                          font-['Inter']
+                          font-['Noto_Sans',sans-serif]
                           text-[10px]
                           uppercase
                           tracking-[0.28em]
@@ -424,7 +417,7 @@ if (status === "loading" && gallery.length === 0) {
                     )}
                     <h3
                       className="
-                        font-['Fraunces']
+                        font-['Playfair',serif]
                         text-white
                         text-[clamp(2rem,4vw,3.5rem)]
                         leading-tight
@@ -522,7 +515,7 @@ if (status === "loading" && gallery.length === 0) {
 
                 {gallery.map((photo, index) => {
 
-                  const isActive = index === current;
+                  const isActive = index === safeCurrent;
 
                   return (
                     <button
@@ -554,12 +547,12 @@ if (status === "loading" && gallery.length === 0) {
                         `}
                       >
 
-                        <img
+                        <Image
                           src={photo.image}
                           alt=""
+                          fill
+                          sizes="230px"
                           className="
-                            w-full
-                            h-full
                             object-cover
                             transition-transform
                             duration-700
@@ -674,7 +667,7 @@ if (status === "loading" && gallery.length === 0) {
 
               <span
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[10px]
                   uppercase
                   tracking-[0.25em]
@@ -690,7 +683,7 @@ if (status === "loading" && gallery.length === 0) {
 
             <p
               className="
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 italic
                 text-lg
                 md:text-xl

@@ -1,7 +1,3 @@
-// ============================================================
-// BLOG — PREMIUM HERO SECTION
-// ============================================================
-
 export default function Blog_Hero() {
   return (
     <section
@@ -20,7 +16,7 @@ export default function Blog_Hero() {
       "
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=85')",
+          "url('https://images.pexels.com/photos/30312127/pexels-photo-30312127.jpeg')",
       }}
     >
 
@@ -39,7 +35,7 @@ export default function Blog_Hero() {
         <p
           className="
             mb-4
-            font-['Inter']
+            font-['Playfair',serif]
             text-[11px]
             uppercase
             tracking-[0.35em]
@@ -54,7 +50,7 @@ export default function Blog_Hero() {
 
         <h1
           className="
-            font-['Fraunces']
+            font-['Playfair_Display',serif]
             text-5xl
             font-medium
             tracking-[0.04em]
@@ -87,7 +83,7 @@ export default function Blog_Hero() {
             mx-auto
             mt-5
             max-w-2xl
-            font-['Inter']
+            font-['Playfair',serif]
             text-sm
             font-light
             leading-relaxed

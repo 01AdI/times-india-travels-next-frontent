@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowDownRight, Compass } from "lucide-react";
+import Image from "next/image";
 
 export default function Destination_Overview({ data }) {
   if (!data) {
@@ -82,15 +83,12 @@ export default function Destination_Overview({ data }) {
                 rounded-xs
               "
             >
-              <img
+              <Image
                 src={data.heroImage}
                 alt={`${data.name} destination`}
-                className="
-                  h-full
-                  w-full
-                  object-cover
-                "
-               
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
               />
 
               {/* Image overlay */}

@@ -1,7 +1,7 @@
 export default function Destination_Hero({ data }) {
   const heroData = data || {
     heroImage:
-      "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=2000&q=85",
+      "https://images.pexels.com/photos/15682804/pexels-photo-15682804.jpeg",
     name: "Discover The World ",
     tagline:
       "A journey through timeless heritage, vibrant cultures, and extraordinary landscapes.",
@@ -19,17 +19,17 @@ export default function Destination_Hero({ data }) {
 
       {/* Content */}
       <div className="relative z-10 px-6 text-center text-white">
-        <p className="mb-4 font-['Inter'] text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white/80">
+        <p className="mb-4 font-['Playfair',serif] text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white/80">
           Explore Beyond the Ordinary
         </p>
 
-        <h1 className="font-['Fraunces'] text-5xl sm:text-6xl md:text-7xl font-medium">
+        <h1 className="font-['Playfair_Display',serif] text-5xl sm:text-6xl md:text-7xl font-medium">
           {heroData.name}
         </h1>
 
         <div className="mx-auto mt-5 h-0.5 w-25 bg-[#F58634]" />
 
-        <p className="mx-auto mt-5 max-w-2xl font-['Inter'] text-sm sm:text-base leading-7 text-white/85">
+        <p className="mx-auto mt-5 max-w-2xl font-['Playfair',serif] text-sm sm:text-base leading-7 text-white/85">
           {heroData.tagline}
         </p>
       </div>

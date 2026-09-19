@@ -192,7 +192,7 @@ export default function TourPackage_category({ initialCategory = null, category:
         </h1>
 
         <p className="mt-5 max-w-md font-['Inter'] text-sm leading-7 text-[#6D6D6D]">
-          The tour category you're looking for doesn't exist or may
+          The tour category you&apos;re looking for doesn&apos;t exist or may
           have been removed.
         </p>
 

@@ -17,17 +17,7 @@ import TourPackage_Sub_Hero from "../TourPackage_Cat_Sub_Components/TourPackage_
 import TourPackage_Sub_Intro from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Into";
 import TourPackage_Sub_CTA from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_CTA";
 import TourPackage_Sub_RelatedTours from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_RelatedTours";
-
-// import TourPackage_Sub_Itinerary_4 from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itinerary_4";
-import TourPackage_Category_CTA from "../TourPackage_Category_Component/Tour_Category_CTA";
-import TourPackage_Sub_Itinerary_5 from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itineray_5";
-
-// Optional components
-import TourPackage_Sub_Highlights from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Highlights";
-// import TourPackage_Sub_AtAGlance from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_AtAGlance";
-// import TourPackage_Sub_Itinerary from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itinerary";
-// import TourPackage_Sub_Itinerary_2 from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itineray_2";
-// import TourPackage_Sub_Itinerary_3 from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itineray_3";
+import TourPackage_Sub_Itinerary_5 from "../TourPackage_Cat_Sub_Components/TourPackage_Sub_Itinerary_5";
 
 export default function TourPackage_cat_sub({ initialTour = null, category: categoryProp, sub: subProp }) {
   const params = useParams();
@@ -135,7 +125,7 @@ export default function TourPackage_cat_sub({ initialTour = null, category: cate
           <div className="mx-auto mt-5 h-px w-16 bg-[#F58634]" />
 
           <p className="mt-6 font-['Inter'] text-sm leading-7 text-[#5F6F73]">
-            We couldn't find the tour package you're looking for.
+            We couldn&apos;t find the tour package you&apos;re looking for.
           </p>
 
           <Link
@@ -175,13 +165,7 @@ export default function TourPackage_cat_sub({ initialTour = null, category: cate
     <>
       <TourPackage_Sub_Hero tour={tour} />
       <TourPackage_Sub_Intro tour={tour} />
-      {/* <TourPackage_Sub_AtAGlance tour={tour} /> */}
-      {/* <TourPackage_Sub_Itinerary tour={tour} /> */}
-      {/* <TourPackage_Sub_Itinerary_2 tour={tour} /> */}
-      {/* <TourPackage_Sub_Itinerary_3 tour={tour} /> */}
-      {/* <TourPackage_Sub_Itinerary_4 tour={tour} /> */}
-      <TourPackage_Sub_Itinerary_5 tour={tour}></TourPackage_Sub_Itinerary_5>
-      {/* <TourPackage_Sub_Highlights tour={tour} /> */}
+      <TourPackage_Sub_Itinerary_5 tour={tour} />
       <TourPackage_Sub_CTA tour={tour} />
       <TourPackage_Sub_RelatedTours tour={tour} />
     </>

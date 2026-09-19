@@ -3,17 +3,17 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-import Home_HeroSection from "../home_components/HeroSection_home";
-import Home_approved_by_govSection from "../home_components/Home_approved_by_govSection";
-import Home_TimeIndia_WelcomeSection from "../home_components/Home_TimeIndia_WelcomeSection";
-import Home_TripAdvisor from "../home_components/Home_TripAdvisor";
-import Home_WhyChooseUs from "../home_components/Home_WhyChooseUs";
-import Home_Client_Video from "../home_components/Home_Client_Video";
-import Home_Client_Testimonials from "../home_components/Home_Client_Testimonials";
-import DestinationSection from "../home_components/DestinationSection";
-import Affiliations from "../home_components/Affiliations";
-import Home_Travel_Grid from "../home_components/Home_Travel_Grid";
-import Home_Qautation_form from "../home_components/Home_Qautation_form";
+import Home_HeroSection from "../Home_Components/HeroSection_home";
+import Home_approved_by_govSection from "../Home_Components/Home_approved_by_govSection";
+import Home_TimeIndia_WelcomeSection from "../Home_Components/Home_TimeIndia_WelcomeSection";
+import Home_TripAdvisor from "../Home_Components/Home_TripAdvisor";
+import Home_WhyChooseUs from "../Home_Components/Home_WhyChooseUs";
+import Home_Client_Video from "../Home_Components/Home_Client_Video";
+import Home_Client_Testimonials from "../Home_Components/Home_Client_Testimonials";
+import DestinationSection from "../Home_Components/DestinationSection";
+import Affiliations from "../Home_Components/Affiliations";
+import Home_Travel_Grid from "../Home_Components/Home_Travel_Grid";
+import Home_Quotation_form from "../Home_Components/Home_Quotation_form";
 
 export default function Home({
   initialHeroSlides = [],
@@ -45,7 +45,7 @@ export default function Home({
       <DestinationSection initialDestinations={initialDestinations} />
       <Affiliations />
       <Home_Travel_Grid />
-      <Home_Qautation_form />
+      <Home_Quotation_form />
     </>
   );
 }

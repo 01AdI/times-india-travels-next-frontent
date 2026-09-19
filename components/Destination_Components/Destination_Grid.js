@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function DestinationGrid({ data = [] }) {
   if (!Array.isArray(data) || data.length === 0) {
@@ -45,7 +46,7 @@ export default function DestinationGrid({ data = [] }) {
 
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[10px]
               font-semibold
               uppercase
@@ -64,7 +65,7 @@ export default function DestinationGrid({ data = [] }) {
 
         <h2
           className="
-            font-['Fraunces']
+            font-['Playfair_Display',serif]
             text-4xl
             font-medium
             leading-[1.05]
@@ -84,7 +85,7 @@ export default function DestinationGrid({ data = [] }) {
             mx-auto
             mt-6
             max-w-2xl
-            font-['Inter']
+            font-['Noto_Sans',sans-serif]
             text-sm
             leading-7
             text-[#476763]/60
@@ -172,17 +173,13 @@ export default function DestinationGrid({ data = [] }) {
               >
 
                 {destinationImage ? (
-                  <img
+                  <Image
                     src={destinationImage}
                     alt={destinationName}
-                    loading="lazy"
-                    decoding="async"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     draggable="false"
                     className="
-                      absolute
-                      inset-0
-                      h-full
-                      w-full
                       object-cover
                       transition-transform
                       duration-900
@@ -276,8 +273,8 @@ export default function DestinationGrid({ data = [] }) {
                   >
                     <span
                       className="
-                        font-['Inter']
-                        text-[9px]
+                        font-['Noto_Sans',sans-serif]
+                        text-[10px]
                         font-medium
                         uppercase
                         tracking-[0.2em]
@@ -315,7 +312,7 @@ export default function DestinationGrid({ data = [] }) {
 
                     <span
                       className="
-                        font-['Inter']
+                        font-['Playfair',serif]
                         text-[9px]
                         font-semibold
                         uppercase
@@ -331,7 +328,7 @@ export default function DestinationGrid({ data = [] }) {
 
                   <h3
                     className="
-                      font-['Fraunces']
+                      font-['Playfair_Display',serif]
                       text-4xl
                       font-medium
                       leading-[0.95]
@@ -350,7 +347,7 @@ export default function DestinationGrid({ data = [] }) {
                       className="
                         mt-3
                         max-w-xl
-                        font-['Fraunces']
+                        font-['Playfair',serif]
                         text-base
                         italic
                         leading-6
@@ -380,7 +377,7 @@ export default function DestinationGrid({ data = [] }) {
                           className="
                             mt-4
                             max-w-xl
-                            font-['Inter']
+                            font-['Noto_Sans',sans-serif]
                             text-sm
                             leading-6
                             text-white/70
@@ -407,7 +404,7 @@ export default function DestinationGrid({ data = [] }) {
                           border-[#F58634]
                           px-5
                           py-3
-                          font-['Inter']
+                          font-['Noto_Sans',sans-serif]
                           text-[10px]
                           font-semibold
                           uppercase

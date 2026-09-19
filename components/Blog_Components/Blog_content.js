@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import { ArrowRight, Loader2, X } from "lucide-react";
 
@@ -49,7 +50,7 @@ function MetaRow({ date, readTime, light = false }) {
         font-['IBM_Plex_Mono']
         text-[10px]
         uppercase
-        tracking-[0.05em]
+        tracking-wider
         ${light ? "text-white/55" : "text-[#0B3C49]/40"}
       `}
     >
@@ -87,25 +88,25 @@ function FeaturedStory({ blog }) {
         relative
         mb-14
         overflow-hidden
-        rounded-[32px]
+        rounded-4xl
         bg-[#0B3C49]
         shadow-[0_25px_70px_rgba(11,60,73,0.12)]
       "
     >
       <div className="absolute inset-0 overflow-hidden">
-        <img
+        <Image
           src={image}
           alt={blog.title}
+          fill
+          sizes="100vw"
           className="
-            h-full
-            w-full
             object-cover
             transition-transform
-            duration-[1400ms]
+            duration-1400
             ease-out
             group-hover:scale-[1.07]
           "
-          loading="eager"
+          priority
           onError={(event) => {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
@@ -115,7 +116,7 @@ function FeaturedStory({ blog }) {
           className="
             absolute
             inset-0
-            bg-gradient-to-r
+            bg-linear-to-r
             from-black/90
             via-black/55
             to-black/10
@@ -128,7 +129,7 @@ function FeaturedStory({ blog }) {
             inset-x-0
             bottom-0
             h-2/3
-            bg-gradient-to-t
+            bg-linear-to-t
             from-black/90
             via-black/40
             to-transparent
@@ -178,7 +179,7 @@ function FeaturedStory({ blog }) {
 
         <span
           className="
-            font-['Inter']
+            font-['Playfair',serif]
             text-[10px]
             font-semibold
             uppercase
@@ -195,7 +196,7 @@ function FeaturedStory({ blog }) {
           relative
           z-10
           flex
-          min-h-[620px]
+          min-h-155
           items-end
           p-7
           md:p-10
@@ -253,7 +254,7 @@ function FeaturedStory({ blog }) {
               text-[clamp(2.4rem,5vw,4.7rem)]
               font-medium
               leading-[0.98]
-              tracking-[-0.025em]
+              tracking-tight
               text-white
             "
           >
@@ -371,7 +372,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
         ease-[cubic-bezier(0.22,1,0.36,1)]
         ${
           expanded
-            ? "min-h-[560px] bg-[#0B3C49] shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
+            ? "min-h-140 bg-[#0B3C49] shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
             : "bg-transparent shadow-[0_8px_30px_rgba(11,60,73,0.04)]"
         }
       `}
@@ -387,22 +388,20 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           ease-[cubic-bezier(0.22,1,0.36,1)]
           ${
             expanded
-              ? "min-h-[560px] rounded-[28px]"
-              : "aspect-[16/11] rounded-[26px]"
+              ? "min-h-140 rounded-[28px]"
+              : "aspect-16/11 rounded-[26px]"
           }
         `}
       >
-        <img
+        <Image
           src={image}
           alt={blog.title}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
           className={`
-            absolute
-            inset-0
-            h-full
-            w-full
             object-cover
             transition-transform
-            duration-[1200ms]
+            duration-1200
             ease-out
             ${
               expanded
@@ -410,7 +409,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                 : "group-hover:scale-[1.08]"
             }
           `}
-          loading="lazy"
           onError={(event) => {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
@@ -424,8 +422,8 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             duration-700
             ${
               expanded
-                ? "bg-gradient-to-t from-black/95 via-black/55 to-black/5"
-                : "bg-gradient-to-t from-black/75 via-black/20 to-transparent"
+                ? "bg-linear-to-t from-black/95 via-black/55 to-black/5"
+                : "bg-linear-to-t from-black/75 via-black/20 to-transparent"
             }
           `}
         />
@@ -434,7 +432,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           className={`
             absolute
             inset-0
-            bg-gradient-to-r
+            bg-linear-to-r
             from-black/75
             via-transparent
             to-transparent
@@ -489,7 +487,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           >
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[9px]
                 font-semibold
                 uppercase
@@ -521,7 +519,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             {blog.tags?.length > 0 ? (
               <span
                 className="
-                  font-['IBM_Plex_Mono']
+                  font-['Playfair',serif]
                   text-[9px]
                   uppercase
                   tracking-[0.08em]
@@ -534,7 +532,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               blog.category && (
                 <span
                   className="
-                    font-['IBM_Plex_Mono']
+                    font-['Playfair',serif]
                     text-[9px]
                     uppercase
                     tracking-[0.08em]
@@ -550,7 +548,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           <h3
             className="
               max-w-lg
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-[clamp(1.5rem,2.6vw,2.2rem)]
               font-medium
               leading-[1.08]
@@ -617,10 +615,10 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             <h3
               className="
                 max-w-3xl
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-[clamp(2rem,4vw,3.6rem)]
                 font-medium
-                leading-[1]
+                leading-none
                 tracking-[-0.02em]
                 text-white
               "
@@ -632,7 +630,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               className="
                 mt-5
                 max-w-2xl
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-[13px]
                 leading-[1.8]
                 text-white/70
@@ -646,7 +644,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               <p
                 className="
                   mt-4
-                  font-['IBM_Plex_Mono']
+                  font-['Noto_Sans',sans-serif]
                   text-[9px]
                   uppercase
                   tracking-[0.08em]
@@ -936,7 +934,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
               text-[#0B3C49]
             "
           >
-            We couldn't load the stories.
+            We couldn&apos;t load the stories.
           </h2>
 
           <p
@@ -992,7 +990,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
         <div className="mx-auto max-w-3xl py-20 text-center">
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[10px]
               font-bold
               uppercase
@@ -1006,7 +1004,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
           <h2
             className="
               mt-4
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-4xl
               font-medium
               text-[#0B3C49]
@@ -1018,12 +1016,12 @@ export default function BlogJournal({ initialBlogs = [] }) {
           <p
             className="
               mt-4
-              font-['Inter']
+              font-['Playfair_Display',serif]
               text-sm
               text-[#124D56]/60
             "
           >
-            We don't have any published stories yet.
+            We don&apos;t have any published stories yet.
           </p>
         </div>
       </section>
@@ -1048,7 +1046,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
             <span
               className="
-        font-['Inter']
+        font-['Playfair',serif]
         text-[10px]
         font-bold
         uppercase
@@ -1065,7 +1063,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
           <h2
             className="
       mt-5
-      font-['Fraunces']
+      font-['Playfair_Display',serif]
       text-[clamp(2.5rem,4.5vw,4.2rem)]
       font-medium
       leading-[1.02]
@@ -1083,7 +1081,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
       mx-auto
       mt-7
       max-w-2xl
-      font-['Inter']
+      font-['Noto_Sans',sans-serif]
       text-[17px]
       leading-[1.8]
       text-[#476763]/65
@@ -1116,7 +1114,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
                 border
                 px-5
                 py-2
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[12px]
                 font-medium
                 transition-all
@@ -1203,7 +1201,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
                 bg-[#124D56]
                 px-6
                 py-3
-                font-['Inter']
+                font-['Playfair_Display',serif]
                 text-sm
                 font-semibold
                 text-white
@@ -1280,7 +1278,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
             items-center
             justify-center
             gap-4
-            font-['IBM_Plex_Mono']
+            font-['Playfair',serif]
             text-[9px]
             uppercase
             tracking-[0.18em]

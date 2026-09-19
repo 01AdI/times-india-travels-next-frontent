@@ -13,7 +13,7 @@ export default function AboutUs_Who_We_Are() {
 
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[11px]
               font-semibold
               uppercase
@@ -27,7 +27,7 @@ export default function AboutUs_Who_We_Are() {
           <h2
             className="
               mt-4
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-[clamp(1.75rem,3.5vw,2.75rem)]
               font-medium
               text-[#173C3A]
@@ -44,30 +44,29 @@ export default function AboutUs_Who_We_Are() {
               flex-col
               gap-4
               text-left
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[16px]
               leading-relaxed
               text-[#476763]
             "
           >
             <p>
-              With Times India Travels, experience the beauty of incredible
-              India. For over 13 years, we've been earning our clients'
-              trust, one carefully planned trip at a time.
+              With Times India Travels, discover India in a way that feels personal, comfortable, and truly memorable. 
+              For more than 13 years, we’ve been helping travellers experience the beauty, culture, 
+              and diversity of India while building lasting trust, one journey at a time.
             </p>
 
             <p>
-              When planning the perfect vacation feels overwhelming, we take
-              the initiative — routing you to the destinations that matter,
-              with the same commitment to satisfaction whether it's your
-              first trip to India or your fifth.
+              Planning a trip to India can feel like a lot to take in - so we’re here to make it easier. 
+              From choosing the places you’d love to visit to planning the perfect route and experiences, 
+              we take care of the details while you enjoy the journey.
             </p>
 
             <p>
-              We offer specialized, customized tours built around your
-              specifications, and you're always free to choose your holiday
-              destinations on your own timeline, with our itinerary options
-              designed around your convenience.
+              Our tours are customized around you - your interests, your dates, your pace, 
+              and the experiences you want to have. Whether it’s your first visit to India or 
+              you’re coming back for more, we’re here to help you discover India your way, 
+              with a journey that feels easy, thoughtful, and uniquely yours.
             </p>
           </div>
 
@@ -86,7 +85,7 @@ export default function AboutUs_Who_We_Are() {
               py-2
               pl-6
               pr-2
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               font-semibold
               tracking-wide

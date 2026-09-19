@@ -26,30 +26,18 @@ import { fetchTourPackagesDropDown } from "../../features/Tour-packages/tour_Pac
 
 import { createCarEnquary } from "../../services/PublicApi";
 
-// ==========================================================
-// MONTH NAMES
-// ==========================================================
-
-const MONTH_NAMES = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import {
+  inputClass,
+  labelClass,
+  selectClass,
+  SelectWrapper,
+  MONTH_NAMES,
+  CURRENT_YEAR,
+} from "../../utils/QuotationFormFields";
 
 // ==========================================================
-// YEAR OPTIONS
+// YEAR OPTIONS — this form only offers 12 years, not the usual 15
 // ==========================================================
-
-const CURRENT_YEAR = new Date().getFullYear();
 
 const YEAR_OPTIONS = Array.from(
   { length: 12 },
@@ -82,53 +70,6 @@ const VEHICLE_OPTIONS = [
     label: "Not Sure Yet",
   },
 ];
-
-// ==========================================================
-// INPUT STYLE
-// ==========================================================
-
-const inputClass =
-  "w-full h-[52px] rounded-xl border border-[#124d56]/15 bg-white px-4 py-3 text-sm text-[#0B3C49] placeholder:text-[#124d56]/35 outline-none transition-all duration-300 focus:border-[#F58634] focus:ring-4 focus:ring-[#F58634]/10 disabled:cursor-not-allowed disabled:opacity-60";
-
-// ==========================================================
-// LABEL STYLE
-// ==========================================================
-
-const labelClass =
-  "block mb-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] font-semibold text-[#124d56]/65";
-
-// ==========================================================
-// SELECT STYLE
-// ==========================================================
-
-const selectClass =
-  `${inputClass} cursor-pointer appearance-none pl-4 pr-12`;
-
-// ==========================================================
-// SELECT WRAPPER
-// ==========================================================
-
-function SelectWrapper({ children }) {
-  return (
-    <div className="relative w-full">
-      {children}
-
-      <ChevronDown
-        size={18}
-        strokeWidth={1.8}
-        className="
-          pointer-events-none
-          absolute
-          right-4
-          top-1/2
-          -translate-y-1/2
-          text-[#124d56]/55
-        "
-        aria-hidden="true"
-      />
-    </div>
-  );
-}
 
 // ==========================================================
 // INITIAL FORM

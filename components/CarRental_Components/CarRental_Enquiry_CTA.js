@@ -24,7 +24,7 @@ export default function CarRental_Enquiry_CTA(){
         <div className="relative mx-auto max-w-4xl text-center">
           <p
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[11px]
               font-semibold
               uppercase
@@ -39,7 +39,7 @@ export default function CarRental_Enquiry_CTA(){
           <h2
             className="
               mt-4
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-[clamp(2rem,4vw,3.25rem)]
               font-medium
               leading-tight
@@ -56,15 +56,15 @@ export default function CarRental_Enquiry_CTA(){
               mx-auto
               mt-7
               max-w-2xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[15px]
               leading-relaxed
               text-white/65
               sm:text-base
             "
           >
-            Tell us where you'd like to go, how you'd like to travel,
-            and who you're travelling with. We'll recommend the right
+            Tell us where you&apos;d like to go, how you&apos;d like to travel,
+            and who you&apos;re travelling with. We&apos;ll recommend the right
             vehicle and help shape the journey around you.
           </p>
 
@@ -84,7 +84,7 @@ export default function CarRental_Enquiry_CTA(){
                 bg-[#F58634]
                 px-7
                 py-3.5
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-sm
                 font-semibold
                 tracking-wide
@@ -141,7 +141,7 @@ export default function CarRental_Enquiry_CTA(){
                   flex
                   items-center
                   gap-2
-                  font-['Inter']
+                  font-['Noto_Sans',sans-serif]
                   text-[11px]
                   uppercase
                   tracking-[0.08em]

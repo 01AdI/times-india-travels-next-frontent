@@ -11,9 +11,6 @@ export default function TourPackage_Sub_CTA({ tour }) {
   return (
     <>
     <section className="relative overflow-hidden bg-[#0B3C49] py-13 sm:py-13 md:py-14 lg:py-15">
-      {/* =========================================================
-          AMBIENT GLOW
-      ========================================================== */}
 
       <div
         className="
@@ -21,39 +18,15 @@ export default function TourPackage_Sub_CTA({ tour }) {
           absolute
           left-1/2
           top-1/2
-          h-[500px]
-          w-[500px]
+          h-125
+          w-125
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-[#F58634]/[0.08]
+          bg-[#F58634]/8
           blur-[120px]
-          sm:h-[700px]
-          sm:w-[700px]
-        "
-      />
-
-      {/* =========================================================
-          DECORATIVE RINGS
-      ========================================================== */}
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/2
-          h-[500px]
-          w-[500px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          border
-          border-white/[0.04]
-          sm:h-[700px]
-          sm:w-[700px]
-          lg:h-[850px]
-          lg:w-[850px]
+          sm:h-175
+          sm:w-175
         "
       />
 
@@ -63,27 +36,39 @@ export default function TourPackage_Sub_CTA({ tour }) {
           absolute
           left-1/2
           top-1/2
-          h-[300px]
-          w-[300px]
+          h-125
+          w-125
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
           border
-          border-[#F58634]/[0.08]
-          sm:h-[450px]
-          sm:w-[450px]
+          border-white/4
+          sm:h-175
+          sm:w-175
+          lg:h-212.5
+          lg:w-212.5
         "
       />
 
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/2
+          h-75
+          w-75
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          border
+          border-[#F58634]/8
+          sm:h-112.5
+          sm:w-112.5
+        "
+      />
 
-      {/* =========================================================
-          CONTENT
-      ========================================================== */}
-
-      <div className="relative mx-auto max-w-[1100px] px-6 text-center sm:px-10">
-        {/* =======================================================
-            EYEBROW
-        ======================================================== */}
+      <div className="relative mx-auto max-w-275 px-6 text-center sm:px-10">
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -102,7 +87,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
 
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[9px]
                 font-semibold
                 uppercase
@@ -117,10 +102,6 @@ export default function TourPackage_Sub_CTA({ tour }) {
           <span className="h-px w-10 bg-cyan-500/50" />
         </motion.div>
 
-        {/* =======================================================
-            HEADING
-        ======================================================== */}
-
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -134,7 +115,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
             mx-auto
             mt-10
             max-w-4xl
-            font-['Fraunces']
+            font-['Playfair_Display',serif]
             text-5xl
             font-medium
             leading-[0.92]
@@ -151,10 +132,6 @@ export default function TourPackage_Sub_CTA({ tour }) {
           </span>
         </motion.h2>
 
-        {/* =======================================================
-            DESCRIPTION
-        ======================================================== */}
-
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -167,20 +144,16 @@ export default function TourPackage_Sub_CTA({ tour }) {
             mx-auto
             mt-8
             max-w-xl
-            font-['Inter']
+            font-['Noto_Sans',sans-serif]
             text-sm
             leading-7
             text-white/50
             sm:text-base
           "
         >
-          Tell us when you'd like to travel and we'll turn this itinerary into
+          Tell us when you&apos;d like to travel and we&apos;ll turn this itinerary into
           your own unforgettable Indian journey.
         </motion.p>
-
-        {/* =======================================================
-            CTA
-        ======================================================== */}
 
         <motion.div
           initial={{ opacity: 0, y: 25, scale: 0.96 }}
@@ -201,7 +174,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
     relative
     flex
     w-full
-    max-w-[420px]
+    max-w-105
     items-center
     justify-between
     overflow-hidden
@@ -236,15 +209,11 @@ export default function TourPackage_Sub_CTA({ tour }) {
               "
             />
 
-            {/* =================================================
-                TEXT
-            ================================================== */}
-
             <span className="relative z-10 text-left">
               <span
                 className="
                   block
-                  font-['Inter']
+                  font-['Noto_Sans',sans-serif]
                   text-[10px]
                   font-bold
                   uppercase
@@ -252,14 +221,14 @@ export default function TourPackage_Sub_CTA({ tour }) {
                   text-white
                 "
               >
-                Let's make it happen
+                Let&apos;s make it happen
               </span>
 
               <span
                 className="
                   mt-0.5
                   block
-                  font-['Fraunces']
+                  font-['Noto_Sans',sans-serif]
                   text-xl
                   font-medium
                   tracking-[-0.02em]
@@ -271,9 +240,6 @@ export default function TourPackage_Sub_CTA({ tour }) {
               </span>
             </span>
 
-            {/* =================================================
-                ARROW CIRCLE
-            ================================================== */}
 
             <span
               className="
@@ -311,10 +277,6 @@ export default function TourPackage_Sub_CTA({ tour }) {
           </button>
         </motion.div>
 
-        {/* =======================================================
-            TRUST DETAILS
-        ======================================================== */}
-
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -335,7 +297,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
         >
           <span
             className="
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[10px]
               font-semibold
               uppercase
@@ -350,7 +312,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
 
           <span
             className="
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[10px]
               font-semibold
               uppercase
@@ -365,7 +327,7 @@ export default function TourPackage_Sub_CTA({ tour }) {
 
           <span
             className="
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[10px]
               font-semibold
               uppercase

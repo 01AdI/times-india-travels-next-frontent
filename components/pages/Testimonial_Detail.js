@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import { motion, MotionConfig } from "framer-motion";
@@ -204,7 +205,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
           md:h-125
         "
         style={{
-          backgroundImage:"url('https://i.pinimg.com/736x/b4/c1/4e/b4c14e8408103efa070c2165e61687cf.jpg')",
+          backgroundImage:"url('https://images.pexels.com/photos/34889200/pexels-photo-34889200.jpeg')",
         }}
       >
 
@@ -253,7 +254,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
               sm:text-xs
             "
           >
-            A Traveller's Story
+            A Traveller&apos;s Story
           </p>
 
           <h1
@@ -442,12 +443,14 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
                 <div className="flex flex-col items-start">
 
                   {review.avatar ? (
-                    <img
+                    <Image
                       src={review.avatar}
                       alt={
                         review.name ||
                         "Traveller"
                       }
+                      width={176}
+                      height={176}
                       className="
                         h-44
                         w-44
@@ -703,7 +706,7 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
                     text-[#123138]/40
                   "
                 >
-                  This review doesn't have any text yet.
+                  This review doesn&apos;t have any text yet.
                 </p>
               )}
 
@@ -913,12 +916,14 @@ export default function Testimonial_Detail({ initialReview = null, initialTestim
                           >
 
                             {story.avatar ? (
-                              <img
+                              <Image
                                 src={story.avatar}
                                 alt={
                                   story.name ||
                                   "Traveller"
                                 }
+                                width={80}
+                                height={80}
                                 className="
                                   h-20
                                   w-20

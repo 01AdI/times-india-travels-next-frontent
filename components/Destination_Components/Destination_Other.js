@@ -140,7 +140,7 @@ export default function Destination_Other({ data }) {
                   relative
                   block
                   overflow-hidden
-                  rounded-[2px]
+                  rounded-xs
                   bg-[#124d56]
                 "
               >
@@ -149,7 +149,7 @@ export default function Destination_Other({ data }) {
                 <div
                   className="
                     relative
-                    aspect-[16/10]
+                    aspect-16/10
                     overflow-hidden
                   "
                 >
@@ -176,7 +176,7 @@ export default function Destination_Other({ data }) {
                     className="
                       absolute
                       inset-0
-                      bg-gradient-to-t
+                      bg-linear-to-t
                       from-[#061B1F]/90
                       via-[#061B1F]/20
                       to-transparent

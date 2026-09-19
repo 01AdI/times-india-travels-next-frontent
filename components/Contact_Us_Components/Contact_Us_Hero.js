@@ -1,7 +1,3 @@
-// ============================================================
-// CONTACT US — PREMIUM HERO SECTION
-// ============================================================
-
 export default function Contact_Us_Hero() {
   return (
     <section
@@ -21,7 +17,7 @@ export default function Contact_Us_Hero() {
       "
       style={{
         backgroundImage:
-          "url('https://i.pinimg.com/736x/ea/3b/aa/ea3baa720fabc7eceb9705826f139f97.jpg')",
+          "url('https://images.unsplash.com/photo-1573398643956-2b9e6ade3456?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
       }}
     >
 
@@ -40,7 +36,7 @@ export default function Contact_Us_Hero() {
         <p
           className="
             mb-4
-            font-['Inter']
+            font-['Playfair',serif]
             text-[10px]
             font-semibold
             uppercase
@@ -49,14 +45,14 @@ export default function Contact_Us_Hero() {
             sm:text-xs
           "
         >
-          We'd Love To Hear From You
+          We&apos;d Love To Hear From You
         </p>
 
         {/* HEADING */}
 
         <h1
           className="
-            font-['Fraunces']
+            font-['Playfair_Display',serif]
             text-5xl
             font-medium
             tracking-[0.01em]
@@ -66,7 +62,7 @@ export default function Contact_Us_Hero() {
             md:text-7xl
           "
         >
-          Let's Talk
+          Let&apos;s Talk
         </h1>
 
         {/* ACCENT LINE */}
@@ -89,7 +85,7 @@ export default function Contact_Us_Hero() {
             mx-auto
             mt-5
             max-w-2xl
-            font-['Inter']
+            font-['Playfair',serif]
             text-sm
             font-light
             leading-relaxed
@@ -98,8 +94,8 @@ export default function Contact_Us_Hero() {
             sm:text-base
           "
         >
-          Whether you're dreaming about your first trip to India
-          or planning your next adventure, we're here to help
+          Whether you&apos;re dreaming about your first trip to India
+          or planning your next adventure, we&apos;re here to help
           turn your ideas into a journey worth remembering.
         </p>
 

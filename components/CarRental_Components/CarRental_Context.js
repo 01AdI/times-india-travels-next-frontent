@@ -6,7 +6,7 @@ export default function CarRental_content() {
         <div className="mx-auto max-w-4xl text-center">
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[11px]
               font-semibold
               uppercase
@@ -21,7 +21,7 @@ export default function CarRental_content() {
           <h2
             className="
               mt-4
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-[clamp(2rem,4vw,3rem)]
               font-medium
               leading-tight
@@ -40,7 +40,7 @@ export default function CarRental_content() {
               mx-auto
               mt-7
               max-w-3xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[15px]
               leading-[1.85]
               text-[#476763]/80
@@ -57,16 +57,16 @@ export default function CarRental_content() {
               mx-auto
               mt-4
               max-w-3xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[15px]
               leading-[1.85]
               text-[#476763]/80
               sm:text-base
             "
           >
-            Whether you're travelling through Rajasthan, following the
+            Whether you&apos;re travelling through Rajasthan, following the
             Golden Triangle, exploring South India or creating your own
-            multi-state itinerary, we'll help you choose the right vehicle
+            multi-state itinerary, we&apos;ll help you choose the right vehicle
             and make the road part of the journey.
           </p>
         </div>

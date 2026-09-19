@@ -42,7 +42,7 @@ export default function CarRental_WhatsIncluded(){
           <div className="mb-14 text-center">
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[11px]
                 font-semibold
                 uppercase
@@ -57,13 +57,13 @@ export default function CarRental_WhatsIncluded(){
             <h2
               className="
                 mt-4
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-[clamp(2rem,4vw,3rem)]
                 font-medium
                 text-[#173C3A]
               "
             >
-              What's Included
+              What&apos;s Included
             </h2>
 
             <div className="mx-auto mt-6 h-px w-25 bg-[#F58634]" />
@@ -115,7 +115,7 @@ export default function CarRental_WhatsIncluded(){
                 <h3
                   className="
                     mt-5
-                    font-['Fraunces']
+                    font-['Playfair',serif]
                     text-lg
                     text-[#0B3C49]
                   "
@@ -126,7 +126,7 @@ export default function CarRental_WhatsIncluded(){
                 <p
                   className="
                     mt-2
-                    font-['Inter']
+                    font-['Noto_Sans',sans-serif]
                     text-[13px]
                     leading-relaxed
                     text-[#124d56]/60

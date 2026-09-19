@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const MotionLink = motion(Link);
 
@@ -11,11 +12,11 @@ export default function TourPackage_Category_SubCategory({subcategories}) {
     <section className="bg-[#FAF5EB] px-5 pb-20 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-350">
         <div className="mb-12 pt-5 text-center">
-          <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B85128]">
+          <p className="font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B85128]">
             Our Journeys
           </p>
 
-          <h2 className="mt-3 font-['Fraunces'] text-4xl text-[#173C3A] sm:text-5xl">
+          <h2 className="mt-3 font-['Playfair_Display',serif] text-4xl text-[#173C3A] sm:text-5xl">
             Explore Our Tours
           </h2>
         </div>
@@ -31,11 +32,12 @@ export default function TourPackage_Category_SubCategory({subcategories}) {
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="group relative h-105 overflow-hidden rounded-[28px] block"
             >
-              <img
+              <Image
                 src={tour.thumbnail || tour.heroImage}
                 alt={tour.name}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-all duration-1200 group-hover:scale-110 group-hover:grayscale-0"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover transition-all duration-1200 group-hover:scale-110 group-hover:grayscale-0"
               />
 
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/45 to-black/5" />
@@ -44,16 +46,16 @@ export default function TourPackage_Category_SubCategory({subcategories}) {
                 {String(index + 1).padStart(2, "0")}
               </span>
 
-              <span className="absolute rounded-3xl right-6 top-6 border border-white/20 bg-[#124d56]/40 px-4 py-3 font-['Inter'] text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur-md">
+              <span className="absolute rounded-3xl right-6 top-6 border border-white/20 bg-[#124d56]/40 px-4 py-3 font-['Playfair',serif] text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur-md">
                 {tour.duration.label}
               </span>
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                <h3 className="font-['Fraunces'] text-3xl text-white sm:text-4xl">
+                <h3 className="font-['Playfair_Display',serif] text-3xl text-white sm:text-4xl">
                   {tour.name}
                 </h3>
 
-                <div className="mt-5 flex items-center gap-3 font-['Inter'] text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+                <div className="mt-5 flex items-center gap-3 font-['Noto_Sans',sans-serif] text-[11px] font-bold uppercase tracking-[0.2em] text-white">
                   <span>Explore Journey</span>
 
                   <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 transition-all duration-300 group-hover:border-[#F58634] group-hover:bg-[#F58634] group-hover:text-[#0B3C49]">

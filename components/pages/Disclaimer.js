@@ -101,7 +101,7 @@ export default function Disclaimer() {
 
             {/* INTRO HEADING */}
 
-            <h2
+            <h1
               className="
                 font-['Fraunces']
                 text-3xl
@@ -114,7 +114,7 @@ export default function Disclaimer() {
             >
               Transparency is part of
               <span className="text-[#B85128]"> every journey.</span>
-            </h2>
+            </h1>
 
             {/* INTRO TEXT */}
 
@@ -609,7 +609,7 @@ export default function Disclaimer() {
                   md:text-5xl
                 "
               >
-                We're here to 
+                We&apos;re here to 
                 <span className="text-cyan-500">{" "}help.</span>
               </h2>
 

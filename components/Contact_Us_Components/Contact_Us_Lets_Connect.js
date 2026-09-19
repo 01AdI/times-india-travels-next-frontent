@@ -1,9 +1,5 @@
 "use client";
 
-// ============================================================
-// CONTACT US — EDITORIAL INTRODUCTION
-// ============================================================
-
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 
@@ -45,7 +41,7 @@ export default function Contact_Us_LetsConnect() {
           <div className="mb-8 flex items-center justify-center gap-4 sm:mb-10">
             <span
               className="
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-xl
                 italic
                 text-[#B85128]
@@ -58,7 +54,7 @@ export default function Contact_Us_LetsConnect() {
 
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[9px]
                 font-semibold
                 uppercase
@@ -74,7 +70,7 @@ export default function Contact_Us_LetsConnect() {
 
           <h2
             className="
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-5xl
               font-medium
               leading-[0.98]
@@ -85,7 +81,7 @@ export default function Contact_Us_LetsConnect() {
               lg:text-[86px]
             "
           >
-            Let's start a
+            Let&apos;s start a
             <span className="block italic text-[#476763]/70">
               conversation.
             </span>
@@ -98,7 +94,7 @@ export default function Contact_Us_LetsConnect() {
               mx-auto
               mt-9
               max-w-xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               font-light
               leading-7
@@ -108,9 +104,9 @@ export default function Contact_Us_LetsConnect() {
               sm:leading-8
             "
           >
-            Have a question, an idea, or a journey you've been
-            dreaming about? Tell us where you'd like to go and
-            we'll help you shape the experience.
+            Have a question, an idea, or a journey you&apos;ve been
+            dreaming about? Tell us where you&apos;d like to go and
+            we&apos;ll help you shape the experience.
           </p>
 
           <motion.a
@@ -137,7 +133,7 @@ export default function Contact_Us_LetsConnect() {
               bg-[#F58634]
               px-7
               py-3.5
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-xs
               font-semibold
               uppercase
@@ -177,7 +173,7 @@ export default function Contact_Us_LetsConnect() {
           <p
             className="
               mt-5
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[10px]
               uppercase
               tracking-[0.2em]
@@ -219,7 +215,7 @@ export default function Contact_Us_LetsConnect() {
             >
               <p
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[12px]
                   font-bold
                   uppercase
@@ -233,7 +229,7 @@ export default function Contact_Us_LetsConnect() {
               <p
                 className="
                   mt-5
-                  font-['Fraunces']
+                  font-['Playfair_Display',serif]
                   text-2xl
                   font-medium
                   text-[#173C3A]
@@ -245,7 +241,7 @@ export default function Contact_Us_LetsConnect() {
               <p
                 className="
                   mt-2
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-xs
                   font-bold
                   leading-6
@@ -271,7 +267,7 @@ export default function Contact_Us_LetsConnect() {
             >
               <p
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[12px]
                   font-bold
                   uppercase
@@ -287,7 +283,7 @@ export default function Contact_Us_LetsConnect() {
                 className="
                   mt-5
                   block
-                  font-['Fraunces']
+                  font-['Playfair_Display',serif]
                   text-2xl
                   font-medium
                   text-[#173C3A]
@@ -302,7 +298,7 @@ export default function Contact_Us_LetsConnect() {
               <p
                 className="
                   mt-2
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-xs
                   font-bold
                   leading-6
@@ -328,7 +324,7 @@ export default function Contact_Us_LetsConnect() {
             >
               <p
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[12px]
                   font-bold
                   uppercase
@@ -345,7 +341,7 @@ export default function Contact_Us_LetsConnect() {
                   mt-5
                   block
                   break-all
-                  font-['Fraunces']
+                  font-['Playfair_Display',serif]
                   text-xl
                   font-medium
                   text-[#173C3A]
@@ -360,7 +356,7 @@ export default function Contact_Us_LetsConnect() {
               <p
                 className="
                   mt-2
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-xs
                   font-bold
                   leading-6
@@ -386,7 +382,7 @@ export default function Contact_Us_LetsConnect() {
         >
           <p
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[15px]
               font-bold
               uppercase
@@ -402,9 +398,9 @@ export default function Contact_Us_LetsConnect() {
               mx-auto
               mt-3
               max-w-xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-lg
-              font-bold
+              font-medium
               leading-6
               text-[#173C3A]
             "
@@ -431,20 +427,6 @@ export default function Contact_Us_LetsConnect() {
             sm:mt-20
           "
         >
-          <span className="h-px w-10 bg-[#B85128]/50" />
-
-          <span
-            className="
-              font-['Fraunces']
-              text-[15px]
-              italic
-              text-[#173C3A]/70
-            "
-          >
-            India, thoughtfully experienced.
-          </span>
-
-          <span className="h-px w-10 bg-[#B85128]/50" />
         </motion.div>
       </div>
     </section>

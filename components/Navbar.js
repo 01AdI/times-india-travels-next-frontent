@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import {
   ChevronDown,
   ArrowRight,
@@ -18,10 +19,6 @@ import {
   selectTourCategoriesStatus,
 } from "../features/tour-categories/tourCategory_Slice";
 
-/* =========================================================
-   HELPERS
-========================================================= */
-
 function getPackages(categoryData) {
   if (!categoryData) return [];
 
@@ -30,23 +27,10 @@ function getPackages(categoryData) {
     : [];
 }
 
-/*
-  Only categories marked as "show in explore" should
-  appear in the Tour Packages dropdown.
-
-  IMPORTANT:
-  mostLoved / mostPopular / specialPackage do NOT
-  affect this list.
-*/
 function isVisibleInExplore(category) {
   return category?.showInExplore === true;
 }
 
-/*
-  Minimal NavLink shim so the rest of this file can keep using
-  the react-router NavLink API (`to` prop, `className` as a
-  function receiving { isActive }) on top of next/link.
-*/
 function NavLink({ to, className, children, ...rest }) {
   const pathname = usePathname();
   const isActive =
@@ -62,10 +46,6 @@ function NavLink({ to, className, children, ...rest }) {
   );
 }
 
-/* =========================================================
-   NAVBAR
-========================================================= */
-
 export default function Navbar({ initialCategories = [] }) {
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -75,35 +55,14 @@ export default function Navbar({ initialCategories = [] }) {
 
   const [isTourOpen, setIsTourOpen] = useState(false);
 
-  /*
-    Currently selected category.
-
-    Initially null because we don't want
-    packages to appear when the dropdown
-    is first opened.
-  */
   const [activeCategoryId, setActiveCategoryId] =
     useState(null);
 
-  /*
-    Controls whether the package panel
-    is visible.
-
-    false = category-only dropdown
-    true  = category + package dropdown
-  */
   const [showPackages, setShowPackages] =
     useState(false);
 
-  /* =======================================================
-     REDUX TOUR CATEGORIES
-  ======================================================= */
 
   const reduxCategories = useSelector(selectTourCategories);
-
-  // Prefer the server-fetched category list for the first paint (so the
-  // primary nav's Tour Packages dropdown is in the server-rendered HTML),
-  // then switch to the Redux copy once the client fetch completes.
   const categories =
     reduxCategories && reduxCategories.length > 0
       ? reduxCategories
@@ -113,28 +72,11 @@ export default function Navbar({ initialCategories = [] }) {
     selectTourCategoriesStatus
   );
 
-  /* =======================================================
-     FETCH TOUR CATEGORIES
-  ======================================================= */
 
   useEffect(() => {
     dispatch(fetchTourCategories());
   }, [dispatch]);
 
-  /* =======================================================
-     EXPLORE CATEGORIES
-     
-     THIS IS THE IMPORTANT PART.
-
-     We show EVERY category where:
-     
-       showInExplore === true
-     
-     Nothing else matters.
-     
-     mostLoved / mostPopular / specialPackage
-     are completely ignored here.
-  ======================================================= */
 
   const exploreCategories = useMemo(() => {
     if (!Array.isArray(categories)) {
@@ -146,9 +88,6 @@ export default function Navbar({ initialCategories = [] }) {
     );
   }, [categories]);
 
-  /* =======================================================
-     SCROLL / HERO DETECTION
-  ======================================================= */
 
   useEffect(() => {
     const hero = document.querySelector(".hero-section");
@@ -173,9 +112,6 @@ export default function Navbar({ initialCategories = [] }) {
     return () => observer.disconnect();
   }, [pathname]);
 
-  /* =======================================================
-     CLOSE MENUS ON ROUTE CHANGE
-  ======================================================= */
 
   useEffect(() => {
     setIsMobileOpen(false);
@@ -183,10 +119,6 @@ export default function Navbar({ initialCategories = [] }) {
     setShowPackages(false);
     setActiveCategoryId(null);
   }, [pathname]);
-
-  /* =======================================================
-     ACTIVE CATEGORY
-  ======================================================= */
 
   const activeCategoryData = useMemo(() => {
     if (!activeCategoryId) {
@@ -205,34 +137,19 @@ export default function Navbar({ initialCategories = [] }) {
   const activeCategoryIdResolved =
     activeCategoryData?.id;
 
-  /* =======================================================
-     ACTIVE PACKAGES
-  ======================================================= */
-
   const activePackages =
     getPackages(activeCategoryData);
 
-  /* =======================================================
-     CATEGORY HOVER
-  ======================================================= */
 
   const handleCategoryHover = (id) => {
     setActiveCategoryId(id);
     setShowPackages(true);
   };
 
-  /* =======================================================
-     CATEGORY CLICK
-  ======================================================= */
-
   const handleCategoryClick = (id) => {
     setActiveCategoryId(id);
     setShowPackages(true);
   };
-
-  /* =======================================================
-     TOUR DROPDOWN OPEN
-  ======================================================= */
 
   const handleTourOpen = () => {
     setIsTourOpen(true);
@@ -243,10 +160,6 @@ export default function Navbar({ initialCategories = [] }) {
     setShowPackages(false);
     setActiveCategoryId(null);
   };
-
-  /* =======================================================
-     TOUR DROPDOWN CLOSE
-  ======================================================= */
 
   const handleTourClose = () => {
     setIsTourOpen(false);
@@ -259,10 +172,6 @@ export default function Navbar({ initialCategories = [] }) {
     return null;
   }
 
-  /* =======================================================
-     RETURN
-  ======================================================= */
-
   return (
     <header
       className="
@@ -270,7 +179,7 @@ export default function Navbar({ initialCategories = [] }) {
         top-0
         left-0
         right-0
-        z-[100]
+        z-100
         px-4
         sm:px-6
         lg:px-8
@@ -278,11 +187,10 @@ export default function Navbar({ initialCategories = [] }) {
         sm:pt-4
         transition-all
         duration-500
+        font-['Playfair',serif]
+        font-black
       "
     >
-      {/* ===================================================
-          NAVBAR CONTAINER
-      =================================================== */}
 
       <div
         className={`
@@ -295,7 +203,7 @@ export default function Navbar({ initialCategories = [] }) {
           sm:px-7
           lg:px-8
           py-5
-          rounded-[2rem]
+          rounded-4xl
           border
           transition-all
           duration-500
@@ -304,14 +212,14 @@ export default function Navbar({ initialCategories = [] }) {
           ${
             isScrolled
               ? `
-                min-h-[68px]
+                min-h-17
                 bg-[#124d56]/95
                 backdrop-blur-xl
                 border-white/10
                 shadow-[0_12px_35px_-15px_rgba(0,0,0,0.45)]
               `
               : `
-                min-h-[82px]
+                min-h-20.5
                 bg-transparent
                 border-transparent
                 shadow-none
@@ -319,9 +227,6 @@ export default function Navbar({ initialCategories = [] }) {
           }
         `}
       >
-        {/* =================================================
-            LOGO
-        ================================================= */}
 
         <NavLink
           to="/"
@@ -335,9 +240,12 @@ export default function Navbar({ initialCategories = [] }) {
             hover:scale-[1.05]
           "
         >
-          <img
+          <Image
             src="https://res.cloudinary.com/giz8nvjr/image/upload/v1788784258/times_logo_dyybpz_1.png"
             alt="Times India Travels"
+            width={220}
+            height={62}
+            priority
             className={`
               w-auto
               object-contain
@@ -346,16 +254,13 @@ export default function Navbar({ initialCategories = [] }) {
 
               ${
                 isScrolled
-                  ? "h-[48px] sm:h-[52px]"
-                  : "h-[58px] sm:h-[62px]"
+                  ? "h-12 sm:h-13"
+                  : "h-14.5 sm:h-15.5"
               }
             `}
           />
         </NavLink>
-
-        {/* =================================================
-            DESKTOP NAVIGATION
-        ================================================= */}
+        {/* desktop nevigation */}
 
         <nav
           className="
@@ -406,6 +311,7 @@ export default function Navbar({ initialCategories = [] }) {
                 py-2.5
                 rounded-full
                 text-[15px]
+                font-['Playfair_Display',serif]
                 font-medium
                 text-white
                 hover:bg-white/10
@@ -477,7 +383,7 @@ export default function Navbar({ initialCategories = [] }) {
 
                   ${
                     showPackages
-                      ? "w-[700px]"
+                      ? "w-175"
                       : "w-[320px]"
                   }
                 `}
@@ -486,7 +392,7 @@ export default function Navbar({ initialCategories = [] }) {
 
                 <div
                   className="
-                    h-[2px]
+                    h-0.5
                     w-full
                     bg-[#F58634]
                   "
@@ -510,7 +416,7 @@ export default function Navbar({ initialCategories = [] }) {
                       flex
                       flex-col
                       min-h-0
-                      max-h-[430px]
+                      max-h-107.5
                     "
                   >
                     {/* CATEGORY HEADER */}
@@ -525,7 +431,7 @@ export default function Navbar({ initialCategories = [] }) {
                     >
                       <p
                         className="
-                          font-['Inter']
+                          font-['Playfair',serif]
                           text-[10px]
                           font-semibold
                           uppercase
@@ -571,7 +477,7 @@ export default function Navbar({ initialCategories = [] }) {
                                   w-full
                                   animate-pulse
                                   rounded-xl
-                                  bg-white/[0.05]
+                                  bg-white/5
                                 "
                               />
                             )
@@ -623,7 +529,7 @@ export default function Navbar({ initialCategories = [] }) {
                                     `
                                     : `
                                       text-white/65
-                                      hover:bg-white/[0.05]
+                                      hover:bg-white/5
                                       hover:text-white
                                     `
                                 }
@@ -633,7 +539,7 @@ export default function Navbar({ initialCategories = [] }) {
 
                               <span
                                 className="
-                                  font-['Inter']
+                                  font-['Playfair',serif]
                                   text-[12px]
                                   font-medium
                                   leading-5
@@ -678,15 +584,11 @@ export default function Navbar({ initialCategories = [] }) {
                       )}
                     </div>
 
-                    {/* =================================================
-                        EXPLORE ALL TOUR CATEGORIES
-                    ================================================= */}
-
                     <div
                       className="
                         shrink-0
                         border-t
-                        border-white/[0.08]
+                        border-white/8
                         px-3
                         py-3
                       "
@@ -709,7 +611,7 @@ export default function Navbar({ initialCategories = [] }) {
                           py-3
                           rounded-xl
 
-                          bg-white/[0.04]
+                          bg-white/4
                           hover:bg-[#F58634]
 
                           text-[#F58634]
@@ -722,8 +624,8 @@ export default function Navbar({ initialCategories = [] }) {
                         <div className="flex flex-col min-w-0">
                           <span
                             className="
-                              font-['Inter']
-                              text-[11px]
+                              font-['Playfair_Display',serif]
+                              text-[13px]
                               font-semibold
                             "
                           >
@@ -733,7 +635,7 @@ export default function Navbar({ initialCategories = [] }) {
                           <span
                             className="
                               mt-0.5
-                              text-[9px]
+                              text-[11px]
                               text-white/35
                               group-hover:text-white/70
                               transition-colors
@@ -764,9 +666,9 @@ export default function Navbar({ initialCategories = [] }) {
                         min-w-0
                         flex-col
                         border-l
-                        border-white/[0.08]
+                        border-white/8
                         min-h-0
-                        max-h-[430px]
+                        max-h-107.5
                         animate-[fadeIn_0.25s_ease-out]
                       "
                     >
@@ -791,7 +693,7 @@ export default function Navbar({ initialCategories = [] }) {
                           <div className="min-w-0">
                             <p
                               className="
-                                font-['Inter']
+                                font-['Playfair',serif]
                                 text-[10px]
                                 font-semibold
                                 uppercase
@@ -805,7 +707,7 @@ export default function Navbar({ initialCategories = [] }) {
                             <h3
                               className="
                                 mt-1
-                                font-['Fraunces']
+                                font-['Playfair_Display',serif]
                                 text-2xl
                                 font-medium
                                 leading-tight
@@ -952,7 +854,7 @@ export default function Navbar({ initialCategories = [] }) {
                                       py-2.5
                                       transition-all
                                       duration-200
-                                      hover:bg-white/[0.06]
+                                      hover:bg-white/6
                                     "
                                   >
                                     {/* PACKAGE IMAGE */}
@@ -969,16 +871,16 @@ export default function Navbar({ initialCategories = [] }) {
                                           bg-white/5
                                         "
                                       >
-                                        <img
+                                        <Image
                                           src={
                                             packageImage
                                           }
                                           alt={
                                             packageName
                                           }
+                                          fill
+                                          sizes="56px"
                                           className="
-                                            h-full
-                                            w-full
                                             object-cover
                                             transition-transform
                                             duration-500
@@ -993,7 +895,7 @@ export default function Navbar({ initialCategories = [] }) {
                                           w-14
                                           shrink-0
                                           rounded-lg
-                                          bg-white/[0.06]
+                                          bg-white/6
                                         "
                                       />
                                     )}
@@ -1009,7 +911,7 @@ export default function Navbar({ initialCategories = [] }) {
                                       <p
                                         className="
                                           truncate
-                                          font-['Inter']
+                                          font-['Playfair',serif]
                                           text-[12px]
                                           font-medium
                                           text-white/85
@@ -1073,7 +975,7 @@ export default function Navbar({ initialCategories = [] }) {
                             <div>
                               <p
                                 className="
-                                  font-['Fraunces']
+                                  font-['Playfair_Display',serif]
                                   text-lg
                                   text-white/70
                                 "
@@ -1223,7 +1125,7 @@ export default function Navbar({ initialCategories = [] }) {
 
           ${
             isMobileOpen
-              ? "max-h-[600px] opacity-100 mt-2"
+              ? "max-h-150 opacity-100 mt-2"
               : "max-h-0 opacity-0"
           }
         `}
@@ -1352,8 +1254,8 @@ function DesktopNavLink({
         after:absolute
         after:left-4
         after:right-4
-        after:bottom-[3px]
-        after:h-[2px]
+        after:bottom-0.75
+        after:h-0.5
         after:rounded-full
         after:bg-[#C9A24B]
         after:origin-center
@@ -1372,9 +1274,7 @@ function DesktopNavLink({
   );
 }
 
-/* =========================================================
-   MOBILE NAV LINK
-========================================================= */
+// mobile navbar link
 
 function MobileNavLink({
   to,

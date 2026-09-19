@@ -18,7 +18,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
-        className="pointer-events-none absolute -right-6 top-0 select-none font-['Fraunces'] text-[220px] font-medium leading-none tracking-[-0.08em] text-[#124D56]/[0.035] sm:text-[300px] md:text-[380px] lg:text-[460px]"
+        className="pointer-events-none absolute -right-6 top-0 select-none font-['Playfair',serif] text-[220px] font-medium leading-none tracking-[-0.08em] text-[#124D56]/[0.035] sm:text-[300px] md:text-[380px] lg:text-[460px]"
       >
         {sectionNumber}
       </motion.div>
@@ -32,11 +32,11 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             transition={{ duration: 0.7 }}
             className="flex items-center gap-4"
           >
-            <span aria-hidden="true" className="font-['Fraunces'] text-xl italic text-[#B85128]">
+            <span aria-hidden="true" className="font-['Playfair',serif] text-xl italic text-[#B85128]">
               {sectionNumber}
             </span>
             <span className="h-px w-12 bg-[#124D56]/20 sm:w-16" />
-            <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#476763]">
+            <span className="font-['Playfair',serif] text-[11px] font-semibold uppercase tracking-[0.32em] text-[#476763]">
               The Journey
             </span>
           </motion.div>
@@ -48,10 +48,10 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hidden text-right sm:block"
           >
-            <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#476763]/90">
+            <p className="font-['Noto_Sans',sans-serif] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#476763]/90">
               Curated India
             </p>
-            <p className="mt-1 font-['Fraunces'] text-sm italic text-[#476763]/60">
+            <p className="mt-1 font-['Noto_Sans',sans-serif] text-sm italic text-[#476763]/60">
               A considered way to travel
             </p>
           </motion.div>
@@ -64,15 +64,15 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           >
             <div className="mb-6 flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#F58634]" />
-              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
+              <p className="font-['Playfair_Display',serif] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
                 Your route through India
               </p>
             </div>
 
-            <h2 className="max-w-5xl font-['Fraunces'] text-[1.2rem] font-medium leading-[0.93] tracking-[0.055em] text-[#173C3A] sm:text-6xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem]">
+            <h2 className="max-w-5xl font-['Playfair_Display',serif] text-[1.2rem] font-medium leading-[0.93] tracking-[0.055em] text-[#173C3A] sm:text-6xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem]">
               A journey through
               <span className="block italic text-[#B85128] text-[4.2rem]">
-                India's iconic cities.
+                India&apos;s iconic cities.
               </span>
             </h2>
 
@@ -84,7 +84,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
               className="mt-10 h-0.5 bg-[#F58634]"
             />
 
-            <p className="mt-8 max-w-xl font-['Inter'] text-sm leading-7 text-[#476763] sm:text-base">
+            <p className="mt-8 max-w-xl font-['Noto_Sans',sans-serif] text-sm leading-7 text-[#476763] sm:text-base">
               From historic capitals to architectural masterpieces, this
               carefully composed route brings together the places that make
               India unforgettable.
@@ -97,18 +97,18 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           >
             <div className="mb-8 flex items-center gap-4">
               <span className="h-12 w-px bg-[#F58634]" />
-              <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#476763]/70">
+              <span className="font-['Playfair',serif] text-[11px] font-semibold uppercase tracking-[0.3em] text-[#476763]/70">
                 Designed around
                 <br />
                 the way you travel
               </span>
             </div>
 
-            <p className="max-w-lg font-['Fraunces'] text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
+            <p className="max-w-lg font-['Playfair',serif] text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
               Discover India at a pace that leaves room for the details.
             </p>
 
-            <p className="mt-6 max-w-lg font-['Inter'] text-sm leading-7 text-[#476763] sm:text-[15px]">
+            <p className="mt-6 max-w-lg font-['Noto_Sans',sans-serif] text-sm leading-7 text-[#476763] sm:text-[15px]">
               This itinerary connects remarkable cities, historic landmarks
               and unforgettable experiences into one thoughtfully paced
               journey.
@@ -118,7 +118,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
               <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#124D56]/15">
                 <ArrowDownRight className="h-4 w-4 text-[#F58634]" strokeWidth={1.5} aria-hidden="true" />
               </div>
-              <span className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.25em] text-[#124D56]/80">
+              <span className="font-['Playfair',serif] text-[11px] font-semibold uppercase tracking-[0.25em] text-[#124D56]/80">
                 Follow the journey
               </span>
             </div>
@@ -134,14 +134,14 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
         >
           <div className="mb-10 flex items-end justify-between border-b border-[#124D56]/10 pb-5">
             <div>
-              <p className="font-['Inter'] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
+              <p className="font-['Playfair',serif] text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B85128]">
                 The route
               </p>
-              <h3 className="mt-2 font-['Fraunces'] text-2xl font-medium tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
+              <h3 className="mt-2 font-['Playfair_Display',serif] text-2xl font-medium tracking-[-0.02em] text-[#173C3A] sm:text-3xl">
                 Where the story unfolds
               </h3>
             </div>
-            <p className="hidden font-['Inter'] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#476763] sm:block">
+            <p className="hidden font-['Playfair',serif] text-[12px] font-semibold uppercase tracking-[0.2em] text-[#476763] sm:block">
               {route.length} destinations
             </p>
           </div>
@@ -171,17 +171,17 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                   >
                     <div className="mb-7 flex items-center">
                       <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-[#F58634] bg-[#F8F5EF]">
-                        <span className="font-['Inter'] text-[10px] font-bold text-[#F58634]">
+                        <span className="font-['Playfair',serif] text-[10px] font-bold text-[#F58634]">
                           {String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>
 
-                    <p className="font-['Fraunces'] text-xl font-medium leading-tight tracking-[-0.02em] text-[#0B3C49] lg:text-2xl">
+                    <p className="font-['Playfair',serif] text-xl font-medium leading-tight tracking-[-0.02em] text-[#0B3C49] lg:text-2xl">
                       {place}
                     </p>
 
-                    <p className="mt-2 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.2em] text-[#124D56]/40">
+                    <p className="mt-2 font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.2em] text-[#124D56]/40">
                       Stop {String(index + 1).padStart(2, "0")}
                     </p>
                   </motion.div>
@@ -218,11 +218,11 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                       </span>
                     </div>
 
-                    <p className="font-['Fraunces'] text-2xl font-medium tracking-[-0.02em] text-[#0B3C49]">
+                    <p className="font-['Playfair',serif] text-2xl font-medium tracking-[-0.02em] text-[#0B3C49]">
                       {place}
                     </p>
 
-                    <p className="mt-1 font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.2em] text-[#124D56]/40">
+                    <p className="mt-1 font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.2em] text-[#124D56]/40">
                       Stop {String(index + 1).padStart(2, "0")}
                     </p>
                   </motion.div>
@@ -243,16 +243,16 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             <div className="group py-7 sm:py-4 sm:pr-10">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
+                  <p className="font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
                     Duration
                   </p>
                   <div className="mt-3 flex items-baseline gap-3">
-                    <span className="font-['Fraunces'] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
+                    <span className="font-['Playfair_Display',serif] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
                       {duration.days || 0}
                     </span>
-                    <span className="font-['Fraunces'] text-base italic text-[#F58634]">days</span>
+                    <span className="font-['Playfair',serif] text-base italic text-[#F58634]">days</span>
                   </div>
-                  <p className="mt-2 font-['Inter'] text-[10px] text-[#71878B]">
+                  <p className="mt-2 font-['Noto_Sans',sans-serif] text-[12px] text-[#71878B]">
                     {duration.label || "Journey duration"}
                   </p>
                 </div>
@@ -263,16 +263,16 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             <div className="group py-7 sm:px-10 sm:py-4">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
+                  <p className="font-['Playfair_Display',serif] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
                     Destinations
                   </p>
                   <div className="mt-3 flex items-baseline gap-3">
-                    <span className="font-['Fraunces'] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
+                    <span className="font-['Playfair',serif] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
                       {route.length}
                     </span>
-                    <span className="font-['Fraunces'] text-base italic text-[#F58634]">stops</span>
+                    <span className="font-['Playfair',serif] text-base italic text-[#F58634]">stops</span>
                   </div>
-                  <p className="mt-2 font-['Inter'] text-[10px] text-[#71878B]">
+                  <p className="mt-2 font-['Noto_Sans',sans-serif] text-[12px] text-[#71878B]">
                     Places woven into the journey
                   </p>
                 </div>
@@ -283,16 +283,16 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
             <div className="group py-7 sm:py-4 sm:pl-10">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
+                  <p className="font-['Playfair_Display',serif] text-[10px] font-semibold uppercase tracking-[0.28em] text-[#124D56]/90">
                     Itinerary
                   </p>
                   <div className="mt-3 flex items-baseline gap-3">
-                    <span className="font-['Fraunces'] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
+                    <span className="font-['Playfair',serif] text-4xl font-medium tracking-[-0.04em] text-[#0B3C49] sm:text-5xl">
                       {itinerary.length || duration.days || 0}
                     </span>
-                    <span className="font-['Fraunces'] text-base italic text-[#F58634]">days planned</span>
+                    <span className="font-['Playfair',serif] text-base italic text-[#F58634]">days planned</span>
                   </div>
-                  <p className="mt-2 font-['Inter'] text-[10px] text-[#71878B]">
+                  <p className="mt-2 font-['Noto_Sans',sans-serif] text-[12px] text-[#71878B]">
                     Thoughtfully paced exploration
                   </p>
                 </div>
@@ -309,13 +309,13 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
           transition={{ duration: 1, delay: 0.2 }}
           className="mt-20 flex flex-col gap-6 border-t border-[#124D56]/10 pt-8 sm:mt-24 sm:flex-row sm:items-center sm:justify-between"
         >
-          <p className="font-['Fraunces'] text-lg italic text-[#124D56]/70 sm:text-xl">
+          <p className="font-['Playfair',serif] text-lg italic text-[#124D56]/70 sm:text-xl">
             Thoughtfully planned. Beautifully paced.
           </p>
 
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#F58634]" />
-            <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#124D56]">
+            <span className="font-['Playfair',serif] text-[10px] font-semibold uppercase tracking-[0.3em] text-[#124D56]">
               Ready to explore
             </span>
           </div>

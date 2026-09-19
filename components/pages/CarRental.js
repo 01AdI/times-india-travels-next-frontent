@@ -2,7 +2,7 @@ import CarRental_content from "../CarRental_Components/CarRental_Context";
 import CarRental_Enquiry_CTA from "../CarRental_Components/CarRental_Enquiry_CTA";
 import CarRental_Fleet from "../CarRental_Components/CarRental_Fleet";
 import CarRental_Hero from "../CarRental_Components/CarRental_hero";
-import CarRental_Terms_Cond from "../CarRental_Components/CarRental_Terms&Cond";
+import CarRental_Terms_Cond from "../CarRental_Components/CarRental_Terms_Cond";
 import CarRental_WhatsIncluded from "../CarRental_Components/CarRental_WhatsIncluded";
 
 

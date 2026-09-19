@@ -20,12 +20,7 @@ import PhoneInput from "react-phone-input-2";
 
 import CountrySelect from "@/utils/CountrySelect";
 import { createPayNowEnquiry } from "@/services/PublicApi";
-
-const inputClass =
-  "w-full h-[52px] rounded-xl border border-[#124d56]/15 bg-white px-4 py-3 text-sm text-[#0B3C49] placeholder:text-[#124d56]/35 outline-none transition-all duration-300 focus:border-[#F58634] focus:ring-4 focus:ring-[#F58634]/10 disabled:cursor-not-allowed disabled:opacity-60";
-
-const labelClass =
-  "block mb-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] font-semibold text-[#124d56]/65";
+import { inputClass, labelClass } from "@/utils/QuotationFormFields";
 
 const textareaClass =
   "w-full rounded-xl border border-[#124d56]/15 bg-white px-4 py-3 text-sm text-[#0B3C49] placeholder:text-[#124d56]/35 outline-none transition-all duration-300 focus:border-[#F58634] focus:ring-4 focus:ring-[#F58634]/10 resize-none disabled:cursor-not-allowed disabled:opacity-60";

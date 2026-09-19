@@ -75,7 +75,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
 
           <span
             className="
-              font-['Inter']
+              font-['Playfair',serif]
               text-[9px]
               uppercase
               tracking-[0.3em]
@@ -128,7 +128,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
 
             <p
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[10px]
                 font-semibold
                 uppercase
@@ -142,7 +142,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
 
           <h1
             className="
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-5xl
               font-medium
               leading-[0.94]
@@ -162,7 +162,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
 
               <span
                 className="
-                  font-['Inter']
+                  font-['Noto_Sans',sans-serif]
                   text-[10px]
                   font-medium
                   uppercase
@@ -178,7 +178,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
 
             <span
               className="
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-[10px]
                 font-medium
                 uppercase
@@ -210,7 +210,7 @@ export default function TourPackage_Sub_Hero({ tour }) {
       >
         <span
           className="
-            font-['Inter']
+            font-['Noto_Sans',sans-serif]
             text-[8px]
             uppercase
             tracking-[0.25em]

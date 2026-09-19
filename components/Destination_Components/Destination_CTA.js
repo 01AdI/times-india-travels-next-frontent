@@ -47,7 +47,7 @@ export default function Destination_CTA({ data }) {
 
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[10px]
                 font-semibold
                 uppercase
@@ -67,7 +67,7 @@ export default function Destination_CTA({ data }) {
               mx-auto
               mt-7
               max-w-4xl
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-4xl
               font-medium
               leading-[1.05]
@@ -89,7 +89,7 @@ export default function Destination_CTA({ data }) {
               mx-auto
               mt-7
               max-w-2xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               leading-7
               text-white/60
@@ -116,7 +116,7 @@ export default function Destination_CTA({ data }) {
                 bg-[#F58634]
                 px-7
                 py-3.5
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-sm
                 font-semibold
                 text-white
@@ -161,7 +161,7 @@ export default function Destination_CTA({ data }) {
               justify-center
               gap-x-6
               gap-y-3
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-[9px]
               uppercase
               tracking-[0.16em]

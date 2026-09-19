@@ -505,7 +505,7 @@ export default function TermsCondition() {
                 md:text-5xl
               "
             >
-              We're happy to
+              We&apos;re happy to
               <span className="text-cyan-500"> help.</span>
             </h2>
 

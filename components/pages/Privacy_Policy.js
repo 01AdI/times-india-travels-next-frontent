@@ -194,7 +194,7 @@ export default function PrivacyPolicy() {
             "
           >
             We believe that transparency should be part of every
-            traveller's experience. This policy explains how
+            traveller&apos;s experience. This policy explains how
             Times India Travels collects, uses and protects
             information provided through our website.
           </motion.p>
@@ -788,7 +788,7 @@ export default function PrivacyPolicy() {
                   md:text-5xl
                 "
               >
-                We're happy to
+                We&apos;re happy to
                 <span className="text-cyan-500">
                   {" "}help.
                 </span>

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowUpRight, Check, Loader2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 import {
   fetchClientTestimonials,
@@ -152,9 +153,11 @@ export default function Testimonial_Cards({ initialTestimonials = [] }) {
                   <div className="flex min-w-0 items-center gap-4">
 
                     {review.avatar ? (
-                      <img
+                      <Image
                         src={review.avatar}
                         alt={review.name || "Traveller"}
+                        width={48}
+                        height={48}
                         className="
                           h-12
                           w-12

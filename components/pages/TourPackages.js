@@ -5,7 +5,7 @@ export default function TourPackage({ initialCategories = [] }){
     return(
         <>
         <Tour_Hero></Tour_Hero>
-            <Tour_Grid initialCategories={initialCategories}></Tour_Grid>
+        <Tour_Grid initialCategories={initialCategories}></Tour_Grid>
         </>
     )
 }

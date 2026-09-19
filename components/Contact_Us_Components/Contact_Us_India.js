@@ -1,4 +1,5 @@
 import { ArrowRight, MapPin } from "lucide-react";
+import Image from "next/image";
 
 
 export default function Contact_Us_IndiaIsNotADestination() {
@@ -23,12 +24,12 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 sm:h-140
               "
             >
-              <img
-                src="https://i.pinimg.com/736x/fb/67/51/fb67511c3d23f2a1e47c996b104455ae.jpg"
+              <Image
+                src="https://images.unsplash.com/photo-1770791366174-f1b88ef1a367?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="India travel experience"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="
-                  h-full
-                  w-full
                   object-cover
                   transition-transform
                   duration-1200
@@ -86,7 +87,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
                 <span
                   className="
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[8px]
                     font-semibold
                     uppercase
@@ -116,10 +117,12 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 lg:-right-10
               "
             >
-              <img
-                src="https://i.pinimg.com/736x/f4/de/a0/f4dea03f9837a470ac8b28e623e8c976.jpg"
+              <Image
+                src="https://images.unsplash.com/photo-1759998756869-c8eeb78f49e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Discover India"
-                className="h-full w-full object-cover"
+                fill
+                sizes="112px"
+                className="object-cover"
               />
             </div>
 
@@ -133,7 +136,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
               <span
                 className="
-                  font-['Fraunces']
+                  font-['Playfair',serif]
                   text-xl
                   italic
                   text-[#B85128]
@@ -146,7 +149,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
               <span
                 className="
-                  font-['Inter']
+                  font-['Playfair',serif]
                   text-[8px]
                   font-bold
                   uppercase
@@ -163,7 +166,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
 
             <h2
               className="
-                font-['Fraunces']
+                font-['Playfair_Display',serif]
                 text-5xl
                 font-medium
                 leading-[0.94]
@@ -185,7 +188,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
               className="
                 mt-8
                 max-w-lg
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-sm
                 leading-7
                 text-[#476763]
@@ -201,7 +204,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
               className="
                 mt-5
                 max-w-lg
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-sm
                 leading-7
                 text-[#476763]
@@ -222,7 +225,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
               <div>
                 <p
                   className="
-                    font-['Fraunces']
+                    font-['Playfair',serif]
                     text-3xl
                     font-medium
                     text-[#173C3A]
@@ -234,7 +237,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 <p
                   className="
                     mt-2
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[12px]
                     font-bold
                     uppercase
@@ -251,7 +254,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
               <div>
                 <p
                   className="
-                    font-['Fraunces']
+                    font-['Playfair',serif]
                     text-3xl
                     font-medium
                     text-[#173C3A]
@@ -263,7 +266,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 <p
                   className="
                     mt-2
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[12px]
                     font-bold
                     uppercase
@@ -280,7 +283,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
               <div className="col-span-2 sm:col-span-1">
                 <p
                   className="
-                    font-['Fraunces']
+                    font-['Playfair',serif]
                     text-3xl
                     font-medium
                     text-[#173C3A]
@@ -292,7 +295,7 @@ export default function Contact_Us_IndiaIsNotADestination() {
                 <p
                   className="
                     mt-2
-                    font-['Inter']
+                    font-['Playfair',serif]
                     text-[12px]
                     font-bold
                     uppercase

@@ -2,6 +2,7 @@
 
 import { ArrowDownRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Contact_Us_NextJourney() {
   const handlePlanJourney = () => {
@@ -26,19 +27,14 @@ export default function Contact_Us_NextJourney() {
         md:py-44
       "
     >
-      {/* =====================================================
-          BACKGROUND IMAGE
-      ====================================================== */}
 
       <div className="absolute inset-0">
-        <img
-          src="https://i.pinimg.com/1200x/af/81/62/af81620f3bfc60141babe556ae92fd90.jpg"
+        <Image
+          src="https://images.unsplash.com/photo-1662009867642-933d25d401fe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="India journey"
-          className="
-            h-full
-            w-full
-            object-cover
-          "
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
 
         {/* SUBTLE DARK OVERLAY */}
@@ -51,16 +47,13 @@ export default function Contact_Us_NextJourney() {
         />
       </div>
 
-      {/* =====================================================
-          CONTENT
-      ====================================================== */}
 
       <div
         className="
           relative
           z-10
           mx-auto
-          max-w-[1100px]
+          max-w-275
           px-6
           text-center
           sm:px-10
@@ -98,7 +91,7 @@ export default function Contact_Us_NextJourney() {
 
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[9px]
                 font-semibold
                 uppercase
@@ -125,7 +118,7 @@ export default function Contact_Us_NextJourney() {
             className="
               mx-auto
               max-w-4xl
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-5xl
               font-medium
               leading-[0.95]
@@ -149,7 +142,7 @@ export default function Contact_Us_NextJourney() {
               mx-auto
               mt-7
               max-w-xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               font-light
               leading-7
@@ -159,7 +152,7 @@ export default function Contact_Us_NextJourney() {
             "
           >
             Tell us where you want to go, what you want to
-            experience, and we'll take care of the rest.
+            experience, and we&apos;ll take care of the rest.
           </p>
 
           {/* CTA */}
@@ -179,7 +172,7 @@ export default function Contact_Us_NextJourney() {
                 bg-[#F58634]
                 px-7
                 py-4
-                font-['Inter']
+                font-['Noto_Sans',sans-serif]
                 text-[9px]
                 font-bold
                 uppercase
@@ -228,10 +221,6 @@ export default function Contact_Us_NextJourney() {
         </motion.div>
       </div>
 
-      {/* =====================================================
-          SUBTLE BOTTOM FADE
-      ====================================================== */}
-
       <div
         className="
           pointer-events-none
@@ -240,7 +229,7 @@ export default function Contact_Us_NextJourney() {
           left-0
           h-24
           w-full
-          bg-gradient-to-t
+          bg-linear-to-t
           from-[#071F27]
           to-transparent
         "
