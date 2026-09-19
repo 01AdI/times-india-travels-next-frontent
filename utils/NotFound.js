@@ -10,7 +10,7 @@ export default function NotFound() {
     <>
 
 
-      <main className="flex min-h-[75vh] items-center justify-center bg-[#F2FAFB] px-6 py-20">
+      <main className="flex min-h-[75vh] items-center justify-center bg-[#FAF5EB] px-6 py-20">
         <div className="mx-auto max-w-2xl text-center">
 
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#F58634]/10 text-[#F58634]">
@@ -22,14 +22,14 @@ export default function NotFound() {
           </p>
 
           <h1 className="mt-4 font-['Fraunces'] text-5xl font-medium tracking-tight text-[#123138] sm:text-6xl">
-            This journey doesn't exist.
+            This journey doesn&apos;t exist.
           </h1>
 
           <div className="mx-auto mt-6 h-px w-14 bg-[#F58634]" />
 
           <p className="mx-auto mt-7 max-w-xl font-['Inter'] text-sm leading-7 text-[#6D6D6D] sm:text-base">
-            The page you're looking for may have moved, been removed,
-            or the address may be incorrect. Let's get you back on track.
+            The page you&apos;re looking for may have moved, been removed,
+            or the address may be incorrect. Let&apos;s get you back on track.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">

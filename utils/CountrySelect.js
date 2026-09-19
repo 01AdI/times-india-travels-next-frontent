@@ -204,14 +204,6 @@ export default function CountrySelect({
   };
 
   // ============================================================
-  // RESET HIGHLIGHT WHEN SEARCH CHANGES
-  // ============================================================
-
-  useEffect(() => {
-    setHighlightedIndex(0);
-  }, [search]);
-
-  // ============================================================
   // RETURN
   // ============================================================
 
@@ -365,9 +357,10 @@ export default function CountrySelect({
                 ref={inputRef}
                 type="text"
                 value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
-                }
+                onChange={(event) => {
+                  setSearch(event.target.value);
+                  setHighlightedIndex(0);
+                }}
                 onKeyDown={handleKeyDown}
                 placeholder="Search country..."
                 role="searchbox"
@@ -472,7 +465,10 @@ export default function CountrySelect({
 
                 <button
                   type="button"
-                  onClick={() => setSearch("")}
+                  onClick={() => {
+                    setSearch("");
+                    setHighlightedIndex(0);
+                  }}
                   className="
                     mt-2
                     text-sm
