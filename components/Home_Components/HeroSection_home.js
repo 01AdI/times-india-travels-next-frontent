@@ -266,30 +266,25 @@ if (status === "loading" && slides.length === 0) {
 
         </div>
 
-        {/* Progress */}
+        {/* Progress skeleton */}
 
-        <div className="absolute bottom-0 left-0 right-0 px-6 pb-9 md:px-14">
+        <div className="absolute bottom-10 left-6 right-6 md:left-14 md:right-14">
 
-          <div className="relative h-0.5 w-full overflow-hidden bg-white/10">
-
-            <div
-              className="absolute left-0 top-0 h-full w-1/3 animate-[loadingProgress_2s_ease-in-out_infinite]"
-              style={{
-                backgroundColor:
-                  "#C9A24B",
-              }}
-            />
-
-          </div>
-
-          <div className="mt-3 flex justify-between">
-
-            <div className="h-2 w-2 rounded-full bg-[#C9A24B]/50" />
-
-            <div className="h-2 w-2 rounded-full bg-white/10" />
-
-            <div className="h-2 w-2 rounded-full bg-white/10" />
-
+          <div className="flex items-center gap-2">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="h-0.75 flex-1 overflow-hidden rounded-full bg-white/10"
+              >
+                <div
+                  className="h-full w-full -translate-x-full animate-[shimmer_1.8s_infinite]"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+                  }}
+                />
+              </div>
+            ))}
           </div>
 
         </div>
@@ -299,20 +294,6 @@ if (status === "loading" && slides.length === 0) {
             @keyframes shimmer {
               100% {
                 transform: translateX(100%);
-              }
-            }
-
-            @keyframes loadingProgress {
-              0% {
-                transform: translateX(-100%);
-              }
-
-              50% {
-                transform: translateX(100%);
-              }
-
-              100% {
-                transform: translateX(300%);
               }
             }
 
@@ -328,11 +309,19 @@ if (status === "loading" && slides.length === 0) {
               }
             }
 
-            @keyframes travel {
+            @keyframes kenburns {
+              from {
+                transform: scale(1);
+              }
+              to {
+                transform: scale(1.08);
+              }
+            }
+
+            @keyframes fillBar {
               from {
                 width: 0%;
               }
-
               to {
                 width: 100%;
               }
@@ -383,39 +372,66 @@ if (status === "failed" && slides.length === 0) {
 
       {slides.map((slide, index) => {
 
-        const isActive =index === safeCurrent;
+        const isActive = index === safeCurrent;
 
         return (
           <div
             key={slide._id}
-            className={`absolute inset-0 transition-opacity ease-in-out duration-1400 ${isActive?"opacity-100":"opacity-0"}`}
+            className={`absolute inset-0 transition-all ease-out duration-1400 ${
+              isActive
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-[1.03]"
+            }`}
           >
-            {slide.mediaType === "video" ? (
-              <video
-                src={slide.mediaUrl}
-                muted
-                autoPlay
-                loop
-                playsInline
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <Image
-                src={slide.mediaUrl}
-                alt={slide.place || "Times India Travels destination"}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority={index === 0}
-                loading={index === 0 ? "eager" : "lazy"}
-              />
-            )}
+            {/* Ken Burns wrapper: slow zoom only while this slide is active */}
+            <div
+              key={isActive ? `${slide._id}-${progressKey}` : slide._id}
+              className="h-full w-full overflow-hidden"
+            >
+              {slide.mediaType === "video" ? (
+                <video
+                  src={slide.mediaUrl}
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                  style={
+                    isActive
+                      ? {
+                          animation: `kenburns ${SLIDE_DURATION + 1200}ms ease-out forwards`,
+                          transformOrigin: "center",
+                        }
+                      : undefined
+                  }
+                />
+              ) : (
+                <div
+                  className="relative h-full w-full"
+                  style={
+                    isActive
+                      ? {
+                          animation: `kenburns ${SLIDE_DURATION + 1200}ms ease-out forwards`,
+                          transformOrigin: "center",
+                        }
+                      : undefined
+                  }
+                >
+                  <Image
+                    src={slide.mediaUrl}
+                    alt={slide.place || "Times India Travels destination"}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         );
       })}
-
-      <div className="absolute inset-0 bg-[linear-gradient(180deg, rgba(16,26,46,0.55)_0%, rgba(16,26,46,0.15)_32%, rgba(16,26,46,0.35)_70%, rgba(16,26,46,0.92)_100%)]"/>
-      <div className="absolute inset-0 bg-[linear-gradient(90deg, rgba(16,26,46,0.5)_0%, rgba(16,26,46,0)_45%)]"/>
 
       <div className="absolute right-6 top-8 font-['Inter'] text-[11px] text-[#C9A24B] tracking-[0.2em] md:right-14 md:top-10">
 
@@ -435,28 +451,48 @@ if (status === "failed" && slides.length === 0) {
 
       <div className="absolute left-6 right-6 top-[38%] max-w-xl md:left-14">
 
+        {/* Local legibility vignette — darkens just this text region so it
+            stays readable no matter what's behind it, without boxing the whole hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-9 z-0 rounded-4xl md:-inset-12"
+          style={{
+            background:
+              "radial-gradient(65% 85% at 22% 38%, rgba(6,12,24,0.75) 0%, rgba(6,12,24,0.45) 48%, rgba(6,12,24,0) 78%)",
+          }}
+        />
+
         <div
           key={active._id}
-          className="mb-4 flex items-center gap-3 animate-[fadeUp_700ms_ease-out_both]"
+          className="relative z-10 mb-4 inline-flex items-center gap-3 animate-[fadeUp_700ms_ease-out_both]"
         >
 
          {/* Destination */}
-          <span className="shrink-0 text-[14px] font-['Inter'] text-[#D8895E] uppercase tracking-[0.25em]">          
+          <span
+            className="shrink-0 text-[20px] font-bold font-['Playfair',serif] text-[#e0a05f] uppercase tracking-[0.25em]"
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.85)" }}
+          >          
             {active.place}
           </span>
 
           {/* Divider */}
-          <span className="h-px w-6 shrink-0 bg-[#D8895E] opacity-60"/>
+          <span className="h-px w-6 shrink-0 bg-[#e0a05f] opacity-60"/>
 
            <div className="flex h-18 items-center overflow-hidden">
-              <span className="font-['Playfair',serif] text-[13px] font-semibold leading-6 tracking-wide text-[#C7BFA9]">
+              <span
+                className="font-['Playfair',serif] text-[20px] font-bold leading-6 text-white"
+                style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.85)" }}
+              >
               {active.line}
             </span>
           </div>
 
         </div>
 
-        <h1 className="font-['Playfair_Display',serif] text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.05] text-[#F4EFE4]">
+        <h1
+          className="relative z-10 font-['Playfair_Display',serif] text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.05] text-[#F4EFE4]"
+          style={{ textShadow: "0 4px 22px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.55)" }}
+        >
           Bringing the World To{" "}
 
           <span className="italic text-[#C9A24B]">
@@ -465,7 +501,7 @@ if (status === "failed" && slides.length === 0) {
 
         </h1>
 
-        <div className="mt-10 flex flex-wrap items-center gap-5">
+        <div className="relative z-10 mt-10 flex flex-wrap items-center gap-5">
 
           <button
             onClick={scrollToTravel}
@@ -488,7 +524,7 @@ if (status === "failed" && slides.length === 0) {
             onClick={
               scrollToQuotation
             }
-            className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[#C9A24B]/60 bg-[#C9A24B]/5 px-5 py-3 font-['Playfair',serif] text-[13px] uppercase tracking-[0.08em] text-[#F4EFE4] transition-all duration-500 hover:border-[#C9A24B] hover:bg-[#C9A24B] hover:text-[#101A2E]"
+            className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[#C9A24B]/60 bg-[#C9A24B]/5 px-5 py-3 font-['Playfair',serif] text-[13px] uppercase tracking-[0.08em] text-[#F4EFE4] backdrop-blur-[2px] transition-all duration-500 hover:border-[#C9A24B] hover:bg-[#C9A24B] hover:text-[#101A2E]"
           >
             Get a Free Quotation
           </button>
@@ -517,39 +553,38 @@ if (status === "failed" && slides.length === 0) {
 
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 px-6 pb-9 md:px-14">
+      {/* Segmented "story-style" progress indicator, replaces the single yellow bar */}
+      <div className="absolute bottom-9 left-6 right-6 md:left-14 md:right-14">
 
-        <div className="relative h-0.5 w-full bg-[#F4EFE4]/15">
+        <div className="flex items-center gap-2">
 
-          <div
-            key={progressKey}
-            className="absolute left-0 top-0 h-full bg-[#C9A24B]"
-            style={{
-              animation: `travel ${SLIDE_DURATION}ms linear forwards`,
-            }}
-          />
+          {slides.map((slide, index) => {
+            const isPassed = index < safeCurrent;
+            const isActive = index === safeCurrent;
 
-          <div className="absolute inset-0 flex justify-between">
-
-            {slides.map((slide, index) => {
-              const isPassed = index <= safeCurrent;
-
-              return (
-                <button
-                  key={slide._id}
-                  onClick={() => goTo(index)}
-                  aria-label={`Go to ${slide.place}`}
-                  className={`-mt-1.25 h-3 w-3 -translate-x-1/2 rounded-full transition-all duration-300 ${
-                    isPassed
-                      ? "bg-[#e1b453] opacity-100"
-                      : "bg-[#F4EFE4] opacity-30"
+            return (
+              <button
+                key={slide._id}
+                onClick={() => goTo(index)}
+                aria-label={`Go to ${slide.place}`}
+                className="group relative h-0.75 flex-1 cursor-pointer overflow-hidden rounded-full bg-[#F4EFE4]/15"
+              >
+                <span
+                  key={isActive ? `${slide._id}-${progressKey}` : slide._id}
+                  className={`absolute inset-y-0 left-0 block rounded-full bg-linear-to-r from-[#C9A24B] to-[#f0d38a] shadow-[0_0_6px_rgba(201,162,75,0.55)] ${
+                    isPassed ? "w-full" : !isActive ? "w-0" : ""
                   }`}
+                  style={
+                    isActive
+                      ? {
+                          animation: `fillBar ${SLIDE_DURATION}ms linear forwards`,
+                        }
+                      : undefined
+                  }
                 />
-              );
-            }
-            )}
-
-          </div>
+              </button>
+            );
+          })}
 
         </div>
 
