@@ -576,6 +576,10 @@ function DestinationSection({ initialDestinations = [] }) {
                     "
                   />
 
+                  {/*
+                    Active-card scrim: always on so the always-visible text
+                    below stays legible against the photo, at every breakpoint.
+                  */}
                   {isActive && (
                     <div
                       className="
@@ -586,12 +590,6 @@ function DestinationSection({ initialDestinations = [] }) {
                         from-black/90
                         via-black/40
                         to-black/10
-                        opacity-100
-                        transition-opacity
-                        duration-500
-
-                        lg:opacity-0
-                        lg:group-hover:opacity-100
                       "
                     />
                   )}
@@ -645,6 +643,11 @@ function DestinationSection({ initialDestinations = [] }) {
                     </div>
                   )}
 
+                  {/*
+                    Active-card text: always visible at every breakpoint,
+                    not gated behind hover. Only the layout (padding, sizes)
+                    still adapts responsively.
+                  */}
                   {isActive && (
                     <div
                       className="
@@ -656,17 +659,9 @@ function DestinationSection({ initialDestinations = [] }) {
                         translate-y-0
                         p-5
                         opacity-100
-                        transition-all
-                        duration-500
-
                         sm:p-7
                         md:p-9
-
-                        lg:translate-y-5
                         lg:p-12
-                        lg:opacity-0
-                        lg:group-hover:translate-y-0
-                        lg:group-hover:opacity-100
                       "
                     >
                       <div
