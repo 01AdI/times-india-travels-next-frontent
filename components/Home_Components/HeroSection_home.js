@@ -106,7 +106,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
 
 if (status === "loading" && slides.length === 0) {
     return (
-      <section className="relative h-screen w-screen overflow-hidden bg-[#101A2E] text-[#F4EFE4]">
+      <section className="relative h-dvh w-full overflow-hidden bg-[#101A2E] text-[#F4EFE4]">
 
         {/* Background */}
 
@@ -160,7 +160,7 @@ if (status === "loading" && slides.length === 0) {
 
         {/* Main content */}
 
-        <div className="absolute left-6 right-6 top-[38%] max-w-xl md:left-14">
+        <div className="absolute left-5 right-5 top-[30%] max-w-xl sm:left-6 sm:right-6 sm:top-[38%] md:left-14">
 
           {/* Destination */}
 
@@ -258,7 +258,7 @@ if (status === "loading" && slides.length === 0) {
 
         {/* Arrows */}
 
-        <div className="absolute bottom-32 right-6 flex gap-3 md:bottom-36 md:right-14">
+        <div className="absolute bottom-24 right-5 flex gap-3 sm:bottom-32 sm:right-6 md:bottom-36 md:right-14">
 
           <div className="h-10 w-10 rounded-full border border-white/10 bg-white/5" />
 
@@ -268,7 +268,7 @@ if (status === "loading" && slides.length === 0) {
 
         {/* Progress skeleton */}
 
-        <div className="absolute bottom-10 left-6 right-6 md:left-14 md:right-14">
+        <div className="absolute bottom-6 left-5 right-5 sm:bottom-9 sm:left-6 sm:right-6 md:left-14 md:right-14">
 
           <div className="flex items-center gap-2">
             {[0, 1, 2].map((i) => (
@@ -335,7 +335,7 @@ if (status === "loading" && slides.length === 0) {
 
 if (status === "failed" && slides.length === 0) {
     return (
-      <section className="flex h-screen w-screen items-center justify-center bg-[#101A2E] px-6 text-white">
+      <section className="flex h-dvh w-full items-center justify-center bg-[#101A2E] px-6 text-white">
 
         <div className="text-center">
 
@@ -368,7 +368,7 @@ if (status === "failed" && slides.length === 0) {
   }
 
   return (
-    <section className="hero-section relative h-screen w-screen overflow-hidden text-[#F4EFE4] bg-[#101A2E]">
+    <section className="hero-section relative h-dvh w-full overflow-hidden text-[#F4EFE4] bg-[#101A2E]">
 
       {slides.map((slide, index) => {
 
@@ -449,7 +449,7 @@ if (status === "failed" && slides.length === 0) {
 
       </div>
 
-      <div className="absolute left-6 right-6 top-[38%] max-w-xl md:left-14">
+      <div className="absolute left-5 right-5 top-[30%] max-w-xl sm:left-6 sm:right-6 sm:top-[38%] md:left-14">
 
         {/* Local legibility vignette — darkens just this text region so it
             stays readable no matter what's behind it, without boxing the whole hero */}
@@ -464,12 +464,12 @@ if (status === "failed" && slides.length === 0) {
 
         <div
           key={active._id}
-          className="relative z-10 mb-4 inline-flex items-center gap-3 animate-[fadeUp_700ms_ease-out_both]"
+          className="relative z-10 mb-4 flex flex-wrap items-center gap-2 sm:gap-3 animate-[fadeUp_700ms_ease-out_both]"
         >
 
          {/* Destination */}
           <span
-            className="shrink-0 text-[20px] font-bold font-['Playfair',serif] text-[#e0a05f] uppercase tracking-[0.25em]"
+            className="shrink-0 text-[15px] sm:text-[18px] md:text-[20px] font-bold font-['Playfair',serif] text-[#e0a05f] uppercase tracking-[0.15em] sm:tracking-[0.25em]"
             style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.85)" }}
           >          
             {active.place}
@@ -478,9 +478,9 @@ if (status === "failed" && slides.length === 0) {
           {/* Divider */}
           <span className="h-px w-6 shrink-0 bg-[#e0a05f] opacity-60"/>
 
-           <div className="flex h-18 items-center overflow-hidden">
+           <div className="flex min-h-9 items-center">
               <span
-                className="font-['Playfair',serif] text-[20px] font-bold leading-6 text-white"
+                className="font-['Playfair',serif] text-[15px] sm:text-[18px] md:text-[20px] font-bold leading-6 text-white"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.85)" }}
               >
               {active.line}
@@ -490,7 +490,7 @@ if (status === "failed" && slides.length === 0) {
         </div>
 
         <h1
-          className="relative z-10 font-['Playfair_Display',serif] text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.05] text-[#F4EFE4]"
+          className="relative z-10 font-['Playfair_Display',serif] text-[clamp(1.9rem,8vw,4rem)] font-medium leading-[1.08] text-[#F4EFE4]"
           style={{ textShadow: "0 4px 22px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.55)" }}
         >
           Bringing the World To{" "}
@@ -501,7 +501,7 @@ if (status === "failed" && slides.length === 0) {
 
         </h1>
 
-        <div className="relative z-10 mt-10 flex flex-wrap items-center gap-5">
+        <div className="relative z-10 mt-6 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-5">
 
           <button
             onClick={scrollToTravel}
@@ -533,7 +533,7 @@ if (status === "failed" && slides.length === 0) {
 
       </div>
 
-      <div className="absolute bottom-32 right-6 flex gap-3 md:bottom-36 md:right-14">
+      <div className="absolute bottom-24 right-5 flex gap-3 sm:bottom-32 sm:right-6 md:bottom-36 md:right-14">
 
         <button
           onClick={prev}
@@ -554,7 +554,7 @@ if (status === "failed" && slides.length === 0) {
       </div>
 
       {/* Segmented "story-style" progress indicator, replaces the single yellow bar */}
-      <div className="absolute bottom-9 left-6 right-6 md:left-14 md:right-14">
+      <div className="absolute bottom-6 left-5 right-5 sm:bottom-9 sm:left-6 sm:right-6 md:left-14 md:right-14">
 
         <div className="flex items-center gap-2">
 
