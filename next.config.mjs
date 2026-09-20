@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  // Gzip/Brotli-compress responses (faster TTFB/LCP -> helps Core Web
-  // Vitals, which factor into real-world SEO/search performance).
+
   compress: true,
 
   // Don't leak the framework in a response header.
@@ -10,6 +10,8 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
+    loader: "custom",
+    loaderFile: "./lib/cdnImageLoader.js",
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
