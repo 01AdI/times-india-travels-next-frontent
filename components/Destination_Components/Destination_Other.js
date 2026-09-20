@@ -53,7 +53,7 @@ export default function Destination_Other({ data }) {
 
             <span
               className="
-                font-['Inter']
+                font-['Playfair',serif]
                 text-[10px]
                 font-semibold
                 uppercase
@@ -70,7 +70,7 @@ export default function Destination_Other({ data }) {
 
           <h2
             className="
-              font-['Fraunces']
+              font-['Playfair_Display',serif]
               text-4xl
               font-medium
               leading-[1.05]
@@ -90,7 +90,7 @@ export default function Destination_Other({ data }) {
             className="
               mt-6
               max-w-2xl
-              font-['Inter']
+              font-['Noto_Sans',sans-serif]
               text-sm
               leading-7
               text-[#476763]/60
@@ -134,7 +134,7 @@ export default function Destination_Other({ data }) {
               }}
             >
               <Link
-                href={`/destination/${destination.id}`}
+                href={`/destinations/${destination.id}`}
                 className="
                   group
                   relative
