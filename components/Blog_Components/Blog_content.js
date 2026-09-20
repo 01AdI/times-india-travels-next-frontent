@@ -46,11 +46,13 @@ function MetaRow({ date, readTime, light = false }) {
       className={`
         flex
         items-center
-        gap-3
+        gap-2.5
         font-['IBM_Plex_Mono']
-        text-[10px]
+        text-[9px]
         uppercase
         tracking-wider
+        sm:gap-3
+        sm:text-[10px]
         ${light ? "text-white/55" : "text-[#0B3C49]/40"}
       `}
     >
@@ -61,6 +63,7 @@ function MetaRow({ date, readTime, light = false }) {
           className={`
             h-1
             w-1
+            shrink-0
             rounded-full
             ${light ? "bg-white/30" : "bg-[#0B3C49]/25"}
           `}
@@ -86,19 +89,23 @@ function FeaturedStory({ blog }) {
       className="
         group
         relative
-        mb-14
+        mb-8
         overflow-hidden
-        rounded-4xl
+        rounded-3xl
         bg-[#0B3C49]
-        shadow-[0_25px_70px_rgba(11,60,73,0.12)]
+        shadow-[0_15px_40px_rgba(11,60,73,0.12)]
+        md:mb-14
+        md:rounded-4xl
+        md:shadow-[0_25px_70px_rgba(11,60,73,0.12)]
       "
     >
       <div className="absolute inset-0 overflow-hidden">
         <Image
           src={image}
-          alt={blog.title}
+          alt={blog.title || "Featured story"}
           fill
           sizes="100vw"
+          quality={80}
           className="
             object-cover
             transition-transform
@@ -107,6 +114,7 @@ function FeaturedStory({ blog }) {
             group-hover:scale-[1.07]
           "
           priority
+          fetchPriority="high"
           onError={(event) => {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
@@ -116,10 +124,14 @@ function FeaturedStory({ blog }) {
           className="
             absolute
             inset-0
-            bg-linear-to-r
+            bg-linear-to-t
             from-black/90
-            via-black/55
+            via-black/45
             to-black/10
+            md:bg-linear-to-r
+            md:from-black/90
+            md:via-black/55
+            md:to-black/10
           "
         />
 
@@ -130,8 +142,8 @@ function FeaturedStory({ blog }) {
             bottom-0
             h-2/3
             bg-linear-to-t
-            from-black/90
-            via-black/40
+            from-black/95
+            via-black/50
             to-transparent
           "
         />
@@ -140,21 +152,24 @@ function FeaturedStory({ blog }) {
       <div
         className="
           absolute
-          left-7
-          top-7
+          left-4
+          top-4
           z-10
           flex
           items-center
-          gap-4
+          gap-3
+          sm:left-7
+          sm:top-7
           md:left-10
           md:top-10
+          md:gap-4
         "
       >
         <div
           className="
             flex
-            h-12
-            w-12
+            h-9
+            w-9
             items-center
             justify-center
             rounded-full
@@ -162,15 +177,11 @@ function FeaturedStory({ blog }) {
             border-white/25
             bg-black/30
             backdrop-blur-md
+            sm:h-12
+            sm:w-12
           "
         >
-          <span
-            className="
-              font-['IBM_Plex_Mono']
-              text-[11px]
-              text-white
-            "
-          >
+          <span className="font-['IBM_Plex_Mono'] text-[9px] text-white sm:text-[11px]">
             01
           </span>
         </div>
@@ -180,11 +191,13 @@ function FeaturedStory({ blog }) {
         <span
           className="
             font-['Playfair',serif]
-            text-[10px]
+            text-[9px]
             font-semibold
             uppercase
-            tracking-[0.25em]
+            tracking-[0.2em]
             text-white/75
+            sm:text-[10px]
+            sm:tracking-[0.25em]
           "
         >
           Featured story
@@ -196,10 +209,16 @@ function FeaturedStory({ blog }) {
           relative
           z-10
           flex
-          min-h-155
+          min-h-[420px]
           items-end
-          p-7
+          p-5
+          pt-24
+          sm:min-h-[520px]
+          sm:p-8
+          sm:pt-28
+          md:min-h-155
           md:p-10
+          md:pt-10
           lg:p-14
         "
       >
@@ -211,16 +230,18 @@ function FeaturedStory({ blog }) {
             group-hover:-translate-y-2
           "
         >
-          <div className="mb-5 flex flex-wrap items-center gap-3">
+          <div className="mb-3 flex flex-wrap items-center gap-2 sm:mb-5 sm:gap-3">
             {blog.category && (
               <span
                 className="
                   font-['Inter']
-                  text-[10px]
+                  text-[9px]
                   font-bold
                   uppercase
-                  tracking-[0.22em]
+                  tracking-[0.18em]
                   text-[#F58634]
+                  sm:text-[10px]
+                  sm:tracking-[0.22em]
                 "
               >
                 {blog.category}
@@ -228,7 +249,7 @@ function FeaturedStory({ blog }) {
             )}
 
             {blog.category && blog.tags?.length > 0 && (
-              <span className="h-px w-8 bg-[#F58634]/70" />
+              <span className="h-px w-6 bg-[#F58634]/70 sm:w-8" />
             )}
 
             {blog.tags?.length > 0 && (
@@ -251,11 +272,12 @@ function FeaturedStory({ blog }) {
             className="
               max-w-3xl
               font-['Fraunces']
-              text-[clamp(2.4rem,5vw,4.7rem)]
+              text-[clamp(1.9rem,7vw,4.7rem)]
               font-medium
-              leading-[0.98]
+              leading-[1.02]
               tracking-tight
               text-white
+              sm:leading-[0.98]
             "
           >
             {blog.title}
@@ -263,12 +285,15 @@ function FeaturedStory({ blog }) {
 
           <p
             className="
-              mt-6
+              mt-3
               max-w-2xl
               font-['Inter']
-              text-[14px]
-              leading-[1.75]
+              text-[13px]
+              leading-[1.65]
               text-white/70
+              sm:mt-6
+              sm:text-[14px]
+              sm:leading-[1.75]
               md:text-[15px]
             "
           >
@@ -277,13 +302,16 @@ function FeaturedStory({ blog }) {
 
           <div
             className="
-              mt-8
+              mt-5
               flex
               flex-col
-              gap-5
+              items-start
+              gap-4
+              sm:mt-8
               sm:flex-row
               sm:items-center
               sm:justify-between
+              sm:gap-5
             "
           >
             <MetaRow date={date} readTime={readTime} light />
@@ -296,19 +324,23 @@ function FeaturedStory({ blog }) {
                 w-fit
                 cursor-pointer
                 items-center
-                gap-3
+                gap-2.5
                 border-b
                 border-white/30
                 pb-2
                 font-['Inter']
-                text-[11px]
+                text-[10px]
                 font-semibold
                 uppercase
-                tracking-[0.16em]
+                tracking-[0.14em]
                 text-white
                 transition-all
                 duration-500
                 hover:border-[#F58634]
+                active:border-[#F58634]
+                sm:gap-3
+                sm:text-[11px]
+                sm:tracking-[0.16em]
               "
             >
               <span>Explore story</span>
@@ -316,8 +348,9 @@ function FeaturedStory({ blog }) {
               <span
                 className="
                   flex
-                  h-7
-                  w-7
+                  h-6
+                  w-6
+                  shrink-0
                   items-center
                   justify-center
                   rounded-full
@@ -325,9 +358,11 @@ function FeaturedStory({ blog }) {
                   transition-transform
                   duration-500
                   group-hover:translate-x-2
+                  sm:h-7
+                  sm:w-7
                 "
               >
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </span>
             </button>
           </div>
@@ -335,12 +370,15 @@ function FeaturedStory({ blog }) {
           {blog.author && (
             <p
               className="
-                mt-5
+                mt-3
                 font-['IBM_Plex_Mono']
-                text-[9px]
+                text-[8px]
                 uppercase
-                tracking-[0.08em]
+                tracking-[0.06em]
                 text-white/35
+                sm:mt-5
+                sm:text-[9px]
+                sm:tracking-[0.08em]
               "
             >
               By {blog.author}
@@ -366,14 +404,15 @@ function JournalCard({ blog, number, expanded, onToggle }) {
       className={`
         group
         overflow-hidden
-        rounded-[28px]
+        rounded-3xl
         transition-all
         duration-700
         ease-[cubic-bezier(0.22,1,0.36,1)]
+        sm:rounded-[28px]
         ${
           expanded
-            ? "min-h-140 bg-[#0B3C49] shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
-            : "bg-transparent shadow-[0_8px_30px_rgba(11,60,73,0.04)]"
+            ? "min-h-[440px] bg-[#0B3C49] shadow-[0_20px_50px_rgba(11,60,73,0.22)] sm:min-h-[480px] md:min-h-140 md:shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
+            : "bg-transparent shadow-[0_6px_20px_rgba(11,60,73,0.04)] sm:shadow-[0_8px_30px_rgba(11,60,73,0.04)]"
         }
       `}
     >
@@ -386,18 +425,21 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           transition-all
           duration-700
           ease-[cubic-bezier(0.22,1,0.36,1)]
+          rounded-3xl
+          sm:rounded-[26px]
           ${
             expanded
-              ? "min-h-140 rounded-[28px]"
-              : "aspect-16/11 rounded-[26px]"
+              ? "min-h-[440px] sm:min-h-[480px] md:min-h-140"
+              : "aspect-4/3 sm:aspect-16/11"
           }
         `}
       >
         <Image
           src={image}
-          alt={blog.title}
+          alt={blog.title || "Journal story"}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
+          quality={80}
           className={`
             object-cover
             transition-transform
@@ -432,24 +474,27 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           className={`
             absolute
             inset-0
+            hidden
             bg-linear-to-r
             from-black/75
             via-transparent
             to-transparent
             transition-opacity
             duration-700
+            sm:block
             ${expanded ? "opacity-100" : "opacity-0"}
           `}
         />
 
+        {/* Number badge */}
         <div
           className="
             absolute
-            left-5
-            top-5
+            left-3.5
+            top-3.5
             flex
-            h-11
-            w-11
+            h-9
+            w-9
             items-center
             justify-center
             rounded-full
@@ -457,42 +502,47 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             border-white/25
             bg-black/30
             backdrop-blur-md
+            sm:left-5
+            sm:top-5
+            sm:h-11
+            sm:w-11
           "
         >
-          <span
-            className="
-              font-['IBM_Plex_Mono']
-              text-[10px]
-              text-white
-            "
-          >
+          <span className="font-['IBM_Plex_Mono'] text-[9px] text-white sm:text-[10px]">
             {String(number).padStart(2, "0")}
           </span>
         </div>
 
+        {/* Category badge */}
         {blog.category && (
           <div
             className="
               absolute
-              right-5
-              top-5
+              right-3.5
+              top-3.5
               rounded-full
               border
               border-white/20
               bg-black/30
-              px-3.5
-              py-2
+              px-3
+              py-1.5
               backdrop-blur-md
+              sm:right-5
+              sm:top-5
+              sm:px-3.5
+              sm:py-2
             "
           >
             <span
               className="
                 font-['Playfair',serif]
-                text-[9px]
+                text-[8px]
                 font-semibold
                 uppercase
-                tracking-[0.16em]
+                tracking-[0.14em]
                 text-white
+                sm:text-[9px]
+                sm:tracking-[0.16em]
               "
             >
               {blog.category}
@@ -500,30 +550,34 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           </div>
         )}
 
+        {/* Collapsed preview text */}
         <div
           className={`
             absolute
             inset-x-0
             bottom-0
-            p-5
+            p-4
             transition-all
             duration-500
+            sm:p-5
             ${
               expanded ? "translate-y-5 opacity-0" : "translate-y-0 opacity-100"
             }
           `}
         >
-          <div className="mb-3 flex items-center gap-2">
-            <span className="h-px w-6 bg-[#F58634]" />
+          <div className="mb-2.5 flex items-center gap-2 sm:mb-3">
+            <span className="h-px w-5 bg-[#F58634] sm:w-6" />
 
             {blog.tags?.length > 0 ? (
               <span
                 className="
                   font-['Playfair',serif]
-                  text-[9px]
+                  text-[8px]
                   uppercase
-                  tracking-[0.08em]
+                  tracking-[0.06em]
                   text-white/70
+                  sm:text-[9px]
+                  sm:tracking-[0.08em]
                 "
               >
                 {blog.tags.slice(0, 3).join(" · ")}
@@ -533,10 +587,12 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                 <span
                   className="
                     font-['Playfair',serif]
-                    text-[9px]
+                    text-[8px]
                     uppercase
-                    tracking-[0.08em]
+                    tracking-[0.06em]
                     text-white/70
+                    sm:text-[9px]
+                    sm:tracking-[0.08em]
                   "
                 >
                   {blog.category}
@@ -549,24 +605,27 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             className="
               max-w-lg
               font-['Playfair_Display',serif]
-              text-[clamp(1.5rem,2.6vw,2.2rem)]
+              text-[clamp(1.25rem,5vw,2.2rem)]
               font-medium
-              leading-[1.08]
+              leading-[1.1]
               text-white
+              sm:leading-[1.08]
             "
           >
             {blog.title}
           </h3>
         </div>
 
+        {/* Expanded content */}
         <div
           className={`
             absolute
             inset-x-0
             bottom-0
-            p-7
+            p-5
             transition-all
             duration-700
+            sm:p-7
             md:p-10
             lg:p-12
             ${
@@ -577,16 +636,18 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           `}
         >
           <div className="max-w-3xl">
-            <div className="mb-5 flex flex-wrap items-center gap-3">
+            <div className="mb-3 flex flex-wrap items-center gap-2 sm:mb-5 sm:gap-3">
               {blog.category && (
                 <span
                   className="
                     font-['Inter']
-                    text-[10px]
+                    text-[9px]
                     font-bold
                     uppercase
-                    tracking-[0.22em]
+                    tracking-[0.18em]
                     text-[#F58634]
+                    sm:text-[10px]
+                    sm:tracking-[0.22em]
                   "
                 >
                   {blog.category}
@@ -594,17 +655,19 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               )}
 
               {blog.category && blog.tags?.length > 0 && (
-                <span className="h-px w-8 bg-[#F58634]/70" />
+                <span className="h-px w-6 bg-[#F58634]/70 sm:w-8" />
               )}
 
               {blog.tags?.length > 0 && (
                 <span
                   className="
+                    hidden
                     font-['IBM_Plex_Mono']
                     text-[9px]
                     uppercase
                     tracking-[0.06em]
                     text-white/55
+                    sm:block
                   "
                 >
                   {blog.tags.slice(0, 4).join(" · ")}
@@ -616,11 +679,13 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               className="
                 max-w-3xl
                 font-['Playfair_Display',serif]
-                text-[clamp(2rem,4vw,3.6rem)]
+                text-[clamp(1.5rem,7vw,3.6rem)]
                 font-medium
-                leading-none
-                tracking-[-0.02em]
+                leading-[1.05]
+                tracking-[-0.01em]
                 text-white
+                sm:leading-none
+                sm:tracking-[-0.02em]
               "
             >
               {blog.title}
@@ -628,12 +693,15 @@ function JournalCard({ blog, number, expanded, onToggle }) {
 
             <p
               className="
-                mt-5
+                mt-3
                 max-w-2xl
                 font-['Noto_Sans',sans-serif]
-                text-[13px]
-                leading-[1.8]
+                text-[12px]
+                leading-[1.7]
                 text-white/70
+                sm:mt-5
+                sm:text-[13px]
+                sm:leading-[1.8]
                 md:text-[14px]
               "
             >
@@ -643,12 +711,15 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             {blog.author && (
               <p
                 className="
-                  mt-4
+                  mt-3
                   font-['Noto_Sans',sans-serif]
-                  text-[9px]
+                  text-[8px]
                   uppercase
-                  tracking-[0.08em]
+                  tracking-[0.06em]
                   text-white/35
+                  sm:mt-4
+                  sm:text-[9px]
+                  sm:tracking-[0.08em]
                 "
               >
                 By {blog.author}
@@ -657,13 +728,16 @@ function JournalCard({ blog, number, expanded, onToggle }) {
 
             <div
               className="
-                mt-7
+                mt-5
                 flex
                 flex-col
-                gap-5
+                items-start
+                gap-4
+                sm:mt-7
                 sm:flex-row
                 sm:items-center
                 sm:justify-between
+                sm:gap-5
               "
             >
               <MetaRow date={date} readTime={readTime} light />
@@ -680,20 +754,24 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                   w-fit
                   cursor-pointer
                   items-center
-                  gap-3
+                  gap-2.5
                   border-b
                   border-[#F58634]/50
                   bg-transparent
                   pb-2
                   font-['Inter']
-                  text-[11px]
+                  text-[10px]
                   font-bold
                   uppercase
-                  tracking-[0.16em]
+                  tracking-[0.14em]
                   text-white
                   transition-all
                   duration-300
                   hover:border-[#F58634]
+                  active:border-[#F58634]
+                  sm:gap-3
+                  sm:text-[11px]
+                  sm:tracking-[0.16em]
                 "
               >
                 <span>Read More</span>
@@ -701,8 +779,9 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                 <span
                   className="
                     flex
-                    h-7
-                    w-7
+                    h-6
+                    w-6
+                    shrink-0
                     items-center
                     justify-center
                     rounded-full
@@ -711,9 +790,11 @@ function JournalCard({ blog, number, expanded, onToggle }) {
                     transition-transform
                     duration-300
                     group-hover/read:translate-x-1
+                    sm:h-7
+                    sm:w-7
                   "
                 >
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
               </button>
             </div>
@@ -729,12 +810,12 @@ function JournalCard({ blog, number, expanded, onToggle }) {
             }}
             className="
               absolute
-              right-6
-              top-6
+              right-4
+              top-4
               z-20
               flex
-              h-9
-              w-9
+              h-8
+              w-8
               items-center
               justify-center
               rounded-full
@@ -742,7 +823,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               border-white/20
               bg-black/40
               font-['Inter']
-              text-lg
+              text-base
               font-light
               text-white
               backdrop-blur-md
@@ -750,10 +831,16 @@ function JournalCard({ blog, number, expanded, onToggle }) {
               duration-300
               hover:rotate-90
               hover:bg-black/70
+              active:bg-black/70
+              sm:right-6
+              sm:top-6
+              sm:h-9
+              sm:w-9
+              sm:text-lg
             "
             aria-label="Close story"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
         )}
       </div>
@@ -875,30 +962,35 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
   if (status === "loading" && blogs.length === 0) {
     return (
-      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center py-24 text-center">
+      <section className="bg-[#FAF5EB] px-4 py-14 sm:px-5 sm:py-20 md:px-10 lg:px-16">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center py-16 text-center sm:py-24">
           <div
             className="
               flex
-              h-14
-              w-14
+              h-12
+              w-12
               items-center
               justify-center
               rounded-full
               bg-[#124D56]/8
+              sm:h-14
+              sm:w-14
             "
           >
-            <Loader2 className="h-6 w-6 animate-spin text-[#124D56]" />
+            <Loader2 className="h-5 w-5 animate-spin text-[#124D56] sm:h-6 sm:w-6" />
           </div>
 
           <p
             className="
-              mt-5
+              mt-4
               font-['IBM_Plex_Mono']
-              text-[10px]
+              text-[9px]
               uppercase
-              tracking-[0.2em]
+              tracking-[0.18em]
               text-[#124D56]/45
+              sm:mt-5
+              sm:text-[10px]
+              sm:tracking-[0.2em]
             "
           >
             Loading journal
@@ -910,16 +1002,18 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
   if (status === "failed" && blogs.length === 0) {
     return (
-      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
-        <div className="mx-auto max-w-3xl py-20 text-center">
+      <section className="bg-[#FAF5EB] px-4 py-14 sm:px-5 sm:py-20 md:px-10 lg:px-16">
+        <div className="mx-auto max-w-3xl py-14 text-center sm:py-20">
           <span
             className="
               font-['Inter']
-              text-[10px]
+              text-[9px]
               font-bold
               uppercase
-              tracking-[0.25em]
+              tracking-[0.2em]
               text-[#F58634]
+              sm:text-[10px]
+              sm:tracking-[0.25em]
             "
           >
             The Journal
@@ -929,7 +1023,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
             className="
               mt-4
               font-['Fraunces']
-              text-4xl
+              text-[clamp(1.75rem,7vw,2.25rem)]
               font-medium
               text-[#0B3C49]
             "
@@ -943,9 +1037,10 @@ export default function BlogJournal({ initialBlogs = [] }) {
               mt-4
               max-w-lg
               font-['Inter']
-              text-sm
+              text-[13px]
               leading-relaxed
               text-[#124D56]/60
+              sm:text-sm
             "
           >
             {error || "Something went wrong while loading our travel journal."}
@@ -962,7 +1057,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
               )
             }
             className="
-              mt-7
+              mt-6
               cursor-pointer
               rounded-full
               bg-[#124D56]
@@ -975,6 +1070,8 @@ export default function BlogJournal({ initialBlogs = [] }) {
               transition-all
               duration-300
               hover:bg-[#0B3C49]
+              active:bg-[#0B3C49]
+              sm:mt-7
             "
           >
             Try Again
@@ -986,16 +1083,18 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
   if (!blogs.length) {
     return (
-      <section className="bg-[#FAF5EB] px-5 py-20 md:px-10 lg:px-16">
-        <div className="mx-auto max-w-3xl py-20 text-center">
+      <section className="bg-[#FAF5EB] px-4 py-14 sm:px-5 sm:py-20 md:px-10 lg:px-16">
+        <div className="mx-auto max-w-3xl py-14 text-center sm:py-20">
           <span
             className="
               font-['Playfair',serif]
-              text-[10px]
+              text-[9px]
               font-bold
               uppercase
-              tracking-[0.25em]
+              tracking-[0.2em]
               text-[#F58634]
+              sm:text-[10px]
+              sm:tracking-[0.25em]
             "
           >
             The Journal
@@ -1005,7 +1104,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
             className="
               mt-4
               font-['Playfair_Display',serif]
-              text-4xl
+              text-[clamp(1.75rem,7vw,2.25rem)]
               font-medium
               text-[#0B3C49]
             "
@@ -1017,8 +1116,9 @@ export default function BlogJournal({ initialBlogs = [] }) {
             className="
               mt-4
               font-['Playfair_Display',serif]
-              text-sm
+              text-[13px]
               text-[#124D56]/60
+              sm:text-sm
             "
           >
             We don&apos;t have any published stories yet.
@@ -1032,44 +1132,50 @@ export default function BlogJournal({ initialBlogs = [] }) {
     <section
       className="
         bg-[#FAF5EB]
-        px-5
-        py-13
+        px-4
+        py-10
+        sm:px-5
+        sm:py-13
         md:px-10
         lg:px-16
         lg:py-14
       "
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-12 max-w-4xl text-center md:mb-14">
-          <div className="flex items-center justify-center gap-3">
-            <span className="h-px w-8 bg-[#B85128]" />
+        <div className="mx-auto mb-8 max-w-4xl text-center sm:mb-12 md:mb-14">
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3">
+            <span className="h-px w-6 bg-[#B85128] sm:w-8" />
 
             <span
               className="
-        font-['Playfair',serif]
-        text-[10px]
-        font-bold
-        uppercase
-        tracking-[0.28em]
-        text-[#B85128]
-      "
+                font-['Playfair',serif]
+                text-[9px]
+                font-bold
+                uppercase
+                tracking-[0.22em]
+                text-[#B85128]
+                sm:text-[10px]
+                sm:tracking-[0.28em]
+              "
             >
               The Journal
             </span>
 
-            <span className="h-px w-8 bg-[#B85128]" />
+            <span className="h-px w-6 bg-[#B85128] sm:w-8" />
           </div>
 
           <h2
             className="
-      mt-5
-      font-['Playfair_Display',serif]
-      text-[clamp(2.5rem,4.5vw,4.2rem)]
-      font-medium
-      leading-[1.02]
-      tracking-tight
-      text-[#173C3A]
-    "
+              mt-4
+              font-['Playfair_Display',serif]
+              text-[clamp(2rem,8vw,4.2rem)]
+              font-medium
+              leading-[1.06]
+              tracking-tight
+              text-[#173C3A]
+              sm:mt-5
+              sm:leading-[1.02]
+            "
           >
             Notes from the road,
             <br />
@@ -1078,28 +1184,43 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
           <p
             className="
-      mx-auto
-      mt-7
-      max-w-2xl
-      font-['Noto_Sans',sans-serif]
-      text-[17px]
-      leading-[1.8]
-      text-[#476763]/65
-      md:text-[18px]
-      md:leading-[1.85]
-    "
+              mx-auto
+              mt-4
+              max-w-2xl
+              font-['Noto_Sans',sans-serif]
+              text-[14px]
+              leading-[1.7]
+              text-[#476763]/65
+              sm:mt-7
+              sm:text-[17px]
+              sm:leading-[1.8]
+              md:text-[18px]
+              md:leading-[1.85]
+            "
           >
             Field-tested routes, honest timing advice, and the details our
             travellers wished someone had told them first.
           </p>
         </div>
 
+        {/* Category filter: horizontally scrollable on mobile, wraps from sm up */}
         <div
           className="
-            mb-12
+            mb-8
+            -mx-4
             flex
-            flex-wrap
             gap-2
+            overflow-x-auto
+            px-4
+            pb-1
+            [scrollbar-width:none]
+            [&::-webkit-scrollbar]:hidden
+            sm:mx-0
+            sm:mb-12
+            sm:flex-wrap
+            sm:overflow-visible
+            sm:px-0
+            sm:pb-0
             md:mb-14
           "
         >
@@ -1109,20 +1230,24 @@ export default function BlogJournal({ initialBlogs = [] }) {
               type="button"
               onClick={() => handleCategoryChange(category)}
               className={`
+                shrink-0
                 cursor-pointer
                 rounded-full
                 border
-                px-5
+                px-4
                 py-2
                 font-['Playfair',serif]
-                text-[12px]
+                text-[11px]
                 font-medium
+                whitespace-nowrap
                 transition-all
                 duration-300
+                sm:px-5
+                sm:text-[12px]
                 ${
                   active === category
                     ? "border-[#124D56] bg-[#124D56] text-white shadow-[0_5px_18px_rgba(18,77,86,0.15)]"
-                    : "border-[#124D56]/15 bg-transparent text-[#124D56]/65 hover:border-[#124D56]/35 hover:bg-white hover:text-[#0B3C49]"
+                    : "border-[#124D56]/15 bg-transparent text-[#124D56]/65 hover:border-[#124D56]/35 hover:bg-white hover:text-[#0B3C49] active:border-[#124D56]/35 active:bg-white active:text-[#0B3C49]"
                 }
               `}
             >
@@ -1140,8 +1265,10 @@ export default function BlogJournal({ initialBlogs = [] }) {
             className="
               grid
               grid-cols-1
-              gap-x-10
-              gap-y-10
+              gap-x-6
+              gap-y-6
+              sm:gap-x-10
+              sm:gap-y-10
               md:grid-cols-2
               lg:gap-x-12
               lg:gap-y-12
@@ -1160,21 +1287,25 @@ export default function BlogJournal({ initialBlogs = [] }) {
         ) : (
           <div
             className="
-              rounded-[28px]
+              rounded-3xl
               border
               border-[#124D56]/10
               bg-white
-              px-6
-              py-16
+              px-5
+              py-12
               text-center
+              sm:rounded-[28px]
+              sm:px-6
+              sm:py-16
             "
           >
             <h3
               className="
                 font-['Fraunces']
-                text-3xl
+                text-2xl
                 font-medium
                 text-[#0B3C49]
+                sm:text-3xl
               "
             >
               No stories in this category yet.
@@ -1184,8 +1315,9 @@ export default function BlogJournal({ initialBlogs = [] }) {
               className="
                 mt-3
                 font-['Inter']
-                text-sm
+                text-[13px]
                 text-[#124D56]/55
+                sm:text-sm
               "
             >
               Try another category from the journal.
@@ -1195,7 +1327,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
               type="button"
               onClick={() => handleCategoryChange("All")}
               className="
-                mt-6
+                mt-5
                 cursor-pointer
                 rounded-full
                 bg-[#124D56]
@@ -1208,6 +1340,8 @@ export default function BlogJournal({ initialBlogs = [] }) {
                 transition-all
                 duration-300
                 hover:bg-[#0B3C49]
+                active:bg-[#0B3C49]
+                sm:mt-6
               "
             >
               View all stories
@@ -1216,7 +1350,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
         )}
 
         {pagination?.hasNextPage && (
-          <div className="mt-20 text-center md:mt-24">
+          <div className="mt-14 text-center sm:mt-20 md:mt-24">
             <button
               type="button"
               onClick={handleLoadMore}
@@ -1226,15 +1360,15 @@ export default function BlogJournal({ initialBlogs = [] }) {
                 inline-flex
                 cursor-pointer
                 items-center
-                gap-3
+                gap-2.5
                 rounded-full
                 border
                 border-[#124D56]/20
                 bg-transparent
-                px-7
+                px-6
                 py-3
                 font-['Inter']
-                text-[12px]
+                text-[11px]
                 font-semibold
                 text-[#124D56]
                 transition-all
@@ -1243,8 +1377,14 @@ export default function BlogJournal({ initialBlogs = [] }) {
                 hover:bg-[#124D56]
                 hover:text-white
                 hover:shadow-[0_8px_25px_rgba(18,77,86,0.15)]
+                active:border-[#124D56]
+                active:bg-[#124D56]
+                active:text-white
                 disabled:cursor-not-allowed
                 disabled:opacity-50
+                sm:gap-3
+                sm:px-7
+                sm:text-[12px]
               "
             >
               {status === "loading" ? (
@@ -1273,25 +1413,32 @@ export default function BlogJournal({ initialBlogs = [] }) {
 
         <div
           className="
-            mt-12
+            mt-8
             flex
+            flex-wrap
             items-center
             justify-center
-            gap-4
+            gap-3
             font-['Playfair',serif]
-            text-[9px]
+            text-[8px]
             uppercase
-            tracking-[0.18em]
+            tracking-[0.14em]
             text-[#124D56]/25
+            sm:mt-12
+            sm:gap-4
+            sm:text-[9px]
+            sm:tracking-[0.18em]
           "
         >
-          <span className="text-[14px] text-[#124D56]">
+          <span className="text-[12px] text-[#124D56] sm:text-[14px]">
             Times India Travels
           </span>
 
-          <span className="h-px w-8 bg-[#124D56]/15" />
+          <span className="h-px w-6 bg-[#124D56]/15 sm:w-8" />
 
-          <span className="text-[14px] text-[#124D56]">Stories from India</span>
+          <span className="text-[12px] text-[#124D56] sm:text-[14px]">
+            Stories from India
+          </span>
         </div>
       </div>
     </section>
