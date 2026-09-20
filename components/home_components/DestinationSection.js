@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchDestinations } from "../../features/Home-page/clinet_Destination_Slice";
@@ -51,24 +52,16 @@ function DestinationSection({ initialDestinations = [] }) {
     return () => {clearInterval(interval);};
   }, [nextSlide, total, isImageHovered]);
 
-  useEffect(() => {
-    if (total === 0) {
-      setActiveIndex(0);
-      return;
-    }
-
-    if (activeIndex >= total) {
-      setActiveIndex(0);
-    }
-  }, [total, activeIndex]);
+  const safeActiveIndex =
+    total === 0 ? 0 : ((activeIndex % total) + total) % total;
 
   const visibleDestinations = useMemo(() => {
     if (!total) {
       return [];
     }
 
-    const previousIndex = (activeIndex - 1 + total) % total;
-    const nextIndex = (activeIndex + 1) % total;
+    const previousIndex = (safeActiveIndex - 1 + total) % total;
+    const nextIndex = (safeActiveIndex + 1) % total;
 
     return [
       {
@@ -77,9 +70,9 @@ function DestinationSection({ initialDestinations = [] }) {
         originalIndex: previousIndex,
       },
       {
-        ...destinationList[activeIndex],
+        ...destinationList[safeActiveIndex],
         position: "active",
-        originalIndex: activeIndex,
+        originalIndex: safeActiveIndex,
       },
       {
         ...destinationList[nextIndex],
@@ -87,7 +80,7 @@ function DestinationSection({ initialDestinations = [] }) {
         originalIndex: nextIndex,
       },
     ];
-  }, [activeIndex, destinationList, total]);
+  }, [safeActiveIndex, destinationList, total]);
 
   if ((status === "loading" || status === "idle") &&total === 0) {
     return (
@@ -372,6 +365,7 @@ function DestinationSection({ initialDestinations = [] }) {
               font-semibold
               uppercase
               tracking-[0.35em]
+              font-['Playfair',serif]
               text-[#B85128]
               sm:text-xs
             "
@@ -400,7 +394,7 @@ function DestinationSection({ initialDestinations = [] }) {
             delay: 0.08,
           }}
           className="
-            font-serif
+            font-['Playfair_Display',serif]
             text-4xl
             font-medium
             leading-[1.05]
@@ -436,6 +430,7 @@ function DestinationSection({ initialDestinations = [] }) {
             max-w-2xl
             text-sm
             leading-7
+            font-['Noto_Sans',sans-serif]
             text-slate-600
             sm:text-base
           "
@@ -555,15 +550,13 @@ function DestinationSection({ initialDestinations = [] }) {
                     }
                   `}
                 >
-                  <motion.img
+                  <Image
                     src={destination.heroImage}
                     alt={destination.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 45vw"
                     draggable="false"
                     className="
-                      absolute
-                      inset-0
-                      h-full
-                      w-full
                       object-cover
                       transition-transform
                       duration-700
@@ -593,10 +586,12 @@ function DestinationSection({ initialDestinations = [] }) {
                         from-black/90
                         via-black/40
                         to-black/10
-                        opacity-0
+                        opacity-100
                         transition-opacity
                         duration-500
-                        group-hover:opacity-100
+
+                        lg:opacity-0
+                        lg:group-hover:opacity-100
                       "
                     />
                   )}
@@ -638,11 +633,11 @@ function DestinationSection({ initialDestinations = [] }) {
 
                       <h3
                         className="
-                          font-serif
                           text-2xl
                           font-medium
                           text-white
                           sm:text-3xl
+                          font-['Playfair_Display',serif]
                         "
                       >
                         {destination.name}
@@ -658,17 +653,20 @@ function DestinationSection({ initialDestinations = [] }) {
                         inset-x-0
                         bottom-0
                         z-10
-                        translate-y-5
-                        p-7
-                        opacity-0
+                        translate-y-0
+                        p-5
+                        opacity-100
                         transition-all
                         duration-500
-                        group-hover:translate-y-0
-                        group-hover:opacity-100
 
-                        sm:p-9
-                        md:p-11
+                        sm:p-7
+                        md:p-9
+
+                        lg:translate-y-5
                         lg:p-12
+                        lg:opacity-0
+                        lg:group-hover:translate-y-0
+                        lg:group-hover:opacity-100
                       "
                     >
                       <div
@@ -695,7 +693,7 @@ function DestinationSection({ initialDestinations = [] }) {
 
                       <h3
                         className="
-                          font-serif
+                          font-['Playfair_Display',serif]
                           text-4xl
                           font-medium
                           leading-none
@@ -711,7 +709,7 @@ function DestinationSection({ initialDestinations = [] }) {
                         className="
                           mt-3
                           max-w-xl
-                          font-serif
+                          font-['Playfair',serif]
                           text-base
                           italic
                           text-white/90
@@ -730,6 +728,7 @@ function DestinationSection({ initialDestinations = [] }) {
                           text-white/75
                           sm:text-base
                           sm:leading-7
+                          font-['Noto_Sans',sans-serif]
                         "
                       >
                         {destination.description}
@@ -884,7 +883,7 @@ function DestinationSection({ initialDestinations = [] }) {
         >
           <div className="flex items-center gap-4">
             <span className="text-xs font-medium text-[#103f4a]">
-              {formatNumber(activeIndex + 1)}
+              {formatNumber(safeActiveIndex + 1)}
             </span>
 
             <div
@@ -897,7 +896,7 @@ function DestinationSection({ initialDestinations = [] }) {
               "
             >
               <motion.div
-                key={activeIndex}
+                key={safeActiveIndex}
                 initial={{
                   width: "0%",
                 }}
@@ -947,7 +946,7 @@ function DestinationSection({ initialDestinations = [] }) {
                     duration-300
 
                     ${
-                      index === activeIndex
+                      index === safeActiveIndex
                         ? "h-2.5 w-2.5 bg-[#f47b3a]"
                         : "h-2 w-2 bg-[#103f4a]/20"
                     }
