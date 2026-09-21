@@ -433,13 +433,27 @@ if (status === "failed" && slides.length === 0) {
         );
       })}
 
-      {/* Left-edge legibility gradient: full height, solid at the left edge, fades to nothing on the right */}
+      {/*
+        Full-bleed legibility overlay: runs edge-to-edge from the actual
+        left side of the screen (not the text column) and fades out toward
+        the right, so it reads as natural darkening of the frame rather
+        than a floating rounded card.
+      */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "linear-gradient(90deg, rgba(6,12,24,0.82) 0%, rgba(6,12,24,0.68) 20%, rgba(6,12,24,0.45) 40%, rgba(6,12,24,0.2) 62%, rgba(6,12,24,0.06) 80%, rgba(6,12,24,0) 100%)",
+            "linear-gradient(90deg, rgba(6,12,24,0.55) 0%, rgba(6,12,24,0.4) 24%, rgba(6,12,24,0.2) 46%, rgba(6,12,24,0.05) 66%, rgba(6,12,24,0) 80%)",
+        }}
+      />
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(6,12,24,0.22) 0%, rgba(6,12,24,0) 28%, rgba(6,12,24,0) 68%, rgba(6,12,24,0.38) 100%)",
         }}
       />
 
