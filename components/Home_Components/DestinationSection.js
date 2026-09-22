@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchDestinations } from "../../features/Home-page/clinet_Destination_Slice";
@@ -549,15 +550,13 @@ function DestinationSection({ initialDestinations = [] }) {
                     }
                   `}
                 >
-                  <motion.img
+                  <Image
                     src={destination.heroImage}
                     alt={destination.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 45vw"
                     draggable="false"
                     className="
-                      absolute
-                      inset-0
-                      h-full
-                      w-full
                       object-cover
                       transition-transform
                       duration-700
@@ -577,6 +576,10 @@ function DestinationSection({ initialDestinations = [] }) {
                     "
                   />
 
+                  {/*
+                    Active-card scrim: always on so the always-visible text
+                    below stays legible against the photo, at every breakpoint.
+                  */}
                   {isActive && (
                     <div
                       className="
@@ -587,10 +590,6 @@ function DestinationSection({ initialDestinations = [] }) {
                         from-black/90
                         via-black/40
                         to-black/10
-                        opacity-0
-                        transition-opacity
-                        duration-500
-                        group-hover:opacity-100
                       "
                     />
                   )}
@@ -644,6 +643,11 @@ function DestinationSection({ initialDestinations = [] }) {
                     </div>
                   )}
 
+                  {/*
+                    Active-card text: always visible at every breakpoint,
+                    not gated behind hover. Only the layout (padding, sizes)
+                    still adapts responsively.
+                  */}
                   {isActive && (
                     <div
                       className="
@@ -652,16 +656,11 @@ function DestinationSection({ initialDestinations = [] }) {
                         inset-x-0
                         bottom-0
                         z-10
-                        translate-y-5
-                        p-7
-                        opacity-0
-                        transition-all
-                        duration-500
-                        group-hover:translate-y-0
-                        group-hover:opacity-100
-
-                        sm:p-9
-                        md:p-11
+                        translate-y-0
+                        p-5
+                        opacity-100
+                        sm:p-7
+                        md:p-9
                         lg:p-12
                       "
                     >

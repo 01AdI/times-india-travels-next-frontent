@@ -276,6 +276,7 @@ export default function Home_Client_Testimonials({ initialTestimonials = [] }) {
 
                   <Link
                     href={`/testimonials/${testimonial._id}`}
+                    aria-label={`Read ${testimonial.name || "traveller"}'s full review`}
                     className="
                       mt-6
                       inline-block

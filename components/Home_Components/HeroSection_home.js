@@ -433,6 +433,30 @@ if (status === "failed" && slides.length === 0) {
         );
       })}
 
+      {/*
+        Full-bleed legibility overlay: runs edge-to-edge from the actual
+        left side of the screen (not the text column) and fades out toward
+        the right, so it reads as natural darkening of the frame rather
+        than a floating rounded card.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(6,12,24,0.55) 0%, rgba(6,12,24,0.4) 24%, rgba(6,12,24,0.2) 46%, rgba(6,12,24,0.05) 66%, rgba(6,12,24,0) 80%)",
+        }}
+      />
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(6,12,24,0.22) 0%, rgba(6,12,24,0) 28%, rgba(6,12,24,0) 68%, rgba(6,12,24,0.38) 100%)",
+        }}
+      />
+
       <div className="absolute right-6 top-8 font-['Inter'] text-[11px] text-[#C9A24B] tracking-[0.2em] md:right-14 md:top-10">
 
         <span className="text-[#F4EFE4]">
@@ -450,17 +474,6 @@ if (status === "failed" && slides.length === 0) {
       </div>
 
       <div className="absolute left-5 right-5 top-[30%] max-w-xl sm:left-6 sm:right-6 sm:top-[38%] md:left-14">
-
-        {/* Local legibility vignette — darkens just this text region so it
-            stays readable no matter what's behind it, without boxing the whole hero */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-9 z-0 rounded-4xl md:-inset-12"
-          style={{
-            background:
-              "radial-gradient(65% 85% at 22% 38%, rgba(6,12,24,0.75) 0%, rgba(6,12,24,0.45) 48%, rgba(6,12,24,0) 78%)",
-          }}
-        />
 
         <div
           key={active._id}
