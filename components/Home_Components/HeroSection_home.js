@@ -220,13 +220,13 @@ export default function Home_HeroSection({ initialSlides = [] }) {
                         ? `${progressKey}-${index}`
                         : `static-${index}`
                     }
-                    className={`block h-full origin-left rounded-full ${
+                    className={
                       index === currentIndex
-                        ? "animate-[heroProgress_3500ms_linear_forwards] bg-[#C9A24B]"
+                        ? "block h-full origin-left animate-[fillBar_3500ms_linear_forwards] bg-[#C9A24B]"
                         : index < currentIndex
-                          ? "w-full bg-[#C9A24B]"
-                          : "w-8 bg-transparent"
-                    }`}
+                          ? "block h-full bg-[#C9A24B]"
+                          : "block h-full bg-transparent"
+                    }
                   />
                 </button>
               ))}
@@ -240,34 +240,6 @@ export default function Home_HeroSection({ initialSlides = [] }) {
           </div>
         </>
       )}
-
-      <style jsx>{`
-        @keyframes kenburns {
-          from {
-            transform: scale(1);
-          }
-          to {
-            transform: scale(1.08);
-          }
-        }
-
-        @keyframes heroProgress {
-          from {
-            transform: scaleX(0);
-          }
-          to {
-            transform: scaleX(1);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .hero-section * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            scroll-behavior: auto !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
