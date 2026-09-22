@@ -310,7 +310,7 @@ export default function Navbar({ initialCategories = [] }) {
                 px-4
                 py-2.5
                 rounded-full
-                text-[15px]
+                text-[16px]
                 font-['Playfair_Display',serif]
                 font-medium
                 text-white
@@ -540,7 +540,7 @@ export default function Navbar({ initialCategories = [] }) {
                               <span
                                 className="
                                   font-['Playfair',serif]
-                                  text-[12px]
+                                  text-[16px]
                                   font-medium
                                   leading-5
                                 "
@@ -849,6 +849,7 @@ export default function Navbar({ initialCategories = [] }) {
                                       flex
                                       items-center
                                       gap-3
+                                      text-[12px]
                                       rounded-xl
                                       px-2.5
                                       py-2.5
@@ -912,7 +913,7 @@ export default function Navbar({ initialCategories = [] }) {
                                         className="
                                           truncate
                                           font-['Playfair',serif]
-                                          text-[12px]
+                                          text-[15px]
                                           font-medium
                                           text-white/85
                                           transition-colors
@@ -927,7 +928,7 @@ export default function Navbar({ initialCategories = [] }) {
                                         <p
                                           className="
                                             mt-0.5
-                                            text-[10px]
+                                            text-[11px]
                                             text-white/35
                                           "
                                         >
@@ -1238,7 +1239,7 @@ function DesktopNavLink({
         px-5
         py-2.5
         rounded-full
-        text-[15px]
+        text-[16px]
         font-medium
         text-white
         hover:bg-white/10
