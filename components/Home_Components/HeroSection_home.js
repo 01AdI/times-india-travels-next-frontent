@@ -296,7 +296,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
                   <span className="h-px w-6 shrink-0 bg-[#D8895E]/60" />
 
                   <span
-                    className="font-['Playfair',serif] text-[22px] font-semibold leading-8 tracking-wide text-[#E5DED0] sm:text-lg sm:leading-7"
+                    className="font-['Playfair',serif] text-[22px] font-semibold leading-8 tracking-wide text-[#E5DED0] sm:text-base sm:leading-7"
                     style={{
                       textShadow:
                         "0 3px 16px rgba(0,0,0,0.7)",
