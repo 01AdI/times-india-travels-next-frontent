@@ -549,7 +549,7 @@ if (status === "loading" && gallery.length === 0) {
 
                         <Image
                           src={photo.image}
-                          alt=""
+                          alt={photo.place ? `Travel photo from ${photo.place}` : "Times India Travels gallery photo"}
                           fill
                           sizes="230px"
                           className="

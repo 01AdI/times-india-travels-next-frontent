@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClientReviewVideos } from "../../features/Home-page/Client_Review_Video_Slice";
+import { getCloudinaryVideoSources } from "../../lib/cdnVideo";
 
 
 export default function Home_Client_Video() {
@@ -300,18 +301,18 @@ export default function Home_Client_Video() {
               autoPlay
               playsInline
               muted
+              preload="metadata"
               onEnded={nextVideo}
             >
-
-              <source
-                src={currentTestimonial.video}
-                type={
-                  currentTestimonial.video?.endsWith(".webm")
-                    ? "video/webm"
-                    : "video/mp4"
-                }
-              />
-
+              {(() => {
+                const sources = getCloudinaryVideoSources(currentTestimonial.video);
+                return (
+                  <>
+                    <source src={sources.webm} type="video/webm" />
+                    <source src={sources.mp4} type="video/mp4" />
+                  </>
+                );
+              })()}
             </video>
 
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 border-t border-white/10 bg-[#032322]/80 px-5 py-3.5 backdrop-blur-md md:px-7 md:py-4 " >

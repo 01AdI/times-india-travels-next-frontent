@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,13 +19,24 @@ import {
   fetchBlogs,
 } from "../../features/Blogs-page/blog_Slice";
 
-import Floating_Quotation_Form from "../Floating_Quotation_Form";
+const Floating_Quotation_Form = dynamic(
+  () => import("../Floating_Quotation_Form"),
+  {
+    ssr: false,
+  }
+);
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=85";
 
 const DETAIL_HERO_IMAGE =
-  "https://i.pinimg.com/736x/3f/91/5d/3f915da54cea988a288766c123be003a.jpg";
+  "https://res.cloudinary.com/giz8nvjr/image/upload/v1790193108/blog-detail-hero.jpg";
+
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
 
 function formatDate(date) {
   if (!date) return "";
@@ -35,11 +47,7 @@ function formatDate(date) {
     return "";
   }
 
-  return parsedDate.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  return DATE_FORMATTER.format(parsedDate);
 }
 
 function calculateReadTime(content = "") {
@@ -70,7 +78,18 @@ function calculateReadTime(content = "") {
   return `${minutes} min read`;
 }
 
-function ArticleMeta({ blog, light = false }) {
+function handleImageError(event) {
+  const image = event.currentTarget;
+
+  if (image.src !== FALLBACK_IMAGE) {
+    image.src = FALLBACK_IMAGE;
+  }
+}
+
+const ArticleMeta = memo(function ArticleMeta({
+  blog,
+  light = false,
+}) {
   const date = formatDate(blog?.publishedAt);
   const readTime = calculateReadTime(blog?.content);
 
@@ -118,9 +137,9 @@ function ArticleMeta({ blog, light = false }) {
       <span>{readTime}</span>
     </div>
   );
-}
+});
 
-function BlogContent({ content }) {
+const BlogContent = memo(function BlogContent({ content }) {
   if (!content) return null;
 
   return (
@@ -215,9 +234,11 @@ function BlogContent({ content }) {
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
-}
+});
 
-function RelatedPostCard({ blog }) {
+const RelatedPostCard = memo(function RelatedPostCard({
+  blog,
+}) {
   if (!blog) return null;
 
   const image = blog.image || FALLBACK_IMAGE;
@@ -253,9 +274,7 @@ function RelatedPostCard({ blog }) {
             ease-out
             group-hover:scale-[1.07]
           "
-          onError={(event) => {
-            event.currentTarget.src = FALLBACK_IMAGE;
-          }}
+          onError={handleImageError}
         />
 
         <div
@@ -403,9 +422,12 @@ function RelatedPostCard({ blog }) {
       </div>
     </Link>
   );
-}
+});
 
-function RelatedPosts({ currentBlog, blogs }) {
+const RelatedPosts = memo(function RelatedPosts({
+  currentBlog,
+  blogs,
+}) {
   const relatedBlogs = useMemo(() => {
     if (!currentBlog || !blogs?.length) {
       return [];
@@ -414,9 +436,8 @@ function RelatedPosts({ currentBlog, blogs }) {
     const currentId = currentBlog._id;
     const currentSlug = currentBlog.slug;
 
-    const currentCategory = currentBlog.category
-      ?.trim()
-      .toLowerCase();
+    const currentCategory =
+      currentBlog.category?.trim().toLowerCase();
 
     const candidates = blogs.filter((blog) => {
       if (!blog) return false;
@@ -576,7 +597,7 @@ function RelatedPosts({ currentBlog, blogs }) {
       </div>
     </section>
   );
-}
+});
 
 export default function BlogDetail({
   initialBlog = null,
@@ -988,10 +1009,7 @@ export default function BlogDetail({
                       ease-out
                       group-hover:scale-[1.035]
                     "
-                    onError={(event) => {
-                      event.currentTarget.src =
-                        FALLBACK_IMAGE;
-                    }}
+                    onError={handleImageError}
                   />
                 </div>
 

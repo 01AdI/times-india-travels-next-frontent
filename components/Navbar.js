@@ -74,8 +74,9 @@ export default function Navbar({ initialCategories = [] }) {
 
 
   useEffect(() => {
+    if (initialCategories.length > 0) return;
     dispatch(fetchTourCategories());
-  }, [dispatch]);
+  }, [dispatch, initialCategories.length]);
 
 
   const exploreCategories = useMemo(() => {

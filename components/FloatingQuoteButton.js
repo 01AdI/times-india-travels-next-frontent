@@ -2,8 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { Mail, ArrowRight } from "lucide-react";
-import Floating_Quotation_Form from "./Floating_Quotation_Form";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+
+// Code-split: this modal (and its heavy deps, react-phone-input-2 +
+// react-datepicker) is rendered on every route via app/layout.js but
+// only actually used when a visitor clicks the floating button. Loading
+// it eagerly meant every page paid for that JS whether or not the form
+// was ever opened. ssr:false is safe here since it's a client-only modal.
+const Floating_Quotation_Form = dynamic(
+  () => import("./Floating_Quotation_Form"),
+  { ssr: false }
+);
 
 export default function FloatingQuoteButton() {
   

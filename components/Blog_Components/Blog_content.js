@@ -105,7 +105,6 @@ function FeaturedStory({ blog }) {
           alt={blog.title || "Featured story"}
           fill
           sizes="100vw"
-          quality={80}
           className="
             object-cover
             transition-transform
@@ -119,32 +118,18 @@ function FeaturedStory({ blog }) {
             event.currentTarget.src = FALLBACK_IMAGE;
           }}
         />
-
+        
         <div
           className="
-            absolute
-            inset-0
-            bg-linear-to-t
-            from-black/90
-            via-black/45
-            to-black/10
-            md:bg-linear-to-r
-            md:from-black/90
-            md:via-black/55
-            md:to-black/10
-          "
-        />
-
-        <div
-          className="
-            absolute
-            inset-x-0
-            bottom-0
-            h-2/3
-            bg-linear-to-t
-            from-black/95
-            via-black/50
-            to-transparent
+          absolute
+          inset-0
+          bg-linear-to-r
+          from-black/55
+          via-black/20
+          to-transparent
+          md:from-black/60
+          md:via-black/20
+          md:to-transparent
           "
         />
       </div>
@@ -209,11 +194,11 @@ function FeaturedStory({ blog }) {
           relative
           z-10
           flex
-          min-h-[420px]
+          min-h-105
           items-end
           p-5
           pt-24
-          sm:min-h-[520px]
+          sm:min-h-130
           sm:p-8
           sm:pt-28
           md:min-h-155
@@ -411,7 +396,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
         sm:rounded-[28px]
         ${
           expanded
-            ? "min-h-[440px] bg-[#0B3C49] shadow-[0_20px_50px_rgba(11,60,73,0.22)] sm:min-h-[480px] md:min-h-140 md:shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
+            ? "min-h-110 bg-[#0B3C49] shadow-[0_20px_50px_rgba(11,60,73,0.22)] sm:min-h-120 md:min-h-140 md:shadow-[0_30px_80px_rgba(11,60,73,0.22)]"
             : "bg-transparent shadow-[0_6px_20px_rgba(11,60,73,0.04)] sm:shadow-[0_8px_30px_rgba(11,60,73,0.04)]"
         }
       `}
@@ -429,7 +414,7 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           sm:rounded-[26px]
           ${
             expanded
-              ? "min-h-[440px] sm:min-h-[480px] md:min-h-140"
+              ? "min-h-110 sm:min-h-120 md:min-h-140"
               : "aspect-4/3 sm:aspect-16/11"
           }
         `}
@@ -439,7 +424,6 @@ function JournalCard({ blog, number, expanded, onToggle }) {
           alt={blog.title || "Journal story"}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          quality={80}
           className={`
             object-cover
             transition-transform
@@ -1213,7 +1197,7 @@ export default function BlogJournal({ initialBlogs = [] }) {
             overflow-x-auto
             px-4
             pb-1
-            [scrollbar-width:none]
+            scrollbar-none
             [&::-webkit-scrollbar]:hidden
             sm:mx-0
             sm:mb-12

@@ -154,8 +154,9 @@ export default function Footer({ initialCategories = [] }) {
     useState(null);
 
   useEffect(() => {
+    if (initialCategories.length > 0) return;
     dispatch(fetchTourCategories());
-  }, [dispatch]);
+  }, [dispatch, initialCategories.length]);
 
   const handleCategoryToggle = (categoryId) => {
     setOpenCategoryId((current) =>
