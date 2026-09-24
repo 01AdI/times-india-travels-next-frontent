@@ -11,7 +11,7 @@ import ReduxProvider from "../components/ReduxProvider";
 import AOSProvider from "../components/AOSProvider";
 import ScrollToTop from "../utils/ScrollToTop";
 import GlobalStructuredData from "../utils/GlobalStructuredData";
-import { getTourCategories } from "../lib/serverApi";
+import { getTourCategoryNavigation } from "../lib/serverApi";
 
 const SITE_URL = "https://www.timesindiatravels.com";
 const DEFAULT_TITLE = "Times India Travels | Luxury Tours & Travel in India";
@@ -77,7 +77,7 @@ export const viewport = {
 export const revalidate = 300;
 
 export default async function RootLayout({ children }) {
-  const categoryData = await getTourCategories();
+  const categoryData = await getTourCategoryNavigation();
   const initialCategories = Array.isArray(categoryData?.categories)
     ? categoryData.categories
     : [];
