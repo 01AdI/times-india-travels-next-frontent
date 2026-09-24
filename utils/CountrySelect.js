@@ -25,19 +25,12 @@ export default function CountrySelect({
 
   const listboxId = `${name}-listbox`;
 
-  // ============================================================
-  // FILTER COUNTRIES
-  // ============================================================
-
   const filteredCountries = countries.filter((country) =>
     country.name
       .toLowerCase()
       .includes(search.toLowerCase())
   );
 
-  // ============================================================
-  // SELECTED COUNTRY
-  // ============================================================
 
   const selectedCountry = countries.find(
     (country) => country.code === value
@@ -237,7 +230,7 @@ export default function CountrySelect({
         aria-controls={listboxId}
         className="
           flex
-          h-[52px]
+          h-13
           w-full
           items-center
           justify-between
@@ -326,7 +319,7 @@ export default function CountrySelect({
             left-0
             right-0
             top-full
-            z-[10020]
+            z-10020
             mt-2
             overflow-hidden
             rounded-xl
@@ -366,7 +359,7 @@ export default function CountrySelect({
                 role="searchbox"
                 aria-autocomplete="list"
                 className="
-                  h-[44px]
+                  h-11
                   w-full
                   rounded-lg
                   border
