@@ -851,159 +851,133 @@ export default function AdminTourCategoryEdit() {
     // NEW UPLOAD GALLERY
     // --------------------------------
 
-    const galleryUploadItems =
-      newGallery.filter(
-        (item) =>
-          item.type === "upload" &&
-          item.file instanceof File
+  const galleryUploadItems =
+    newGallery.filter(
+      (item) =>
+        item.type === "upload" &&
+        item.file instanceof File
+    );
+
+  const galleryUploadImages =
+    galleryUploadItems.map(
+      (item) => item.file
+    );
+
+  const galleryUploadCaptions =
+    galleryUploadItems.map(
+      (item) =>
+        item.caption?.trim() || ""
+    );
+
+  const galleryUrlItems =
+    newGallery.filter(
+      (item) =>
+        item.type === "url" &&
+        typeof item.url === "string" &&
+        item.url.trim()
+    );
+
+  const galleryImageUrls =
+    galleryUrlItems.map(
+      (item) => ({
+        url: item.url.trim(),
+        caption:
+          item.caption?.trim() || "",
+      })
+    );
+
+  try {
+    setLoading(true);
+
+    const response =
+      await updateAdminTourCategory(
+        id,
+        {
+          name: categoryName,
+          tagline: categoryTagline,
+          shortDescription:
+            categoryShortDescription,
+          description:
+            categoryDescription,
+
+          showInNavbar:
+            Boolean(
+              form.showInNavbar
+            ),
+
+          showInExplore:
+            Boolean(
+              form.showInExplore
+            ),
+
+          heroImage:
+            heroImagePayload,
+
+          destinations,
+
+          galleryImages:
+            galleryUploadImages,
+
+          galleryCaptions:
+            galleryUploadCaptions,
+
+          galleryImageUrls,
+
+          removeGalleryImageIds:
+            removedGalleryImageIds,
+        }
       );
 
-    const galleryUploadImages =
-      galleryUploadItems.map(
-        (item) => item.file
-      );
-
-    const galleryUploadCaptions =
-      galleryUploadItems.map(
-        (item) =>
-          item.caption?.trim() ||
-          ""
-      );
-
-    // --------------------------------
-    // NEW URL GALLERY
-    // --------------------------------
-
-    const galleryUrlItems =
-      newGallery.filter(
-        (item) =>
-          item.type === "url"
-      );
-
-    const galleryUrls =
-      galleryUrlItems.map(
-        (item) => item.url
-      );
-
-    const galleryUrlCaptions =
-      galleryUrlItems.map(
-        (item) =>
-          item.caption?.trim() ||
-          ""
-      );
-
-    try {
-      setLoading(true);
-
-      // --------------------------------
-      // UPDATE CATEGORY
-      // --------------------------------
-
-      const response =
-        await updateAdminTourCategory(
-          id,
-          {
-            name: categoryName,
-            tagline: categoryTagline,
-
-            // IMPORTANT:
-            // Short description is explicitly
-            // included in update payload.
-            shortDescription:
-              categoryShortDescription,
-
-            description:
-              categoryDescription,
-
-            showInNavbar:
-              Boolean(
-                form.showInNavbar
-              ),
-
-            showInExplore:
-              Boolean(
-                form.showInExplore
-              ),
-
-            heroImage:
-              heroImagePayload,
-
-            destinations,
-
-            galleryImages:
-              galleryUploadImages,
-
-            galleryCaptions:
-              galleryUploadCaptions,
-
-            galleryUrls,
-
-            galleryUrlCaptions,
-
-            removeGalleryImageIds:
-              removedGalleryImageIds,
-          }
-        );
-
-      // --------------------------------
-      // UPDATE EXISTING CAPTIONS
-      // --------------------------------
-
-      const captionUpdates =
-        existingGallery
-          .filter(
-            (item) =>
-              item.id &&
-              item.caption.trim() !==
-                item.originalCaption.trim()
+    const captionUpdates =
+      existingGallery
+        .filter(
+          (item) =>
+            item.id &&
+            item.caption.trim() !==
+              item.originalCaption.trim()
+        )
+        .map((item) =>
+          updateTourCategoryGalleryCaption(
+            id,
+            item.id,
+            item.caption.trim()
           )
-          .map((item) =>
-            updateTourCategoryGalleryCaption(
-              id,
-              item.id,
-              item.caption.trim()
-            )
-          );
-
-      if (
-        captionUpdates.length > 0
-      ) {
-        await Promise.all(
-          captionUpdates
         );
-      }
 
-      // --------------------------------
-      // SUCCESS
-      // --------------------------------
-
-      setSuccess(
-        response?.message ||
-          "Tour category updated successfully."
+    if (
+      captionUpdates.length > 0
+    ) {
+      await Promise.all(
+        captionUpdates
       );
-
-      setTimeout(() => {
-        navigate(
-          `/tour-categories/${id}`
-        );
-      }, 700);
-    } catch (err) {
-      console.error(
-        "Failed to update tour category:",
-        err
-      );
-
-      setError(
-        err?.message ||
-          "Unable to update tour category."
-      );
-
-      setSuccess("");
-    } finally {
-      setLoading(false);
     }
-  };
 
+    setSuccess(
+      response?.message ||
+        "Tour category updated successfully."
+    );
+
+    setTimeout(() => {
+      navigate(
+        `/tour-categories/${id}`
+      );
+    }, 700);
+  } catch (err) {
+    console.error(
+      "Failed to update tour category:",
+      err
+    );
+
+    setError(
+      err?.message ||
+        "Unable to update tour category."
+    );
+
+    setSuccess("");
+  } finally {
+    setLoading(false);
+  }
+  }
   // --------------------------------------------------
   // INITIAL LOADING
   // --------------------------------------------------

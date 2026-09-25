@@ -1053,9 +1053,7 @@ export const updateAdminTourPackage = async (id,formData) =>adminRequest(
     }
 );
 
-export const deleteAdminTourPackage = async (
-  id
-) =>
+export const deleteAdminTourPackage = async (id) =>
   adminRequest(
     `/tour-package/delete/${id}`,
     {
@@ -1097,6 +1095,7 @@ export const createAdminTourCategory = async ({
   destinations = [],
   galleryImages = [],
   galleryCaptions = [],
+  galleryImageUrls = [],
 }) => {
   if (!id?.trim()) {
     throw new Error(
@@ -1209,6 +1208,15 @@ export const createAdminTourCategory = async ({
     )
   );
 
+  formData.append(
+    "galleryImageUrls",
+    JSON.stringify(
+      Array.isArray(galleryImageUrls)
+        ? galleryImageUrls
+        : []
+    )
+  );
+
   return adminRequest(
     "/tour-category/create",
     {
@@ -1231,6 +1239,7 @@ export const updateAdminTourCategory = async (
     destinations,
     galleryImages,
     galleryCaptions,
+    galleryImageUrls,
     removeGalleryImageIds,
   } = {}
 ) => {
@@ -1326,6 +1335,17 @@ export const updateAdminTourCategory = async (
       JSON.stringify(
         Array.isArray(galleryCaptions)
           ? galleryCaptions
+          : []
+      )
+    );
+  }
+
+  if (galleryImageUrls !== undefined) {
+    formData.append(
+      "galleryImageUrls",
+      JSON.stringify(
+        Array.isArray(galleryImageUrls)
+          ? galleryImageUrls
           : []
       )
     );
