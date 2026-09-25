@@ -7,6 +7,12 @@ export const metadata = buildMetadata({
   description:
     "Read the Times India Travels blog for India travel guides, destination inspiration, cultural stories, travel tips and ideas for planning your next journey.",
   path: "/blog",
+  keywords: [
+    "India travel blog",
+    "India travel guide",
+    "India travel tips",
+    "India destination guides",
+  ],
   imageAlt: "Times India Travels India Travel Blog",
 });
 

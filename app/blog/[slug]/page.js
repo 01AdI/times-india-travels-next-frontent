@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { buildMetadata } from "../../../lib/buildMetadata";
 import { getBlogBySlug, getBlogs } from "../../../lib/serverApi";
 import BlogStructuredData from "../../../components/StructuredData/BlogStructuredData";
+import BreadcrumbStructuredData from "../../../components/StructuredData/BreadcrumbStructuredData";
 import BlogDetail from "../../../components/Blog_Components/BlogDetail";
 
 const FALLBACK_IMAGE =
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }) {
     title: `${blog.title} | Times India Travels`,
     description: blog.shortDescription || `Read ${blog.title} from the Times India Travels journal. Discover travel stories, insights and inspiration from India.`,
     path,
+    keywords: [blog.title, "India travel blog", "India travel guide"],
     image: blog.image || FALLBACK_IMAGE,
     imageAlt: `${blog.title} - Times India Travels`,
   });
@@ -54,6 +56,13 @@ export default async function Page({ params }) {
   return (
     <>
       <BlogStructuredData blog={blog} />
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: blog.title, path: `/blog/${slug}` },
+        ]}
+      />
       <BlogDetail initialBlog={blog} initialBlogs={relatedBlogs} />
     </>
   );

@@ -6,6 +6,7 @@ export const metadata = buildMetadata({
   description:
     "Read the terms and conditions governing the use of the Times India Travels website and travel services.",
   path: "/terms-and-condition",
+  keywords: ["Times India Travels terms and conditions", "India travel booking terms"],
   imageAlt: "Terms & Conditions Times India Travels , Luxury Tours & Travel in India",
 });
 
