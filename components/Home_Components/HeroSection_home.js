@@ -206,6 +206,8 @@ export default function Home_HeroSection({ initialSlides = [] }) {
             sizes="100vw"
             aria-hidden="true"
             className="object-cover"
+            priority
+            fetchPriority="high"
           />
         )}
 
