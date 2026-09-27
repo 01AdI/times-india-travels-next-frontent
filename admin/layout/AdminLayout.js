@@ -82,10 +82,10 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="flex min-h-screen" style={{ backgroundColor: BG }}>
+    <div className="min-h-screen" style={{ backgroundColor: BG }}>
       <AdminSidebar />
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-col lg:ml-[250px]">
         <AdminHeader />
 
         <main className="flex-1 animate-[fadeIn_0.3s_ease-out] p-4 md:p-6 lg:p-8">

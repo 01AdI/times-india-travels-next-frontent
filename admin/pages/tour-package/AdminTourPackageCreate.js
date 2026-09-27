@@ -663,7 +663,7 @@ const validateForm = () => {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => navigate("/tour-packages")}
+            onClick={() => navigate(-1)}
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#101A2E]/12 bg-white text-[#101A2E]/65 transition-colors duration-200 hover:bg-[#101A2E]/[0.05]"
           >
             <ArrowLeft size={18} />
@@ -1527,7 +1527,7 @@ const validateForm = () => {
           <button
             type="button"
             disabled={submitting}
-            onClick={() => navigate("/tour-packages")}
+            onClick={() => navigate(-1)}
             className="rounded-xl border border-[#101A2E]/12 px-5 py-3 text-sm font-semibold text-[#101A2E]/75 hover:bg-[#101A2E]/[0.05] disabled:opacity-50"
           >
             Cancel

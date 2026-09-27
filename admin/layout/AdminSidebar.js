@@ -29,8 +29,7 @@ const navigation = [
     items: [
       { name: "Tour Enquiries", path: "/tour-enquiries", icon: ClipboardList },
       { name: "Car Rentals", path: "/car-rental-enquiries", icon: CarFront },
-      { name: "Pay Now", path: "/pay-now", icon: CreditCard,},
-
+      { name: "Pay Now", path: "/pay-now", icon: CreditCard },
     ],
   },
   {
@@ -61,8 +60,8 @@ const navigation = [
 
 export default function AdminSidebar() {
   return (
-    <aside className="sticky top-0 hidden h-screen w-[250px] shrink-0 flex-col bg-[#101A2E] text-[#F4EFE4] lg:flex">
-      <div className="px-7 pb-7 pt-8">
+    <aside className="fixed inset-y-0 left-0 z-40 hidden h-dvh w-[250px] flex-col overflow-hidden bg-[#101A2E] text-[#F4EFE4] lg:flex">
+      <div className="shrink-0 px-7 pb-7 pt-8">
         <div className="flex items-center gap-3">
           <div>
             <img
@@ -72,12 +71,13 @@ export default function AdminSidebar() {
             />
           </div>
         </div>
+
         <p className="mt-7 font-['Inter'] text-[10px] uppercase tracking-[0.22em] text-[#8F99A8]">
           Administration
         </p>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-4 pb-4">
+      <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
         {navigation.map((group) => (
           <div key={group.section} className="mb-5">
             <p className="mb-1.5 px-3.5 font-['Inter'] text-[10px] font-medium uppercase tracking-[0.16em] text-[#5C6675]">
@@ -100,7 +100,7 @@ export default function AdminSidebar() {
                         "transition-all duration-200",
                         isActive
                           ? "bg-[#C9A24B]/10 text-[#C9A24B]"
-                          : "text-[#B7BEC9] hover:bg-white/[0.04] hover:text-[#F4EFE4]",
+                          : "text-[#B7BEC9] hover:bg-white/4 hover:text-[#F4EFE4]",
                       ].join(" ")
                     }
                   >
@@ -115,7 +115,9 @@ export default function AdminSidebar() {
                               : "text-[#7F8998] group-hover:text-[#C9A24B]"
                           }
                         />
+
                         <span>{item.name}</span>
+
                         {isActive && (
                           <span
                             className="ml-auto h-1.5 w-1.5 rounded-full"
@@ -132,7 +134,7 @@ export default function AdminSidebar() {
         ))}
       </nav>
 
-      <div className="border-t border-white/10 px-7 py-4">
+      <div className="shrink-0 border-t border-white/10 px-7 py-4">
         <p className="font-['Inter'] text-[10px] tracking-[0.08em] text-[#5C6675]">
           Times India Travels · Admin Console
         </p>

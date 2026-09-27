@@ -612,9 +612,7 @@ export default function AdminTourPackageEdit() {
 
           <button
             type="button"
-            onClick={() =>
-              navigate("/tour-packages")
-            }
+            onClick={() => navigate(-1)}
             className="mt-6 flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-slate-900"
           >
             <ArrowLeft size={18} />
@@ -632,9 +630,7 @@ export default function AdminTourPackageEdit() {
           <div>
             <button
               type="button"
-              onClick={() =>
-                navigate(`/tour-packages/${id}`)
-              }
+              onClick={() => navigate(-1)}
               className="mb-3 flex items-center gap-2 text-sm text-slate-500 transition hover:text-slate-900"
             >
               <ArrowLeft size={16} />

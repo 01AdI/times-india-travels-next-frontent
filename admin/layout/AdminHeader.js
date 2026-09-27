@@ -369,13 +369,14 @@ export default function AdminHeader({
                 </p>
               </div>
 
-              <button
-                type="button"
+              <Link
+                to="/admin-management"
+                onClick={() => setMenuOpen(false)}
                 className="flex w-full items-center gap-2.5 px-4 py-2.5 font-['Inter'] text-[12.5px] text-[#3C4552] transition-colors duration-150 hover:bg-[#101A2E]/[0.04]"
               >
-                <Settings size={15} strokeWidth={1.7} className="text-[#8B93A0]" />
-                Account settings
-              </button>
+                <User size={15} strokeWidth={1.7} className="text-[#8B93A0]" />
+                Admin management
+              </Link>
 
               <button
                 type="button"
