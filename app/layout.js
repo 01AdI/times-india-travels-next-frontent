@@ -1,5 +1,4 @@
 import "./globals.css";
-import "aos/dist/aos.css";
 
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,7 +7,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import FloatingQuoteButton from "../components/FloatingQuoteButton";
 import ReduxProvider from "../components/ReduxProvider";
-import AOSProvider from "../components/AOSProvider";
 import ScrollToTop from "../utils/ScrollToTop";
 import GlobalStructuredData from "../utils/GlobalStructuredData";
 import { getTourCategoryNavigation } from "../lib/serverApi";
@@ -87,17 +85,27 @@ export default async function RootLayout({ children }) {
     className="h-full antialiased" 
     suppressHydrationWarning
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
+        />
+      </head>
 
       <body className="min-h-full flex flex-col isolate">
         <GlobalStructuredData />
         <ReduxProvider>
-          <AOSProvider>
-            <ScrollToTop />
-            <Navbar initialCategories={initialCategories}/>
-            <main className="flex-1">{children}</main>
-            <Footer initialCategories={initialCategories} />
-            <FloatingQuoteButton />
-          </AOSProvider>
+          <ScrollToTop />
+          <Navbar initialCategories={initialCategories}/>
+          <main className="flex-1">{children}</main>
+          <Footer initialCategories={initialCategories} />
+          <FloatingQuoteButton />
         </ReduxProvider>
       </body>
     </html>
