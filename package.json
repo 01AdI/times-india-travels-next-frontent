@@ -15,7 +15,6 @@
     "@tiptap/extension-underline": "^3.31.3",
     "@tiptap/react": "^3.31.3",
     "@tiptap/starter-kit": "^3.31.3",
-    "aos": "^2.3.4",
     "framer-motion": "^13.2.0",
     "lightningcss": "^1.33.0",
     "lucide-react": "^1.41.0",
