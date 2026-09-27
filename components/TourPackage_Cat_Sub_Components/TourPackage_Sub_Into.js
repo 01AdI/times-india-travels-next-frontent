@@ -58,9 +58,11 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
         </div>
 
         <div className="grid gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24 xl:gap-32">
-          <div 
-            data-aos="fade-right"
-            data-aos-duration="3000"
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
           >
             <div className="mb-6 flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#F58634]" />
@@ -89,11 +91,13 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
               carefully composed route brings together the places that make
               India unforgettable.
             </p>
-          </div>
+          </motion.div>
 
-          <div 
-            data-aos="fade-left"
-            data-aos-duration="3000"
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
           >
             <div className="mb-8 flex items-center gap-4">
               <span className="h-12 w-px bg-[#F58634]" />
@@ -122,7 +126,7 @@ export default function TourPackage_Sub_Intro({ tour, sectionNumber = "01" }) {
                 Follow the journey
               </span>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <motion.div

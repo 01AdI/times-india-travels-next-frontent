@@ -10,9 +10,11 @@ export default function Home_TimeIndia_WelcomeSection() {
       <div className="mx-auto max-w-350 px-6 py-13 sm:px-17 sm:py-12 md:px-16 md:py-15 lg:px-20 lg:py-15">
      
         <div className="grid items-center gap-20 lg:grid-cols-2 lg:gap-26">
-          <div
-            data-aos="fade-up"
-            data-aos-duration="3000"
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
             className="max-w-2xl"
           >
 
@@ -153,16 +155,18 @@ export default function Home_TimeIndia_WelcomeSection() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
               {/* RIGHT IMAGE + TRUST CARD */}
 
           <div className="relative">
               {/* IMAGE   */}
 
-            <div
-              data-aos="fade-right"
-              data-aos-duration="3000"
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
               className="relative"
             >
               <div
@@ -202,12 +206,14 @@ export default function Home_TimeIndia_WelcomeSection() {
                   "
                 />
               </div>
-            </div>
+            </motion.div>
 
               {/* PREMIUM TRIPADVISOR TRUST CARD */}
-              <div
-              data-aos="fade-right"
-              data-aos-duration="3000"
+              <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
               className="absolute -bottom-16 left-4 right-4 z-20 rounded-[22px] border border-[#124D56]/10 bg-white
                 p-6 shadow-[0_25px_70px_rgba(11,60,73,0.15)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(11,60,73,0.18)]
                 sm:left-8 sm:right-auto sm:w-95 sm:p-7 lg:-left-12 "
@@ -374,7 +380,7 @@ export default function Home_TimeIndia_WelcomeSection() {
                   "
                 />
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
 

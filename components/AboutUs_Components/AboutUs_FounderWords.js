@@ -1,6 +1,7 @@
-
+"use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function AboutUs_FounderWords(){
     return(
@@ -17,8 +18,11 @@ export default function AboutUs_FounderWords(){
 
           <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-10 md:gap-16 items-start">
             {/* Photo — larger, framed like the review spotlight card */}
-            <div
-                data-aos="fade-right" 
+            <motion.div
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 2.8, ease: [0.215, 0.61, 0.355, 1] }}
                 className="relative mx-auto md:mx-0 w-full max-w-70"
             >
               <div className="absolute -inset-3 rounded-3xl bg-[#F2FAFB] opacity-30" />
@@ -37,11 +41,14 @@ export default function AboutUs_FounderWords(){
               <p className="font-['Playfair',serif] text-center text-white/50 text-xs">
                 Founder & CEO
               </p>
-            </div>
+            </motion.div>
 
             {/* Bio with a pull-quote and paragraph rhythm */}
-            <div
-                data-aos="fade-up"
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 2.8, ease: [0.215, 0.61, 0.355, 1] }}
             >
               <span
                 className="font-['Playfair_Display',serif] block select-none leading-none text-[70px] text-[#7BCBDA] opacity-25"
@@ -82,7 +89,7 @@ export default function AboutUs_FounderWords(){
                 </p>
 
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

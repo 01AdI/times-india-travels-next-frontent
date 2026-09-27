@@ -26,18 +26,50 @@ export default function FloatingQuoteButton() {
 
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isHovered && !isFormOpen) {
-        setIsAttention(true);
+    // This interval drives a small "look here" pulse on the button and
+    // was previously running unconditionally for as long as the tab was
+    // open — including when the tab was backgrounded/minimized, where a
+    // visual attention cue serves no purpose but still costs a re-render
+    // every 3 seconds. Pausing it via the Page Visibility API removes
+    // that ongoing work while the page isn't actually visible, with no
+    // change to how it looks/behaves while you're looking at it.
+    let interval;
 
-        // Animation duration
-        setTimeout(() => {
-          setIsAttention(false);
-        }, 900);
+    const start = () => {
+      interval = setInterval(() => {
+        if (!isHovered && !isFormOpen) {
+          setIsAttention(true);
+
+          // Animation duration
+          setTimeout(() => {
+            setIsAttention(false);
+          }, 900);
+        }
+      }, 3000);
+    };
+
+    const stop = () => {
+      clearInterval(interval);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
       }
-    }, 3000);
+    };
 
-    return () => clearInterval(interval);
+    if (!document.hidden) {
+      start();
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [isHovered, isFormOpen]);
 
 

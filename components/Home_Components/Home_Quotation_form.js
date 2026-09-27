@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 
 import PhoneInput from "react-phone-input-2";
@@ -623,10 +624,11 @@ export default function Home_Quotation_form() {
           </div>
         )}
 
-        <form
-          data-aos="zoom-in"
-          data-aos-duration="2500"
-          
+        <motion.form
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 2.5, ease: [0.215, 0.61, 0.355, 1] }}
           onSubmit={handleSubmit}
           className="
             relative
@@ -1650,7 +1652,7 @@ export default function Home_Quotation_form() {
               )}
             </button>
           </div>
-        </form>
+        </motion.form>
       </div>
     </section>
   );

@@ -21,8 +21,14 @@ function DestinationSection({ initialDestinations = [] }) {
   const total = destinationList?.length || 0;
 
   useEffect(() => {
-    dispatch(fetchDestinations());
-  }, [dispatch]);
+    // Same fix as Home_Client_Testimonials: the server already fetched
+    // this via getDestinations() in app/page.js and passed it down as
+    // initialDestinations. Only fall back to a client fetch when there's
+    // genuinely nothing to render yet.
+    if (reduxDestinations.length === 0 && initialDestinations.length === 0) {
+      dispatch(fetchDestinations());
+    }
+  }, [dispatch, reduxDestinations.length, initialDestinations.length]);
 
   const formatNumber = (number) => {
     return String(number).padStart(2, "0");

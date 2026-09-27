@@ -48,9 +48,11 @@ export default function Destination_Overview({ data }) {
           "
         >
 
-          <div
-            data-aos="fade-right"
-            data-aos-duration="3000"
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
             className="
               relative
               mx-auto
@@ -136,11 +138,13 @@ export default function Destination_Overview({ data }) {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div
-            data-aos="fade-right"
-            data-aos-duration="3000" 
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 3, ease: [0.215, 0.61, 0.355, 1] }}
           >
             {/* Eyebrow */}
 
@@ -364,7 +368,7 @@ export default function Destination_Overview({ data }) {
                 />
               </span>
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

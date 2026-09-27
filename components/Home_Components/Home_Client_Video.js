@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClientReviewVideos } from "../../features/Home-page/Client_Review_Video_Slice";
 import { getCloudinaryVideoSources } from "../../lib/cdnVideo";
@@ -10,10 +10,41 @@ export default function Home_Client_Video() {
   const dispatch = useDispatch();
   const {videos,status,error,} = useSelector((state) => state.clientReviewsVideo);
   const [currentVideo, setCurrentVideo] = useState(0);
+  const sectionRef = useRef(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  // This section is below the fold and has no server-rendered initial
+  // data, so previously it fired an API request (and the Redux work that
+  // comes with it) on every homepage load regardless of whether the user
+  // ever scrolled to it. Deferring the dispatch until the section is
+  // about to enter the viewport keeps that network + main-thread work
+  // out of the critical initial render.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
-    dispatch(fetchClientReviewVideos());
-  }, [dispatch]);
+    if (isNearViewport) {
+      dispatch(fetchClientReviewVideos());
+    }
+  }, [dispatch, isNearViewport]);
 
   const safeCurrentVideo =
     videos.length === 0 ? 0 : Math.min(currentVideo, videos.length - 1);
@@ -43,7 +74,7 @@ export default function Home_Client_Video() {
 
   if ((status === "loading" || status === "idle") &&videos.length === 0) {
     return (
-      <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14">
+      <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14" ref={sectionRef}>
 
         <div className="mx-auto max-w-4xl">
           <div className="mx-auto mb-16 max-w-xl text-center">
@@ -162,7 +193,7 @@ export default function Home_Client_Video() {
 
   if (status === "failed" &&videos.length === 0) {
     return (
-      <section className="flex w-full items-center justify-center overflow-hidden border-y border-[#C9A24B]/25 bg-white px-6 py-24 md:px-14">
+      <section className="flex w-full items-center justify-center overflow-hidden border-y border-[#C9A24B]/25 bg-white px-6 py-24 md:px-14" ref={sectionRef}>
 
         <div className="text-center">
 
@@ -212,7 +243,7 @@ export default function Home_Client_Video() {
   const currentTestimonial =videos[safeCurrentVideo];
 
   return (
-    <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14">
+    <section className="overflow-hidden w-full py-12 border-y border-[#C9A24B]/25 bg-white px-6 md:px-14" ref={sectionRef}>
 
       <div className="mx-auto max-w-4xl">
 

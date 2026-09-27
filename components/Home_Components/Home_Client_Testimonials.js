@@ -47,8 +47,16 @@ export default function Home_Client_Testimonials({ initialTestimonials = [] }) {
 
 
   useEffect(() => {
-    dispatch(fetchHomePageTestimonials());
-  }, [dispatch]);
+    // The server already fetched this data and passed it in as
+    // initialTestimonials, so only hit the API from the client when
+    // there's nothing to show yet (e.g. the server fetch failed or
+    // returned empty). Previously this dispatched unconditionally on
+    // every mount, firing a duplicate request for data already in the
+    // page's initial HTML.
+    if (reduxTestimonials.length === 0 && initialTestimonials.length === 0) {
+      dispatch(fetchHomePageTestimonials());
+    }
+  }, [dispatch, reduxTestimonials.length, initialTestimonials.length]);
 
 
   const totalPages = Math.ceil(testimonials.length / CARDS_PER_PAGE);

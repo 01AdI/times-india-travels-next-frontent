@@ -311,8 +311,8 @@ export default function Navbar({ initialCategories = [] }) {
                 px-4
                 py-2.5
                 rounded-full
-                text-[16px]
-                font-['Playfair_Display',serif]
+                text-[17px]
+                font-['Playfair',serif]
                 font-medium
                 text-white
                 hover:bg-white/10
@@ -541,7 +541,7 @@ export default function Navbar({ initialCategories = [] }) {
                               <span
                                 className="
                                   font-['Playfair',serif]
-                                  text-[16px]
+                                  text-[17px]
                                   font-medium
                                   leading-5
                                 "
@@ -695,7 +695,7 @@ export default function Navbar({ initialCategories = [] }) {
                             <p
                               className="
                                 font-['Playfair',serif]
-                                text-[10px]
+                                text-[11px]
                                 font-semibold
                                 uppercase
                                 tracking-[0.25em]
@@ -1039,16 +1039,20 @@ export default function Navbar({ initialCategories = [] }) {
               border
               border-white/20
               text-white
-              text-[12px]
+              text-[13px]
               font-medium
-              hover:bg-white/10
+              traking-[0.02em]
+              hover:bg-white/50
+              hover:text-black
               transition-all
               duration-300
             "
           >
             <Phone className="w-3.5 h-3.5" />
 
-            +91 96106 05261
+             <span className="font-['Inter'] tabular-nums">
+               +91 96106 05261
+             </span>
           </a>
 
           {/* CONTACT */}
@@ -1240,7 +1244,7 @@ function DesktopNavLink({
         px-5
         py-2.5
         rounded-full
-        text-[16px]
+        text-[17px]
         font-medium
         text-white
         hover:bg-white/10
