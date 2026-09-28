@@ -16,8 +16,6 @@ const relatedTours = Object.values(tourCategories)
   )
   .slice(0, 3);
 
-  // If there are no other tours in this category,
-  // don't render the section.
   if (relatedTours.length === 0) {
     return null;
   }

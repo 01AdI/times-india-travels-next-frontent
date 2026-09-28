@@ -105,7 +105,7 @@ const Affiliations = () => {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  /* Move the carousel every 4 seconds. */
+  /* Move the carousel every 3 seconds. */
   useEffect(() => {
     if (isPaused) return;
 
@@ -117,8 +117,6 @@ const Affiliations = () => {
   }, [isPaused]);
 
   
-    // After reaching the duplicated set,
-    // silently jump back to the beginning.
    
   useEffect(() => {
     if (index >= affiliations.length) {
@@ -131,9 +129,6 @@ const Affiliations = () => {
   }, [index]);
 
   
-  //  Duplicate the affiliations so that the carousel
-  //  doesn't visually end.
-   
   const carouselItems = [...affiliations, ...affiliations];
 
   return (

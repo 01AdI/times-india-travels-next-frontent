@@ -71,10 +71,6 @@ const VEHICLE_OPTIONS = [
   },
 ];
 
-// ==========================================================
-// INITIAL FORM
-// ==========================================================
-
 const getInitialForm = () => ({
   name: "",
   email: "",
@@ -90,9 +86,6 @@ const getInitialForm = () => ({
   details: "",
 });
 
-// ==========================================================
-// COMPONENT
-// ==========================================================
 
 export default function CarRental_EnquiryModal({
   isOpen,
@@ -100,10 +93,6 @@ export default function CarRental_EnquiryModal({
   selectedCar = "",
 }) {
   const dispatch = useDispatch();
-
-  // ========================================================
-  // REDUX
-  // ========================================================
 
   const {
     packages: tourPackages = [],
@@ -113,10 +102,6 @@ export default function CarRental_EnquiryModal({
     (state) => state.tourPackageDropdown
   );
 
-  // ========================================================
-  // STATE
-  // ========================================================
-
   const [form, setForm] = useState(getInitialForm);
 
   const [submitted, setSubmitted] = useState(false);
@@ -125,28 +110,15 @@ export default function CarRental_EnquiryModal({
 
   const [submitError, setSubmitError] = useState("");
 
-  // ========================================================
-  // PACKAGE DROPDOWN STATE
-  // ========================================================
-
-  const [isPackageDropdownOpen, setIsPackageDropdownOpen] =
-    useState(false);
+  const [isPackageDropdownOpen, setIsPackageDropdownOpen] =useState(false);
 
   const [packageSearch, setPackageSearch] = useState("");
-
-  // ========================================================
-  // REFS
-  // ========================================================
 
   const datePickerRef = useRef(null);
 
   const packageDropdownRef = useRef(null);
 
   const packageSearchRef = useRef(null);
-
-  // ========================================================
-  // FETCH TOUR PACKAGES
-  // ========================================================
 
   useEffect(() => {
     if (!isOpen) {
@@ -162,10 +134,6 @@ export default function CarRental_EnquiryModal({
     tourPackageStatus,
   ]);
 
-  // ========================================================
-  // AUTO SELECT VEHICLE
-  // ========================================================
-
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -176,10 +144,6 @@ export default function CarRental_EnquiryModal({
       carType: selectedCar || "",
     }));
   }, [selectedCar, isOpen]);
-
-  // ========================================================
-  // RESET MODAL WHEN OPENING
-  // ========================================================
 
   useEffect(() => {
     if (!isOpen) {
@@ -202,10 +166,6 @@ export default function CarRental_EnquiryModal({
     }));
   }, [isOpen, selectedCar]);
 
-  // ========================================================
-  // PREVENT BACKGROUND SCROLL
-  // ========================================================
-
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -221,10 +181,6 @@ export default function CarRental_EnquiryModal({
         previousOverflow;
     };
   }, [isOpen]);
-
-  // ========================================================
-  // ESC KEY
-  // ========================================================
 
   useEffect(() => {
     if (!isOpen) {
@@ -249,10 +205,6 @@ export default function CarRental_EnquiryModal({
       );
     };
   }, [isOpen, onClose]);
-
-  // ========================================================
-  // CLICK OUTSIDE PACKAGE DROPDOWN
-  // ========================================================
 
   useEffect(() => {
     if (!isOpen) {
@@ -284,10 +236,6 @@ export default function CarRental_EnquiryModal({
     };
   }, [isOpen]);
 
-  // ========================================================
-  // FOCUS PACKAGE SEARCH
-  // ========================================================
-
   useEffect(() => {
     if (
       isPackageDropdownOpen &&
@@ -302,17 +250,9 @@ export default function CarRental_EnquiryModal({
     tourPackageStatus,
   ]);
 
-  // ========================================================
-  // DON'T RENDER WHEN CLOSED
-  // ========================================================
-
   if (!isOpen) {
     return null;
   }
-
-  // ========================================================
-  // INPUT CHANGE
-  // ========================================================
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -325,10 +265,6 @@ export default function CarRental_EnquiryModal({
     }));
   };
 
-  // ========================================================
-  // PHONE CHANGE
-  // ========================================================
-
   const handlePhoneChange = (phone) => {
     setSubmitError("");
 
@@ -337,10 +273,6 @@ export default function CarRental_EnquiryModal({
       phone,
     }));
   };
-
-  // ========================================================
-  // NATIONALITY CHANGE
-  // ========================================================
 
   const handleNationalityChange = (value) => {
     setSubmitError("");
@@ -351,19 +283,11 @@ export default function CarRental_EnquiryModal({
     }));
   };
 
-  // ========================================================
-  // DATE VALUE
-  // ========================================================
-
   const selectedTravelDate = form.travelDate
     ? new Date(
         `${form.travelDate}T00:00:00`
       )
     : null;
-
-  // ========================================================
-  // DATE CHANGE
-  // ========================================================
 
   const handleTravelDateChange = (date) => {
     setSubmitError("");
@@ -393,10 +317,6 @@ export default function CarRental_EnquiryModal({
     }));
   };
 
-  // ========================================================
-  // PACKAGE SELECT
-  // ========================================================
-
   const handlePackageSelect = (pkg) => {
     setSubmitError("");
 
@@ -410,19 +330,11 @@ export default function CarRental_EnquiryModal({
     setPackageSearch("");
   };
 
-  // ========================================================
-  // SELECTED PACKAGE
-  // ========================================================
-
   const selectedPackage = tourPackages.find(
     (pkg) =>
       String(pkg.id) ===
       String(form.tourPackage)
   );
-
-  // ========================================================
-  // FILTER PACKAGES
-  // ========================================================
 
   const searchTerm = packageSearch
     .trim()
@@ -444,17 +356,9 @@ export default function CarRental_EnquiryModal({
       );
     });
 
-  // ========================================================
-  // RETRY PACKAGES
-  // ========================================================
-
   const handleRetryPackages = () => {
     dispatch(fetchTourPackagesDropDown());
   };
-
-  // ========================================================
-  // VALIDATION
-  // ========================================================
 
   const validateForm = () => {
     const name = form.name.trim();
@@ -504,10 +408,6 @@ export default function CarRental_EnquiryModal({
     return null;
   };
 
-  // ========================================================
-  // SUBMIT
-  // ========================================================
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -524,10 +424,6 @@ export default function CarRental_EnquiryModal({
       setSubmitError(validationError);
       return;
     }
-
-    // ======================================================
-    // DATA SENT TO BACKEND
-    // ======================================================
 
     const enquiryData = {
       name: form.name.trim(),
@@ -612,17 +508,13 @@ export default function CarRental_EnquiryModal({
     }
   };
 
-  // ========================================================
-  // RETURN
-  // ========================================================
-
   return (
     <div
       role="presentation"
       className="
         fixed
         inset-0
-        z-[9999]
+        z-9999
         flex
         items-center
         justify-center
@@ -641,15 +533,8 @@ export default function CarRental_EnquiryModal({
         }
       }}
     >
-      {/* =====================================================
-          DATEPICKER PORTAL
-      ====================================================== */}
 
       <div id="car-rental-datepicker-portal" />
-
-      {/* =====================================================
-          MODAL
-      ====================================================== */}
 
       <div
         role="dialog"
@@ -673,9 +558,6 @@ export default function CarRental_EnquiryModal({
           event.stopPropagation()
         }
       >
-        {/* ===================================================
-            HEADER
-        ==================================================== */}
 
         <div
           className="
@@ -710,7 +592,7 @@ export default function CarRental_EnquiryModal({
               h-64
               w-64
               rounded-full
-              bg-white/[0.04]
+              bg-white/4
               blur-3xl
             "
           />
@@ -722,7 +604,7 @@ export default function CarRental_EnquiryModal({
               right-10
               top-0
               h-px
-              bg-gradient-to-r
+              bg-linear-to-r
               from-transparent
               via-[#F58634]
               to-transparent
@@ -810,16 +692,9 @@ export default function CarRental_EnquiryModal({
           </button>
         </div>
 
-        {/* ===================================================
-            SCROLLABLE CONTENT
-        ==================================================== */}
-
         <div className="min-h-0 flex-1 overflow-y-auto">
           {!submitted ? (
             <>
-              {/* =================================================
-                  TRUST STRIP
-              ================================================== */}
 
               <div
                 className="
@@ -867,10 +742,6 @@ export default function CarRental_EnquiryModal({
                 </span>
               </div>
 
-              {/* =================================================
-                  ERROR
-              ================================================== */}
-
               {submitError && (
                 <div
                   className="
@@ -906,10 +777,6 @@ export default function CarRental_EnquiryModal({
                 </div>
               )}
 
-              {/* =================================================
-                  FORM
-              ================================================== */}
-
               <form
                 onSubmit={handleSubmit}
                 noValidate
@@ -917,7 +784,7 @@ export default function CarRental_EnquiryModal({
                   mx-5
                   mb-6
                   mt-6
-                  rounded-[24px]
+                  rounded-3xl
                   border
                   border-[#124d56]/10
                   bg-white
@@ -938,9 +805,6 @@ export default function CarRental_EnquiryModal({
                     sm:grid-cols-2
                   "
                 >
-                  {/* =================================================
-                      NAME
-                  ================================================== */}
 
                   <div>
                     <label
@@ -963,10 +827,6 @@ export default function CarRental_EnquiryModal({
                     />
                   </div>
 
-                  {/* =================================================
-                      EMAIL
-                  ================================================== */}
-
                   <div>
                     <label
                       className={labelClass}
@@ -987,10 +847,6 @@ export default function CarRental_EnquiryModal({
                       disabled={isSubmitting}
                     />
                   </div>
-
-                  {/* =================================================
-                      PHONE
-                  ================================================== */}
 
                   <div>
                     <label
@@ -1047,10 +903,6 @@ export default function CarRental_EnquiryModal({
                     />
                   </div>
 
-                  {/* =================================================
-                      NATIONALITY
-                  ================================================== */}
-
                   <div>
                     <label
                       className={labelClass}
@@ -1076,10 +928,6 @@ export default function CarRental_EnquiryModal({
                     </div>
                   </div>
 
-                  {/* =================================================
-                      DURATION
-                  ================================================== */}
-
                   <div>
                     <label
                       className={labelClass}
@@ -1099,10 +947,6 @@ export default function CarRental_EnquiryModal({
                       disabled={isSubmitting}
                     />
                   </div>
-
-                  {/* =================================================
-                      TRAVEL DATE
-                  ================================================== */}
 
                   <div>
                     <label
@@ -1126,21 +970,21 @@ export default function CarRental_EnquiryModal({
                         wrapperClassName="w-full"
                         disabled={isSubmitting}
                         className="
-                          !w-full
-                          !h-[52px]
-                          !rounded-xl
-                          !border
-                          !border-[#124d56]/15
-                          !bg-white
-                          !px-4
-                          !pr-12
-                          !py-3
-                          !text-sm
-                          !text-[#0B3C49]
-                          placeholder:!text-[#124d56]/35
-                          focus:!border-[#F58634]
-                          focus:!ring-4
-                          focus:!ring-[#F58634]/10
+                          w-full!
+                          h-13!
+                          rounded-xl!
+                          border!
+                          border-[#124d56]/15!
+                          bg-white!
+                          px-4!
+                          pr-12!
+                          py-3!
+                          text-sm!
+                          text-[#0B3C49]!
+                          placeholder:text-[#124d56]/35!
+                          focus:border-[#F58634]!
+                          focus:ring-4!
+                          focus:ring-[#F58634]/10!
                           outline-none
                           cursor-pointer
                         "
@@ -1168,11 +1012,11 @@ export default function CarRental_EnquiryModal({
                           <div
                             className="
                               flex
-                              h-[76px]
+                              h-19
                               items-center
                               justify-between
                               gap-2
-                              bg-gradient-to-br
+                              bg-linear-to-br
                               from-[#124d56]
                               to-[#0d3d46]
                               px-3.5
@@ -1192,15 +1036,15 @@ export default function CarRental_EnquiryModal({
                               aria-label="Previous month"
                               className="
                                 flex
-                                h-[38px]
-                                w-[38px]
+                                h-9.5
+                                w-9.5
                                 shrink-0
                                 items-center
                                 justify-center
                                 rounded-[10px]
                                 border
                                 border-white/12
-                                bg-white/[0.06]
+                                bg-white/6
                                 text-white/85
                                 transition-all
                                 duration-200
@@ -1241,15 +1085,15 @@ export default function CarRental_EnquiryModal({
                                     )
                                   }
                                   className="
-                                    h-[38px]
-                                    min-w-[118px]
+                                    h-9.5
+                                    min-w-29.5
                                     cursor-pointer
                                     appearance-none
                                     rounded-[10px]
                                     border
                                     border-white/14
                                     bg-[#07111f]/45
-                                    px-[13px]
+                                    px-3.25
                                     pr-8
                                     text-[13px]
                                     font-semibold
@@ -1309,15 +1153,15 @@ export default function CarRental_EnquiryModal({
                                     )
                                   }
                                   className="
-                                    h-[38px]
-                                    min-w-[88px]
+                                    h-9.5
+                                    min-w-22
                                     cursor-pointer
                                     appearance-none
                                     rounded-[10px]
                                     border
                                     border-white/14
                                     bg-[#07111f]/45
-                                    px-[13px]
+                                    px-3.25
                                     pr-8
                                     text-[13px]
                                     font-semibold
@@ -1373,15 +1217,15 @@ export default function CarRental_EnquiryModal({
                               aria-label="Next month"
                               className="
                                 flex
-                                h-[38px]
-                                w-[38px]
+                                h-9.5
+                                w-9.5
                                 shrink-0
                                 items-center
                                 justify-center
                                 rounded-[10px]
                                 border
                                 border-white/12
-                                bg-white/[0.06]
+                                bg-white/6
                                 text-white/85
                                 transition-all
                                 duration-200
@@ -1411,20 +1255,20 @@ export default function CarRental_EnquiryModal({
                               className="
                                 ml-1.5
                                 flex
-                                h-[38px]
-                                w-[38px]
+                                h-9.5
+                                w-9.5
                                 shrink-0
                                 items-center
                                 justify-center
                                 rounded-[10px]
                                 border
                                 border-white/12
-                                bg-white/[0.06]
+                                bg-white/6
                                 text-white/60
                                 transition-all
                                 duration-200
                                 hover:border-white/25
-                                hover:bg-white/[0.12]
+                                hover:bg-white/12
                                 hover:text-white
                               "
                             >
@@ -1463,10 +1307,6 @@ export default function CarRental_EnquiryModal({
                       date
                     </p>
                   </div>
-
-                  {/* =================================================
-                      ADULTS
-                  ================================================== */}
 
                   <div>
                     <label
@@ -1512,10 +1352,6 @@ export default function CarRental_EnquiryModal({
                     </SelectWrapper>
                   </div>
 
-                  {/* =================================================
-                      CHILDREN
-                  ================================================== */}
-
                   <div>
                     <label
                       className={labelClass}
@@ -1558,10 +1394,6 @@ export default function CarRental_EnquiryModal({
                     </SelectWrapper>
                   </div>
 
-                  {/* =================================================
-                      VEHICLE
-                  ================================================== */}
-
                   <div>
                     <label
                       className={labelClass}
@@ -1601,10 +1433,6 @@ export default function CarRental_EnquiryModal({
                     </SelectWrapper>
                   </div>
 
-                  {/* =================================================
-                      TOUR PACKAGE
-                  ================================================== */}
-
                   <div
                     ref={packageDropdownRef}
                     className="relative"
@@ -1632,7 +1460,7 @@ export default function CarRental_EnquiryModal({
                       }}
                       className={`
                         flex
-                        h-[52px]
+                        h-13
                         w-full
                         items-center
                         justify-between
@@ -1700,10 +1528,6 @@ export default function CarRental_EnquiryModal({
                       )}
                     </button>
 
-                    {/* =================================================
-                        PACKAGE DROPDOWN
-                    ================================================== */}
-
                     {isPackageDropdownOpen && (
                       <div
                         className="
@@ -1711,7 +1535,7 @@ export default function CarRental_EnquiryModal({
                           left-0
                           right-0
                           top-full
-                          z-[100]
+                          z-100
                           mt-2
                           overflow-hidden
                           rounded-xl
@@ -1919,10 +1743,6 @@ export default function CarRental_EnquiryModal({
                     )}
                   </div>
 
-                  {/* =================================================
-                      REFERENCE
-                  ================================================== */}
-
                   <div className="sm:col-span-2">
                     <label
                       className={labelClass}
@@ -1967,10 +1787,6 @@ export default function CarRental_EnquiryModal({
                     </SelectWrapper>
                   </div>
 
-                  {/* =================================================
-                      DETAILS
-                  ================================================== */}
-
                   <div className="sm:col-span-2">
                     <label
                       className={labelClass}
@@ -1987,7 +1803,7 @@ export default function CarRental_EnquiryModal({
                       onChange={handleChange}
                       className={`
                         ${inputClass}
-                        !h-auto
+                        h-auto!
                         resize-none
                       `}
                       placeholder="Tell us where you'd like to go, places you want to visit, your preferred pace, budget range, or anything else we should know..."
@@ -1995,10 +1811,6 @@ export default function CarRental_EnquiryModal({
                     />
                   </div>
                 </div>
-
-                {/* =================================================
-                    ACTION
-                ================================================== */}
 
                 <div
                   className="
@@ -2111,14 +1923,11 @@ export default function CarRental_EnquiryModal({
               </div>
             </>
           ) : (
-            /* =================================================
-               SUCCESS STATE
-            ================================================== */
 
             <div
               className="
                 flex
-                min-h-[500px]
+                min-h-125
                 flex-col
                 items-center
                 justify-center

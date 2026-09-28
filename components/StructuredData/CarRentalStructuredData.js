@@ -2,13 +2,6 @@ import StructuredData from "../StructuredData";
 
 const SITE_URL = "https://www.timesindiatravels.com";
 
-/**
- * Service schema for the car rental page. There's no per-vehicle detail
- * page/API in this codebase (the fleet is rendered from a static list in
- * CarRental_Fleet.js), so this describes the rental service as a whole
- * rather than individual `Product` offers - safer than inventing prices
- * or availability data that isn't actually on the page.
- */
 export default function CarRentalStructuredData() {
   const pageUrl = `${SITE_URL}/car-rental`;
 

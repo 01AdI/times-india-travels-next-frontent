@@ -9,7 +9,6 @@ import { destinations } from "../../utils/Destination_data";
 export default function Destination_Other({ data }) {
   if (!data) return null;
 
-  // Remove the destination currently being viewed
   const otherDestinations = destinations.filter(
     (destination) => destination.id !== data.id,
   );

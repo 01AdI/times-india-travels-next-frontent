@@ -21,10 +21,6 @@ function DestinationSection({ initialDestinations = [] }) {
   const total = destinationList?.length || 0;
 
   useEffect(() => {
-    // Same fix as Home_Client_Testimonials: the server already fetched
-    // this via getDestinations() in app/page.js and passed it down as
-    // initialDestinations. Only fall back to a client fetch when there's
-    // genuinely nothing to render yet.
     if (reduxDestinations.length === 0 && initialDestinations.length === 0) {
       dispatch(fetchDestinations());
     }
@@ -582,10 +578,6 @@ function DestinationSection({ initialDestinations = [] }) {
                     "
                   />
 
-                  {/*
-                    Active-card scrim: always on so the always-visible text
-                    below stays legible against the photo, at every breakpoint.
-                  */}
                   {isActive && (
                     <div
                       className="
@@ -649,11 +641,6 @@ function DestinationSection({ initialDestinations = [] }) {
                     </div>
                   )}
 
-                  {/*
-                    Active-card text: always visible at every breakpoint,
-                    not gated behind hover. Only the layout (padding, sizes)
-                    still adapts responsively.
-                  */}
                   {isActive && (
                     <div
                       className="

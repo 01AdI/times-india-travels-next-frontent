@@ -433,7 +433,7 @@ export default function Navbar({ initialCategories = [] }) {
                       <p
                         className="
                           font-['Playfair',serif]
-                          text-[10px]
+                          text-[14px]
                           font-semibold
                           uppercase
                           tracking-[0.25em]
@@ -446,7 +446,7 @@ export default function Navbar({ initialCategories = [] }) {
                       <p
                         className="
                           mt-1
-                          text-[11px]
+                          text-[13px]
                           text-white/35
                         "
                       >
@@ -695,7 +695,7 @@ export default function Navbar({ initialCategories = [] }) {
                             <p
                               className="
                                 font-['Playfair',serif]
-                                text-[11px]
+                                text-[12px]
                                 font-semibold
                                 uppercase
                                 tracking-[0.25em]
@@ -722,7 +722,7 @@ export default function Navbar({ initialCategories = [] }) {
                               <p
                                 className="
                                   mt-1.5
-                                  text-[11px]
+                                  text-[15px]
                                   text-white/40
                                   line-clamp-2
                                 "
@@ -850,7 +850,7 @@ export default function Navbar({ initialCategories = [] }) {
                                       flex
                                       items-center
                                       gap-3
-                                      text-[12px]
+                                      text-[13px]
                                       rounded-xl
                                       px-2.5
                                       py-2.5
@@ -914,7 +914,7 @@ export default function Navbar({ initialCategories = [] }) {
                                         className="
                                           truncate
                                           font-['Playfair',serif]
-                                          text-[15px]
+                                          text-[16px]
                                           font-medium
                                           text-white/85
                                           transition-colors
@@ -1039,7 +1039,7 @@ export default function Navbar({ initialCategories = [] }) {
               border
               border-white/20
               text-white
-              text-[13px]
+              text-[12px]
               font-medium
               traking-[0.02em]
               hover:bg-white/50

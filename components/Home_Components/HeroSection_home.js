@@ -283,7 +283,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
               className="mb-4 flex items-center gap-3"
             >
               <span
-                className="shrink-0 text-[20px] font-medium uppercase tracking-[0.25em] text-[#D8895E] sm:text-base"
+                className="shrink-0 text-base font-medium uppercase tracking-[0.25em] text-[#D8895E] sm:text-[18px]"
                 style={{
                   textShadow:
                     "0 3px 14px rgba(0,0,0,0.65)",
@@ -297,7 +297,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
                   <span className="h-px w-6 shrink-0 bg-[#D8895E]/60" />
 
                   <span
-                    className="font-['Playfair',serif] text-[22px] font-semibold leading-8 tracking-wide text-[#E5DED0] sm:text-base sm:leading-7"
+                    className="font-['Playfair',serif] text-base font-semibold leading-8 tracking-wide text-[#E5DED0] sm:text-[21px] sm:leading-7"
                     style={{
                       textShadow:
                         "0 3px 16px rgba(0,0,0,0.7)",
@@ -310,7 +310,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
             </div>
 
             <h1
-              className="font-['Playfair_Display',serif] text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.05] text-[#F4EFE4]"
+              className="font-['Playfair_Display',serif] text-[clamp(2.2rem,5vw,3.7rem)] font-medium leading-[1.05] text-[#F4EFE4]"
               style={{
                 textShadow:
                   "0 4px 22px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.55)",
@@ -324,7 +324,7 @@ export default function Home_HeroSection({ initialSlides = [] }) {
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <a
                 href="#tour-packages"
-                className="group inline-flex items-center gap-3 border-b border-transparent pb-2 font-['Playfair',serif] text-[13px] font-medium uppercase tracking-[0.08em] text-[#F4EFE4] transition-all duration-500 hover:border-[#C9A24B]"
+                className="group inline-flex items-center mt-2 gap-3 border-b border-transparent pb-2 font-['Playfair',serif] text-[13px] font-medium uppercase tracking-[0.08em] text-[#F4EFE4] transition-all duration-500 hover:border-[#C9A24B]"
               >
                 <span>Plan Your Trip</span>
 

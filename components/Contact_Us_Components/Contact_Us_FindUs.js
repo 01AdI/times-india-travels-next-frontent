@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { MapPin, ArrowUpRight, Phone, Mail } from "lucide-react";
 
-// Same contact details as the site footer — keeping one source of truth
-// would be even better (import from a shared constants file if you have one).
 const contactInfo = {
   address:
     "C2/106, Flat No S2, 2nd Floor, Sneh Villa, Chitrakoot Scheme, Jaipur - 302021, Rajasthan",

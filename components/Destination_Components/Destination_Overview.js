@@ -217,7 +217,7 @@ export default function Destination_Overview({ data }) {
               className="
                 mt-7
                 max-w-2xl
-                text-sm
+                text-lg
                 leading-7
                 text-[#476763]
                 sm:text-base

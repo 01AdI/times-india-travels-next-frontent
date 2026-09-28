@@ -140,8 +140,6 @@ export default function Home_Quotation_form() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // If user starts editing after a successful submission,
-    // remove the success message.
     if (submitStatus === "success") {
       setSubmitStatus("idle");
     }
@@ -312,14 +310,10 @@ export default function Home_Quotation_form() {
         ? Number(form.duration)
         : null,
 
-      // These remain STRING because backend accepts
-      // values such as "10+"
       adults: form.adults || "1",
 
       children: form.children || "0",
 
-      // IMPORTANT:
-      // These values match your Mongoose enum exactly.
       hotelType: form.hotelType || null,
 
       reference: form.reference || null,

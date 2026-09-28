@@ -13,12 +13,6 @@ export default function Home_Client_Video() {
   const sectionRef = useRef(null);
   const [isNearViewport, setIsNearViewport] = useState(false);
 
-  // This section is below the fold and has no server-rendered initial
-  // data, so previously it fired an API request (and the Redux work that
-  // comes with it) on every homepage load regardless of whether the user
-  // ever scrolled to it. Deferring the dispatch until the section is
-  // about to enter the viewport keeps that network + main-thread work
-  // out of the critical initial render.
   useEffect(() => {
     const node = sectionRef.current;
     if (!node || typeof IntersectionObserver === "undefined") {
