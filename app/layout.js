@@ -11,6 +11,8 @@ import ScrollToTop from "../utils/ScrollToTop";
 import GlobalStructuredData from "../utils/GlobalStructuredData";
 import { getTourCategoryNavigation } from "../lib/serverApi";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const SITE_URL = "https://www.timesindiatravels.com";
 const DEFAULT_TITLE = "Times India Travels | Luxury Tours & Travel in India";
 const DEFAULT_DESCRIPTION =
@@ -70,8 +72,6 @@ export const viewport = {
   initialScale: 1,
 };
 
-// Revalidate the server-fetched tour categories (used by the Navbar
-// dropdown and Footer links on every page) every 5 minutes via ISR.
 export const revalidate = 300;
 
 export default async function RootLayout({ children }) {
@@ -107,6 +107,7 @@ export default async function RootLayout({ children }) {
           <Footer initialCategories={initialCategories} />
           <FloatingQuoteButton />
         </ReduxProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
